@@ -1,0 +1,257 @@
+
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+  .section-lbl{font-size:11px;font-weight:500;color:var(--color-text-secondary);letter-spacing:.06em;text-transform:uppercase;margin:0 0 .5rem}
+  .arch-card{background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem;margin-bottom:10px}
+  .layer-row{display:grid;gap:8px;margin-bottom:8px}
+  .layer-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .layer-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .layer-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .box{border-radius:var(--border-radius-md);padding:10px 12px;border:.5px solid}
+  .box-purple{background:#EEEDFE;border-color:#7F77DD}
+  .box-teal{background:#E1F5EE;border-color:#1D9E75}
+  .box-amber{background:#FAEEDA;border-color:#BA7517}
+  .box-coral{background:#FAECE7;border-color:#D85A30}
+  .box-blue{background:#E6F1FB;border-color:#378ADD}
+  .box-gray{background:var(--color-background-secondary);border-color:var(--color-border-secondary)}
+  .box-green{background:#EAF3DE;border-color:#639922}
+  .box-red{background:#FCEBEB;border-color:#E24B4A}
+  .box-title{font-size:13px;font-weight:500;color:var(--color-text-primary);margin:0 0 3px}
+  .box-title.purple{color:#3C3489}
+  .box-title.teal{color:#085041}
+  .box-title.amber{color:#633806}
+  .box-title.coral{color:#712B13}
+  .box-title.blue{color:#0C447C}
+  .box-title.green{color:#27500A}
+  .box-title.red{color:#791F1F}
+  .box-sub{font-size:11px;color:var(--color-text-secondary);line-height:1.4;margin:0}
+  .box-sub.purple{color:#534AB7}
+  .box-sub.teal{color:#0F6E56}
+  .box-sub.amber{color:#854F0B}
+  .box-sub.coral{color:#993C1D}
+  .box-sub.blue{color:#185FA5}
+  .box-sub.green{color:#3B6D11}
+  .box-sub.red{color:#A32D2D}
+  .arrow-down{text-align:center;font-size:18px;color:var(--color-text-tertiary);line-height:1.2;margin:2px 0}
+  .pipe-row{display:flex;align-items:center;gap:6px;margin:6px 0}
+  .pipe-line{flex:1;height:1px;background:var(--color-border-secondary)}
+  .pipe-lbl{font-size:11px;color:var(--color-text-secondary);white-space:nowrap}
+  .badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;font-weight:500;margin-right:4px;margin-bottom:3px}
+  .badge-p{background:#EEEDFE;color:#3C3489}
+  .badge-t{background:#E1F5EE;color:#085041}
+  .badge-a{background:#FAEEDA;color:#633806}
+  .badge-c{background:#FAECE7;color:#712B13}
+  .badge-b{background:#E6F1FB;color:#0C447C}
+  .badge-g{background:#EAF3DE;color:#27500A}
+  .badge-r{background:#FCEBEB;color:#791F1F}
+  .rule-row{display:flex;gap:8px;margin-bottom:6px;align-items:flex-start}
+  .rule-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+  .ri-p{background:#EEEDFE;color:#3C3489}
+  .ri-t{background:#E1F5EE;color:#085041}
+  .ri-a{background:#FAEEDA;color:#633806}
+  .ri-c{background:#FAECE7;color:#712B13}
+  .ri-b{background:#E6F1FB;color:#0C447C}
+  .rule-text{font-size:12px;color:var(--color-text-primary);line-height:1.5}
+  .rule-code{font-family:var(--font-mono);font-size:11px;background:var(--color-background-secondary);padding:2px 6px;border-radius:4px;color:var(--color-text-secondary);display:block;margin-top:3px}
+  hr.mv{border:none;border-top:.5px solid var(--color-border-tertiary);margin:1rem 0}
+  .score-block{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);margin-bottom:6px}
+  .score-num{font-size:22px;font-weight:500;color:var(--color-text-primary);min-width:44px}
+  .score-bar-wrap{flex:1;height:6px;background:var(--color-background-tertiary);border-radius:3px;overflow:hidden}
+  .score-bar-fill{height:6px;border-radius:3px}
+  .score-lbl{font-size:12px;color:var(--color-text-secondary);min-width:80px;text-align:right}
+</style>
+
+<h2 class="sr-only">Technical architecture of the vastu AI rule engine, showing input layer, rule engine, scoring, output, and data model.</h2>
+
+<p class="section-lbl">System overview — 5 layers</p>
+
+<div class="arch-card">
+  <div class="layer-row layer-4">
+    <div class="box box-blue">
+      <p class="box-title blue">Input layer</p>
+      <p class="box-sub blue">Plot dims, facing, rooms, floors</p>
+    </div>
+    <div class="box box-purple">
+      <p class="box-title purple">Rule engine</p>
+      <p class="box-sub purple">Zone mapping + constraint solver</p>
+    </div>
+    <div class="box box-teal">
+      <p class="box-title teal">Layout generator</p>
+      <p class="box-sub teal">Grid placement + conflict resolver</p>
+    </div>
+    <div class="box box-amber">
+      <p class="box-title amber">Scoring engine</p>
+      <p class="box-sub amber">Weighted compliance score</p>
+    </div>
+  </div>
+  <div class="pipe-row"><div class="pipe-line"></div><div class="pipe-lbl">data flows left to right</div><div class="pipe-line"></div></div>
+  <div class="layer-row layer-3">
+    <div class="box box-green">
+      <p class="box-title green">Output renderer</p>
+      <p class="box-sub green">SVG plan + 3D model + PDF</p>
+    </div>
+    <div class="box box-coral">
+      <p class="box-title coral">Remedy engine</p>
+      <p class="box-sub coral">Ranked fixes by cost + impact</p>
+    </div>
+    <div class="box box-gray">
+      <p class="box-title">WhatsApp delivery</p>
+      <p class="box-sub">PDF report via API</p>
+    </div>
+  </div>
+</div>
+
+<hr class="mv">
+<p class="section-lbl">Layer 1 — input schema (what the system must capture)</p>
+
+<div class="arch-card">
+  <div class="layer-row layer-2">
+    <div>
+      <p class="box-sub" style="margin-bottom:6px;font-size:12px">Plot inputs</p>
+      <div class="rule-row"><div class="rule-icon ri-b">P</div><div class="rule-text">Plot dimensions (length × width in ft or m)<span class="rule-code">plot: { length: 40, width: 30, unit: "ft" }</span></div></div>
+      <div class="rule-row"><div class="rule-icon ri-b">F</div><div class="rule-text">Facing direction (N / NE / E / SE / S / SW / W / NW)<span class="rule-code">facing: "N" | "NE" | "E" ...</span></div></div>
+      <div class="rule-row"><div class="rule-icon ri-b">S</div><div class="rule-text">Plot shape (rectangle / square / irregular / corner)<span class="rule-code">shape: "rect" | "square" | "L" | "corner"</span></div></div>
+      <div class="rule-row"><div class="rule-icon ri-b">B</div><div class="rule-text">Setbacks / road-facing sides<span class="rule-code">setbacks: { front: 5, back: 3, left: 2, right: 2 }</span></div></div>
+    </div>
+    <div>
+      <p class="box-sub" style="margin-bottom:6px;font-size:12px">Building inputs</p>
+      <div class="rule-row"><div class="rule-icon ri-p">R</div><div class="rule-text">Room list with type + approx size<span class="rule-code">rooms: [{ type:"master_bed", sqft:150 }, ...]</span></div></div>
+      <div class="rule-row"><div class="rule-icon ri-p">G</div><div class="rule-text">Number of floors (G / G+1 / G+2)<span class="rule-code">floors: 1 | 2 | 3</span></div></div>
+      <div class="rule-row"><div class="rule-icon ri-p">X</div><div class="rule-text">Special rooms (puja, servant, parking, terrace)<span class="rule-code">extras: ["puja","parking","servant_qtr"]</span></div></div>
+      <div class="rule-row"><div class="rule-icon ri-p">V</div><div class="rule-text">Vastu school preference (classical / modern / anant)<span class="rule-code">school: "classical" | "mahavastu" | "anant"</span></div></div>
+    </div>
+  </div>
+</div>
+
+<hr class="mv">
+<p class="section-lbl">Layer 2 — rule engine (the core knowledge base)</p>
+
+<div class="arch-card">
+  <p class="box-sub" style="margin-bottom:10px;font-size:12px">The 8-direction grid — room placement rules (widely agreed across schools)</p>
+  <div class="layer-row" style="grid-template-columns:repeat(3,minmax(0,1fr));gap:6px">
+    <div class="box box-amber" style="padding:8px 10px">
+      <p class="box-title amber" style="font-size:12px">North (N)</p>
+      <p class="box-sub amber" style="font-size:11px">Living room, study, water tank. Element: water. Deity: Kubera (wealth).</p>
+    </div>
+    <div class="box box-amber" style="padding:8px 10px">
+      <p class="box-title amber" style="font-size:12px">NE — Ishaan</p>
+      <p class="box-sub amber" style="font-size:11px">Puja/prayer room. Must be lightest, open. No toilet, no kitchen ever.</p>
+    </div>
+    <div class="box box-amber" style="padding:8px 10px">
+      <p class="box-title amber" style="font-size:12px">East (E)</p>
+      <p class="box-sub amber" style="font-size:11px">Main entrance preferred. Living room, guest bed. Morning sun = auspicious.</p>
+    </div>
+    <div class="box box-coral" style="padding:8px 10px">
+      <p class="box-title coral" style="font-size:12px">SE — Agni</p>
+      <p class="box-sub coral" style="font-size:11px">Kitchen (fire element). Mandatory. Dining room also acceptable.</p>
+    </div>
+    <div class="box box-coral" style="padding:8px 10px">
+      <p class="box-title coral" style="font-size:12px">South (S)</p>
+      <p class="box-sub coral" style="font-size:11px">Bedroom OK. No main entrance. Heavy walls here. No water.</p>
+    </div>
+    <div class="box box-teal" style="padding:8px 10px">
+      <p class="box-title teal" style="font-size:12px">SW — Nairitya</p>
+      <p class="box-sub teal" style="font-size:11px">Master bedroom. Owner's room. Heaviest part of house. No entrance, no toilet.</p>
+    </div>
+    <div class="box box-teal" style="padding:8px 10px">
+      <p class="box-title teal" style="font-size:12px">West (W)</p>
+      <p class="box-sub teal" style="font-size:11px">Children's room, dining, bathroom acceptable. Storage.</p>
+    </div>
+    <div class="box box-teal" style="padding:8px 10px">
+      <p class="box-title teal" style="font-size:12px">NW — Vayu</p>
+      <p class="box-sub teal" style="font-size:11px">Guest bedroom, bathroom, garage. Air element = movement, guests leave.</p>
+    </div>
+    <div class="box box-purple" style="padding:8px 10px">
+      <p class="box-title purple" style="font-size:12px">Centre — Brahmasthan</p>
+      <p class="box-sub purple" style="font-size:11px">Must stay empty/open. No toilet, no column, no heavy load. Sacred zone.</p>
+    </div>
+  </div>
+
+  <div style="margin-top:12px">
+    <p class="box-sub" style="margin-bottom:8px;font-size:12px">Hard constraint rules — must never be violated (score = 0 for room if broken)</p>
+    <div class="rule-row"><div class="rule-icon ri-c">H1</div><div class="rule-text">Toilet in NE → critical violation. Blocks wealth + spiritual zone.<span class="rule-code">if room.type == "toilet" AND zone == "NE" → score=0, flag=CRITICAL</span></div></div>
+    <div class="rule-row"><div class="rule-icon ri-c">H2</div><div class="rule-text">Kitchen in SW → critical. Fire element clashes with earth/stability.<span class="rule-code">if room.type == "kitchen" AND zone == "SW" → score=0, flag=CRITICAL</span></div></div>
+    <div class="rule-row"><div class="rule-icon ri-c">H3</div><div class="rule-text">Main entrance facing S of SE → high violation.<span class="rule-code">if entrance.direction == "S" OR "SSE" → score=20, flag=HIGH</span></div></div>
+    <div class="rule-row"><div class="rule-icon ri-c">H4</div><div class="rule-text">Column or load-bearing wall in Brahmasthan center → critical.<span class="rule-code">if center_zone.has_load → score=0, flag=CRITICAL</span></div></div>
+    <div class="rule-row"><div class="rule-icon ri-a">S1</div><div class="rule-text">Master bedroom NOT in SW → soft violation, suggest correction.<span class="rule-code">if master_bed.zone != "SW" → deduct 15pts, flag=SOFT</span></div></div>
+    <div class="rule-row"><div class="rule-icon ri-a">S2</div><div class="rule-text">Staircase in NE → avoid. Use S, W, SW instead.<span class="rule-code">if staircase.zone == "NE" → deduct 20pts, flag=HIGH</span></div></div>
+  </div>
+</div>
+
+<hr class="mv">
+<p class="section-lbl">Layer 3 — layout generator algorithm</p>
+
+<div class="arch-card">
+  <div class="layer-row layer-2">
+    <div>
+      <div class="rule-row"><div class="rule-icon ri-p">1</div><div class="rule-text">Divide plot into 9-zone Vastu Purusha Mandala grid based on actual dimensions. Each zone gets exact sq ft.</div></div>
+      <div class="rule-row"><div class="rule-icon ri-p">2</div><div class="rule-text">For each room in input list, find ideal zone from rule DB. Sort by constraint weight (hard first).</div></div>
+      <div class="rule-row"><div class="rule-icon ri-p">3</div><div class="rule-text">Try placement using bin-packing. If room fits ideally → place. If not → try adjacent zones by priority order.</div></div>
+      <div class="rule-row"><div class="rule-icon ri-p">4</div><div class="rule-text">If conflict (two rooms need same zone), resolve by: swap lower-priority room to next-best zone.</div></div>
+    </div>
+    <div>
+      <div class="rule-row"><div class="rule-icon ri-t">5</div><div class="rule-text">Place doors: main door in best pada (division) of preferred direction. Check 32-pada table.</div></div>
+      <div class="rule-row"><div class="rule-icon ri-t">6</div><div class="rule-text">Run constraint checker: score every placed room. Flag violations.</div></div>
+      <div class="rule-row"><div class="rule-icon ri-t">7</div><div class="rule-text">If score &lt; threshold (e.g. 65), try alternate layout permutations (up to N iterations).</div></div>
+      <div class="rule-row"><div class="rule-icon ri-t">8</div><div class="rule-text">Return best-scoring layout. Generate SVG floor plan with zone overlay.</div></div>
+    </div>
+  </div>
+  <div class="box box-gray" style="margin-top:8px;padding:8px 12px">
+    <p class="box-title" style="font-size:12px">Key tech choices</p>
+    <p class="box-sub" style="font-size:11px">
+      <span class="badge badge-b">Python</span> constraint solver (python-constraint or OR-Tools for room packing)
+      <span class="badge badge-p">SVG.js</span> floor plan rendering
+      <span class="badge badge-t">Three.js</span> 3D extrusion from 2D plan
+      <span class="badge badge-a">Claude API</span> natural language input parsing + remedy explanation
+      <span class="badge badge-g">ReportLab</span> PDF generation (like your Sadab resume project)
+    </p>
+  </div>
+</div>
+
+<hr class="mv">
+<p class="section-lbl">Layer 4 — scoring model</p>
+
+<div class="arch-card">
+  <div class="score-block">
+    <div class="score-num">100</div>
+    <div class="score-bar-wrap"><div class="score-bar-fill" style="width:100%;background:#639922"></div></div>
+    <div class="score-lbl" style="color:#27500A">Perfect vastu</div>
+  </div>
+  <div class="score-block">
+    <div class="score-num" style="color:#BA7517">72</div>
+    <div class="score-bar-wrap"><div class="score-bar-fill" style="width:72%;background:#EF9F27"></div></div>
+    <div class="score-lbl" style="color:#633806">Good (soft fixes)</div>
+  </div>
+  <div class="score-block">
+    <div class="score-num" style="color:#D85A30">44</div>
+    <div class="score-bar-wrap"><div class="score-bar-fill" style="width:44%;background:#D85A30"></div></div>
+    <div class="score-lbl" style="color:#712B13">Needs work</div>
+  </div>
+  <div class="score-block">
+    <div class="score-num" style="color:#E24B4A">18</div>
+    <div class="score-bar-wrap"><div class="score-bar-fill" style="width:18%;background:#E24B4A"></div></div>
+    <div class="score-lbl" style="color:#791F1F">Critical violations</div>
+  </div>
+  <p class="box-sub" style="margin-top:10px;font-size:11px">Scoring weights: entrance direction (20pts) + master bed zone (15pts) + kitchen zone (15pts) + puja zone (10pts) + toilet zones (10pts) + Brahmasthan clear (15pts) + staircase (10pts) + other rooms (5pts) = 100</p>
+</div>
+
+<hr class="mv">
+<p class="section-lbl">Layer 5 — remedy engine output structure</p>
+
+<div class="arch-card">
+  <div class="layer-row layer-3">
+    <div class="box box-green" style="padding:8px 10px">
+      <p class="box-title green" style="font-size:12px">Free fixes</p>
+      <p class="box-sub green" style="font-size:11px">Furniture repositioning, color changes, plant placement, mirror removal</p>
+    </div>
+    <div class="box box-amber" style="padding:8px 10px">
+      <p class="box-title amber" style="font-size:12px">Low cost (₹500–5K)</p>
+      <p class="box-sub amber" style="font-size:11px">Door shift, window addition, zone demarcation, color repaint</p>
+    </div>
+    <div class="box box-red" style="padding:8px 10px">
+      <p class="box-title red" style="font-size:12px">Structural (₹5K+)</p>
+      <p class="box-sub red" style="font-size:11px">Room function swap, wall removal, staircase relocation</p>
+    </div>
+  </div>
+  <p class="box-sub" style="margin-top:8px;font-size:11px">Each remedy includes: violation description → why it matters → fix instruction → cost estimate → score improvement if applied</p>
+</div>
