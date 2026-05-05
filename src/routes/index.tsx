@@ -22,40 +22,41 @@ import { ComingSoonCard } from '#/components/landing/coming-soon-card'
 
 export const Route = createFileRoute('/')({ component: LandingPage })
 
-interface CategoryChip {
+interface Pill {
   to?: string
   icon: LucideIcon
+  /** Two-line uppercase label. Use \n for the line break. */
   label: string
   bgClass: string
   iconClass: string
 }
 
 /** Soft pastels via existing element-* CSS tokens — no purple, no gradients. */
-const CATEGORIES: ReadonlyArray<CategoryChip> = [
+const PILLS: ReadonlyArray<Pill> = [
   {
     to: '/construction-cost-calculator',
     icon: Hammer,
-    label: 'Construction',
+    label: 'Construction\nGuide',
     bgClass: 'bg-[var(--element-water-bg-occupied)]',
     iconClass: 'text-[var(--element-water-border)]',
   },
   {
     to: '/vastu-checker',
     icon: Compass,
-    label: 'Vastu',
+    label: 'Vastu\nGuide',
     bgClass: 'bg-[var(--element-air-bg-occupied)]',
     iconClass: 'text-[var(--element-air-border)]',
   },
   {
     to: '/material-calculator',
     icon: Calculator,
-    label: 'Materials',
+    label: 'Material\nCalculator',
     bgClass: 'bg-[var(--element-fire-bg-occupied)]',
     iconClass: 'text-[var(--element-fire-border)]',
   },
   {
     icon: Heart,
-    label: 'Free for India',
+    label: '100% Free\nfor India',
     bgClass: 'bg-[var(--accent-teal-light)]',
     iconClass: 'text-[var(--accent-teal)]',
   },
@@ -65,6 +66,7 @@ function LandingPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 sm:px-6">
       <Hero />
+      <ToolPillsSection />
       <ToolsSection />
       <ComingSoonSection />
       <Footnote />
@@ -74,14 +76,15 @@ function LandingPage() {
 
 function Hero() {
   return (
-    <section className="flex flex-col items-start gap-6 pt-16 pb-16 sm:pt-24 sm:pb-20">
+    <section className="flex flex-col items-center gap-11 pt-16 pb-16 text-center sm:pt-24 sm:pb-20">
       <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--muted)]/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
         <span className="size-1.5 rounded-full bg-[var(--accent-teal)]" aria-hidden />
         Indian home design toolkit
       </span>
 
       <h1 className="max-w-3xl text-balance text-3xl font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--foreground)] sm:text-4xl md:text-5xl">
-        Free single-purpose tools for Indian homeowners.
+        Free single-purpose tools{' '}
+        <span className="text-[var(--accent-teal)]">for Indian homeowners.</span>
       </h1>
 
       <p className="max-w-xl text-[15px] leading-relaxed text-[var(--muted-foreground)]">
@@ -89,7 +92,7 @@ function Hero() {
         no credit card — open a tool and start.
       </p>
 
-      <div className="flex flex-wrap items-center gap-3">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         <Button asChild>
           <Link to="/vastu-checker">
             Try Vastu Checker
@@ -104,29 +107,40 @@ function Hero() {
   )
 }
 
-function ToolsSection() {
+function ToolPillsSection() {
   return (
-    <section id="tools" className="scroll-mt-16 pb-20 sm:pb-24">
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
-        Tools — 9 live · no signup · 14 Vastu rules
-      </p>
+    <section className="border-t border-[var(--border)] py-14 sm:py-20">
+      {/* centred tagline */}
+      <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 sm:gap-5 sm:px-6">
+        <span className="h-px flex-1 bg-[var(--accent-teal)]/40" aria-hidden />
+        <h2 className="text-balance text-center text-lg font-semibold tracking-tight text-[var(--foreground)] sm:text-xl md:text-2xl">
+          Design better. Build smarter.{' '}
+          <span className="text-[var(--accent-teal)]">Live auspicious.</span>
+        </h2>
+        <span className="h-px flex-1 bg-[var(--accent-teal)]/40" aria-hidden />
+      </div>
 
-      <h2 className="mt-3 max-w-3xl text-balance text-2xl font-semibold leading-[1.1] tracking-[-0.015em] text-[var(--foreground)] sm:text-3xl md:text-[40px]">
-        Design better. Build smarter.{' '}
-        <span className="text-[var(--accent-teal)]">Live auspicious.</span>
-      </h2>
-
-      <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--muted-foreground)]">
-        Each tool is a single page. Pick a category, or scroll for the full lineup.
-      </p>
-
-      <ul className="mt-7 flex flex-wrap gap-2">
-        {CATEGORIES.map((c) => (
-          <CategoryPill key={c.label} chip={c} />
+      {/* big pastel pills with 2-line uppercase labels */}
+      <ul className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-y-8 sm:mt-12 sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-[var(--border)]">
+        {PILLS.map((p) => (
+          <PillItem key={p.label} pill={p} />
         ))}
       </ul>
+    </section>
+  )
+}
 
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+function ToolsSection() {
+  return (
+    <section id="tools" className="scroll-mt-16 border-t border-[var(--border)] py-16 sm:py-20">
+      <div className="text-center">
+        <h2 className="text-2xl font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px]">
+          Explore all tools
+        </h2>
+      </div>
+
+      {/* tool grid */}
+      <div className="mt-10 grid gap-5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
         <ToolCard
           to="/vastu-checker"
           status="flagship"
@@ -197,52 +211,49 @@ function ToolsSection() {
   )
 }
 
-function CategoryPill({ chip }: { chip: CategoryChip }) {
-  const Icon = chip.icon
+function PillItem({ pill }: { pill: Pill }) {
+  const Icon = pill.icon
   const inner = (
-    <>
+    <div className="flex flex-col items-center justify-center gap-2 px-2 text-center sm:flex-row sm:gap-3 sm:px-6 sm:text-left">
       <span
-        className={`flex size-5 shrink-0 items-center justify-center rounded-full ${chip.bgClass}`}
+        className={`flex size-12 shrink-0 items-center justify-center rounded-full sm:size-14 ${pill.bgClass}`}
       >
-        <Icon className={`size-3 ${chip.iconClass}`} />
+        <Icon className={`size-5 sm:size-6 ${pill.iconClass}`} />
       </span>
-      {chip.label}
-    </>
+      <span className="whitespace-pre-line text-[11px] font-bold uppercase leading-tight tracking-[0.06em] text-[var(--foreground)] sm:text-sm">
+        {pill.label}
+      </span>
+    </div>
   )
 
-  if (chip.to) {
+  if (pill.to) {
     return (
       <li>
-        <Link
-          to={chip.to}
-          className="group inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-sm font-medium text-[var(--foreground)] no-underline transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/60"
-        >
+        <Link to={pill.to} className="block no-underline transition-opacity hover:opacity-80">
           {inner}
         </Link>
       </li>
     )
   }
-  return (
-    <li className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-sm font-medium text-[var(--muted-foreground)]">
-      {inner}
-    </li>
-  )
+  return <li>{inner}</li>
 }
 
 function ComingSoonSection() {
   return (
     <section className="border-t border-[var(--border)] py-16 sm:py-20">
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
-        Roadmap
-      </p>
-      <h2 className="mt-3 text-2xl font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px]">
-        Shipping next
-      </h2>
-      <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--muted-foreground)]">
-        Drop your email on a tool below. We ping you only when that one ships.
-      </p>
+      <div className="flex flex-col items-center gap-3 text-center">
+        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
+          Roadmap
+        </p>
+        <h2 className="text-2xl font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px]">
+          Shipping next
+        </h2>
+        <p className="max-w-xl text-sm leading-relaxed text-[var(--muted-foreground)]">
+          Drop your email on a tool below. We ping you only when that one ships.
+        </p>
+      </div>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <ComingSoonCard
           icon={Building2}
           title="Property Tax Calculator"
@@ -269,7 +280,7 @@ function ComingSoonSection() {
 function Footnote() {
   return (
     <section className="border-t border-[var(--border)] py-10">
-      <p className="text-xs leading-relaxed text-[var(--muted-foreground)]">
+      <p className="text-center text-xs leading-relaxed text-[var(--muted-foreground)]">
         Made for Indian homeowners. All tools run on standard web — no installs. Vastu Checker
         analysis is local; AI renders use OpenAI's image API. Rates and conversions are kept
         current to local Indian standards; for legal documents, cross-check with your local

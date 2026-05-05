@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import ThemeToggle from './ThemeToggle'
 import { ToolsMenu } from './tools-menu'
+import { Logo } from './logo'
 
 const NAV_BASE =
   'relative rounded-md px-3 py-1.5 text-[13px] font-medium transition-colors duration-150 no-underline'
@@ -13,16 +14,10 @@ export default function Header() {
       <div className="relative mx-auto flex h-full max-w-7xl items-center px-4 sm:px-6">
         <Link
           to="/"
-          className="flex items-center gap-2 text-sm font-semibold text-[var(--foreground)] no-underline"
+          className="flex items-center no-underline"
+          aria-label="Plotr Ai — home"
         >
-          <span className="relative flex size-2 shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--accent-teal)] opacity-40" />
-            <span
-              className="relative inline-flex size-2 rounded-full bg-[var(--accent-teal)]"
-              style={{ boxShadow: '0 0 6px var(--accent-teal)' }}
-            />
-          </span>
-          Plotr Ai
+          <Logo className="h-6 w-auto sm:h-7" />
         </Link>
 
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 sm:flex">
