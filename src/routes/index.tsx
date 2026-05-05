@@ -1,49 +1,84 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import {
   ArrowRight,
-  Compass,
   Box,
-  Wand2,
-  Sofa,
-  Ruler,
-  Calculator,
-  Palette,
-  MessageSquare,
-  Hammer,
-  Receipt,
-  TrendingUp,
   Building2,
+  Calculator,
+  Compass,
+  Hammer,
+  Heart,
+  MessageSquare,
+  Palette,
+  Receipt,
+  Ruler,
+  Sofa,
+  TrendingUp,
+  Wand2,
+  type LucideIcon,
 } from 'lucide-react'
 import { Button } from '#/components/ui/button'
 import { ToolCard } from '#/components/landing/tool-card'
 import { ComingSoonCard } from '#/components/landing/coming-soon-card'
-import { FeatureStrip } from '#/components/landing/feature-strip'
 
 export const Route = createFileRoute('/')({ component: LandingPage })
 
+interface CategoryChip {
+  to?: string
+  icon: LucideIcon
+  label: string
+  bgClass: string
+  iconClass: string
+}
+
+/** Soft pastels via existing element-* CSS tokens — no purple, no gradients. */
+const CATEGORIES: ReadonlyArray<CategoryChip> = [
+  {
+    to: '/construction-cost-calculator',
+    icon: Hammer,
+    label: 'Construction',
+    bgClass: 'bg-[var(--element-water-bg-occupied)]',
+    iconClass: 'text-[var(--element-water-border)]',
+  },
+  {
+    to: '/vastu-checker',
+    icon: Compass,
+    label: 'Vastu',
+    bgClass: 'bg-[var(--element-air-bg-occupied)]',
+    iconClass: 'text-[var(--element-air-border)]',
+  },
+  {
+    to: '/material-calculator',
+    icon: Calculator,
+    label: 'Materials',
+    bgClass: 'bg-[var(--element-fire-bg-occupied)]',
+    iconClass: 'text-[var(--element-fire-border)]',
+  },
+  {
+    icon: Heart,
+    label: 'Free for India',
+    bgClass: 'bg-[var(--accent-teal-light)]',
+    iconClass: 'text-[var(--accent-teal)]',
+  },
+]
+
 function LandingPage() {
   return (
-    <>
-      <main className="mx-auto max-w-6xl px-4 sm:px-6">
-        <Hero />
-      </main>
-      <FeatureStrip />
-      <main className="mx-auto max-w-6xl px-4 sm:px-6">
-        <ToolsSection />
-        <ComingSoonSection />
-        <Footnote />
-      </main>
-    </>
+    <main className="mx-auto max-w-6xl px-4 sm:px-6">
+      <Hero />
+      <ToolsSection />
+      <ComingSoonSection />
+      <Footnote />
+    </main>
   )
 }
 
 function Hero() {
   return (
-    <section className="flex flex-col items-start gap-6 pt-16 pb-14 sm:pt-24 sm:pb-20">
-      <div className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--muted)]/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
+    <section className="flex flex-col items-start gap-6 pt-16 pb-16 sm:pt-24 sm:pb-20">
+      <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--muted)]/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
         <span className="size-1.5 rounded-full bg-[var(--accent-teal)]" aria-hidden />
         Indian home design toolkit
-      </div>
+      </span>
 
       <h1 className="max-w-3xl text-balance text-3xl font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--foreground)] sm:text-4xl md:text-5xl">
         Free single-purpose tools for Indian homeowners.
@@ -65,41 +100,33 @@ function Hero() {
           <a href="#tools">Browse all tools</a>
         </Button>
       </div>
-
-      <StatsStrip />
     </section>
-  )
-}
-
-function StatsStrip() {
-  const items = [
-    { value: '9', label: 'Live tools' },
-    { value: '0', label: 'Signup required' },
-    { value: '14', label: 'Vastu rules' },
-    { value: 'Free', label: 'No credit card' },
-  ]
-  return (
-    <dl className="mt-2 grid w-full grid-cols-2 gap-x-6 gap-y-4 border-t border-[var(--border)] pt-6 sm:grid-cols-4">
-      {items.map((it) => (
-        <div key={it.label} className="flex flex-col gap-1">
-          <dt className="font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
-            {it.label}
-          </dt>
-          <dd className="text-2xl font-semibold tabular-nums tracking-tight text-[var(--foreground)]">
-            {it.value}
-          </dd>
-        </div>
-      ))}
-    </dl>
   )
 }
 
 function ToolsSection() {
   return (
-    <section id="tools" className="scroll-mt-16 pb-16 sm:pb-20">
-      <SectionLabel kicker="Tools" title="All tools" description="Use any tool standalone — they don't require an account." />
+    <section id="tools" className="scroll-mt-16 pb-20 sm:pb-24">
+      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
+        Tools — 9 live · no signup · 14 Vastu rules
+      </p>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <h2 className="mt-3 max-w-3xl text-balance text-2xl font-semibold leading-[1.1] tracking-[-0.015em] text-[var(--foreground)] sm:text-3xl md:text-[40px]">
+        Design better. Build smarter.{' '}
+        <span className="text-[var(--accent-teal)]">Live auspicious.</span>
+      </h2>
+
+      <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-[var(--muted-foreground)]">
+        Each tool is a single page. Pick a category, or scroll for the full lineup.
+      </p>
+
+      <ul className="mt-7 flex flex-wrap gap-2">
+        {CATEGORIES.map((c) => (
+          <CategoryPill key={c.label} chip={c} />
+        ))}
+      </ul>
+
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <ToolCard
           to="/vastu-checker"
           status="flagship"
@@ -170,14 +197,50 @@ function ToolsSection() {
   )
 }
 
+function CategoryPill({ chip }: { chip: CategoryChip }) {
+  const Icon = chip.icon
+  const inner = (
+    <>
+      <span
+        className={`flex size-5 shrink-0 items-center justify-center rounded-full ${chip.bgClass}`}
+      >
+        <Icon className={`size-3 ${chip.iconClass}`} />
+      </span>
+      {chip.label}
+    </>
+  )
+
+  if (chip.to) {
+    return (
+      <li>
+        <Link
+          to={chip.to}
+          className="group inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-sm font-medium text-[var(--foreground)] no-underline transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/60"
+        >
+          {inner}
+        </Link>
+      </li>
+    )
+  }
+  return (
+    <li className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--background)] px-3 py-1.5 text-sm font-medium text-[var(--muted-foreground)]">
+      {inner}
+    </li>
+  )
+}
+
 function ComingSoonSection() {
   return (
     <section className="border-t border-[var(--border)] py-16 sm:py-20">
-      <SectionLabel
-        kicker="Roadmap"
-        title="Shipping next"
-        description="Drop your email on a tool below. We ping you only when that one ships."
-      />
+      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
+        Roadmap
+      </p>
+      <h2 className="mt-3 text-2xl font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px]">
+        Shipping next
+      </h2>
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-[var(--muted-foreground)]">
+        Drop your email on a tool below. We ping you only when that one ships.
+      </p>
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         <ComingSoonCard
@@ -213,29 +276,5 @@ function Footnote() {
         sub-registrar.
       </p>
     </section>
-  )
-}
-
-interface SectionLabelProps {
-  kicker: string
-  title: string
-  description?: string
-}
-
-function SectionLabel({ kicker, title, description }: SectionLabelProps) {
-  return (
-    <div className="flex flex-col gap-2">
-      <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
-        {kicker}
-      </p>
-      <h2 className="text-2xl font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px]">
-        {title}
-      </h2>
-      {description && (
-        <p className="max-w-xl text-sm leading-relaxed text-[var(--muted-foreground)]">
-          {description}
-        </p>
-      )}
-    </div>
   )
 }
