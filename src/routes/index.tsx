@@ -17,17 +17,23 @@ import {
 import { Button } from '#/components/ui/button'
 import { ToolCard } from '#/components/landing/tool-card'
 import { ComingSoonCard } from '#/components/landing/coming-soon-card'
+import { FeatureStrip } from '#/components/landing/feature-strip'
 
 export const Route = createFileRoute('/')({ component: LandingPage })
 
 function LandingPage() {
   return (
-    <main className="mx-auto max-w-6xl px-4 sm:px-6">
-      <Hero />
-      <ToolsSection />
-      <ComingSoonSection />
-      <Footnote />
-    </main>
+    <>
+      <main className="mx-auto max-w-6xl px-4 sm:px-6">
+        <Hero />
+      </main>
+      <FeatureStrip />
+      <main className="mx-auto max-w-6xl px-4 sm:px-6">
+        <ToolsSection />
+        <ComingSoonSection />
+        <Footnote />
+      </main>
+    </>
   )
 }
 
