@@ -9,15 +9,65 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as McpRouteImport } from './routes/mcp'
+import { Route as VastuCheckerRouteImport } from './routes/vastu-checker'
+import { Route as StampDutyCalculatorRouteImport } from './routes/stamp-duty-calculator'
+import { Route as PropertyCapitalGainsCalculatorRouteImport } from './routes/property-capital-gains-calculator'
+import { Route as PlotConverterRouteImport } from './routes/plot-converter'
+import { Route as MaterialCalculatorRouteImport } from './routes/material-calculator'
+import { Route as InteriorRestyleRouteImport } from './routes/interior-restyle'
+import { Route as FloorPlan3dRouteImport } from './routes/floor-plan-3d'
+import { Route as EmptyRoomStagerRouteImport } from './routes/empty-room-stager'
+import { Route as ConstructionCostCalculatorRouteImport } from './routes/construction-cost-calculator'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
+const VastuCheckerRoute = VastuCheckerRouteImport.update({
+  id: '/vastu-checker',
+  path: '/vastu-checker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StampDutyCalculatorRoute = StampDutyCalculatorRouteImport.update({
+  id: '/stamp-duty-calculator',
+  path: '/stamp-duty-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PropertyCapitalGainsCalculatorRoute =
+  PropertyCapitalGainsCalculatorRouteImport.update({
+    id: '/property-capital-gains-calculator',
+    path: '/property-capital-gains-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlotConverterRoute = PlotConverterRouteImport.update({
+  id: '/plot-converter',
+  path: '/plot-converter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MaterialCalculatorRoute = MaterialCalculatorRouteImport.update({
+  id: '/material-calculator',
+  path: '/material-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InteriorRestyleRoute = InteriorRestyleRouteImport.update({
+  id: '/interior-restyle',
+  path: '/interior-restyle',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FloorPlan3dRoute = FloorPlan3dRouteImport.update({
+  id: '/floor-plan-3d',
+  path: '/floor-plan-3d',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmptyRoomStagerRoute = EmptyRoomStagerRouteImport.update({
+  id: '/empty-room-stager',
+  path: '/empty-room-stager',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConstructionCostCalculatorRoute =
+  ConstructionCostCalculatorRouteImport.update({
+    id: '/construction-cost-calculator',
+    path: '/construction-cost-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -32,40 +82,162 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/mcp': typeof McpRoute
+  '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
+  '/empty-room-stager': typeof EmptyRoomStagerRoute
+  '/floor-plan-3d': typeof FloorPlan3dRoute
+  '/interior-restyle': typeof InteriorRestyleRoute
+  '/material-calculator': typeof MaterialCalculatorRoute
+  '/plot-converter': typeof PlotConverterRoute
+  '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
+  '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/vastu-checker': typeof VastuCheckerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/mcp': typeof McpRoute
+  '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
+  '/empty-room-stager': typeof EmptyRoomStagerRoute
+  '/floor-plan-3d': typeof FloorPlan3dRoute
+  '/interior-restyle': typeof InteriorRestyleRoute
+  '/material-calculator': typeof MaterialCalculatorRoute
+  '/plot-converter': typeof PlotConverterRoute
+  '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
+  '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/vastu-checker': typeof VastuCheckerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/mcp': typeof McpRoute
+  '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
+  '/empty-room-stager': typeof EmptyRoomStagerRoute
+  '/floor-plan-3d': typeof FloorPlan3dRoute
+  '/interior-restyle': typeof InteriorRestyleRoute
+  '/material-calculator': typeof MaterialCalculatorRoute
+  '/plot-converter': typeof PlotConverterRoute
+  '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
+  '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/vastu-checker': typeof VastuCheckerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/mcp'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/construction-cost-calculator'
+    | '/empty-room-stager'
+    | '/floor-plan-3d'
+    | '/interior-restyle'
+    | '/material-calculator'
+    | '/plot-converter'
+    | '/property-capital-gains-calculator'
+    | '/stamp-duty-calculator'
+    | '/vastu-checker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/mcp'
-  id: '__root__' | '/' | '/about' | '/mcp'
+  to:
+    | '/'
+    | '/about'
+    | '/construction-cost-calculator'
+    | '/empty-room-stager'
+    | '/floor-plan-3d'
+    | '/interior-restyle'
+    | '/material-calculator'
+    | '/plot-converter'
+    | '/property-capital-gains-calculator'
+    | '/stamp-duty-calculator'
+    | '/vastu-checker'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/construction-cost-calculator'
+    | '/empty-room-stager'
+    | '/floor-plan-3d'
+    | '/interior-restyle'
+    | '/material-calculator'
+    | '/plot-converter'
+    | '/property-capital-gains-calculator'
+    | '/stamp-duty-calculator'
+    | '/vastu-checker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  McpRoute: typeof McpRoute
+  ConstructionCostCalculatorRoute: typeof ConstructionCostCalculatorRoute
+  EmptyRoomStagerRoute: typeof EmptyRoomStagerRoute
+  FloorPlan3dRoute: typeof FloorPlan3dRoute
+  InteriorRestyleRoute: typeof InteriorRestyleRoute
+  MaterialCalculatorRoute: typeof MaterialCalculatorRoute
+  PlotConverterRoute: typeof PlotConverterRoute
+  PropertyCapitalGainsCalculatorRoute: typeof PropertyCapitalGainsCalculatorRoute
+  StampDutyCalculatorRoute: typeof StampDutyCalculatorRoute
+  VastuCheckerRoute: typeof VastuCheckerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
+    '/vastu-checker': {
+      id: '/vastu-checker'
+      path: '/vastu-checker'
+      fullPath: '/vastu-checker'
+      preLoaderRoute: typeof VastuCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stamp-duty-calculator': {
+      id: '/stamp-duty-calculator'
+      path: '/stamp-duty-calculator'
+      fullPath: '/stamp-duty-calculator'
+      preLoaderRoute: typeof StampDutyCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/property-capital-gains-calculator': {
+      id: '/property-capital-gains-calculator'
+      path: '/property-capital-gains-calculator'
+      fullPath: '/property-capital-gains-calculator'
+      preLoaderRoute: typeof PropertyCapitalGainsCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plot-converter': {
+      id: '/plot-converter'
+      path: '/plot-converter'
+      fullPath: '/plot-converter'
+      preLoaderRoute: typeof PlotConverterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/material-calculator': {
+      id: '/material-calculator'
+      path: '/material-calculator'
+      fullPath: '/material-calculator'
+      preLoaderRoute: typeof MaterialCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interior-restyle': {
+      id: '/interior-restyle'
+      path: '/interior-restyle'
+      fullPath: '/interior-restyle'
+      preLoaderRoute: typeof InteriorRestyleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/floor-plan-3d': {
+      id: '/floor-plan-3d'
+      path: '/floor-plan-3d'
+      fullPath: '/floor-plan-3d'
+      preLoaderRoute: typeof FloorPlan3dRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/empty-room-stager': {
+      id: '/empty-room-stager'
+      path: '/empty-room-stager'
+      fullPath: '/empty-room-stager'
+      preLoaderRoute: typeof EmptyRoomStagerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/construction-cost-calculator': {
+      id: '/construction-cost-calculator'
+      path: '/construction-cost-calculator'
+      fullPath: '/construction-cost-calculator'
+      preLoaderRoute: typeof ConstructionCostCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -88,7 +260,15 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  McpRoute: McpRoute,
+  ConstructionCostCalculatorRoute: ConstructionCostCalculatorRoute,
+  EmptyRoomStagerRoute: EmptyRoomStagerRoute,
+  FloorPlan3dRoute: FloorPlan3dRoute,
+  InteriorRestyleRoute: InteriorRestyleRoute,
+  MaterialCalculatorRoute: MaterialCalculatorRoute,
+  PlotConverterRoute: PlotConverterRoute,
+  PropertyCapitalGainsCalculatorRoute: PropertyCapitalGainsCalculatorRoute,
+  StampDutyCalculatorRoute: StampDutyCalculatorRoute,
+  VastuCheckerRoute: VastuCheckerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -1,0 +1,18 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "plotrai",
+  "compatibility_date": "2025-11-11",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "PUBLIC_APP_NAME": "PlotRAI"
+  }
+  // Secrets are NOT defined here. Set them with:
+  //   wrangler secret put OPENAI_API_KEY
+  //   wrangler secret put ANTHROPIC_API_KEY
+  //   wrangler secret put SUPABASE_URL
+  //   wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+}

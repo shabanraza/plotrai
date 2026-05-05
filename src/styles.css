@@ -1,0 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Register CSS variables as Tailwind theme tokens.
+ * Without this, utilities like bg-popover, text-muted-foreground, etc.
+ * are unknown to Tailwind v4 and produce no CSS output.
+ */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+}
+
+/*
+ * PlotRAI — Teal + Zinc Theme System
+ * Supports light (default) and dark mode via .dark class on <html>
+ */
+
+:root {
+  /* ── Core palette ── */
+  --background: oklch(1 0 0); /* pure white — fields stay bright, no disabled feel */
+  --surface: oklch(0.97 0.003 264.54); /* off-white wash for sections needing depth (landing tools) */
+  --foreground: oklch(0.145 0.014 285.82); /* #18181b (zinc-900) */
+
+  /* Card / elevated surfaces */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0.014 285.82);
+
+  /* Popovers / dropdowns */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0.014 285.82);
+
+  /* ── Primary: Teal ── */
+  --primary: oklch(0.57 0.11 178);       /* teal-600: #0d9488 */
+  --primary-foreground: oklch(0.985 0.002 247.86); /* white-ish */
+
+  /* ── Secondary ── */
+  --secondary: oklch(0.967 0.003 264.54); /* zinc-100: #f4f4f5 */
+  --secondary-foreground: oklch(0.205 0.015 285.82); /* zinc-800 */
+
+  /* ── Muted surfaces ── */
+  --muted: oklch(0.967 0.003 264.54);    /* zinc-100 */
+  --muted-foreground: oklch(0.556 0.014 285.82); /* zinc-500: #71717a */
+
+  /* ── Accent: Teal light ── */
+  --accent: oklch(0.967 0.003 264.54);
+  --accent-foreground: oklch(0.205 0.015 285.82);
+
+  /* ── Destructive ── */
+  --destructive: oklch(0.577 0.245 27.33); /* red-600: #dc2626 */
+  --destructive-foreground: oklch(0.985 0.002 247.86);
+
+  /* ── Borders & Inputs ── */
+  --border: oklch(0.918 0.004 264.54);    /* zinc-200: #e4e4e7 */
+  --input: oklch(0.918 0.004 264.54);
+  --ring: oklch(0.57 0.11 178);           /* teal-600 focus ring */
+
+  /* ── Chart colors ── */
+  --chart-1: oklch(0.57 0.11 178);
+  --chart-2: oklch(0.609 0.126 221.72);
+  --chart-3: oklch(0.398 0.07 227.39);
+  --chart-4: oklch(0.828 0.189 84.43);
+  --chart-5: oklch(0.647 0.251 30.18);
+
+  /* ── Sidebar ── */
+  --sidebar: oklch(0.985 0.002 247.86);
+  --sidebar-foreground: oklch(0.145 0.014 285.82);
+  --sidebar-primary: oklch(0.57 0.11 178);
+  --sidebar-primary-foreground: oklch(0.985 0.002 247.86);
+  --sidebar-accent: oklch(0.967 0.003 264.54);
+  --sidebar-accent-foreground: oklch(0.205 0.015 285.82);
+  --sidebar-border: oklch(0.918 0.004 264.54);
+  --sidebar-ring: oklch(0.57 0.11 178);
+
+  /* ── Radius ── */
+  --radius: 0.625rem;
+
+  /* ── PlotRAI-specific semantic tokens ── */
+  --surface: #f4f4f5;
+  --text-primary: #18181b;
+  --text-secondary: #71717a;
+  --accent-teal: #0d9488;
+  --accent-teal-light: #f0fdfa;
+
+  --status-critical: #dc2626;
+  --status-warning: #d97706;
+  --status-success: #16a34a;
+  --status-info: #0d9488;
+
+  /* Vastu element colors */
+  --element-water-bg:           #f0f9ff;
+  --element-water-bg-occupied:  #e0f2fe;
+  --element-water-border:       #0284c7;
+  --element-water-text:         #0369a1;
+
+  --element-fire-bg:            #fff7ed;
+  --element-fire-bg-occupied:   #fed7aa;
+  --element-fire-border:        #ea580c;
+  --element-fire-text:          #c2410c;
+
+  --element-earth-bg:           #fefce8;
+  --element-earth-bg-occupied:  #fef08a;
+  --element-earth-border:       #a16207;
+  --element-earth-text:         #854d0e;
+
+  --element-air-bg:             #f0fdf4;
+  --element-air-bg-occupied:    #bbf7d0;
+  --element-air-border:         #16a34a;
+  --element-air-text:           #15803d;
+
+  --element-space-bg:           #faf5ff;
+  --element-space-bg-occupied:  #e9d5ff;
+  --element-space-border:       #7c3aed;
+  --element-space-text:         #6d28d9;
+
+  /* Legacy tokens (used in Header/Footer) */
+  --line: rgba(24, 24, 27, 0.08);
+  --header-bg: rgba(255, 255, 255, 0.85);
+  --chip-bg: #f4f4f5;
+  --chip-line: #e4e4e7;
+  --sea-ink: #18181b;
+  --sea-ink-soft: #71717a;
+  --link-bg-hover: #f4f4f5;
+}
+
+.dark {
+  --background: oklch(0.11 0.005 285.82); /* slightly darker than card so frosted surfaces lift */
+  --surface: oklch(0.145 0.014 285.82);
+  --foreground: oklch(0.985 0.002 247.86); /* #fafafa (zinc-50) */
+
+  --card: oklch(0.145 0.014 285.82);       /* zinc-900: #18181b */
+  --card-foreground: oklch(0.985 0.002 247.86);
+
+  --popover: oklch(0.145 0.014 285.82);
+  --popover-foreground: oklch(0.985 0.002 247.86);
+
+  --primary: oklch(0.7 0.14 178);          /* teal-400: #2dd4bf */
+  --primary-foreground: oklch(0.141 0.005 285.82);
+
+  --secondary: oklch(0.205 0.015 285.82);  /* zinc-800 */
+  --secondary-foreground: oklch(0.985 0.002 247.86);
+
+  --muted: oklch(0.205 0.015 285.82);
+  --muted-foreground: oklch(0.556 0.014 285.82);
+
+  --accent: oklch(0.205 0.015 285.82);
+  --accent-foreground: oklch(0.985 0.002 247.86);
+
+  --destructive: oklch(0.704 0.191 22.22); /* red-400: #f87171 */
+  --destructive-foreground: oklch(0.141 0.005 285.82);
+
+  --border: oklch(0.274 0.009 285.82);     /* zinc-800: #27272a */
+  --input: oklch(0.274 0.009 285.82);
+  --ring: oklch(0.7 0.14 178);
+
+  --chart-1: oklch(0.7 0.14 178);
+  --chart-2: oklch(0.609 0.126 221.72);
+  --chart-3: oklch(0.398 0.07 227.39);
+  --chart-4: oklch(0.828 0.189 84.43);
+  --chart-5: oklch(0.647 0.251 30.18);
+
+  --sidebar: oklch(0.141 0.005 285.82);
+  --sidebar-foreground: oklch(0.985 0.002 247.86);
+  --sidebar-primary: oklch(0.7 0.14 178);
+  --sidebar-primary-foreground: oklch(0.141 0.005 285.82);
+  --sidebar-accent: oklch(0.205 0.015 285.82);
+  --sidebar-accent-foreground: oklch(0.985 0.002 247.86);
+  --sidebar-border: oklch(0.274 0.009 285.82);
+  --sidebar-ring: oklch(0.7 0.14 178);
+
+  /* PlotRAI semantic */
+  --surface: #18181b;
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --accent-teal: #14b8a6;
+  --accent-teal-light: #0d2d2a;
+
+  --status-critical: #f87171;
+  --status-warning: #fbbf24;
+  --status-success: #4ade80;
+  --status-info: #5eead4;
+
+  /* Vastu element colors — dark mode */
+  --element-water-bg:           #0c1929;
+  --element-water-bg-occupied:  #0c3253;
+  --element-water-border:       #38bdf8;
+  --element-water-text:         #7dd3fc;
+
+  --element-fire-bg:            #1c0f00;
+  --element-fire-bg-occupied:   #431407;
+  --element-fire-border:        #f97316;
+  --element-fire-text:          #fdba74;
+
+  --element-earth-bg:           #1c1700;
+  --element-earth-bg-occupied:  #3d2e00;
+  --element-earth-border:       #eab308;
+  --element-earth-text:         #fde047;
+
+  --element-air-bg:             #071c0e;
+  --element-air-bg-occupied:    #14532d;
+  --element-air-border:         #22c55e;
+  --element-air-text:           #86efac;
+
+  --element-space-bg:           #150d26;
+  --element-space-bg-occupied:  #2e1065;
+  --element-space-border:       #a78bfa;
+  --element-space-text:         #c4b5fd;
+
+  --line: rgba(255, 255, 255, 0.06);
+  --header-bg: rgba(15, 15, 17, 0.55);
+  --chip-bg: #18181b;
+  --chip-line: #27272a;
+  --sea-ink: #fafafa;
+  --sea-ink-soft: #a1a1aa;
+  --link-bg-hover: #27272a;
+}
+
+/*
+ * Vastu Mandala animations
+ */
+@keyframes zone-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes ripple {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.05); }
+}
+@keyframes sway {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(2px); }
+}
+@keyframes slow-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-rise {
+  animation: fade-rise 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Frosted card surface — used for landing tool grid */
+.frosted {
+  background-color: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(24, 24, 27, 0.06);
+  box-shadow:
+    0 1px 1px rgba(24, 24, 27, 0.03),
+    0 2px 4px rgba(24, 24, 27, 0.03),
+    0 6px 16px -4px rgba(24, 24, 27, 0.05),
+    0 16px 32px -12px rgba(24, 24, 27, 0.06);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.frosted:hover {
+  border-color: rgba(13, 148, 136, 0.18);
+  box-shadow:
+    0 1px 1px rgba(24, 24, 27, 0.04),
+    0 4px 8px rgba(24, 24, 27, 0.05),
+    0 12px 24px -6px rgba(24, 24, 27, 0.07),
+    0 24px 48px -12px rgba(24, 24, 27, 0.10);
+}
+
+.dark .frosted {
+  background-color: rgba(24, 24, 27, 0.55);
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.35),
+    0 16px 32px -12px rgba(0, 0, 0, 0.5);
+}
+
+.dark .frosted:hover {
+  border-color: rgba(20, 184, 166, 0.30);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.45),
+    0 6px 18px rgba(0, 0, 0, 0.45),
+    0 24px 48px -12px rgba(0, 0, 0, 0.55);
+}
+
+
+/*
+ * Base layer
+ */
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01', 'ss03';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+}
+
+/*
+ * Print styles for Vastu Report PDF
+ */
+@media print {
+  body {
+    background: white !important;
+    color: #18181b !important;
+  }
+  header, footer, .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .vastu-report {
+    break-inside: avoid;
+  }
+  .vastu-report .violation-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

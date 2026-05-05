@@ -12,4 +12,19 @@ dist-ssr
 __unconfig*
 todos.json
 mcp-todos.json
+
+# Agent config — per-user, not for the repo
 .superpowers
+.claude/
+.agents/
+.goose/
+.kiro/
+.windsurf/
+worker-configuration.d.ts
+
+# Playwright / dev screenshots — never commit
+/*.png
+.playwright-mcp/
+
+# Cloudflare Worker deploy artefacts
+.dev.vars

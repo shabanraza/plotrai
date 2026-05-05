@@ -1,39 +1,32 @@
 import { createEnv } from '@t3-oss/env-core'
 import { z } from 'zod'
 
+/**
+ * TanStack Start env setup:
+ * - Server vars (no prefix) → accessed via process.env in createServerFn
+ * - Client vars (VITE_ prefix) → accessed via import.meta.env in components
+ *
+ * runtimeEnv merges both sources so t3-env can validate all vars.
+ */
 export const env = createEnv({
   server: {
     SERVER_URL: z.string().url().optional(),
+    ANTHROPIC_API_KEY: z.string().min(1).optional(),
+    OPENAI_API_KEY: z.string().min(1).optional(),
+    SUPABASE_URL: z.string().url().optional(),
+    SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
   },
 
-  /**
-   * The prefix that client-side variables must have. This is enforced both at
-   * a type-level and at runtime.
-   */
   clientPrefix: 'VITE_',
 
   client: {
     VITE_APP_TITLE: z.string().min(1).optional(),
   },
 
-  /**
-   * What object holds the environment variables at runtime. This is usually
-   * `process.env` or `import.meta.env`.
-   */
-  runtimeEnv: import.meta.env,
+  runtimeEnv: {
+    ...import.meta.env,
+    ...(typeof process !== 'undefined' ? process.env : {}),
+  },
 
-  /**
-   * By default, this library will feed the environment variables directly to
-   * the Zod validator.
-   *
-   * This means that if you have an empty string for a value that is supposed
-   * to be a number (e.g. `PORT=` in a ".env" file), Zod will incorrectly flag
-   * it as a type mismatch violation. Additionally, if you have an empty string
-   * for a value that is supposed to be a string with a default value (e.g.
-   * `DOMAIN=` in an ".env" file), the default value will never be applied.
-   *
-   * In order to solve these issues, we recommend that all new projects
-   * explicitly specify this option as true.
-   */
   emptyStringAsUndefined: true,
 })

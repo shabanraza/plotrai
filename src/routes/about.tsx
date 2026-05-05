@@ -1,23 +1,32 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { Info } from 'lucide-react'
+import { ToolPageShell } from '#/components/tools/tool-page-shell'
 
-export const Route = createFileRoute('/about')({
-  component: About,
-})
+export const Route = createFileRoute('/about')({ component: About })
 
 function About() {
   return (
-    <main className="page-wrap px-4 py-12">
-      <section className="island-shell rounded-2xl p-6 sm:p-8">
-        <p className="island-kicker mb-2">About</p>
-        <h1 className="display-title mb-3 text-4xl font-bold text-[var(--sea-ink)] sm:text-5xl">
-          A small starter with room to grow.
-        </h1>
-        <p className="m-0 max-w-3xl text-base leading-8 text-[var(--sea-ink-soft)]">
-          TanStack Start gives you type-safe routing, server functions, and
-          modern SSR defaults. Use this as a clean foundation, then layer in
-          your own routes, styling, and add-ons.
+    <ToolPageShell
+      breadcrumb={[{ label: 'Home', href: '/' }, { label: 'About' }]}
+      eyebrow={{ icon: Info, label: 'About PlotRAI' }}
+      title="Indian home design, decoded."
+      tagline="PlotRAI is a free toolkit for Indian homeowners — Vastu compliance, AI 3D renders, interior restyling, and land-unit utilities. Single-purpose tools, no signup, no credit card."
+      variant="reading"
+    >
+      <div className="prose prose-zinc dark:prose-invert max-w-none">
+        <p className="text-[15px] leading-relaxed text-[var(--muted-foreground)]">
+          We built PlotRAI because Indian homeowners deserve better than imported AI tools that
+          render Californian bungalows when you want a Mangalore-tile bungalow, and better than
+          fee-based pandits who tell you to relocate a kitchen that can't move. Every tool here
+          is built around an Indian use case, refreshed against Indian rates, and tuned for
+          Indian materials.
         </p>
-      </section>
-    </main>
+        <p className="text-[15px] leading-relaxed text-[var(--muted-foreground)]">
+          The toolkit grows tool by tool. Drop your email on a Coming Soon card on the home page
+          and we'll ping you only when that specific tool ships — no newsletter, no marketing
+          blast.
+        </p>
+      </div>
+    </ToolPageShell>
   )
 }

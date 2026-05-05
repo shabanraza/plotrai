@@ -1,4 +1,4 @@
-# Vastu Rule Engine — Design Spec
+ # Vastu Rule Engine — Design Spec
 
 **Date:** 2026-04-18
 **Status:** Approved
