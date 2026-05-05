@@ -8,14 +8,14 @@ function About() {
   return (
     <ToolPageShell
       breadcrumb={[{ label: 'Home', href: '/' }, { label: 'About' }]}
-      eyebrow={{ icon: Info, label: 'About PlotRAI' }}
+      eyebrow={{ icon: Info, label: 'About Plotr Ai' }}
       title="Indian home design, decoded."
-      tagline="PlotRAI is a free toolkit for Indian homeowners — Vastu compliance, AI 3D renders, interior restyling, and land-unit utilities. Single-purpose tools, no signup, no credit card."
+      tagline="Plotr Ai is a free toolkit for Indian homeowners — Vastu compliance, AI 3D renders, interior restyling, and land-unit utilities. Single-purpose tools, no signup, no credit card."
       variant="reading"
     >
       <div className="prose prose-zinc dark:prose-invert max-w-none">
         <p className="text-[15px] leading-relaxed text-[var(--muted-foreground)]">
-          We built PlotRAI because Indian homeowners deserve better than imported AI tools that
+          We built Plotr Ai because Indian homeowners deserve better than imported AI tools that
           render Californian bungalows when you want a Mangalore-tile bungalow, and better than
           fee-based pandits who tell you to relocate a kitchen that can't move. Every tool here
           is built around an Indian use case, refreshed against Indian rates, and tuned for

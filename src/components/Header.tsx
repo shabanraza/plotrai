@@ -22,7 +22,7 @@ export default function Header() {
               style={{ boxShadow: '0 0 6px var(--accent-teal)' }}
             />
           </span>
-          PlotRAI
+          Plotr Ai
         </Link>
 
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-0.5 sm:flex">

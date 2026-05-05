@@ -40,7 +40,7 @@ export const Route = createFileRoute('/stamp-duty-calculator')({
   head: () => ({
     meta: [
       {
-        title: 'Stamp Duty Calculator India 2026 — Mumbai, Delhi, Bangalore, Pune · PlotRAI',
+        title: 'Stamp Duty Calculator India 2026 — Mumbai, Delhi, Bangalore, Pune · Plotr Ai',
       },
       {
         name: 'description',

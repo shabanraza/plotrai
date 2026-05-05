@@ -26,7 +26,7 @@ export const Route = createFileRoute('/property-capital-gains-calculator')({
   head: () => ({
     meta: [
       {
-        title: 'Property Capital Gains Calculator India 2026 — LTCG / Indexation · PlotRAI',
+        title: 'Property Capital Gains Calculator India 2026 — LTCG / Indexation · Plotr Ai',
       },
       {
         name: 'description',

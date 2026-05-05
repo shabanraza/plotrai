@@ -38,7 +38,7 @@ export const Route = createFileRoute('/material-calculator')({
   head: () => ({
     meta: [
       {
-        title: 'Construction Material Calculator India — Cement, Brick, Steel, Sand · PlotRAI',
+        title: 'Construction Material Calculator India — Cement, Brick, Steel, Sand · Plotr Ai',
       },
       {
         name: 'description',
@@ -190,7 +190,7 @@ function MaterialCalculatorPage() {
           description={
             liveMeta
               ? `Source: ${liveMeta.source}. Override any field with your local quote.`
-              : `Defaults from PlotRAI baseline (${RATES_LAST_UPDATED}). Override with your local quotes.`
+              : `Defaults from Plotr Ai baseline (${RATES_LAST_UPDATED}). Override with your local quotes.`
           }
           action={
             <div className="flex items-center gap-2">

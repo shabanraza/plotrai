@@ -41,7 +41,7 @@ const FALLBACK: LiveRates = {
   aggregate: MATERIAL_RATES.aggregate.value,
   bricks: MATERIAL_RATES.bricks.value,
   steel: MATERIAL_RATES.steel.value,
-  source: `PlotRAI baseline (${RATES_LAST_UPDATED})`,
+  source: `Plotr Ai baseline (${RATES_LAST_UPDATED})`,
   fetchedAt: new Date().toISOString(),
   isLive: false,
 }

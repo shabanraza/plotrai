@@ -42,7 +42,7 @@ export const Route = createFileRoute('/construction-cost-calculator')({
   head: () => ({
     meta: [
       {
-        title: 'Construction Cost Calculator India 2026 — Per Sq Ft, Stage-Wise · PlotRAI',
+        title: 'Construction Cost Calculator India 2026 — Per Sq Ft, Stage-Wise · Plotr Ai',
       },
       {
         name: 'description',

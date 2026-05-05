@@ -54,7 +54,7 @@
 }
 
 /*
- * PlotRAI — Teal + Zinc Theme System
+ * Plotr Ai — Teal + Zinc Theme System
  * Supports light (default) and dark mode via .dark class on <html>
  */
 
@@ -117,7 +117,7 @@
   /* ── Radius ── */
   --radius: 0.625rem;
 
-  /* ── PlotRAI-specific semantic tokens ── */
+  /* ── Plotr Ai-specific semantic tokens ── */
   --surface: #f4f4f5;
   --text-primary: #18181b;
   --text-secondary: #71717a;
@@ -210,7 +210,7 @@
   --sidebar-border: oklch(0.274 0.009 285.82);
   --sidebar-ring: oklch(0.7 0.14 178);
 
-  /* PlotRAI semantic */
+  /* Plotr Ai semantic */
   --surface: #18181b;
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
