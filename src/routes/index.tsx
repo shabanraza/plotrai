@@ -7,13 +7,13 @@ import {
   Compass,
   Hammer,
   Heart,
-  MessageSquare,
   Palette,
   Receipt,
   Ruler,
   Sofa,
   TrendingUp,
   Wand2,
+  Sparkles,
   type LucideIcon,
 } from 'lucide-react'
 import { Button } from '#/components/ui/button'
@@ -267,10 +267,10 @@ function ComingSoonSection() {
           toolKey="color-palette"
         />
         <ComingSoonCard
-          icon={MessageSquare}
-          title="AI Architect Chat"
-          description="Ask about Vastu, NBC norms, or material trade-offs — with citations."
-          toolKey="architect-chat"
+          icon={Sparkles}
+          title="3D Plan Walkthrough"
+          description="Real-time isometric walkthroughs of your floor plan. Drop your email for early access."
+          toolKey="walkthrough"
         />
       </div>
     </section>

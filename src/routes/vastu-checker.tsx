@@ -22,6 +22,7 @@ import type {
 import { analyzeVastu } from '#/vastu/index'
 import type { LayoutInput, VastuReport as VastuReportType } from '#/vastu/index'
 import type { FloorPlanAnalysis } from '#/server/analyze-floor-plan'
+import { track } from '#/lib/track'
 
 export const Route = createFileRoute('/vastu-checker')({
   component: VastuCheckerPage,
@@ -111,6 +112,15 @@ function VastuCheckerPage() {
     const result = analyzeVastu(layout)
     setReport(result)
     setIsAnalyzing(false)
+    track(
+      'vastu_analyzed',
+      {
+        facing: plotDetails.facing,
+        rooms: String(rooms.length),
+        grade: result.score.grade,
+      },
+      result.score.overall,
+    )
     setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100)
   }
 

@@ -23,6 +23,7 @@ import {
   type ImageEditMode,
   type ImageEditStyle,
 } from '#/server/generate-image-edit'
+import { track } from '#/lib/track'
 
 const STYLE_OPTIONS: ReadonlyArray<{ id: ImageEditStyle; label: string }> = [
   { id: 'modern', label: 'Modern' },
@@ -65,11 +66,13 @@ export function ImageToolPage({
     setIsLoading(true)
     setError(null)
     setResult(null)
+    track('image_render_started', { mode, style, quality })
     try {
       const res = await generateImageEdit({
         data: { image: image.base64, mimeType: image.file.type, mode, style, quality },
       })
       setResult(res.base64)
+      track('image_render_completed', { mode, style, quality })
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to render. Please try again.')
     } finally {

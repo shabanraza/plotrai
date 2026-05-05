@@ -8,6 +8,7 @@ import { TanStackDevtools } from '@tanstack/react-devtools'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Toaster } from '../components/ui/sonner'
+import { ChatPanel } from '../components/ai-chat/chat-panel'
 
 import PostHogProvider from '../integrations/posthog/provider'
 
@@ -52,6 +53,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
           <Header />
           {children}
           <Footer />
+          <ChatPanel />
           <Toaster position="top-right" richColors closeButton />
           <TanStackDevtools
             config={{
