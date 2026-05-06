@@ -38,6 +38,9 @@ import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { STAMP_DUTY_FAQS, STAMP_DUTY_CONTEXT } from '#/data/tool-seo-content'
 import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
+import { Link } from '@tanstack/react-router'
+import { ArrowRight } from 'lucide-react'
 
 export const Route = createFileRoute('/stamp-duty-calculator')({
   component: StampDutyCalculatorPage,
@@ -317,6 +320,22 @@ function StampDutyCalculatorPage() {
             <p key={i}>{p}</p>
           ))}
         </ToolContext>
+
+        <ToolSection number="STATES" label="Stamp duty by state" description="Detailed rate page for each state with city-wise breakdown.">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+            {STATE_CONTENT.map((s) => (
+              <Link
+                key={s.slug}
+                to="/stamp-duty/$state"
+                params={{ state: s.slug }}
+                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+              >
+                {s.displayName}
+                <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />
+              </Link>
+            ))}
+          </div>
+        </ToolSection>
 
         <ToolFaq items={STAMP_DUTY_FAQS} />
       </div>

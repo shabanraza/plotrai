@@ -20,6 +20,7 @@ import { Route as EmptyRoomStagerRouteImport } from './routes/empty-room-stager'
 import { Route as ConstructionCostCalculatorRouteImport } from './routes/construction-cost-calculator'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as StampDutyStateRouteImport } from './routes/stamp-duty/$state'
 
 const VastuCheckerRoute = VastuCheckerRouteImport.update({
   id: '/vastu-checker',
@@ -78,6 +79,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StampDutyStateRoute = StampDutyStateRouteImport.update({
+  id: '/stamp-duty/$state',
+  path: '/stamp-duty/$state',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/stamp-duty/$state': typeof StampDutyStateRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/stamp-duty/$state': typeof StampDutyStateRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/stamp-duty/$state': typeof StampDutyStateRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/stamp-duty-calculator'
     | '/vastu-checker'
+    | '/stamp-duty/$state'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/stamp-duty-calculator'
     | '/vastu-checker'
+    | '/stamp-duty/$state'
   id:
     | '__root__'
     | '/'
@@ -159,6 +170,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/stamp-duty-calculator'
     | '/vastu-checker'
+    | '/stamp-duty/$state'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -173,6 +185,7 @@ export interface RootRouteChildren {
   PropertyCapitalGainsCalculatorRoute: typeof PropertyCapitalGainsCalculatorRoute
   StampDutyCalculatorRoute: typeof StampDutyCalculatorRoute
   VastuCheckerRoute: typeof VastuCheckerRoute
+  StampDutyStateRoute: typeof StampDutyStateRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -254,6 +267,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stamp-duty/$state': {
+      id: '/stamp-duty/$state'
+      path: '/stamp-duty/$state'
+      fullPath: '/stamp-duty/$state'
+      preLoaderRoute: typeof StampDutyStateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -269,6 +289,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertyCapitalGainsCalculatorRoute: PropertyCapitalGainsCalculatorRoute,
   StampDutyCalculatorRoute: StampDutyCalculatorRoute,
   VastuCheckerRoute: VastuCheckerRoute,
+  StampDutyStateRoute: StampDutyStateRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
