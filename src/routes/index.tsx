@@ -25,6 +25,11 @@ export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
       {
+        name: 'description',
+        content:
+          'Vastu, stamp duty, construction material, capital gains, floor plans — free single-purpose tools built for Indian homeowners.',
+      },
+      {
         property: 'og:title',
         content: 'Plotr Ai — Free single-purpose tools for Indian homeowners',
       },

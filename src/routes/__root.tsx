@@ -32,10 +32,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'theme-color', content: '#0d9488' },
       { title: 'Plotr Ai — Free single-purpose tools for Indian homeowners' },
-      // Google Search Console verification — replace VALUE with the token
-      // from https://search.google.com/search-console after adding the
-      // domain. Until then this is harmless.
-      { name: 'google-site-verification', content: 'REPLACE_WITH_GSC_TOKEN' },
+      { name: 'google-site-verification', content: 'awTsUxDIOHxABex6cjuOqmBcbZ4v0AYxyRVoz7k-b7I' },
       // Default social-card meta — individual route head() blocks override
       // og:image / og:url / og:title with route-specific values.
       { property: 'og:site_name', content: 'Plotr Ai' },
@@ -49,6 +46,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { name: 'twitter:site', content: '@plotrai' },
     ],
     links: [
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap',
+      },
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'apple-touch-icon', href: '/favicon.svg' },
