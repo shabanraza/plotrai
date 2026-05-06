@@ -67,8 +67,13 @@ export const chat = createServerFn({ method: 'POST' })
       ...data.messages,
     ]
 
-    // 1. Try OpenRouter free model
-    const openrouterKey = process.env['OPENROUTER_API_KEY']
+    // 1. Try OpenRouter free model.
+    // Cloudflare Workers exposes secrets on `env`, NOT `process.env` — so we
+    // read from the cloudflare:workers binding first and fall back to
+    // process.env for non-Workers dev contexts.
+    const openrouterKey =
+      (env as unknown as { OPENROUTER_API_KEY?: string }).OPENROUTER_API_KEY ??
+      process.env['OPENROUTER_API_KEY']
     if (openrouterKey) {
       try {
         const reply = await callOpenRouter(messagesWithSystem, openrouterKey)

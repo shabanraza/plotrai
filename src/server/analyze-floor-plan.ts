@@ -1,5 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import Anthropic from '@anthropic-ai/sdk'
+import { env } from 'cloudflare:workers'
 
 export interface FloorPlanAnalysis {
   rooms: Array<{
@@ -13,13 +14,15 @@ export interface FloorPlanAnalysis {
     facing?: string
   }
 }
-console.log(process.env)
+
 export const analyzeFloorPlan = createServerFn({ method: 'POST' })
   .inputValidator((input: { image: string; mimeType: string }) => input)
   .handler(async ({ data }) => {
     const { image, mimeType } = data
 
-    const apiKey = process.env['ANTHROPIC_API_KEY']
+    const apiKey =
+      (env as unknown as { ANTHROPIC_API_KEY?: string }).ANTHROPIC_API_KEY ??
+      process.env['ANTHROPIC_API_KEY']
     if (!apiKey) {
       throw new Error(
         'ANTHROPIC_API_KEY is not set. Add it to your .env file to use floor plan analysis.',

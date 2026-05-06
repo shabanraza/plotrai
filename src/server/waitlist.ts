@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
+import { env } from 'cloudflare:workers'
 
 export interface WaitlistInput {
   email: string
@@ -14,8 +15,13 @@ export const joinWaitlist = createServerFn({ method: 'POST' })
     return input
   })
   .handler(async ({ data }) => {
-    const url = process.env['SUPABASE_URL']
-    const serviceKey = process.env['SUPABASE_SERVICE_ROLE_KEY']
+    const cfEnv = env as unknown as {
+      SUPABASE_URL?: string
+      SUPABASE_SERVICE_ROLE_KEY?: string
+    }
+    const url = cfEnv.SUPABASE_URL ?? process.env['SUPABASE_URL']
+    const serviceKey =
+      cfEnv.SUPABASE_SERVICE_ROLE_KEY ?? process.env['SUPABASE_SERVICE_ROLE_KEY']
 
     if (!url || !serviceKey) {
       console.warn(
