@@ -36,6 +36,10 @@ import {
   CONSTRUCTION_LAST_UPDATED,
   type FinishTier,
 } from '#/data/construction-cost-rates'
+import { ToolFaq } from '#/components/tools/tool-faq'
+import { ToolContext } from '#/components/tools/tool-context'
+import { CONSTRUCTION_COST_FAQS, CONSTRUCTION_COST_CONTEXT } from '#/data/tool-seo-content'
+import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/construction-cost-calculator')({
   component: ConstructionCostCalculatorPage,
@@ -55,6 +59,16 @@ export const Route = createFileRoute('/construction-cost-calculator')({
         content:
           'House construction cost per sq ft + stage-wise breakdown for any Indian city.',
       },
+    ],
+    scripts: [
+      softwareAppLd({
+        name: 'Construction Cost Calculator India',
+        description:
+          'Estimate house construction cost per sq ft in India by city, finish tier, and floors with stage-wise breakdown.',
+        path: '/construction-cost-calculator',
+        category: 'FinanceApplication',
+      }),
+      faqPageLd(CONSTRUCTION_COST_FAQS),
     ],
   }),
 })
@@ -237,6 +251,14 @@ function ConstructionCostCalculatorPage() {
             </TableFooter>
           </Table>
         </ToolSection>
+
+        <ToolContext title={CONSTRUCTION_COST_CONTEXT.title}>
+          {CONSTRUCTION_COST_CONTEXT.paragraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </ToolContext>
+
+        <ToolFaq items={CONSTRUCTION_COST_FAQS} />
       </div>
     </ToolPageShell>
   )

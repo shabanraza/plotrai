@@ -23,9 +23,39 @@ import {
   TableHeader,
   TableRow,
 } from '#/components/ui/table'
+import { ToolFaq } from '#/components/tools/tool-faq'
+import { PLOT_CONVERTER_FAQS } from '#/data/tool-seo-content'
+import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/plot-converter')({
   component: PlotConverterPage,
+  head: () => ({
+    meta: [
+      {
+        title: 'Plot Area Converter — Sq Ft, Gaj, Bigha, Cent, Acre · Plotr Ai',
+      },
+      {
+        name: 'description',
+        content:
+          'Free Indian land unit converter — square feet, square meters, gaj, bigha (UP/Bihar/MP/WB/Punjab), cent, ground, marla, kanal, gunta, acre, hectare. Region-wise local standards.',
+      },
+      { property: 'og:title', content: 'Plot Area Converter India · Plotr Ai' },
+      {
+        property: 'og:description',
+        content:
+          'Convert between Indian land units — gaj, bigha, cent, acre — with region-wise standards.',
+      },
+    ],
+    scripts: [
+      softwareAppLd({
+        name: 'Plot Area Converter',
+        description:
+          'Free Indian land unit converter for square feet, gaj, bigha, cent, ground, marla, kanal, gunta, acre, hectare.',
+        path: '/plot-converter',
+      }),
+      faqPageLd(PLOT_CONVERTER_FAQS),
+    ],
+  }),
 })
 
 type Region = 'pan-india' | 'north' | 'south' | 'east' | 'west'
@@ -229,6 +259,8 @@ function PlotConverterPage() {
             </Table>
           )}
         </ToolSection>
+
+        <ToolFaq items={PLOT_CONVERTER_FAQS} />
       </div>
     </ToolPageShell>
   )

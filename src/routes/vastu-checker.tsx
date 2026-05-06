@@ -7,6 +7,8 @@ import { Spinner } from '#/components/ui/spinner'
 import { Alert, AlertDescription, AlertTitle } from '#/components/ui/alert'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
+import { ToolFaq } from '#/components/tools/tool-faq'
+import { ToolContext } from '#/components/tools/tool-context'
 import { PlotDetailsForm } from '#/components/vastu-checker/plot-details-form'
 import { RoomPlacementList } from '#/components/vastu-checker/room-placement-list'
 import { VastuMandala } from '#/components/vastu-checker/vastu-mandala'
@@ -23,9 +25,38 @@ import { analyzeVastu } from '#/vastu/index'
 import type { LayoutInput, VastuReport as VastuReportType } from '#/vastu/index'
 import type { FloorPlanAnalysis } from '#/server/analyze-floor-plan'
 import { track } from '#/lib/track'
+import { VASTU_FAQS, VASTU_CONTEXT } from '#/data/tool-seo-content'
+import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/vastu-checker')({
   component: VastuCheckerPage,
+  head: () => ({
+    meta: [
+      {
+        title: 'Vastu Checker for Home — Free Online Vastu Compliance Tool · Plotr Ai',
+      },
+      {
+        name: 'description',
+        content:
+          'Free Vastu Shastra checker for Indian homes. Score your floor plan against 14 classical rules — North/East/South/West facing houses, kitchen direction, bedroom placement, main entrance Vastu. No signup, mobile-friendly.',
+      },
+      { property: 'og:title', content: 'Vastu Checker for Home · Plotr Ai' },
+      {
+        property: 'og:description',
+        content:
+          'Score your floor plan against 14 classical Vastu Shastra rules. Free, mobile-first, no signup.',
+      },
+    ],
+    scripts: [
+      softwareAppLd({
+        name: 'Vastu Checker for Home',
+        description:
+          'Free online tool to check Vastu Shastra compliance of any floor plan. Covers main entrance, kitchen, bedroom, toilet placement across 8 directions.',
+        path: '/vastu-checker',
+      }),
+      faqPageLd(VASTU_FAQS),
+    ],
+  }),
 })
 
 const defaultPlotDetails: PlotDetails = {
@@ -262,6 +293,15 @@ function VastuCheckerPage() {
           </aside>
         </div>
       )}
+
+      <div className="mt-12 flex flex-col gap-10">
+        <ToolContext title={VASTU_CONTEXT.title}>
+          {VASTU_CONTEXT.paragraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </ToolContext>
+        <ToolFaq items={VASTU_FAQS} />
+      </div>
     </ToolPageShell>
   )
 }

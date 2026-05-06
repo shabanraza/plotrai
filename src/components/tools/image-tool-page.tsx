@@ -16,6 +16,8 @@ import {
 } from '#/components/ui/empty'
 import { ToolPageShell, Workbench } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
+import { ToolFaq } from '#/components/tools/tool-faq'
+import { ToolContext } from '#/components/tools/tool-context'
 import { ImageDropzone, type ImageDropzoneValue } from '#/components/shared/image-dropzone'
 import { ResultViewer } from '#/components/shared/result-viewer'
 import {
@@ -24,6 +26,7 @@ import {
   type ImageEditStyle,
 } from '#/server/generate-image-edit'
 import { track } from '#/lib/track'
+import type { FaqItem } from '#/lib/seo'
 
 const STYLE_OPTIONS: ReadonlyArray<{ id: ImageEditStyle; label: string }> = [
   { id: 'modern', label: 'Modern' },
@@ -42,6 +45,8 @@ interface ImageToolPageProps {
   ctaLabel: string
   eyebrowIcon?: LucideIcon
   eyebrowLabel?: string
+  context?: { title: string; paragraphs: ReadonlyArray<string> }
+  faqs?: ReadonlyArray<FaqItem>
 }
 
 export function ImageToolPage({
@@ -53,6 +58,8 @@ export function ImageToolPage({
   ctaLabel,
   eyebrowIcon,
   eyebrowLabel,
+  context,
+  faqs,
 }: ImageToolPageProps) {
   const [image, setImage] = useState<ImageDropzoneValue | null>(null)
   const [style, setStyle] = useState<ImageEditStyle>('modern')
@@ -173,6 +180,19 @@ export function ImageToolPage({
           </ToolSection>
         </Workbench.Result>
       </Workbench>
+
+      {(context || faqs) && (
+        <div className="mt-12 flex flex-col gap-10">
+          {context && (
+            <ToolContext title={context.title}>
+              {context.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
+            </ToolContext>
+          )}
+          {faqs && faqs.length > 0 && <ToolFaq items={faqs} />}
+        </div>
+      )}
     </ToolPageShell>
   )
 }

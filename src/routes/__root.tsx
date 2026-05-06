@@ -9,6 +9,7 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Toaster } from '../components/ui/sonner'
 import { ChatPanel } from '../components/ai-chat/chat-panel'
+import { organizationLd, websiteLd } from '#/lib/seo'
 
 import PostHogProvider from '../integrations/posthog/provider'
 
@@ -31,12 +32,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'theme-color', content: '#0d9488' },
       { title: 'Plotr Ai — Free single-purpose tools for Indian homeowners' },
+      // Google Search Console verification — replace VALUE with the token
+      // from https://search.google.com/search-console after adding the
+      // domain. Until then this is harmless.
+      { name: 'google-site-verification', content: 'REPLACE_WITH_GSC_TOKEN' },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'apple-touch-icon', href: '/favicon.svg' },
+      { rel: 'canonical', href: 'https://plotrai.in' },
     ],
+    scripts: [organizationLd(), websiteLd()],
   }),
   shellComponent: RootDocument,
 })

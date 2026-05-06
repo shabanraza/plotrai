@@ -34,6 +34,10 @@ import {
   STAMP_DUTY_LAST_UPDATED,
   type StampDutyRate,
 } from '#/data/stamp-duty-rates'
+import { ToolFaq } from '#/components/tools/tool-faq'
+import { ToolContext } from '#/components/tools/tool-context'
+import { STAMP_DUTY_FAQS, STAMP_DUTY_CONTEXT } from '#/data/tool-seo-content'
+import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/stamp-duty-calculator')({
   component: StampDutyCalculatorPage,
@@ -53,6 +57,16 @@ export const Route = createFileRoute('/stamp-duty-calculator')({
         content:
           'Calculate stamp duty + registration charges for any Indian state. Female-buyer rates included. Mobile-first, no signup.',
       },
+    ],
+    scripts: [
+      softwareAppLd({
+        name: 'Stamp Duty Calculator India',
+        description:
+          'Free stamp duty and registration calculator for all major Indian states and cities including female-buyer concession rates.',
+        path: '/stamp-duty-calculator',
+        category: 'FinanceApplication',
+      }),
+      faqPageLd(STAMP_DUTY_FAQS),
     ],
   }),
 })
@@ -297,6 +311,14 @@ function StampDutyCalculatorPage() {
             </div>
           </div>
         </ToolSection>
+
+        <ToolContext title={STAMP_DUTY_CONTEXT.title}>
+          {STAMP_DUTY_CONTEXT.paragraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </ToolContext>
+
+        <ToolFaq items={STAMP_DUTY_FAQS} />
       </div>
     </ToolPageShell>
   )

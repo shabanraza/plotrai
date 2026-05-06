@@ -20,6 +20,10 @@ import {
   SelectValue,
 } from '#/components/ui/select'
 import { CII, FY_LIST } from '#/data/cii'
+import { ToolFaq } from '#/components/tools/tool-faq'
+import { ToolContext } from '#/components/tools/tool-context'
+import { CAPITAL_GAINS_FAQS, CAPITAL_GAINS_CONTEXT } from '#/data/tool-seo-content'
+import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/property-capital-gains-calculator')({
   component: CapitalGainsCalculatorPage,
@@ -42,6 +46,16 @@ export const Route = createFileRoute('/property-capital-gains-calculator')({
         content:
           'Long-term capital gains tax on Indian property — both regimes computed in plain English.',
       },
+    ],
+    scripts: [
+      softwareAppLd({
+        name: 'Property Capital Gains Calculator India',
+        description:
+          'Long-term capital gains tax calculator for Indian property covering both post-Jul-2024 regimes (12.5% without indexation vs 20% with indexation).',
+        path: '/property-capital-gains-calculator',
+        category: 'FinanceApplication',
+      }),
+      faqPageLd(CAPITAL_GAINS_FAQS),
     ],
   }),
 })
@@ -336,6 +350,14 @@ function CapitalGainsCalculatorPage() {
             />
           </div>
         </ToolSection>
+
+        <ToolContext title={CAPITAL_GAINS_CONTEXT.title}>
+          {CAPITAL_GAINS_CONTEXT.paragraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </ToolContext>
+
+        <ToolFaq items={CAPITAL_GAINS_FAQS} />
       </div>
     </ToolPageShell>
   )

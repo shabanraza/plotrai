@@ -32,6 +32,10 @@ import { getLiveRates, type LiveRates } from '#/server/get-live-rates'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Spinner } from '#/components/ui/spinner'
+import { ToolFaq } from '#/components/tools/tool-faq'
+import { ToolContext } from '#/components/tools/tool-context'
+import { MATERIAL_CALC_FAQS, MATERIAL_CALC_CONTEXT } from '#/data/tool-seo-content'
+import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/material-calculator')({
   component: MaterialCalculatorPage,
@@ -51,6 +55,15 @@ export const Route = createFileRoute('/material-calculator')({
         content:
           'Calculate cement, sand, bricks, and steel for any construction. Fresh Indian rates 2026.',
       },
+    ],
+    scripts: [
+      softwareAppLd({
+        name: 'Construction Material Calculator India',
+        description:
+          'Free calculator for cement, sand, bricks, and steel required for brickwork, RCC slab, column, plaster, and PCC in India.',
+        path: '/material-calculator',
+      }),
+      faqPageLd(MATERIAL_CALC_FAQS),
     ],
   }),
 })
@@ -290,6 +303,14 @@ function MaterialCalculatorPage() {
             </Table>
           )}
         </ToolSection>
+
+        <ToolContext title={MATERIAL_CALC_CONTEXT.title}>
+          {MATERIAL_CALC_CONTEXT.paragraphs.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+        </ToolContext>
+
+        <ToolFaq items={MATERIAL_CALC_FAQS} />
       </div>
     </ToolPageShell>
   )
