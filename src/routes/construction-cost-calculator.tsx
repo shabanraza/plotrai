@@ -40,6 +40,9 @@ import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { CONSTRUCTION_COST_FAQS, CONSTRUCTION_COST_CONTEXT } from '#/data/tool-seo-content'
 import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { CITY_CONTENT } from '#/data/city-construction-content'
+import { Link } from '@tanstack/react-router'
+import { ArrowRight } from 'lucide-react'
 
 export const Route = createFileRoute('/construction-cost-calculator')({
   component: ConstructionCostCalculatorPage,
@@ -257,6 +260,22 @@ function ConstructionCostCalculatorPage() {
             <p key={i}>{p}</p>
           ))}
         </ToolContext>
+
+        <ToolSection number="CITIES" label="Construction cost by city" description="City-specific rate page with sample budgets and stage breakdown.">
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+            {CITY_CONTENT.map((c) => (
+              <Link
+                key={c.slug}
+                to="/construction-cost/$city"
+                params={{ city: c.slug }}
+                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+              >
+                {c.city}
+                <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />
+              </Link>
+            ))}
+          </div>
+        </ToolSection>
 
         <ToolFaq items={CONSTRUCTION_COST_FAQS} />
       </div>

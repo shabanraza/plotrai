@@ -74,4 +74,24 @@
   <url><loc>https://plotrai.in/stamp-duty/andhra-pradesh</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://plotrai.in/stamp-duty/bihar</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
   <url><loc>https://plotrai.in/stamp-duty/chandigarh</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+
+  <!-- City construction-cost pages -->
+  <url><loc>https://plotrai.in/construction-cost/mumbai</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/delhi</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/bangalore</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/pune</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/chennai</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/hyderabad</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/kolkata</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/ahmedabad</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/gurgaon</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/noida</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/jaipur</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/lucknow</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/indore</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/coimbatore</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/kochi</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/chandigarh</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/bhopal</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://plotrai.in/construction-cost/patna</loc><changefreq>monthly</changefreq><priority>0.85</priority></url>
 </urlset>
