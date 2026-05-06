@@ -22,6 +22,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StampDutyStateRouteImport } from './routes/stamp-duty/$state'
 import { Route as ConstructionCostCityRouteImport } from './routes/construction-cost/$city'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 
 const VastuCheckerRoute = VastuCheckerRouteImport.update({
   id: '/vastu-checker',
@@ -90,6 +91,11 @@ const ConstructionCostCityRoute = ConstructionCostCityRouteImport.update({
   path: '/construction-cost/$city',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/api/chat': typeof ApiChatRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
 }
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/api/chat': typeof ApiChatRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
 }
@@ -134,6 +142,7 @@ export interface FileRoutesById {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/api/chat': typeof ApiChatRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
 }
@@ -151,6 +160,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/stamp-duty-calculator'
     | '/vastu-checker'
+    | '/api/chat'
     | '/construction-cost/$city'
     | '/stamp-duty/$state'
   fileRoutesByTo: FileRoutesByTo
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/stamp-duty-calculator'
     | '/vastu-checker'
+    | '/api/chat'
     | '/construction-cost/$city'
     | '/stamp-duty/$state'
   id:
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/stamp-duty-calculator'
     | '/vastu-checker'
+    | '/api/chat'
     | '/construction-cost/$city'
     | '/stamp-duty/$state'
   fileRoutesById: FileRoutesById
@@ -197,6 +209,7 @@ export interface RootRouteChildren {
   PropertyCapitalGainsCalculatorRoute: typeof PropertyCapitalGainsCalculatorRoute
   StampDutyCalculatorRoute: typeof StampDutyCalculatorRoute
   VastuCheckerRoute: typeof VastuCheckerRoute
+  ApiChatRoute: typeof ApiChatRoute
   ConstructionCostCityRoute: typeof ConstructionCostCityRoute
   StampDutyStateRoute: typeof StampDutyStateRoute
 }
@@ -294,6 +307,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstructionCostCityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -309,6 +329,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertyCapitalGainsCalculatorRoute: PropertyCapitalGainsCalculatorRoute,
   StampDutyCalculatorRoute: StampDutyCalculatorRoute,
   VastuCheckerRoute: VastuCheckerRoute,
+  ApiChatRoute: ApiChatRoute,
   ConstructionCostCityRoute: ConstructionCostCityRoute,
   StampDutyStateRoute: StampDutyStateRoute,
 }
