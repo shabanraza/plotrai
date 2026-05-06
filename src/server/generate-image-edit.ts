@@ -1,9 +1,9 @@
 import { createServerFn } from '@tanstack/react-start'
 import { env } from 'cloudflare:workers'
 import {
-  reserveNeurons,
-  refundNeurons,
-  NEURONS_PER_CALL,
+  reserveQuota,
+  refundQuota,
+  QUOTA_PER_CALL,
   getUsage,
 } from './neuron-cap'
 
@@ -12,15 +12,6 @@ import {
  * - /floor-plan-3d (2D plan → isometric 3D render)
  * - /interior-restyle (room photo → re-styled)
  * - /empty-room-stager (empty room → furnished)
- *
- * Migrated from OpenAI gpt-image-1 (paid, ~$0.07-$0.19 / image) to
- * Cloudflare Workers AI @cf/runwayml/stable-diffusion-v1-5-img2img
- * (~1.5k Neurons / image, free up to 10k Neurons / day).
- *
- * Trade-off accepted: SD 1.5 quality is lower than gpt-image-1, especially
- * for floor-plan-3d which is a difficult img2img transformation. We capture
- * this in copy ("AI-generated visualization") and keep the existing
- * "regenerate" + "user-overrideable rates" patterns to compensate.
  */
 
 export type ImageEditMode = 'floor-plan-3d' | 'interior-restyle' | 'empty-room-stager'
@@ -43,7 +34,6 @@ export interface GenerateImageEditInput {
 
 export interface GenerateImageEditOutput {
   base64: string
-  /** Echoed back so the UI can show "X Neurons used today / 10,000 cap". */
   usage: ReturnType<typeof getUsage>
 }
 
@@ -95,16 +85,14 @@ export const generateImageEdit = createServerFn({ method: 'POST' })
     }
     const ai = (env as unknown as { AI?: CfAi }).AI
     if (!ai) {
-      throw new Error('Workers AI is not bound — check wrangler.jsonc has `ai: { binding: "AI" }`.')
+      throw new Error('Image generation service is unavailable. Please try again later.')
     }
 
-    // Daily Neuron cap — free-tier safety net
-    const cost = NEURONS_PER_CALL['sd-1.5-img2img']
-    const reservation = reserveNeurons(cost)
+    const cost = QUOTA_PER_CALL['sd-1.5-img2img']
+    const reservation = reserveQuota(cost)
     if (!reservation.ok) {
       throw new Error(
-        `Daily AI render limit reached (${reservation.used.toLocaleString()} of 10,000 Neurons used). ` +
-          `Resets at midnight UTC. Tip: try again tomorrow or use the manual mode of /vastu-checker.`,
+        'Daily AI render limit reached. Try again tomorrow, or use the manual mode of /vastu-checker.',
       )
     }
 
@@ -124,7 +112,7 @@ export const generateImageEdit = createServerFn({ method: 'POST' })
       const out = await streamToBase64(stream)
       return { base64: out, usage: getUsage() }
     } catch (err) {
-      refundNeurons(cost)
+      refundQuota(cost)
       throw err
     }
   })

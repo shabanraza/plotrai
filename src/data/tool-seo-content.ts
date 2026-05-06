@@ -157,7 +157,7 @@ export const PLOT_CONVERTER_FAQS: ReadonlyArray<FaqItem> = [
 export const IMAGE_TOOL_FAQS: ReadonlyArray<FaqItem> = [
   {
     q: 'Yeh AI render kitne accurate hote hain?',
-    a: 'Our AI uses Stable Diffusion 1.5 img2img on Cloudflare Workers AI. Results are good for visualisation and mood-boarding, but should not be used for construction-grade renders. For photorealistic professional renders, hire a 3D artist — our tool is for quick concept exploration, not final output.',
+    a: 'Our AI is tuned for quick visualisation and mood-boarding. Results are great for concept exploration but should not be used for construction-grade renders. For photorealistic professional output, hire a 3D artist — this tool is for ideation, not final delivery.',
   },
   {
     q: 'Floor plan 3D conversion ke liye image kis format mein chahiye?',
@@ -165,11 +165,11 @@ export const IMAGE_TOOL_FAQS: ReadonlyArray<FaqItem> = [
   },
   {
     q: 'Render generate karne mein kitna time lagta hai?',
-    a: 'Each render takes 15–40 seconds depending on quality setting. Medium = 12 steps (~15s), High = 20 steps (~30s). The first render of the day may take a bit longer as the Cloudflare Worker warms up. You can regenerate as many times as you want until you like a result.',
+    a: 'Each render takes 15–40 seconds depending on quality setting. Medium ≈ 15s, High ≈ 30s. The first render of the day may take a bit longer as the service warms up. You can regenerate as many times as you want until you like a result.',
   },
   {
     q: 'Daily limit kyon hai?',
-    a: 'We use Cloudflare Workers AI on the free tier (10,000 Neurons/day total across all users). Each render costs ~1500 Neurons, so the platform supports about 6 renders per day per user before cap. The cap resets at midnight UTC.',
+    a: "Plotr Ai is free for everyone, so we apply a daily fair-use limit on AI renders to keep it that way. If you hit the cap, try again the next day — the manual modes of our other tools (Vastu checker, calculators) don't use any AI quota.",
   },
 ]
 
