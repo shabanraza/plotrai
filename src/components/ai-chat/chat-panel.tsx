@@ -22,10 +22,10 @@ interface UiMessage extends ChatMessage {
 }
 
 const STARTER_PROMPTS = [
-  'How do I check if my plot is Vastu-compliant?',
-  'What is the cement to sand ratio for plaster?',
-  'Stamp duty in Mumbai for a 1.2 cr flat?',
-  'Best room placement for a north-facing house?',
+  'मेरा plot Vastu-compliant है या नहीं कैसे check करूँ?',
+  'Plaster के लिए cement और sand का ratio क्या होना चाहिए?',
+  'Mumbai में 1.2 cr के flat पर stamp duty कितनी लगेगी?',
+  'North-facing घर में कौन सा कमरा कहाँ बनाना चाहिए?',
 ]
 
 export function ChatPanel() {
@@ -103,7 +103,7 @@ export function ChatPanel() {
               Ask Plotr Ai
             </SheetTitle>
             <SheetDescription className="text-xs">
-              Indian construction, Vastu, materials, and tax — answered.
+              Vastu, construction, materials, tax — हिंदी में जवाब।
             </SheetDescription>
           </div>
         </SheetHeader>
@@ -115,9 +115,9 @@ export function ChatPanel() {
                 <EmptyMedia variant="icon">
                   <MessageSquare />
                 </EmptyMedia>
-                <EmptyTitle>What can I help with?</EmptyTitle>
+                <EmptyTitle>क्या पूछना चाहेंगे?</EmptyTitle>
                 <EmptyDescription>
-                  Pick a starter or ask anything about Indian home design.
+                  नीचे से कोई सवाल चुनें या अपना सवाल लिखें।
                 </EmptyDescription>
               </EmptyHeader>
               <ul className="mt-4 grid gap-2">
@@ -140,7 +140,7 @@ export function ChatPanel() {
                 <li key={m.id} className="flex flex-col gap-1">
                   <div className="flex items-baseline gap-2">
                     <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
-                      {m.role === 'user' ? 'You' : 'Plotr Ai'}
+                      {m.role === 'user' ? 'आप' : 'Plotr Ai'}
                     </span>
                     {m.role === 'assistant' && m.source && m.source !== 'openrouter' && (
                       <Badge variant="outline" className="font-mono text-[9px] uppercase tracking-wider">
@@ -163,7 +163,7 @@ export function ChatPanel() {
               {isLoading && (
                 <li className="flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
                   <Spinner className="size-4" />
-                  Thinking…
+                  सोच रहा हूँ…
                 </li>
               )}
             </ul>
@@ -183,7 +183,7 @@ export function ChatPanel() {
                 void send(input)
               }
             }}
-            placeholder="Ask anything…"
+            placeholder="कुछ भी पूछें…"
             rows={1}
             disabled={isLoading}
             className="max-h-32 min-h-9 flex-1 resize-none rounded-md border border-[var(--input)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/60 focus:border-[var(--accent-teal)] focus:outline-none disabled:opacity-60"
