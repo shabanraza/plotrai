@@ -21,7 +21,6 @@
     "@anthropic-ai/sdk": "^0.90.0",
     "@modelcontextprotocol/sdk": "^1.27.1",
     "@posthog/react": "^1.7.0",
-    "@supabase/supabase-js": "^2.103.3",
     "@t3-oss/env-core": "^0.13.10",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/ai": "latest",
