@@ -46,6 +46,13 @@ export const Route = createFileRoute('/property-capital-gains-calculator')({
         content:
           'Long-term capital gains tax on Indian property — both regimes computed in plain English.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/property-capital-gains-calculator.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/property-capital-gains-calculator' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/property-capital-gains-calculator.png' },
     ],
     scripts: [
       softwareAppLd({

@@ -45,6 +45,13 @@ export const Route = createFileRoute('/plot-converter')({
         content:
           'Convert between Indian land units — gaj, bigha, cent, acre — with region-wise standards.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/plot-converter.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/plot-converter' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/plot-converter.png' },
     ],
     scripts: [
       softwareAppLd({

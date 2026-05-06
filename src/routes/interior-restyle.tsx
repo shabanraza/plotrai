@@ -19,6 +19,13 @@ export const Route = createFileRoute('/interior-restyle')({
         property: 'og:description',
         content: 'Re-render any room in a new style — same layout, brand-new vibe.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/interior-restyle.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/interior-restyle' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/interior-restyle.png' },
     ],
     scripts: [
       softwareAppLd({

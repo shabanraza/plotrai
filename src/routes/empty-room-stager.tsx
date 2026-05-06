@@ -19,6 +19,13 @@ export const Route = createFileRoute('/empty-room-stager')({
         property: 'og:description',
         content: 'Virtually furnish empty rooms — perfect for real-estate listings.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/empty-room-stager.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/empty-room-stager' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/empty-room-stager.png' },
     ],
     scripts: [
       softwareAppLd({

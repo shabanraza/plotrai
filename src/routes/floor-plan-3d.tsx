@@ -19,6 +19,13 @@ export const Route = createFileRoute('/floor-plan-3d')({
         property: 'og:description',
         content: 'Free AI tool to convert 2D plans into furnished 3D isometric renders.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/floor-plan-3d.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/floor-plan-3d' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/floor-plan-3d.png' },
     ],
     scripts: [
       softwareAppLd({

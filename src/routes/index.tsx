@@ -20,7 +20,29 @@ import { Button } from '#/components/ui/button'
 import { ToolCard } from '#/components/landing/tool-card'
 import { ComingSoonCard } from '#/components/landing/coming-soon-card'
 
-export const Route = createFileRoute('/')({ component: LandingPage })
+export const Route = createFileRoute('/')({
+  component: LandingPage,
+  head: () => ({
+    meta: [
+      {
+        property: 'og:title',
+        content: 'Plotr Ai — Free single-purpose tools for Indian homeowners',
+      },
+      {
+        property: 'og:description',
+        content:
+          'Vastu, stamp duty, construction material, capital gains, floor plans — built for India.',
+      },
+      { property: 'og:image', content: 'https://plotrai.in/og/landing.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/landing.png' },
+    ],
+  }),
+})
 
 interface Pill {
   to?: string

@@ -62,6 +62,13 @@ export const Route = createFileRoute('/construction-cost-calculator')({
         content:
           'House construction cost per sq ft + stage-wise breakdown for any Indian city.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/construction-cost-calculator.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/construction-cost-calculator' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/construction-cost-calculator.png' },
     ],
     scripts: [
       softwareAppLd({

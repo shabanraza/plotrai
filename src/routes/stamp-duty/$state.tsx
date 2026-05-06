@@ -41,12 +41,21 @@ export const Route = createFileRoute('/stamp-duty/$state')({
     const title = `${content.displayName} Stamp Duty Calculator 2026 — ${r.male}% Male / ${r.female}% Female · Plotr Ai`
     const description = `${content.displayName} stamp duty rates 2026: ${r.male}% for male buyers, ${r.female}% for female buyers, ${r.registration}% registration. Free calculator with city-wise breakdown for ${content.displayName}.`
 
+    const ogImage = `https://plotrai.in/og/stamp-duty-${content.slug}.png`
+
     return {
       meta: [
         { title },
         { name: 'description', content: description },
         { property: 'og:title', content: `${content.displayName} Stamp Duty Calculator 2026` },
         { property: 'og:description', content: description },
+        { property: 'og:image', content: ogImage },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:url', content: `https://plotrai.in/stamp-duty/${content.slug}` },
+        { property: 'og:type', content: 'website' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:image', content: ogImage },
       ],
       links: [
         {

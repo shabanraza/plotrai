@@ -36,6 +36,17 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       // from https://search.google.com/search-console after adding the
       // domain. Until then this is harmless.
       { name: 'google-site-verification', content: 'REPLACE_WITH_GSC_TOKEN' },
+      // Default social-card meta — individual route head() blocks override
+      // og:image / og:url / og:title with route-specific values.
+      { property: 'og:site_name', content: 'Plotr Ai' },
+      { property: 'og:locale', content: 'en_IN' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:image', content: 'https://plotrai.in/og/landing.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/landing.png' },
+      { name: 'twitter:site', content: '@plotrai' },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },

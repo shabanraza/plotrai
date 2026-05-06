@@ -46,6 +46,13 @@ export const Route = createFileRoute('/vastu-checker')({
         content:
           'Score your floor plan against 14 classical Vastu Shastra rules. Free, mobile-first, no signup.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/vastu-checker.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/vastu-checker' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/vastu-checker.png' },
     ],
     scripts: [
       softwareAppLd({

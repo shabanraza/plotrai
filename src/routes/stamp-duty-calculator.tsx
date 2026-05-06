@@ -60,6 +60,13 @@ export const Route = createFileRoute('/stamp-duty-calculator')({
         content:
           'Calculate stamp duty + registration charges for any Indian state. Female-buyer rates included. Mobile-first, no signup.',
       },
+      { property: 'og:image', content: 'https://plotrai.in/og/stamp-duty-calculator.png' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:url', content: 'https://plotrai.in/stamp-duty-calculator' },
+      { property: 'og:type', content: 'website' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: 'https://plotrai.in/og/stamp-duty-calculator.png' },
     ],
     scripts: [
       softwareAppLd({

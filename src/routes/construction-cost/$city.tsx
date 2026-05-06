@@ -44,12 +44,21 @@ export const Route = createFileRoute('/construction-cost/$city')({
     const title = `${content.city} Construction Cost 2026 — ₹${r.standard.toLocaleString('en-IN')}/sq ft Standard · Plotr Ai`
     const description = `${content.city} house construction cost 2026: ₹${r.basic}/sq ft basic, ₹${r.standard}/sq ft standard, ₹${r.premium}/sq ft premium, ₹${r.luxury}/sq ft luxury. With 1000/1500/2000 sq ft sample budgets.`
 
+    const ogImage = `https://plotrai.in/og/construction-cost-${content.slug}.png`
+
     return {
       meta: [
         { title },
         { name: 'description', content: description },
         { property: 'og:title', content: `${content.city} Construction Cost 2026` },
         { property: 'og:description', content: description },
+        { property: 'og:image', content: ogImage },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:url', content: `https://plotrai.in/construction-cost/${content.slug}` },
+        { property: 'og:type', content: 'website' },
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:image', content: ogImage },
       ],
       links: [
         {
