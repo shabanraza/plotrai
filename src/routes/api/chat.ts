@@ -78,35 +78,6 @@ export const Route = createFileRoute('/api/chat')({
           (env as unknown as { OPENROUTER_API_KEY?: string })
             .OPENROUTER_API_KEY ?? process.env['OPENROUTER_API_KEY']
 
-        if (openrouterKey) {
-          try {
-            const adapter = new OpenAITextAdapter(
-              {
-                apiKey: openrouterKey,
-                baseURL: OPENROUTER_BASE_URL,
-                defaultHeaders: {
-                  'HTTP-Referer': 'https://plotrai.in',
-                  'X-Title': 'Plotr Ai',
-                },
-              },
-              OPENROUTER_MODEL as OpenAIChatModel,
-            )
-            const stream = chat({
-              adapter,
-              systemPrompts: [SYSTEM_PROMPT],
-              messages: modelMessages.map((m) => ({
-                role: m.role,
-                content: typeof m.content === 'string' ? m.content : '',
-              })),
-              maxTokens: 512,
-              temperature: 0.4,
-            })
-            return toServerSentEventsResponse(stream)
-          } catch (err) {
-            console.warn('[chat] primary provider failed, using fallback:', err)
-          }
-        }
-
         type CfAi = {
           run: (
             model: string,
@@ -117,35 +88,104 @@ export const Route = createFileRoute('/api/chat')({
           ) => Promise<{ response?: string }>
         }
         const ai = (env as unknown as { AI?: CfAi }).AI
-        if (ai) {
-          try {
-            const out = await ai.run(CF_AI_MODEL, {
-              messages: [
-                { role: 'system', content: SYSTEM_PROMPT },
-                ...modelMessages.map((m) => ({
-                  role: m.role,
-                  content: typeof m.content === 'string' ? m.content : '',
-                })),
-              ],
-              max_tokens: 512,
-            })
-            return toServerSentEventsResponse(
-              syntheticReplyStream(out.response ?? '(empty response)'),
-            )
-          } catch (err) {
-            console.warn('[chat] CF AI fallback failed:', err)
-          }
+
+        const messagesForProvider = modelMessages.map((m) => ({
+          role: m.role,
+          content: typeof m.content === 'string' ? m.content : '',
+        }))
+
+        const fallback = (): AsyncIterable<StreamChunk> =>
+          ai
+            ? cfAiStream(ai, messagesForProvider)
+            : syntheticReplyStream(
+                "Sorry, the AI service is unavailable right now. Try again in a minute, or use the tools directly — they don't need AI.",
+              )
+
+        if (openrouterKey) {
+          const adapter = new OpenAITextAdapter(
+            {
+              apiKey: openrouterKey,
+              baseURL: OPENROUTER_BASE_URL,
+              defaultHeaders: {
+                'HTTP-Referer': 'https://plotrai.in',
+                'X-Title': 'Plotr Ai',
+              },
+            },
+            OPENROUTER_MODEL as OpenAIChatModel,
+          )
+          const primary = chat({
+            adapter,
+            systemPrompts: [SYSTEM_PROMPT],
+            messages: messagesForProvider,
+            maxTokens: 512,
+            temperature: 0.4,
+          })
+          return toServerSentEventsResponse(withFallback(primary, fallback))
         }
 
-        return toServerSentEventsResponse(
-          syntheticReplyStream(
-            "Sorry, the AI service is unavailable right now. Try again in a minute, or use the tools directly — they don't need AI.",
-          ),
-        )
+        return toServerSentEventsResponse(fallback())
       },
     },
   },
 })
+
+/**
+ * Wrap a primary stream so a failure BEFORE any chunk is emitted swaps in
+ * the fallback. Mid-stream failures surface as RUN_ERROR (we can't undo
+ * already-sent partial text without confusing the client).
+ */
+async function* withFallback(
+  primary: AsyncIterable<StreamChunk>,
+  fallback: () => AsyncIterable<StreamChunk>,
+): AsyncIterable<StreamChunk> {
+  let emittedAny = false
+  try {
+    for await (const chunk of primary) {
+      emittedAny = true
+      yield chunk
+    }
+  } catch (err) {
+    if (emittedAny) {
+      console.warn('[chat] primary errored mid-stream:', err)
+      yield {
+        type: 'RUN_ERROR',
+        error: {
+          message: err instanceof Error ? err.message : 'stream error',
+        },
+        timestamp: Date.now(),
+      }
+      return
+    }
+    console.warn('[chat] primary failed before first chunk, using fallback:', err)
+    for await (const chunk of fallback()) yield chunk
+  }
+}
+
+async function* cfAiStream(
+  ai: {
+    run: (
+      model: string,
+      input: {
+        messages: Array<{ role: string; content: string }>
+        max_tokens?: number
+      },
+    ) => Promise<{ response?: string }>
+  },
+  messages: Array<{ role: string; content: string }>,
+): AsyncIterable<StreamChunk> {
+  try {
+    const out = await ai.run(CF_AI_MODEL, {
+      messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages],
+      max_tokens: 512,
+    })
+    yield* syntheticReplyStream(out.response ?? '(empty response)')
+  } catch (err) {
+    console.warn('[chat] CF AI fallback failed:', err)
+    yield* syntheticReplyStream(
+      "Sorry, the AI service is unavailable right now. Try again in a minute.",
+    )
+  }
+}
 
 async function* syntheticReplyStream(
   reply: string,
