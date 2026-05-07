@@ -2,14 +2,16 @@ import { createFileRoute } from '@tanstack/react-router'
 import { env } from 'cloudflare:workers'
 import {
   chat,
+  convertMessagesToModelMessages,
   toServerSentEventsResponse,
+  type ModelMessage,
   type StreamChunk,
+  type UIMessage,
 } from '@tanstack/ai'
 import {
   OpenAITextAdapter,
   type OpenAIChatModel,
 } from '@tanstack/ai-openai'
-import type { ChatRequestBody } from '@tanstack/ai-client'
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1'
 const OPENROUTER_MODEL = 'meta-llama/llama-3.3-70b-instruct:free'
@@ -46,9 +48,11 @@ export const Route = createFileRoute('/api/chat')({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        let body: ChatRequestBody
+        let body: { messages?: Array<UIMessage | ModelMessage> }
         try {
-          body = (await request.json()) as ChatRequestBody
+          body = (await request.json()) as {
+            messages?: Array<UIMessage | ModelMessage>
+          }
         } catch {
           return new Response('Invalid JSON', { status: 400 })
         }
@@ -61,9 +65,12 @@ export const Route = createFileRoute('/api/chat')({
             status: 400,
           })
         }
-        for (const m of body.messages) {
-          if (typeof m.content !== 'string' || m.content.length > 4000) {
-            return new Response('Invalid message', { status: 400 })
+
+        const modelMessages = convertMessagesToModelMessages(body.messages)
+        for (const m of modelMessages) {
+          const text = typeof m.content === 'string' ? m.content : ''
+          if (text.length > 4000) {
+            return new Response('Message too long', { status: 400 })
           }
         }
 
@@ -87,7 +94,7 @@ export const Route = createFileRoute('/api/chat')({
             const stream = chat({
               adapter,
               systemPrompts: [SYSTEM_PROMPT],
-              messages: body.messages.map((m) => ({
+              messages: modelMessages.map((m) => ({
                 role: m.role,
                 content: typeof m.content === 'string' ? m.content : '',
               })),
@@ -115,7 +122,7 @@ export const Route = createFileRoute('/api/chat')({
             const out = await ai.run(CF_AI_MODEL, {
               messages: [
                 { role: 'system', content: SYSTEM_PROMPT },
-                ...body.messages.map((m) => ({
+                ...modelMessages.map((m) => ({
                   role: m.role,
                   content: typeof m.content === 'string' ? m.content : '',
                 })),
