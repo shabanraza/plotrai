@@ -14,7 +14,7 @@ import {
 } from '@tanstack/ai-openai'
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1'
-const OPENROUTER_MODEL = 'meta-llama/llama-3.3-70b-instruct:free'
+const OPENROUTER_MODEL = 'meta-llama/llama-3.3-70b-instruct'
 const CF_AI_MODEL = '@cf/meta/llama-3.1-8b-instruct'
 
 const SYSTEM_PROMPT = `You are Plotr Ai's architect assistant for Indian homeowners.
