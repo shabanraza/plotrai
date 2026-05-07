@@ -14,7 +14,11 @@ import {
 } from '@tanstack/ai-openai'
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1'
-const OPENROUTER_MODEL = 'meta-llama/llama-3.3-70b-instruct'
+// OpenRouter's free auto-router (https://openrouter.ai/openrouter/free).
+// Routes across multiple free-tier backends, balancing load so any single
+// 429 doesn't block us. CF Workers AI fallback still catches sustained
+// outages.
+const OPENROUTER_MODEL = 'openrouter/free'
 const CF_AI_MODEL = '@cf/meta/llama-3.1-8b-instruct'
 
 const SYSTEM_PROMPT = `You are Plotr Ai's architect assistant for Indian homeowners.
