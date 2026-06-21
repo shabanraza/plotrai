@@ -39,7 +39,7 @@ import {
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { CONSTRUCTION_COST_FAQS, CONSTRUCTION_COST_CONTEXT } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import { CITY_CONTENT } from '#/data/city-construction-content'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
@@ -70,6 +70,7 @@ export const Route = createFileRoute('/construction-cost-calculator')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/construction-cost-calculator.png' },
     ],
+    links: [canonicalLink('/construction-cost-calculator')],
     scripts: [
       softwareAppLd({
         name: 'Construction Cost Calculator India',

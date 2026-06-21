@@ -5,7 +5,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
   "observability": { "enabled": true },
-  "vars": { "PUBLIC_APP_NAME": "Plotr Ai" },
+  "vars": { "PUBLIC_APP_NAME": "Plotr Ai", "VITE_GA_MEASUREMENT_ID": "G-QMLY268P0K" },
   "ai": { "binding": "AI" },
   "analytics_engine_datasets": [
     { "binding": "PLOTRAI_EVENTS", "dataset": "plotrai_events" }

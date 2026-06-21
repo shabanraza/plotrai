@@ -22,6 +22,7 @@ export const env = createEnv({
 
   client: {
     VITE_APP_TITLE: z.string().min(1).optional(),
+    VITE_GA_MEASUREMENT_ID: z.string().min(1).optional(),
   },
 
   runtimeEnv: {

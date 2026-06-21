@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Box } from 'lucide-react'
 import { ImageToolPage } from '#/components/tools/image-tool-page'
 import { IMAGE_TOOL_FAQS } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/floor-plan-3d')({
   component: FloorPlan3DPage,
@@ -27,6 +27,7 @@ export const Route = createFileRoute('/floor-plan-3d')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/floor-plan-3d.png' },
     ],
+    links: [canonicalLink('/floor-plan-3d')],
     scripts: [
       softwareAppLd({
         name: '2D Floor Plan to 3D Render',

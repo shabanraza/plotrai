@@ -37,7 +37,7 @@ import {
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { STAMP_DUTY_FAQS, STAMP_DUTY_CONTEXT } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
@@ -68,6 +68,7 @@ export const Route = createFileRoute('/stamp-duty-calculator')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/stamp-duty-calculator.png' },
     ],
+    links: [canonicalLink('/stamp-duty-calculator')],
     scripts: [
       softwareAppLd({
         name: 'Stamp Duty Calculator India',

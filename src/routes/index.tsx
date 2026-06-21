@@ -46,6 +46,7 @@ export const Route = createFileRoute('/')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/landing.png' },
     ],
+    links: [{ rel: 'canonical', href: 'https://plotrai.in' }],
   }),
 })
 

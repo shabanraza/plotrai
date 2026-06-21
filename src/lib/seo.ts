@@ -73,3 +73,23 @@ export function websiteLd(): JsonLdScript {
   }
   return { type: 'application/ld+json', children: JSON.stringify(schema) }
 }
+
+/** Returns a canonical link object for TanStack Start head() */
+export function canonicalLink(path: string) {
+  return { rel: 'canonical' as const, href: `${SITE_URL}${path}` }
+}
+
+/** Returns a breadcrumb JSON-LD script for structured data */
+export function breadcrumbLd(items: ReadonlyArray<{ name: string; url: string }>): JsonLdScript {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  }
+  return { type: 'application/ld+json', children: JSON.stringify(schema) }
+}

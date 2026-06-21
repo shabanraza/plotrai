@@ -23,7 +23,7 @@ import { CII, FY_LIST } from '#/data/cii'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { CAPITAL_GAINS_FAQS, CAPITAL_GAINS_CONTEXT } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/property-capital-gains-calculator')({
   component: CapitalGainsCalculatorPage,
@@ -54,6 +54,7 @@ export const Route = createFileRoute('/property-capital-gains-calculator')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/property-capital-gains-calculator.png' },
     ],
+    links: [canonicalLink('/property-capital-gains-calculator')],
     scripts: [
       softwareAppLd({
         name: 'Property Capital Gains Calculator India',

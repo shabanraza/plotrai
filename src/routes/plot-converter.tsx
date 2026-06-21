@@ -25,7 +25,7 @@ import {
 } from '#/components/ui/table'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { PLOT_CONVERTER_FAQS } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/plot-converter')({
   component: PlotConverterPage,
@@ -53,6 +53,7 @@ export const Route = createFileRoute('/plot-converter')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/plot-converter.png' },
     ],
+    links: [canonicalLink('/plot-converter')],
     scripts: [
       softwareAppLd({
         name: 'Plot Area Converter',

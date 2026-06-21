@@ -26,7 +26,7 @@ import type { LayoutInput, VastuReport as VastuReportType } from '#/vastu/index'
 import type { FloorPlanAnalysis } from '#/server/analyze-floor-plan'
 import { track } from '#/lib/track'
 import { VASTU_FAQS, VASTU_CONTEXT } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/vastu-checker')({
   component: VastuCheckerPage,
@@ -54,6 +54,7 @@ export const Route = createFileRoute('/vastu-checker')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/vastu-checker.png' },
     ],
+    links: [canonicalLink('/vastu-checker')],
     scripts: [
       softwareAppLd({
         name: 'Vastu Checker for Home',

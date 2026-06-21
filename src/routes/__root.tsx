@@ -44,6 +44,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/landing.png' },
       { name: 'twitter:site', content: '@plotrai' },
+      { name: 'robots', content: 'index, follow' },
     ],
     links: [
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -55,18 +56,23 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       { rel: 'apple-touch-icon', href: '/favicon.svg' },
-      { rel: 'canonical', href: 'https://plotrai.in' },
+      // canonical is set per-route via each route's head() links
     ],
     scripts: [organizationLd(), websiteLd()],
   }),
   shellComponent: RootDocument,
 })
 
+const GA_SCRIPT = import.meta.env.VITE_GA_MEASUREMENT_ID
+  ? `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtag/js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${import.meta.env.VITE_GA_MEASUREMENT_ID}');`
+  : ''
+
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {GA_SCRIPT && <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />}
         <HeadContent />
       </head>
       <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">

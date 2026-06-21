@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Sofa } from 'lucide-react'
 import { ImageToolPage } from '#/components/tools/image-tool-page'
 import { IMAGE_TOOL_FAQS } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/empty-room-stager')({
   component: EmptyRoomStagerPage,
@@ -27,6 +27,7 @@ export const Route = createFileRoute('/empty-room-stager')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/empty-room-stager.png' },
     ],
+    links: [canonicalLink('/empty-room-stager')],
     scripts: [
       softwareAppLd({
         name: 'Empty Room Stager AI',

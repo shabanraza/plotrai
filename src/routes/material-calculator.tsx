@@ -35,7 +35,7 @@ import { Spinner } from '#/components/ui/spinner'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { MATERIAL_CALC_FAQS, MATERIAL_CALC_CONTEXT } from '#/data/tool-seo-content'
-import { softwareAppLd, faqPageLd } from '#/lib/seo'
+import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/material-calculator')({
   component: MaterialCalculatorPage,
@@ -63,6 +63,7 @@ export const Route = createFileRoute('/material-calculator')({
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:image', content: 'https://plotrai.in/og/material-calculator.png' },
     ],
+    links: [canonicalLink('/material-calculator')],
     scripts: [
       softwareAppLd({
         name: 'Construction Material Calculator India',
