@@ -1,9 +1,11 @@
 import { useMemo, useState } from 'react'
+import { Link } from '@tanstack/react-router'
 import { Building2 } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { Badge } from '#/components/ui/badge'
 import {
   Field,
   FieldDescription,
@@ -156,6 +158,34 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
             </TableBody>
           </Table>
         </ToolSection>
+
+        {content.guideLinks && content.guideLinks.length > 0 && (
+          <ToolSection
+            number="03"
+            label="Related search guide"
+            description="Use the guide page for identifiers, due-date intent, receipts, and official portal checks."
+          >
+            <div className="grid gap-3">
+              {content.guideLinks.map((guide) => (
+                <Link
+                  key={guide.href}
+                  to={guide.href}
+                  className="flex flex-col gap-2 rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-3.5 transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="secondary">Guide</Badge>
+                    <span className="text-sm font-semibold text-[var(--foreground)]">
+                      {guide.label}
+                    </span>
+                  </div>
+                  <span className="text-sm leading-relaxed text-[var(--muted-foreground)]">
+                    {guide.description}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </ToolSection>
+        )}
 
         <ToolContext title={`How ${content.authority} property tax works`}>
           {content.context.map((paragraph) => (

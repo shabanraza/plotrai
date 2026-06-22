@@ -314,6 +314,7 @@ const CITY_CARDS = [
   'Mumbai',
   'Delhi',
   'Bangalore',
+  'North Bangalore',
   'Pune',
   'Chennai',
   'Hyderabad',
@@ -321,7 +322,10 @@ const CITY_CARDS = [
   'Ahmedabad',
   'Gurgaon',
   'Noida',
+  'Greater Noida',
+  'Ghaziabad',
   'Jaipur',
+  'Kanpur',
   'Lucknow',
   'Indore',
   'Coimbatore',
@@ -330,7 +334,7 @@ const CITY_CARDS = [
   'Bhopal',
   'Patna',
 ].map((city) => {
-  const slug = city.toLowerCase()
+  const slug = city.toLowerCase().replaceAll(' ', '-')
   return {
     slug: `construction-cost-${slug}`,
     routePath: `/construction-cost/${slug}`,

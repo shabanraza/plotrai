@@ -41,7 +41,7 @@
   <text x="80" y="400" class="sans" font-weight="800" font-size="68" letter-spacing="-2" fill="#18181b">Calculator India 2026</text>
 
   <!-- Subtitle -->
-  <text x="80" y="504" class="sans" font-weight="400" font-size="26" fill="#3f3f46">Both post-Jul-2024 regimes (12.5% without indexation vs 20% with) — recommends the lower tax.</text>
+  <text x="80" y="504" class="sans" font-weight="400" font-size="24" fill="#3f3f46">Both post-Jul-2024 regimes (12.5% no indexation vs 20% with) — picks the lower tax.</text>
 
   <!-- Footer hairline -->
   <line x1="80" y1="540" x2="1120" y2="540" stroke="#e4e4e7" stroke-width="1"/>

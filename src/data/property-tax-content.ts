@@ -20,6 +20,7 @@ export interface PropertyTaxContent {
   cessPercent: number
   lastUpdated: string
   sourceUrls: ReadonlyArray<{ label: string; url: string }>
+  guideLinks?: ReadonlyArray<{ label: string; href: string; description: string }>
   estimateNote: string
   context: ReadonlyArray<string>
   faqs: ReadonlyArray<FaqItem>
@@ -50,6 +51,14 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
         {
           label: 'BBMP residential UAV annexure',
           url: 'https://bbmptax.karnataka.gov.in/documents/annexure_I%20Table-I%20Unit%20Area%20Value%20for%20Residential%20Properties%20.pdf',
+        },
+      ],
+      guideLinks: [
+        {
+          label: 'BBMP property tax 2026-27 guide',
+          href: '/bbmp-property-tax-2026-27',
+          description:
+            'Assessment-year checklist, e-khata notice context, payment and receipt search intent.',
         },
       ],
       estimateNote:
@@ -90,6 +99,14 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
           url: 'https://www.ghmc.gov.in/Propertytax.aspx',
         },
       ],
+      guideLinks: [
+        {
+          label: 'GHMC property tax search by house number',
+          href: '/ghmc-property-tax-search-by-house-number',
+          description:
+            'House number/PTIN lookup guide for dues, receipt, and official payment checks.',
+        },
+      ],
       estimateNote:
         'GHMC residential estimate uses plinth area x monthly rental value x 12 months, then slab tax, depreciation, and library cess. Exact tax depends on official assessment.',
       context: [
@@ -126,6 +143,14 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
         {
           label: 'MCD tentative property tax calculator',
           url: 'https://mcdonline.nic.in/ptrmcd/web/citizen/property/propertyTaxCalculatorSearchByUpic',
+        },
+      ],
+      guideLinks: [
+        {
+          label: 'MCD property tax CA number guide',
+          href: '/mcd-property-tax-ca-number',
+          description:
+            'CA number, UPIC, last-date, receipt, and official Delhi property-tax record guide.',
         },
       ],
       estimateNote:

@@ -40,7 +40,7 @@
   <text x="80" y="360" class="sans" font-weight="800" font-size="68" letter-spacing="-2" fill="#18181b">Empty Room Stager AI</text>
 
   <!-- Subtitle -->
-  <text x="80" y="464" class="sans" font-weight="400" font-size="26" fill="#3f3f46">Virtually furnish empty rooms — perfect for real-estate listings and pre-purchase visualisation.</text>
+  <text x="80" y="464" class="sans" font-weight="400" font-size="24" fill="#3f3f46">Virtually furnish empty rooms — perfect for real-estate listings and pre-purchase…</text>
 
   <!-- Footer hairline -->
   <line x1="80" y1="540" x2="1120" y2="540" stroke="#e4e4e7" stroke-width="1"/>

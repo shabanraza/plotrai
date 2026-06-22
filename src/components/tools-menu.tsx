@@ -129,6 +129,13 @@ const TOOLS: ReadonlyArray<ToolEntry> = [
     status: 'utility',
   },
   {
+    to: '/bbmp-property-tax-2026-27',
+    icon: Building2,
+    title: 'BBMP 2026-27 Guide',
+    description: 'Bangalore due-year checklist and receipt links.',
+    status: 'utility',
+  },
+  {
     to: '/ghmc-property-tax-calculator',
     icon: Building2,
     title: 'GHMC Property Tax',
@@ -136,10 +143,24 @@ const TOOLS: ReadonlyArray<ToolEntry> = [
     status: 'utility',
   },
   {
+    to: '/ghmc-property-tax-search-by-house-number',
+    icon: Building2,
+    title: 'GHMC House Number Search',
+    description: 'Hyderabad property lookup and dues guide.',
+    status: 'utility',
+  },
+  {
     to: '/mcd-property-tax-calculator',
     icon: Building2,
     title: 'MCD Property Tax',
     description: 'Delhi property tax planning estimate.',
+    status: 'utility',
+  },
+  {
+    to: '/mcd-property-tax-ca-number',
+    icon: Building2,
+    title: 'MCD CA Number Guide',
+    description: 'Delhi CA number, UPIC, deadline, receipt guide.',
     status: 'utility',
   },
 ]

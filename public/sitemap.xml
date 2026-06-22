@@ -67,13 +67,31 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://plotrai.in/bbmp-property-tax-2026-27</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://plotrai.in/ghmc-property-tax-calculator</loc>
     <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://plotrai.in/ghmc-property-tax-search-by-house-number</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://plotrai.in/mcd-property-tax-calculator</loc>
+    <lastmod>2026-06-22</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://plotrai.in/mcd-property-tax-ca-number</loc>
     <lastmod>2026-06-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
@@ -270,8 +288,23 @@
     ><priority>0.85</priority></url
   >
   <url
+    ><loc>https://plotrai.in/construction-cost/greater-noida</loc
+    ><lastmod>2026-06-22</lastmod><changefreq>monthly</changefreq
+    ><priority>0.85</priority></url
+  >
+  <url
+    ><loc>https://plotrai.in/construction-cost/ghaziabad</loc
+    ><lastmod>2026-06-22</lastmod><changefreq>monthly</changefreq
+    ><priority>0.85</priority></url
+  >
+  <url
     ><loc>https://plotrai.in/construction-cost/jaipur</loc
     ><lastmod>2026-06-21</lastmod><changefreq>monthly</changefreq
+    ><priority>0.85</priority></url
+  >
+  <url
+    ><loc>https://plotrai.in/construction-cost/kanpur</loc
+    ><lastmod>2026-06-22</lastmod><changefreq>monthly</changefreq
     ><priority>0.85</priority></url
   >
   <url

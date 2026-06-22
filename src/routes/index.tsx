@@ -94,14 +94,29 @@ const LIVE_TOOLS = [
     path: '/bbmp-property-tax-calculator',
   },
   {
+    name: 'BBMP Property Tax 2026-27 Guide',
+    description: 'Bangalore property tax 2026-27 checklist, e-khata notice context, and receipt links.',
+    path: '/bbmp-property-tax-2026-27',
+  },
+  {
     name: 'GHMC Property Tax Calculator',
     description: 'Hyderabad property tax estimate using plinth area, rental value, and cess.',
     path: '/ghmc-property-tax-calculator',
   },
   {
+    name: 'GHMC Property Tax Search by House Number',
+    description: 'Hyderabad property tax lookup guide for house number, PTIN, dues, and receipts.',
+    path: '/ghmc-property-tax-search-by-house-number',
+  },
+  {
     name: 'MCD Property Tax Calculator',
     description: 'Delhi MCD property tax estimate using annual value, slab, and rebate.',
     path: '/mcd-property-tax-calculator',
+  },
+  {
+    name: 'MCD Property Tax CA Number Guide',
+    description: 'Delhi property tax guide for CA number, UPIC, last date, and official receipts.',
+    path: '/mcd-property-tax-ca-number',
   },
 ] as const
 
@@ -356,6 +371,13 @@ function ToolsSection() {
           icon={Building2}
         />
         <ToolCard
+          to="/bbmp-property-tax-2026-27"
+          status="utility"
+          title="BBMP Property Tax 2026-27"
+          description="Bangalore checklist for dues, e-khata notices, receipt, and payment intent."
+          icon={Building2}
+        />
+        <ToolCard
           to="/ghmc-property-tax-calculator"
           status="utility"
           title="GHMC Property Tax Calculator"
@@ -363,10 +385,24 @@ function ToolsSection() {
           icon={Building2}
         />
         <ToolCard
+          to="/ghmc-property-tax-search-by-house-number"
+          status="utility"
+          title="GHMC House Number Search"
+          description="Hyderabad property tax lookup guide for house number, PTIN, dues, and receipt."
+          icon={Building2}
+        />
+        <ToolCard
           to="/mcd-property-tax-calculator"
           status="utility"
           title="MCD Property Tax Calculator"
           description="Delhi property tax estimate with annual value and rebate."
+          icon={Building2}
+        />
+        <ToolCard
+          to="/mcd-property-tax-ca-number"
+          status="utility"
+          title="MCD CA Number Guide"
+          description="Delhi CA number, UPIC, last date, and receipt guide with calculator link."
           icon={Building2}
         />
       </div>

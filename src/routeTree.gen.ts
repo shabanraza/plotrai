@@ -17,9 +17,11 @@ import { Route as PropertyCapitalGainsCalculatorRouteImport } from './routes/pro
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PlotConverterRouteImport } from './routes/plot-converter'
 import { Route as McdPropertyTaxCalculatorRouteImport } from './routes/mcd-property-tax-calculator'
+import { Route as McdPropertyTaxCaNumberRouteImport } from './routes/mcd-property-tax-ca-number'
 import { Route as MaterialCalculatorRouteImport } from './routes/material-calculator'
 import { Route as InteriorRestyleRouteImport } from './routes/interior-restyle'
 import { Route as IndexationCalculatorRouteImport } from './routes/indexation-calculator'
+import { Route as GhmcPropertyTaxSearchByHouseNumberRouteImport } from './routes/ghmc-property-tax-search-by-house-number'
 import { Route as GhmcPropertyTaxCalculatorRouteImport } from './routes/ghmc-property-tax-calculator'
 import { Route as FloorPlan3dRouteImport } from './routes/floor-plan-3d'
 import { Route as EmptyRoomStagerRouteImport } from './routes/empty-room-stager'
@@ -29,6 +31,7 @@ import { Route as ConstructionCostCalculatorRouteImport } from './routes/constru
 import { Route as ConcreteCalculatorRouteImport } from './routes/concrete-calculator'
 import { Route as CementSandAggregateCalculatorRouteImport } from './routes/cement-sand-aggregate-calculator'
 import { Route as BbmpPropertyTaxCalculatorRouteImport } from './routes/bbmp-property-tax-calculator'
+import { Route as BbmpPropertyTax202627RouteImport } from './routes/bbmp-property-tax-2026-27'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as StampDutyStateRouteImport } from './routes/stamp-duty/$state'
@@ -77,6 +80,11 @@ const McdPropertyTaxCalculatorRoute =
     path: '/mcd-property-tax-calculator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const McdPropertyTaxCaNumberRoute = McdPropertyTaxCaNumberRouteImport.update({
+  id: '/mcd-property-tax-ca-number',
+  path: '/mcd-property-tax-ca-number',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MaterialCalculatorRoute = MaterialCalculatorRouteImport.update({
   id: '/material-calculator',
   path: '/material-calculator',
@@ -92,6 +100,12 @@ const IndexationCalculatorRoute = IndexationCalculatorRouteImport.update({
   path: '/indexation-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GhmcPropertyTaxSearchByHouseNumberRoute =
+  GhmcPropertyTaxSearchByHouseNumberRouteImport.update({
+    id: '/ghmc-property-tax-search-by-house-number',
+    path: '/ghmc-property-tax-search-by-house-number',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GhmcPropertyTaxCalculatorRoute =
   GhmcPropertyTaxCalculatorRouteImport.update({
     id: '/ghmc-property-tax-calculator',
@@ -141,6 +155,11 @@ const BbmpPropertyTaxCalculatorRoute =
     path: '/bbmp-property-tax-calculator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BbmpPropertyTax202627Route = BbmpPropertyTax202627RouteImport.update({
+  id: '/bbmp-property-tax-2026-27',
+  path: '/bbmp-property-tax-2026-27',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -170,6 +189,7 @@ const ApiChatRoute = ApiChatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
@@ -179,9 +199,11 @@ export interface FileRoutesByFullPath {
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
+  '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
   '/material-calculator': typeof MaterialCalculatorRoute
+  '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -197,6 +219,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
@@ -206,9 +229,11 @@ export interface FileRoutesByTo {
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
+  '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
   '/material-calculator': typeof MaterialCalculatorRoute
+  '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -225,6 +250,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
@@ -234,9 +260,11 @@ export interface FileRoutesById {
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
+  '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
   '/material-calculator': typeof MaterialCalculatorRoute
+  '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -254,6 +282,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/cement-sand-aggregate-calculator'
     | '/concrete-calculator'
@@ -263,9 +292,11 @@ export interface FileRouteTypes {
     | '/empty-room-stager'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
+    | '/ghmc-property-tax-search-by-house-number'
     | '/indexation-calculator'
     | '/interior-restyle'
     | '/material-calculator'
+    | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
     | '/plot-converter'
     | '/privacy-policy'
@@ -281,6 +312,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/cement-sand-aggregate-calculator'
     | '/concrete-calculator'
@@ -290,9 +322,11 @@ export interface FileRouteTypes {
     | '/empty-room-stager'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
+    | '/ghmc-property-tax-search-by-house-number'
     | '/indexation-calculator'
     | '/interior-restyle'
     | '/material-calculator'
+    | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
     | '/plot-converter'
     | '/privacy-policy'
@@ -308,6 +342,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/cement-sand-aggregate-calculator'
     | '/concrete-calculator'
@@ -317,9 +352,11 @@ export interface FileRouteTypes {
     | '/empty-room-stager'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
+    | '/ghmc-property-tax-search-by-house-number'
     | '/indexation-calculator'
     | '/interior-restyle'
     | '/material-calculator'
+    | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
     | '/plot-converter'
     | '/privacy-policy'
@@ -336,6 +373,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BbmpPropertyTax202627Route: typeof BbmpPropertyTax202627Route
   BbmpPropertyTaxCalculatorRoute: typeof BbmpPropertyTaxCalculatorRoute
   CementSandAggregateCalculatorRoute: typeof CementSandAggregateCalculatorRoute
   ConcreteCalculatorRoute: typeof ConcreteCalculatorRoute
@@ -345,9 +383,11 @@ export interface RootRouteChildren {
   EmptyRoomStagerRoute: typeof EmptyRoomStagerRoute
   FloorPlan3dRoute: typeof FloorPlan3dRoute
   GhmcPropertyTaxCalculatorRoute: typeof GhmcPropertyTaxCalculatorRoute
+  GhmcPropertyTaxSearchByHouseNumberRoute: typeof GhmcPropertyTaxSearchByHouseNumberRoute
   IndexationCalculatorRoute: typeof IndexationCalculatorRoute
   InteriorRestyleRoute: typeof InteriorRestyleRoute
   MaterialCalculatorRoute: typeof MaterialCalculatorRoute
+  McdPropertyTaxCaNumberRoute: typeof McdPropertyTaxCaNumberRoute
   McdPropertyTaxCalculatorRoute: typeof McdPropertyTaxCalculatorRoute
   PlotConverterRoute: typeof PlotConverterRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -419,6 +459,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof McdPropertyTaxCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcd-property-tax-ca-number': {
+      id: '/mcd-property-tax-ca-number'
+      path: '/mcd-property-tax-ca-number'
+      fullPath: '/mcd-property-tax-ca-number'
+      preLoaderRoute: typeof McdPropertyTaxCaNumberRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/material-calculator': {
       id: '/material-calculator'
       path: '/material-calculator'
@@ -438,6 +485,13 @@ declare module '@tanstack/react-router' {
       path: '/indexation-calculator'
       fullPath: '/indexation-calculator'
       preLoaderRoute: typeof IndexationCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ghmc-property-tax-search-by-house-number': {
+      id: '/ghmc-property-tax-search-by-house-number'
+      path: '/ghmc-property-tax-search-by-house-number'
+      fullPath: '/ghmc-property-tax-search-by-house-number'
+      preLoaderRoute: typeof GhmcPropertyTaxSearchByHouseNumberRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ghmc-property-tax-calculator': {
@@ -503,6 +557,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BbmpPropertyTaxCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bbmp-property-tax-2026-27': {
+      id: '/bbmp-property-tax-2026-27'
+      path: '/bbmp-property-tax-2026-27'
+      fullPath: '/bbmp-property-tax-2026-27'
+      preLoaderRoute: typeof BbmpPropertyTax202627RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -544,6 +605,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BbmpPropertyTax202627Route: BbmpPropertyTax202627Route,
   BbmpPropertyTaxCalculatorRoute: BbmpPropertyTaxCalculatorRoute,
   CementSandAggregateCalculatorRoute: CementSandAggregateCalculatorRoute,
   ConcreteCalculatorRoute: ConcreteCalculatorRoute,
@@ -553,9 +615,12 @@ const rootRouteChildren: RootRouteChildren = {
   EmptyRoomStagerRoute: EmptyRoomStagerRoute,
   FloorPlan3dRoute: FloorPlan3dRoute,
   GhmcPropertyTaxCalculatorRoute: GhmcPropertyTaxCalculatorRoute,
+  GhmcPropertyTaxSearchByHouseNumberRoute:
+    GhmcPropertyTaxSearchByHouseNumberRoute,
   IndexationCalculatorRoute: IndexationCalculatorRoute,
   InteriorRestyleRoute: InteriorRestyleRoute,
   MaterialCalculatorRoute: MaterialCalculatorRoute,
+  McdPropertyTaxCaNumberRoute: McdPropertyTaxCaNumberRoute,
   McdPropertyTaxCalculatorRoute: McdPropertyTaxCalculatorRoute,
   PlotConverterRoute: PlotConverterRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,

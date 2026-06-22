@@ -110,12 +110,39 @@ export const CITY_CONTENT: ReadonlyArray<CityContent> = [
     ],
   },
   {
+    slug: 'greater-noida',
+    city: 'Greater Noida',
+    state: 'Uttar Pradesh',
+    extraContext: [
+      'Greater Noida independent-house construction typically prices below central Noida because plot access, logistics, and contractor availability are easier in developing sectors.',
+      'For Greater Noida West and Yamuna Expressway plots, budget separately for soil testing, boundary wall, borewell or water connection, and local authority compliance before comparing per-sq-ft quotes.',
+    ],
+  },
+  {
+    slug: 'ghaziabad',
+    city: 'Ghaziabad',
+    state: 'Uttar Pradesh',
+    extraContext: [
+      'Ghaziabad construction demand clusters around Indirapuram, Raj Nagar Extension, Vaishali, Vasundhara, and NH-24/Delhi-Meerut corridor plots. Rates are usually below Noida but above smaller UP cities.',
+      'Check GDA or local municipal approval, road width, parking, and drainage conditions before finalizing a quote; these local constraints can move the final budget more than the base material rate.',
+    ],
+  },
+  {
     slug: 'jaipur',
     city: 'Jaipur',
     state: 'Rajasthan',
     extraContext: [
       'Jaipur construction is among India\'s most cost-efficient at ₹1850/sq ft for standard finish, driven by abundant Makrana marble, Kota stone, and skilled local stonemasons.',
       'JDA (Jaipur Development Authority) approval timelines are moderate — budget 4-6 months for sanction approval before commencement.',
+    ],
+  },
+  {
+    slug: 'kanpur',
+    city: 'Kanpur',
+    state: 'Uttar Pradesh',
+    extraContext: [
+      'Kanpur has a cost advantage from the Kanpur-Lucknow industrial corridor, with competitive labour and mature cement, brick, steel, and transport supply chains.',
+      'Older city plots can require extra demolition, debris removal, narrow-lane logistics, or foundation strengthening. Add a contingency before comparing Kanpur quotes with open-layout Lucknow plots.',
     ],
   },
   {
