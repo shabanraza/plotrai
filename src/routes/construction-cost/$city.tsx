@@ -41,7 +41,7 @@ export const Route = createFileRoute('/construction-cost/$city')({
     if (!r) return {}
     const faqs = buildCityFaqs(content)
 
-    const title = `${content.city} Construction Cost 2026 — ₹${r.standard.toLocaleString('en-IN')}/sq ft Standard · Plotr Ai`
+    const title = `${content.city} House Construction Cost 2026 — ₹${r.standard.toLocaleString('en-IN')}/sq ft · Plotr Ai`
     const description = `${content.city} house construction cost 2026: ₹${r.basic}/sq ft basic, ₹${r.standard}/sq ft standard, ₹${r.premium}/sq ft premium, ₹${r.luxury}/sq ft luxury. With 1000/1500/2000 sq ft sample budgets.`
 
     const ogImage = `https://plotrai.in/og/construction-cost-${content.slug}.png`
@@ -50,7 +50,7 @@ export const Route = createFileRoute('/construction-cost/$city')({
       meta: [
         { title },
         { name: 'description', content: description },
-        { property: 'og:title', content: `${content.city} Construction Cost 2026` },
+        { property: 'og:title', content: `${content.city} House Construction Cost 2026` },
         { property: 'og:description', content: description },
         { property: 'og:image', content: ogImage },
         { property: 'og:image:width', content: '1200' },
@@ -68,7 +68,7 @@ export const Route = createFileRoute('/construction-cost/$city')({
       ],
       scripts: [
         softwareAppLd({
-          name: `${content.city} Construction Cost Calculator`,
+          name: `${content.city} House Construction Cost Calculator`,
           description: `Per-sq-ft house construction cost in ${content.city} across basic, standard, premium, and luxury finish tiers.`,
           path: `/construction-cost/${content.slug}`,
           category: 'FinanceApplication',
@@ -98,7 +98,7 @@ function CityConstructionPage() {
         { label: content.city },
       ]}
       eyebrow={{ icon: Hammer, label: `Construction Cost · ${content.city}` }}
-      title={`${content.city} Construction Cost 2026`}
+      title={`${content.city} House Construction Cost 2026`}
       tagline={`House construction cost per sq ft in ${content.city}, ${content.state}, across all finish tiers — with sample budgets and stage-wise breakdown.`}
       variant="single-column"
       footnote={`Rates last refreshed ${CONSTRUCTION_LAST_UPDATED}. Excludes land cost, government approvals, and contractor margin (typically 10-15%). For binding quotes, get site-specific estimates from local contractors.`}

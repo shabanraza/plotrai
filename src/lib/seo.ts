@@ -74,6 +74,30 @@ export function websiteLd(): JsonLdScript {
   return { type: 'application/ld+json', children: JSON.stringify(schema) }
 }
 
+export function itemListLd(
+  name: string,
+  items: ReadonlyArray<Pick<ToolSchemaInput, 'name' | 'description' | 'path'>>,
+): JsonLdScript {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name,
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'WebApplication',
+        name: item.name,
+        description: item.description,
+        url: SITE_URL + item.path,
+        applicationCategory: 'UtilitiesApplication',
+        operatingSystem: 'Web',
+      },
+    })),
+  }
+  return { type: 'application/ld+json', children: JSON.stringify(schema) }
+}
+
 /** Returns a canonical link object for TanStack Start head() */
 export function canonicalLink(path: string) {
   return { rel: 'canonical' as const, href: `${SITE_URL}${path}` }

@@ -2,9 +2,11 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  useLocation,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { useEffect, useRef } from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import { Toaster } from '../components/ui/sonner'
@@ -64,7 +66,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 })
 
 const GA_SCRIPT = import.meta.env.VITE_GA_MEASUREMENT_ID
-  ? `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtag/js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${import.meta.env.VITE_GA_MEASUREMENT_ID}');`
+  ? `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${import.meta.env.VITE_GA_MEASUREMENT_ID}',{send_page_view:false});`
   : ''
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -72,13 +74,20 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
+        {import.meta.env.VITE_GA_MEASUREMENT_ID && (
+          <script
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GA_MEASUREMENT_ID}`}
+          />
+        )}
         {GA_SCRIPT && <script dangerouslySetInnerHTML={{ __html: GA_SCRIPT }} />}
         <HeadContent />
       </head>
-      <body className="font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
+      <body className="flex min-h-dvh flex-col font-sans antialiased [overflow-wrap:anywhere] selection:bg-[rgba(79,184,178,0.24)]">
         <PostHogProvider>
           <Header />
-          {children}
+          <GoogleAnalyticsPageviews />
+          <div className="flex-1">{children}</div>
           <Footer />
           <ChatPanel />
           <Toaster position="top-right" richColors closeButton />
@@ -99,4 +108,33 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </body>
     </html>
   )
+}
+
+function GoogleAnalyticsPageviews() {
+  const location = useLocation()
+  const lastPath = useRef<string | null>(null)
+
+  useEffect(() => {
+    if (!import.meta.env.VITE_GA_MEASUREMENT_ID) return
+
+    const path = `${location.pathname}${location.searchStr}${location.hash}`
+    if (lastPath.current === path) return
+    lastPath.current = path
+
+    const win = window as Window & {
+      gtag?: (
+        command: 'event',
+        eventName: 'page_view',
+        params: Record<string, string>,
+      ) => void
+    }
+
+    win.gtag?.('event', 'page_view', {
+      page_path: path,
+      page_location: window.location.href,
+      page_title: document.title,
+    })
+  }, [location.hash, location.pathname, location.searchStr])
+
+  return null
 }

@@ -38,6 +38,15 @@ export const CITY_CONTENT: ReadonlyArray<CityContent> = [
     ],
   },
   {
+    slug: 'north-bangalore',
+    city: 'North Bangalore',
+    state: 'Karnataka',
+    extraContext: [
+      'North Bangalore demand clusters around Yelahanka, Hebbal outskirts, Hennur, Thanisandra, Jakkur, Devanahalli, and the airport corridor. Independent-house budgets here often track slightly below central Bangalore because site access and contractor logistics are easier outside the core.',
+      'For airport-belt and Devanahalli plots, check soil, borewell depth, road width, and approval jurisdiction carefully. Those site conditions can move the final quote more than the base per-sq-ft rate.',
+    ],
+  },
+  {
     slug: 'pune',
     city: 'Pune',
     state: 'Maharashtra',
@@ -188,7 +197,7 @@ export function buildCityFaqs(content: CityContent): ReadonlyArray<FaqItem> {
   const cost1500 = r.standard * 1500
   const cost2000 = r.standard * 2000
 
-  return [
+  const faqs: Array<FaqItem> = [
     {
       q: `${content.city} mein construction cost per sq ft kitni hai 2026 mein?`,
       a: `${content.city} mein 2026 ke standard quality construction ka rate ₹${r.standard.toLocaleString('en-IN')}/sq ft hai. Basic finish ₹${r.basic.toLocaleString('en-IN')}/sq ft, premium ₹${r.premium.toLocaleString('en-IN')}/sq ft, aur luxury ₹${r.luxury.toLocaleString('en-IN')}/sq ft ke rates apply hote hain. Yeh rates ${content.state} ke local labour aur material costs reflect karte hain.`,
@@ -214,4 +223,13 @@ export function buildCityFaqs(content: CityContent): ReadonlyArray<FaqItem> {
       a: `${content.city} ke quote mein included: civil structure (foundation, slab, columns, walls), basic electrical/plumbing rough-in, doors and windows, basic flooring, and labour. Excluded: modular kitchen, false ceiling, AC, premium fittings, landscaping, compound wall, government approval fees (typically ₹50-200/sq ft additional in ${content.city}).`,
     },
   ]
+
+  if (content.slug === 'bangalore' || content.slug === 'north-bangalore') {
+    faqs.splice(1, 0, {
+      q: 'North Bangalore mein house construction cost kitni hai?',
+      a: `North Bangalore areas such as Yelahanka, Hebbal outskirts, Devanahalli, Hennur, and Thanisandra typically cost around ₹${r.standard.toLocaleString('en-IN')}/sq ft for standard finish, ₹${r.basic.toLocaleString('en-IN')}/sq ft basic, and ₹${r.premium.toLocaleString('en-IN')}/sq ft premium. Sites farther from central BBMP zones can be cheaper, but borewell, soil, and approval costs vary by layout.`,
+    })
+  }
+
+  return faqs
 }

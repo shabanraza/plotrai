@@ -5,11 +5,21 @@
   "compatibility_flags": ["nodejs_compat"],
   "main": "@tanstack/react-start/server-entry",
   "observability": { "enabled": true },
-  "vars": { "PUBLIC_APP_NAME": "Plotr Ai", "VITE_GA_MEASUREMENT_ID": "G-QMLY268P0K" },
+  "vars": {
+    "PUBLIC_APP_NAME": "Plotr Ai",
+    "VITE_GA_MEASUREMENT_ID": "G-QMLY268P0K",
+  },
   "ai": { "binding": "AI" },
   "analytics_engine_datasets": [
-    { "binding": "PLOTRAI_EVENTS", "dataset": "plotrai_events" }
-  ]
+    { "binding": "PLOTRAI_EVENTS", "dataset": "plotrai_events" },
+  ],
+  "d1_databases": [
+    {
+      "binding": "PLOTRAI_DB",
+      "database_name": "plotrai",
+      "database_id": "3a09bb7e-6c2f-4a3d-b6c0-48b026260456",
+    },
+  ],
   // ⚠️ vite build MUST run before wrangler deploy so the @cloudflare/vite-plugin
   // can emit `.wrangler/deploy/config.json` → `dist/server/wrangler.json` with
   // the resolved entry. Two ways this happens automatically:

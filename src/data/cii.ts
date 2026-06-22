@@ -1,7 +1,7 @@
 /**
  * Cost Inflation Index (CII) for India, financial-year wise.
  * Source: Income Tax Department notifications.
- * 2025-26 is estimated (will be notified by CBDT in mid-2025).
+ * FY 2025-26 CII 376 was notified by CBDT Notification No. 70/2025 dated 2025-07-01.
  */
 export const CII: Record<string, number> = {
   '2001-02': 100,
@@ -32,3 +32,9 @@ export const CII: Record<string, number> = {
 }
 
 export const FY_LIST = Object.keys(CII)
+
+export const CII_LAST_UPDATED = '2026-06-22'
+
+export const CII_SOURCE_URLS = [
+  'https://www.incometaxindia.gov.in/cost-inflation-index',
+] as const

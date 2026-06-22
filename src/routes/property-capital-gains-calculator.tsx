@@ -19,18 +19,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
-import { CII, FY_LIST } from '#/data/cii'
+import { CII, CII_LAST_UPDATED, FY_LIST } from '#/data/cii'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
-import { CAPITAL_GAINS_FAQS, CAPITAL_GAINS_CONTEXT } from '#/data/tool-seo-content'
+import {
+  CAPITAL_GAINS_FAQS,
+  CAPITAL_GAINS_CONTEXT,
+} from '#/data/tool-seo-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
+import { calculatePropertyCapitalGains } from '#/lib/indexation'
 
 export const Route = createFileRoute('/property-capital-gains-calculator')({
   component: CapitalGainsCalculatorPage,
   head: () => ({
     meta: [
       {
-        title: 'Property Capital Gains Calculator India 2026 — LTCG / Indexation · Plotr Ai',
+        title:
+          'Property Capital Gains Calculator India 2026 — LTCG / Indexation · Plotr Ai',
       },
       {
         name: 'description',
@@ -39,20 +44,30 @@ export const Route = createFileRoute('/property-capital-gains-calculator')({
       },
       {
         property: 'og:title',
-        content: 'Property Capital Gains Calculator (post-Jul-2024 dual regime)',
+        content:
+          'Property Capital Gains Calculator (post-Jul-2024 dual regime)',
       },
       {
         property: 'og:description',
         content:
           'Long-term capital gains tax on Indian property — both regimes computed in plain English.',
       },
-      { property: 'og:image', content: 'https://plotrai.in/og/property-capital-gains-calculator.png' },
+      {
+        property: 'og:image',
+        content: 'https://plotrai.in/og/property-capital-gains-calculator.png',
+      },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
-      { property: 'og:url', content: 'https://plotrai.in/property-capital-gains-calculator' },
+      {
+        property: 'og:url',
+        content: 'https://plotrai.in/property-capital-gains-calculator',
+      },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: 'https://plotrai.in/og/property-capital-gains-calculator.png' },
+      {
+        name: 'twitter:image',
+        content: 'https://plotrai.in/og/property-capital-gains-calculator.png',
+      },
     ],
     links: [canonicalLink('/property-capital-gains-calculator')],
     scripts: [
@@ -80,57 +95,17 @@ function CapitalGainsCalculatorPage() {
   const purchasePrice = (parseFloat(purchasePriceLakh) || 0) * 100000
   const salePrice = (parseFloat(salePriceLakh) || 0) * 100000
 
-  const result = useMemo(() => {
-    const purchaseCII = CII[purchaseFy] ?? 100
-    const saleCII = CII[saleFy] ?? purchaseCII
-    const purchaseYearStart = parseInt(purchaseFy.split('-')[0]!, 10)
-    const saleYearStart = parseInt(saleFy.split('-')[0]!, 10)
-    const holdingYears = saleYearStart - purchaseYearStart
-    const isLongTerm = holdingYears >= 2
-
-    // Old regime eligibility — properties acquired before FY 2024-25 mid-year (Jul 2024)
-    // Simplified: if purchase FY is ≤ 2023-24 the old regime is fully available.
-    const oldRegimeAvailable = purchaseYearStart < 2024
-
-    const indexedCost = purchasePrice * (saleCII / purchaseCII)
-    const indexedGain = Math.max(salePrice - indexedCost, 0)
-    const flatGain = Math.max(salePrice - purchasePrice, 0)
-
-    // Long-term taxes
-    const ltcgIndexed = oldRegimeAvailable ? indexedGain * 0.2 : null
-    const ltcgFlat = flatGain * 0.125
-
-    // Short-term tax (slab rate)
-    const stcgRate = (parseFloat(slabRate) || 0) / 100
-    const stcg = flatGain * stcgRate
-
-    let recommended: 'flat' | 'indexed' | 'short' = 'flat'
-    let recommendedTax = ltcgFlat
-    if (!isLongTerm) {
-      recommended = 'short'
-      recommendedTax = stcg
-    } else if (oldRegimeAvailable && ltcgIndexed !== null && ltcgIndexed < ltcgFlat) {
-      recommended = 'indexed'
-      recommendedTax = ltcgIndexed
-    }
-
-    return {
-      purchaseCII,
-      saleCII,
-      holdingYears,
-      isLongTerm,
-      oldRegimeAvailable,
-      indexedCost,
-      indexedGain,
-      flatGain,
-      ltcgIndexed,
-      ltcgFlat,
-      stcg,
-      stcgRate,
-      recommended,
-      recommendedTax,
-    }
-  }, [purchaseFy, saleFy, purchasePrice, salePrice, slabRate])
+  const result = useMemo(
+    () =>
+      calculatePropertyCapitalGains({
+        purchaseFy,
+        saleFy,
+        purchasePrice,
+        salePrice,
+        slabRatePercent: parseFloat(slabRate) || 0,
+      }),
+    [purchaseFy, purchasePrice, saleFy, salePrice, slabRate],
+  )
 
   return (
     <ToolPageShell
@@ -142,7 +117,7 @@ function CapitalGainsCalculatorPage() {
       title="Property Capital Gains Calculator"
       tagline="Computes both post-Jul-2024 regimes — 12.5% without indexation vs 20% with indexation — and tells you which one wins. Plus Section 54 / 54F / 54EC shortcuts."
       variant="single-column"
-      footnote="The dual regime applies only to properties acquired before 2024-07-23. For properties acquired on/after that date, the new 12.5% no-indexation rate is mandatory. CII for 2025-26 is estimated and will be notified by CBDT. For final filing, consult a CA — this is a planning tool."
+      footnote={`CII values last checked ${CII_LAST_UPDATED}. The dual regime applies only to properties acquired before 2024-07-23. For properties acquired on/after that date, the new 12.5% no-indexation rate is mandatory. For final filing, consult a CA; this is a planning tool.`}
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Purchase details" rule={false}>
@@ -242,7 +217,11 @@ function CapitalGainsCalculatorPage() {
         </ToolSection>
 
         {!result.isLongTerm && (
-          <ToolSection number="03" label="Slab rate (short-term)" description="Held under 2 years — gain is added to income and taxed at your slab rate.">
+          <ToolSection
+            number="03"
+            label="Slab rate (short-term)"
+            description="Held under 2 years — gain is added to income and taxed at your slab rate."
+          >
             <div className="flex flex-col gap-2 sm:max-w-xs">
               <Label htmlFor="slab">Your income tax slab</Label>
               <Select value={slabRate} onValueChange={setSlabRate}>
@@ -281,7 +260,11 @@ function CapitalGainsCalculatorPage() {
                     { k: 'Sale price', v: `₹${formatINR(salePrice)}` },
                     { k: 'Purchase price', v: `₹${formatINR(purchasePrice)}` },
                     { k: 'Gain', v: `₹${formatINR(result.flatGain)}` },
-                    { k: 'Tax (12.5%)', v: `₹${formatINR(result.ltcgFlat)}`, em: true },
+                    {
+                      k: 'Tax (12.5%)',
+                      v: `₹${formatINR(result.ltcgFlat)}`,
+                      em: true,
+                    },
                   ]}
                 />
                 <RegimeBlock
@@ -292,13 +275,19 @@ function CapitalGainsCalculatorPage() {
                   rows={[
                     { k: 'Sale price', v: `₹${formatINR(salePrice)}` },
                     {
-                      k: `Indexed cost (CII ${result.saleCII}/${result.purchaseCII})`,
+                      k: `Indexed cost (CII ${result.saleCii}/${result.purchaseCii})`,
                       v: `₹${formatINR(result.indexedCost)}`,
                     },
-                    { k: 'Indexed gain', v: `₹${formatINR(result.indexedGain)}` },
+                    {
+                      k: 'Indexed gain',
+                      v: `₹${formatINR(result.indexedGain)}`,
+                    },
                     {
                       k: 'Tax (20%)',
-                      v: result.ltcgIndexed === null ? '—' : `₹${formatINR(result.ltcgIndexed)}`,
+                      v:
+                        result.ltcgIndexed === null
+                          ? '—'
+                          : `₹${formatINR(result.ltcgIndexed)}`,
                       em: true,
                     },
                   ]}
@@ -326,9 +315,12 @@ function CapitalGainsCalculatorPage() {
                   Recommended
                 </p>
                 <p className="mt-1 text-base font-semibold text-[var(--foreground)]">
-                  {result.recommended === 'flat' && 'New regime — 12.5% on flat gain'}
-                  {result.recommended === 'indexed' && 'Old regime — 20% on indexed gain'}
-                  {result.recommended === 'short' && `Slab rate — ${result.stcgRate * 100}% on flat gain`}
+                  {result.recommended === 'flat' &&
+                    'New regime — 12.5% on flat gain'}
+                  {result.recommended === 'indexed' &&
+                    'Old regime — 20% on indexed gain'}
+                  {result.recommended === 'short' &&
+                    `Slab rate — ${result.stcgRate * 100}% on flat gain`}
                 </p>
                 <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">
                   Tax payable: ₹{formatINR(result.recommendedTax)}
@@ -379,7 +371,13 @@ interface RegimeBlockProps {
   rows: ReadonlyArray<{ k: string; v: string; em?: boolean }>
 }
 
-function RegimeBlock({ label, highlight, disabled, disabledNote, rows }: RegimeBlockProps) {
+function RegimeBlock({
+  label,
+  highlight,
+  disabled,
+  disabledNote,
+  rows,
+}: RegimeBlockProps) {
   return (
     <div
       className={`flex flex-col gap-3 rounded-md border p-5 ${
@@ -402,7 +400,9 @@ function RegimeBlock({ label, highlight, disabled, disabledNote, rows }: RegimeB
             key={r.k}
             className={`flex items-baseline justify-between gap-3 ${r.em ? 'mt-2 border-t border-[var(--border)] pt-2 font-semibold' : ''}`}
           >
-            <span className="text-sm text-[var(--muted-foreground)]">{r.k}</span>
+            <span className="text-sm text-[var(--muted-foreground)]">
+              {r.k}
+            </span>
             <span
               className={`tabular-nums ${r.em ? 'text-base text-[var(--accent-teal)]' : 'text-sm text-[var(--foreground)]'}`}
             >
@@ -415,11 +415,19 @@ function RegimeBlock({ label, highlight, disabled, disabledNote, rows }: RegimeB
   )
 }
 
-function ExemptionCard({ section, detail }: { section: string; detail: string }) {
+function ExemptionCard({
+  section,
+  detail,
+}: {
+  section: string
+  detail: string
+}) {
   return (
     <div className="flex flex-col gap-2 rounded-md border border-[var(--border)] p-4">
       <p className="font-semibold text-[var(--foreground)]">{section}</p>
-      <p className="text-sm leading-relaxed text-[var(--muted-foreground)]">{detail}</p>
+      <p className="text-sm leading-relaxed text-[var(--muted-foreground)]">
+        {detail}
+      </p>
     </div>
   )
 }

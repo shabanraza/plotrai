@@ -26,6 +26,14 @@ import {
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { PLOT_CONVERTER_FAQS } from '#/data/tool-seo-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
+import {
+  LAND_UNIT_LAST_UPDATED,
+  LAND_UNITS,
+  convertLandArea,
+  type LandRegion,
+  type UnitDef,
+  type UnitKey,
+} from '#/lib/plot-units'
 
 export const Route = createFileRoute('/plot-converter')({
   component: PlotConverterPage,
@@ -45,13 +53,19 @@ export const Route = createFileRoute('/plot-converter')({
         content:
           'Convert between Indian land units — gaj, bigha, cent, acre — with region-wise standards.',
       },
-      { property: 'og:image', content: 'https://plotrai.in/og/plot-converter.png' },
+      {
+        property: 'og:image',
+        content: 'https://plotrai.in/og/plot-converter.png',
+      },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
       { property: 'og:url', content: 'https://plotrai.in/plot-converter' },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: 'https://plotrai.in/og/plot-converter.png' },
+      {
+        name: 'twitter:image',
+        content: 'https://plotrai.in/og/plot-converter.png',
+      },
     ],
     links: [canonicalLink('/plot-converter')],
     scripts: [
@@ -66,36 +80,7 @@ export const Route = createFileRoute('/plot-converter')({
   }),
 })
 
-type Region = 'pan-india' | 'north' | 'south' | 'east' | 'west'
-
-interface UnitDef {
-  label: string
-  toSqft: number
-  region: Region
-  note?: string
-}
-
-const UNITS: Record<string, UnitDef> = {
-  sqft: { label: 'Square Feet', toSqft: 1, region: 'pan-india' },
-  sqm: { label: 'Square Meters', toSqft: 10.7639, region: 'pan-india' },
-  sqyd: { label: 'Square Yards (Gaj)', toSqft: 9, region: 'pan-india' },
-  acre: { label: 'Acre', toSqft: 43560, region: 'pan-india' },
-  hectare: { label: 'Hectare', toSqft: 107639, region: 'pan-india' },
-  bigha_uttar: { label: 'Bigha (UP / Bihar)', toSqft: 27000, region: 'north' },
-  marla: { label: 'Marla', toSqft: 272.25, region: 'north', note: 'Punjab / Haryana' },
-  kanal: { label: 'Kanal', toSqft: 5445, region: 'north', note: 'Punjab / Haryana / J&K' },
-  gunta: { label: 'Gunta', toSqft: 1089, region: 'south', note: 'Karnataka / Maharashtra / AP' },
-  cent: { label: 'Cent', toSqft: 435.6, region: 'south', note: 'Tamil Nadu / Kerala' },
-  ground: { label: 'Ground', toSqft: 2400, region: 'south', note: 'Tamil Nadu' },
-  ankanam: { label: 'Ankanam', toSqft: 72, region: 'south', note: 'Andhra / Telangana' },
-  bigha_west_bengal: { label: 'Bigha (West Bengal)', toSqft: 14400, region: 'east' },
-  katha_bihar: { label: 'Katha (Bihar)', toSqft: 1361.25, region: 'east' },
-  bigha_rajasthan: { label: 'Bigha Pucca (Rajasthan)', toSqft: 27225, region: 'west' },
-}
-
-type UnitKey = keyof typeof UNITS
-
-const REGION_LABELS: Record<Region | 'all', string> = {
+const REGION_LABELS: Record<LandRegion | 'all', string> = {
   all: 'All',
   'pan-india': 'Pan-India',
   north: 'North',
@@ -104,7 +89,7 @@ const REGION_LABELS: Record<Region | 'all', string> = {
   west: 'West',
 }
 
-const REGION_DOTS: Record<Region, string> = {
+const REGION_DOTS: Record<LandRegion, string> = {
   'pan-india': 'bg-[var(--accent-teal)]',
   north: 'bg-amber-500',
   south: 'bg-emerald-500',
@@ -115,26 +100,36 @@ const REGION_DOTS: Record<Region, string> = {
 function PlotConverterPage() {
   const [value, setValue] = useState('1')
   const [unit, setUnit] = useState<UnitKey>('gunta')
-  const [region, setRegion] = useState<Region | 'all'>('all')
+  const [region, setRegion] = useState<LandRegion | 'all'>('all')
 
   const numValue = parseFloat(value)
   const sqft = useMemo(() => {
     if (Number.isNaN(numValue) || numValue < 0) return 0
-    return numValue * UNITS[unit].toSqft
+    return convertLandArea(numValue, unit, 'sqft')
   }, [numValue, unit])
 
   const filtered = useMemo(() => {
-    return (Object.entries(UNITS) as Array<[UnitKey, UnitDef]>)
+    return (Object.entries(LAND_UNITS) as Array<[UnitKey, UnitDef]>)
       .filter(([k]) => k !== unit)
       .filter(([, def]) => region === 'all' || def.region === region)
-      .map(([k, def]) => ({ key: k, def, value: sqft / def.toSqft }))
+      .map(([k, def]) => ({
+        key: k,
+        def,
+        value: convertLandArea(numValue, unit, k),
+      }))
   }, [sqft, unit, region])
 
   const groupedUnits = useMemo(() => {
-    const order: ReadonlyArray<Region> = ['pan-india', 'north', 'south', 'east', 'west']
+    const order: ReadonlyArray<LandRegion> = [
+      'pan-india',
+      'north',
+      'south',
+      'east',
+      'west',
+    ]
     return order.map((r) => ({
       region: r,
-      items: (Object.entries(UNITS) as Array<[UnitKey, UnitDef]>).filter(
+      items: (Object.entries(LAND_UNITS) as Array<[UnitKey, UnitDef]>).filter(
         ([, def]) => def.region === r,
       ),
     }))
@@ -143,19 +138,23 @@ function PlotConverterPage() {
   function format(n: number) {
     if (!Number.isFinite(n)) return '—'
     if (n === 0) return '0'
-    if (Math.abs(n) >= 1000) return n.toLocaleString('en-IN', { maximumFractionDigits: 2 })
+    if (Math.abs(n) >= 1000)
+      return n.toLocaleString('en-IN', { maximumFractionDigits: 2 })
     if (Math.abs(n) >= 1) return Number(n.toFixed(3)).toString()
     return Number(n.toFixed(6)).toString()
   }
 
   return (
     <ToolPageShell
-      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Plot Area Converter' }]}
+      breadcrumb={[
+        { label: 'Tools', href: '/' },
+        { label: 'Plot Area Converter' },
+      ]}
       eyebrow={{ icon: Ruler, label: 'Utility · Live' }}
       title="Plot Area Converter"
       tagline="Convert between sq ft, sq m, gaj, acre, hectare, gunta, bigha, marla, kanal, ankanam and more — region-aware to local Indian standards."
       variant="single-column"
-      footnote="Bigha and katha sizes vary by region. We use the most-cited local standard for each. For legal documents, cross-check with your local sub-registrar office."
+      footnote={`Land-unit standards last reviewed ${LAND_UNIT_LAST_UPDATED}. Bigha and katha sizes vary by region. We use common local planning standards; for legal documents, cross-check with your local sub-registrar office.`}
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Enter value" rule={false}>
@@ -212,9 +211,24 @@ function PlotConverterPage() {
           label="Conversions"
           description={`Showing ${filtered.length} ${region === 'all' ? 'units' : REGION_LABELS[region] + ' units'}.`}
           action={
-            <Tabs value={region} onValueChange={(v) => setRegion(v as Region | 'all')}>
-              <TabsList variant="line">
-                {(['all', 'pan-india', 'north', 'south', 'east', 'west'] as const).map((r) => (
+            <Tabs
+              value={region}
+              onValueChange={(v) => setRegion(v as LandRegion | 'all')}
+            >
+              <TabsList
+                variant="line"
+                className="max-w-[calc(100vw-2rem)] overflow-x-auto justify-start sm:max-w-none"
+              >
+                {(
+                  [
+                    'all',
+                    'pan-india',
+                    'north',
+                    'south',
+                    'east',
+                    'west',
+                  ] as const
+                ).map((r) => (
                   <TabsTrigger key={r} value={r}>
                     {REGION_LABELS[r]}
                   </TabsTrigger>
@@ -228,43 +242,53 @@ function PlotConverterPage() {
               No units in this region.
             </p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[45%]">Unit</TableHead>
-                  <TableHead>Region</TableHead>
-                  <TableHead className="text-right">Value</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filtered.map(({ key, def, value: v }) => (
-                  <TableRow key={key}>
-                    <TableCell className="py-3.5">
-                      <p className="font-medium text-[var(--foreground)]">{def.label}</p>
-                      {def.note && (
-                        <p className="mt-0.5 text-xs text-[var(--muted-foreground)]">
-                          {def.note}
-                        </p>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <span className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
-                        <span
-                          className={`size-1.5 rounded-full ${REGION_DOTS[def.region]}`}
-                          aria-hidden
-                        />
-                        {REGION_LABELS[def.region]}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <span className="text-base font-semibold tabular-nums tracking-tight text-[var(--accent-teal)]">
-                        {format(v)}
-                      </span>
-                    </TableCell>
+            <div className="w-full overflow-hidden">
+              <Table className="w-full table-fixed">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead className="w-[43%] whitespace-normal">
+                      Unit
+                    </TableHead>
+                    <TableHead className="w-[27%] whitespace-normal">
+                      Region
+                    </TableHead>
+                    <TableHead className="w-[30%] whitespace-normal text-right">
+                      Value
+                    </TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {filtered.map(({ key, def, value: v }) => (
+                    <TableRow key={key}>
+                      <TableCell className="whitespace-normal py-3.5">
+                        <p className="font-medium text-[var(--foreground)]">
+                          {def.label}
+                        </p>
+                        {def.note && (
+                          <p className="mt-0.5 text-xs text-[var(--muted-foreground)]">
+                            {def.note}
+                          </p>
+                        )}
+                      </TableCell>
+                      <TableCell className="whitespace-normal">
+                        <span className="inline-flex max-w-full items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--muted-foreground)] sm:tracking-[0.16em]">
+                          <span
+                            className={`size-1.5 rounded-full ${REGION_DOTS[def.region]}`}
+                            aria-hidden
+                          />
+                          {REGION_LABELS[def.region]}
+                        </span>
+                      </TableCell>
+                      <TableCell className="whitespace-normal text-right">
+                        <span className="text-sm font-semibold tabular-nums tracking-tight text-[var(--accent-teal)] sm:text-base">
+                          {format(v)}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </ToolSection>
 

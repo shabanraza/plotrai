@@ -31,6 +31,7 @@ import {
 } from '#/components/ui/table'
 import {
   CITY_RATES,
+  CONSTRUCTION_ESTIMATE_NOTE,
   STAGES,
   TIER_LABELS,
   CONSTRUCTION_LAST_UPDATED,
@@ -38,37 +39,54 @@ import {
 } from '#/data/construction-cost-rates'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
-import { CONSTRUCTION_COST_FAQS, CONSTRUCTION_COST_CONTEXT } from '#/data/tool-seo-content'
+import {
+  CONSTRUCTION_COST_FAQS,
+  CONSTRUCTION_COST_CONTEXT,
+} from '#/data/tool-seo-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import { CITY_CONTENT } from '#/data/city-construction-content'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
+import { calculateConstructionCost } from '#/lib/construction-cost'
 
 export const Route = createFileRoute('/construction-cost-calculator')({
   component: ConstructionCostCalculatorPage,
   head: () => ({
     meta: [
       {
-        title: 'Construction Cost Calculator India 2026 — Per Sq Ft, Stage-Wise · Plotr Ai',
+        title:
+          'Construction Cost Calculator India 2026 — Per Sq Ft, Stage-Wise · Plotr Ai',
       },
       {
         name: 'description',
         content:
           'Estimate house construction cost per sq ft in India by city, finish tier, and floors. Stage-wise breakdown across 7 build stages. Mumbai, Bangalore, Delhi, Pune, Chennai, Hyderabad. Updated 2026.',
       },
-      { property: 'og:title', content: 'Construction Cost Calculator India 2026' },
+      {
+        property: 'og:title',
+        content: 'Construction Cost Calculator India 2026',
+      },
       {
         property: 'og:description',
         content:
           'House construction cost per sq ft + stage-wise breakdown for any Indian city.',
       },
-      { property: 'og:image', content: 'https://plotrai.in/og/construction-cost-calculator.png' },
+      {
+        property: 'og:image',
+        content: 'https://plotrai.in/og/construction-cost-calculator.png',
+      },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
-      { property: 'og:url', content: 'https://plotrai.in/construction-cost-calculator' },
+      {
+        property: 'og:url',
+        content: 'https://plotrai.in/construction-cost-calculator',
+      },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: 'https://plotrai.in/og/construction-cost-calculator.png' },
+      {
+        name: 'twitter:image',
+        content: 'https://plotrai.in/og/construction-cost-calculator.png',
+      },
     ],
     links: [canonicalLink('/construction-cost-calculator')],
     scripts: [
@@ -85,7 +103,12 @@ export const Route = createFileRoute('/construction-cost-calculator')({
 })
 
 const CITIES = Object.keys(CITY_RATES)
-const TIERS: ReadonlyArray<FinishTier> = ['basic', 'standard', 'premium', 'luxury']
+const TIERS: ReadonlyArray<FinishTier> = [
+  'basic',
+  'standard',
+  'premium',
+  'luxury',
+]
 
 function ConstructionCostCalculatorPage() {
   const [city, setCity] = useState<string>('Bangalore')
@@ -93,20 +116,17 @@ function ConstructionCostCalculatorPage() {
   const [areaInput, setAreaInput] = useState<string>('1500')
   const [floors, setFloors] = useState<string>('1')
 
-  const area = parseFloat(areaInput) || 0
-  const floorMultiplier = Math.max(parseInt(floors, 10) || 1, 1)
-  const totalArea = area * floorMultiplier
-
-  const baseRate = CITY_RATES[city]?.[tier] ?? 0
-  const totalCost = totalArea * baseRate
-
-  const stageRows = useMemo(
+  const result = useMemo(
     () =>
-      STAGES.map((s) => ({
-        ...s,
-        cost: (totalCost * s.percent) / 100,
-      })),
-    [totalCost],
+      calculateConstructionCost({
+        city,
+        tier,
+        areaPerFloorSqft: parseFloat(areaInput) || 0,
+        floors: parseInt(floors, 10) || 1,
+        cityRates: CITY_RATES,
+        stages: STAGES,
+      }),
+    [areaInput, city, floors, tier],
   )
 
   return (
@@ -119,7 +139,7 @@ function ConstructionCostCalculatorPage() {
       title="Construction Cost Calculator"
       tagline="Estimate house construction cost per sq ft in India, broken down across 7 build stages. Bangalore, Mumbai, Delhi, Pune, Chennai, Hyderabad and more."
       variant="single-column"
-      footnote={`City × tier base rates last refreshed ${CONSTRUCTION_LAST_UPDATED}. Excludes land cost, government approvals, soil-bearing-capacity surprises, and contractor margin (typically 10–15%). Use as a planning baseline, not a fixed quote.`}
+      footnote={`City × tier base rates last refreshed ${CONSTRUCTION_LAST_UPDATED}. ${CONSTRUCTION_ESTIMATE_NOTE} Excludes land cost, government approvals, soil-bearing-capacity surprises, and contractor margin.`}
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Project basics" rule={false}>
@@ -184,13 +204,17 @@ function ConstructionCostCalculatorPage() {
             <div className="flex flex-col gap-2">
               <Label>Total built-up</Label>
               <div className="flex h-9 items-center rounded-md border border-[var(--border)] bg-[var(--muted)]/40 px-3 text-sm font-semibold tabular-nums text-[var(--foreground)]">
-                {formatINR(totalArea)} sq ft
+                {formatINR(result.totalAreaSqft)} sq ft
               </div>
             </div>
           </div>
         </ToolSection>
 
-        <ToolSection number="02" label="Finish tier" description="Pick the closest match. Each tier swings the per-sq-ft rate by 25–35%.">
+        <ToolSection
+          number="02"
+          label="Finish tier"
+          description="Pick the closest match. Each tier swings the per-sq-ft rate by 25–35%."
+        >
           <ToggleGroup
             type="single"
             value={tier}
@@ -204,23 +228,26 @@ function ConstructionCostCalculatorPage() {
               </ToggleGroupItem>
             ))}
           </ToggleGroup>
-          <p className="mt-3 text-sm text-[var(--muted-foreground)]">{TIER_LABELS[tier].helper}</p>
+          <p className="mt-3 text-sm text-[var(--muted-foreground)]">
+            {TIER_LABELS[tier].helper}
+          </p>
         </ToolSection>
 
         <ToolSection
           number="03"
           label="Total estimate"
-          description={`At ₹${formatINR(baseRate)} / sq ft for ${TIER_LABELS[tier].label.toLowerCase()} finish in ${city}.`}
+          description={`At ₹${formatINR(result.baseRatePerSqft)} / sq ft for ${TIER_LABELS[tier].label.toLowerCase()} finish in ${city}.`}
         >
           <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
             <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
               Total estimated construction cost
             </p>
             <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">
-              ₹{formatINR(totalCost)}
+              ₹{formatINR(result.totalCost)}
             </p>
             <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-              {formatINR(totalArea)} sq ft × ₹{formatINR(baseRate)}
+              {formatINR(result.totalAreaSqft)} sq ft × ₹
+              {formatINR(result.baseRatePerSqft)}
             </p>
           </div>
 
@@ -233,10 +260,12 @@ function ConstructionCostCalculatorPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {stageRows.map((s) => (
+              {result.stageRows.map((s) => (
                 <TableRow key={s.key}>
                   <TableCell className="py-3.5">
-                    <p className="font-medium text-[var(--foreground)]">{s.label}</p>
+                    <p className="font-medium text-[var(--foreground)]">
+                      {s.label}
+                    </p>
                     <p className="mt-0.5 text-xs text-[var(--muted-foreground)]">
                       {s.description}
                     </p>
@@ -252,11 +281,14 @@ function ConstructionCostCalculatorPage() {
             </TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={2} className="py-3.5 text-right font-semibold">
+                <TableCell
+                  colSpan={2}
+                  className="py-3.5 text-right font-semibold"
+                >
                   Total
                 </TableCell>
                 <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
-                  ₹{formatINR(totalCost)}
+                  ₹{formatINR(result.totalCost)}
                 </TableCell>
               </TableRow>
             </TableFooter>
@@ -269,7 +301,11 @@ function ConstructionCostCalculatorPage() {
           ))}
         </ToolContext>
 
-        <ToolSection number="CITIES" label="Construction cost by city" description="City-specific rate page with sample budgets and stage breakdown.">
+        <ToolSection
+          number="CITIES"
+          label="Construction cost by city"
+          description="City-specific rate page with sample budgets and stage breakdown."
+        >
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
             {CITY_CONTENT.map((c) => (
               <Link

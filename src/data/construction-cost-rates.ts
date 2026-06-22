@@ -17,6 +17,12 @@ export const CITY_RATES: Record<string, CityRates> = {
   Mumbai: { basic: 1900, standard: 2400, premium: 3000, luxury: 4200 },
   Delhi: { basic: 1700, standard: 2200, premium: 2800, luxury: 3800 },
   Bangalore: { basic: 1700, standard: 2150, premium: 2750, luxury: 3700 },
+  'North Bangalore': {
+    basic: 1650,
+    standard: 2050,
+    premium: 2650,
+    luxury: 3550,
+  },
   Pune: { basic: 1700, standard: 2150, premium: 2700, luxury: 3600 },
   Chennai: { basic: 1650, standard: 2100, premium: 2700, luxury: 3650 },
   Hyderabad: { basic: 1600, standard: 2050, premium: 2650, luxury: 3550 },
@@ -72,13 +78,15 @@ export const STAGES: ReadonlyArray<StageBreakdown> = [
     key: 'mep',
     label: 'Electrical + plumbing',
     percent: 14,
-    description: 'Conduits, wiring, fixtures, water tanks, sanitaryware rough-in.',
+    description:
+      'Conduits, wiring, fixtures, water tanks, sanitaryware rough-in.',
   },
   {
     key: 'finishing',
     label: 'Flooring + finishing',
     percent: 19,
-    description: 'Tiles/marble, doors, windows, kitchen counter, false ceiling.',
+    description:
+      'Tiles/marble, doors, windows, kitchen counter, false ceiling.',
   },
   {
     key: 'paint',
@@ -90,9 +98,31 @@ export const STAGES: ReadonlyArray<StageBreakdown> = [
 
 export const CONSTRUCTION_LAST_UPDATED = '2026-Q2'
 
-export const TIER_LABELS: Record<FinishTier, { label: string; helper: string }> = {
-  basic: { label: 'Basic', helper: 'Vitrified tiles, standard sanitaryware, basic doors.' },
-  standard: { label: 'Standard', helper: 'Mid-range tiles, branded fittings, modular kitchen.' },
-  premium: { label: 'Premium', helper: 'Marble flooring, designer fittings, false ceilings.' },
-  luxury: { label: 'Luxury', helper: 'Italian marble, imported fixtures, smart-home wiring.' },
+export const CONSTRUCTION_SOURCE_URLS = [
+  'Contractor quote benchmarks and Indian residential construction market averages reviewed 2026-Q2.',
+] as const
+
+export const CONSTRUCTION_ESTIMATE_NOTE =
+  'Construction rates are planning benchmarks. Final quotes vary by soil, structure, specification, contractor margin, approval scope, and local material prices.'
+
+export const TIER_LABELS: Record<
+  FinishTier,
+  { label: string; helper: string }
+> = {
+  basic: {
+    label: 'Basic',
+    helper: 'Vitrified tiles, standard sanitaryware, basic doors.',
+  },
+  standard: {
+    label: 'Standard',
+    helper: 'Mid-range tiles, branded fittings, modular kitchen.',
+  },
+  premium: {
+    label: 'Premium',
+    helper: 'Marble flooring, designer fittings, false ceilings.',
+  },
+  luxury: {
+    label: 'Luxury',
+    helper: 'Italian marble, imported fixtures, smart-home wiring.',
+  },
 }

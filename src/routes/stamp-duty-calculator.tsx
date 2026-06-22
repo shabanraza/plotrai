@@ -31,6 +31,7 @@ import {
 } from '#/components/ui/table'
 import {
   STAMP_DUTY,
+  STAMP_DUTY_ESTIMATE_NOTE,
   STAMP_DUTY_LAST_UPDATED,
   type StampDutyRate,
 } from '#/data/stamp-duty-rates'
@@ -41,13 +42,15 @@ import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
+import { calculateStampDuty, type StampDutyGender } from '#/lib/stamp-duty'
 
 export const Route = createFileRoute('/stamp-duty-calculator')({
   component: StampDutyCalculatorPage,
   head: () => ({
     meta: [
       {
-        title: 'Stamp Duty Calculator India 2026 — Mumbai, Delhi, Bangalore, Pune · Plotr Ai',
+        title:
+          'Stamp Duty Calculator India 2026 — Mumbai, Delhi, Bangalore, Pune · Plotr Ai',
       },
       {
         name: 'description',
@@ -60,13 +63,22 @@ export const Route = createFileRoute('/stamp-duty-calculator')({
         content:
           'Calculate stamp duty + registration charges for any Indian state. Female-buyer rates included. Mobile-first, no signup.',
       },
-      { property: 'og:image', content: 'https://plotrai.in/og/stamp-duty-calculator.png' },
+      {
+        property: 'og:image',
+        content: 'https://plotrai.in/og/stamp-duty-calculator.png',
+      },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
-      { property: 'og:url', content: 'https://plotrai.in/stamp-duty-calculator' },
+      {
+        property: 'og:url',
+        content: 'https://plotrai.in/stamp-duty-calculator',
+      },
       { property: 'og:type', content: 'website' },
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image', content: 'https://plotrai.in/og/stamp-duty-calculator.png' },
+      {
+        name: 'twitter:image',
+        content: 'https://plotrai.in/og/stamp-duty-calculator.png',
+      },
     ],
     links: [canonicalLink('/stamp-duty-calculator')],
     scripts: [
@@ -82,7 +94,7 @@ export const Route = createFileRoute('/stamp-duty-calculator')({
   }),
 })
 
-type Gender = 'male' | 'female' | 'joint'
+type Gender = StampDutyGender
 
 function StampDutyCalculatorPage() {
   const [stateName, setStateName] = useState<string>('Maharashtra')
@@ -105,19 +117,16 @@ function StampDutyCalculatorPage() {
   }, [stateEntry, cityName])
 
   const propertyValue = (parseFloat(propertyValueLakh) || 0) * 100000
-  const ltv = (parseFloat(loanLtv) || 0) / 100
-
-  const stampDutyPct = rate[gender]
-  const stampDutyAmt = (propertyValue * stampDutyPct) / 100
-
-  let registrationAmt = (propertyValue * rate.registration) / 100
-  if (rate.registrationCap && registrationAmt > rate.registrationCap) {
-    registrationAmt = rate.registrationCap
-  }
-
-  const totalGovt = stampDutyAmt + registrationAmt
-  const downPayment = propertyValue * (1 - ltv)
-  const totalCash = totalGovt + downPayment
+  const result = useMemo(
+    () =>
+      calculateStampDuty({
+        propertyValue,
+        rate,
+        gender,
+        loanLtvPercent: parseFloat(loanLtv) || 0,
+      }),
+    [gender, loanLtv, propertyValue, rate],
+  )
 
   function handleStateChange(s: string) {
     setStateName(s)
@@ -127,12 +136,15 @@ function StampDutyCalculatorPage() {
 
   return (
     <ToolPageShell
-      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Stamp Duty Calculator' }]}
+      breadcrumb={[
+        { label: 'Tools', href: '/' },
+        { label: 'Stamp Duty Calculator' },
+      ]}
       eyebrow={{ icon: Receipt, label: 'Calculator · Live' }}
       title="Stamp Duty Calculator"
       tagline="State-wise stamp duty and registration charges for Indian property purchases. Female-buyer rates included. Updated 2026."
       variant="single-column"
-      footnote={`Rates last refreshed ${STAMP_DUTY_LAST_UPDATED}. Stamp duty + registration are paid in cash above and beyond your home loan. For legal-grade calculation, cross-check with your state IGR portal or sub-registrar office.`}
+      footnote={`Rates last refreshed ${STAMP_DUTY_LAST_UPDATED}. ${STAMP_DUTY_ESTIMATE_NOTE} Stamp duty + registration are paid in cash above and beyond your home loan. For legal-grade calculation, cross-check with your state IGR portal or sub-registrar office.`}
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Where is the property?" rule={false}>
@@ -183,7 +195,11 @@ function StampDutyCalculatorPage() {
           )}
         </ToolSection>
 
-        <ToolSection number="02" label="Buyer details" description="Female buyers get a discount in many states.">
+        <ToolSection
+          number="02"
+          label="Buyer details"
+          description="Female buyers get a discount in many states."
+        >
           <div className="flex flex-col gap-2">
             <Label>Buyer gender</Label>
             <ToggleGroup
@@ -199,7 +215,11 @@ function StampDutyCalculatorPage() {
           </div>
         </ToolSection>
 
-        <ToolSection number="03" label="Property value" description="Including any agreed-on amenities. Enter in lakhs.">
+        <ToolSection
+          number="03"
+          label="Property value"
+          description="Including any agreed-on amenities. Enter in lakhs."
+        >
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
               <Label htmlFor="value">Property value</Label>
@@ -266,30 +286,37 @@ function StampDutyCalculatorPage() {
               <TableRow>
                 <TableCell className="py-3.5 font-medium">Stamp duty</TableCell>
                 <TableCell className="text-right tabular-nums text-[var(--muted-foreground)]">
-                  {stampDutyPct}%
+                  {result.stampDutyPercent}%
                 </TableCell>
                 <TableCell className="text-right tabular-nums">
-                  ₹{formatINR(stampDutyAmt)}
+                  ₹{formatINR(result.stampDutyAmount)}
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="py-3.5 font-medium">Registration</TableCell>
+                <TableCell className="py-3.5 font-medium">
+                  Registration
+                </TableCell>
                 <TableCell className="text-right tabular-nums text-[var(--muted-foreground)]">
                   {rate.registration}%
-                  {rate.registrationCap ? ` (cap ₹${formatINR(rate.registrationCap)})` : ''}
+                  {rate.registrationCap
+                    ? ` (cap ₹${formatINR(rate.registrationCap)})`
+                    : ''}
                 </TableCell>
                 <TableCell className="text-right tabular-nums">
-                  ₹{formatINR(registrationAmt)}
+                  ₹{formatINR(result.registrationAmount)}
                 </TableCell>
               </TableRow>
             </TableBody>
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={2} className="py-3.5 text-right font-semibold">
+                <TableCell
+                  colSpan={2}
+                  className="py-3.5 text-right font-semibold"
+                >
                   Government fees total
                 </TableCell>
                 <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
-                  ₹{formatINR(totalGovt)}
+                  ₹{formatINR(result.totalGovernmentCharges)}
                 </TableCell>
               </TableRow>
             </TableFooter>
@@ -301,7 +328,7 @@ function StampDutyCalculatorPage() {
                 Down payment ({(100 - parseFloat(loanLtv || '0')).toFixed(0)}%)
               </p>
               <p className="mt-1 text-base font-semibold tabular-nums text-[var(--foreground)]">
-                ₹{formatINR(downPayment)}
+                ₹{formatINR(result.downPayment)}
               </p>
             </div>
             <div>
@@ -309,7 +336,7 @@ function StampDutyCalculatorPage() {
                 + Government fees
               </p>
               <p className="mt-1 text-base font-semibold tabular-nums text-[var(--foreground)]">
-                ₹{formatINR(totalGovt)}
+                ₹{formatINR(result.totalGovernmentCharges)}
               </p>
             </div>
             <div>
@@ -317,7 +344,7 @@ function StampDutyCalculatorPage() {
                 Total cash needed
               </p>
               <p className="mt-1 text-lg font-bold tabular-nums text-[var(--accent-teal)]">
-                ₹{formatINR(totalCash)}
+                ₹{formatINR(result.totalCashRequired)}
               </p>
             </div>
           </div>
@@ -329,7 +356,11 @@ function StampDutyCalculatorPage() {
           ))}
         </ToolContext>
 
-        <ToolSection number="STATES" label="Stamp duty by state" description="Detailed rate page for each state with city-wise breakdown.">
+        <ToolSection
+          number="STATES"
+          label="Stamp duty by state"
+          description="Detailed rate page for each state with city-wise breakdown."
+        >
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
             {STATE_CONTENT.map((s) => (
               <Link

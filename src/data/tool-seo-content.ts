@@ -141,8 +141,28 @@ export const PLOT_CONVERTER_FAQS: ReadonlyArray<FaqItem> = [
     a: 'In North India, 1 gaj = 9 square feet (1 sq yard). So a 100 gaj plot is 900 sq ft. In South India, gaj is rarely used — square feet and ground (1 ground = 2400 sq ft) are more common.',
   },
   {
+    q: '1 acre mein kitne gaj hote hain?',
+    a: '1 acre = 43,560 square feet. Since 1 gaj = 9 square feet, 1 acre = 4,840 gaj. For example, 0.5 acre is 2,420 gaj and 2 acre is 9,680 gaj.',
+  },
+  {
+    q: 'Kanal to acre conversion kaise hota hai?',
+    a: 'In Punjab, Haryana and Jammu & Kashmir planning records, 1 kanal = 5,445 square feet. So 1 kanal = 0.125 acre and 8 kanal = 1 acre.',
+  },
+  {
+    q: 'Kanal to hectare conversion kitna hota hai?',
+    a: '1 kanal = 5,445 square feet and 1 hectare = 107,639 square feet. So 1 kanal is approximately 0.0506 hectare, and 1 hectare is about 19.77 kanal.',
+  },
+  {
+    q: 'Bigha to kanal conversion kya hai?',
+    a: 'Bigha size changes by state, so bigha to kanal is not the same everywhere. Using the common UP/Bihar planning standard, 1 bigha = 27,000 square feet, which is about 4.96 kanal. Always check the local bigha definition before using it for legal land records.',
+  },
+  {
     q: '1 bigha kitne square feet hota hai?',
     a: 'Bigha varies massively by state — UP/Bihar: 27,000 sq ft; Rajasthan: 27,225 sq ft (pucca) or 17,424 (kachcha); Madhya Pradesh: 12,000 sq ft; West Bengal: 14,400 sq ft; Punjab: 9,070 sq ft. Always confirm the local definition before buying agricultural land.',
+  },
+  {
+    q: '100 gaj plot kitna square feet hota hai?',
+    a: '100 gaj ka plot 900 square feet hota hai, because 1 gaj = 9 square feet. In feet, a 100 gaj plot may be 30 ft × 30 ft, 20 ft × 45 ft, or another layout with the same total 900 sq ft area.',
   },
   {
     q: '1 acre mein kitne square feet aate hain?',

@@ -38,18 +38,42 @@ export interface StateEntry {
 export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
   {
     state: 'Maharashtra',
-    default: { male: 6, female: 5, joint: 5.5, registration: 1, note: 'Includes 1% metro cess.' },
+    default: {
+      male: 6,
+      female: 5,
+      joint: 5.5,
+      registration: 1,
+      note: 'Includes 1% metro cess.',
+    },
     cities: [
       {
         city: 'Mumbai',
-        rates: { male: 6, female: 5, joint: 5.5, registration: 1, note: '1% metro cess included.' },
+        rates: {
+          male: 6,
+          female: 5,
+          joint: 5.5,
+          registration: 1,
+          note: '1% metro cess included.',
+        },
       },
       {
         city: 'Pune',
-        rates: { male: 7, female: 6, joint: 6.5, registration: 1, note: '1% LBT + 1% metro cess.' },
+        rates: {
+          male: 7,
+          female: 6,
+          joint: 6.5,
+          registration: 1,
+          note: '1% LBT + 1% metro cess.',
+        },
       },
-      { city: 'Nagpur', rates: { male: 6, female: 5, joint: 5.5, registration: 1 } },
-      { city: 'Nashik', rates: { male: 6, female: 5, joint: 5.5, registration: 1 } },
+      {
+        city: 'Nagpur',
+        rates: { male: 6, female: 5, joint: 5.5, registration: 1 },
+      },
+      {
+        city: 'Nashik',
+        rates: { male: 6, female: 5, joint: 5.5, registration: 1 },
+      },
     ],
   },
   {
@@ -62,9 +86,18 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
       note: '3% for ₹21–45 lakh, 2% below ₹21 lakh.',
     },
     cities: [
-      { city: 'Bangalore', rates: { male: 5, female: 5, joint: 5, registration: 1 } },
-      { city: 'Mysore', rates: { male: 5, female: 5, joint: 5, registration: 1 } },
-      { city: 'Mangalore', rates: { male: 5, female: 5, joint: 5, registration: 1 } },
+      {
+        city: 'Bangalore',
+        rates: { male: 5, female: 5, joint: 5, registration: 1 },
+      },
+      {
+        city: 'Mysore',
+        rates: { male: 5, female: 5, joint: 5, registration: 1 },
+      },
+      {
+        city: 'Mangalore',
+        rates: { male: 5, female: 5, joint: 5, registration: 1 },
+      },
     ],
   },
   {
@@ -75,14 +108,25 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
     state: 'Tamil Nadu',
     default: { male: 7, female: 7, joint: 7, registration: 4 },
     cities: [
-      { city: 'Chennai', rates: { male: 7, female: 7, joint: 7, registration: 4 } },
-      { city: 'Coimbatore', rates: { male: 7, female: 7, joint: 7, registration: 4 } },
+      {
+        city: 'Chennai',
+        rates: { male: 7, female: 7, joint: 7, registration: 4 },
+      },
+      {
+        city: 'Coimbatore',
+        rates: { male: 7, female: 7, joint: 7, registration: 4 },
+      },
     ],
   },
   {
     state: 'Telangana',
     default: { male: 4, female: 4, joint: 4, registration: 0.5 },
-    cities: [{ city: 'Hyderabad', rates: { male: 4, female: 4, joint: 4, registration: 0.5 } }],
+    cities: [
+      {
+        city: 'Hyderabad',
+        rates: { male: 4, female: 4, joint: 4, registration: 0.5 },
+      },
+    ],
   },
   {
     state: 'Uttar Pradesh',
@@ -94,10 +138,22 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
       note: 'Female buyers get ₹10,000 rebate (effectively 1% lower up to ₹10 lakh).',
     },
     cities: [
-      { city: 'Lucknow', rates: { male: 7, female: 6, joint: 6.5, registration: 1 } },
-      { city: 'Noida', rates: { male: 7, female: 6, joint: 6.5, registration: 1 } },
-      { city: 'Greater Noida', rates: { male: 7, female: 6, joint: 6.5, registration: 1 } },
-      { city: 'Ghaziabad', rates: { male: 7, female: 6, joint: 6.5, registration: 1 } },
+      {
+        city: 'Lucknow',
+        rates: { male: 7, female: 6, joint: 6.5, registration: 1 },
+      },
+      {
+        city: 'Noida',
+        rates: { male: 7, female: 6, joint: 6.5, registration: 1 },
+      },
+      {
+        city: 'Greater Noida',
+        rates: { male: 7, female: 6, joint: 6.5, registration: 1 },
+      },
+      {
+        city: 'Ghaziabad',
+        rates: { male: 7, female: 6, joint: 6.5, registration: 1 },
+      },
     ],
   },
   {
@@ -109,20 +165,42 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
       registration: 1,
       note: '6%/5% urban; 5%/4% rural. Uses urban rates by default.',
     },
-    cities: [{ city: 'Kolkata', rates: { male: 6, female: 5, joint: 5.5, registration: 1 } }],
+    cities: [
+      {
+        city: 'Kolkata',
+        rates: { male: 6, female: 5, joint: 5.5, registration: 1 },
+      },
+    ],
   },
   {
     state: 'Gujarat',
-    default: { male: 4.9, female: 4.9, joint: 4.9, registration: 1, note: 'No gender concession.' },
+    default: {
+      male: 4.9,
+      female: 4.9,
+      joint: 4.9,
+      registration: 1,
+      note: 'No gender concession.',
+    },
     cities: [
-      { city: 'Ahmedabad', rates: { male: 4.9, female: 4.9, joint: 4.9, registration: 1 } },
-      { city: 'Surat', rates: { male: 4.9, female: 4.9, joint: 4.9, registration: 1 } },
+      {
+        city: 'Ahmedabad',
+        rates: { male: 4.9, female: 4.9, joint: 4.9, registration: 1 },
+      },
+      {
+        city: 'Surat',
+        rates: { male: 4.9, female: 4.9, joint: 4.9, registration: 1 },
+      },
     ],
   },
   {
     state: 'Rajasthan',
     default: { male: 6, female: 5, joint: 5.5, registration: 1 },
-    cities: [{ city: 'Jaipur', rates: { male: 6, female: 5, joint: 5.5, registration: 1 } }],
+    cities: [
+      {
+        city: 'Jaipur',
+        rates: { male: 6, female: 5, joint: 5.5, registration: 1 },
+      },
+    ],
   },
   {
     state: 'Punjab',
@@ -141,11 +219,23 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
     cities: [
       {
         city: 'Gurgaon',
-        rates: { male: 7, female: 5, joint: 6, registration: 1, registrationCap: 50000 },
+        rates: {
+          male: 7,
+          female: 5,
+          joint: 6,
+          registration: 1,
+          registrationCap: 50000,
+        },
       },
       {
         city: 'Faridabad',
-        rates: { male: 7, female: 5, joint: 6, registration: 1, registrationCap: 50000 },
+        rates: {
+          male: 7,
+          female: 5,
+          joint: 6,
+          registration: 1,
+          registrationCap: 50000,
+        },
       },
     ],
   },
@@ -155,7 +245,13 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
   },
   {
     state: 'Kerala',
-    default: { male: 8, female: 8, joint: 8, registration: 2, note: 'No gender concession.' },
+    default: {
+      male: 8,
+      female: 8,
+      joint: 8,
+      registration: 2,
+      note: 'No gender concession.',
+    },
   },
   {
     state: 'Odisha',
@@ -176,3 +272,11 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
 ]
 
 export const STAMP_DUTY_LAST_UPDATED = '2026-Q2'
+
+export const STAMP_DUTY_SOURCE_URLS = [
+  'https://igrmaharashtra.gov.in/Home',
+  'https://mcdonline.nic.in/ptrmcd/web/citizen/property/propertyTaxCalculatorSearchByUpic',
+] as const
+
+export const STAMP_DUTY_ESTIMATE_NOTE =
+  'Rates are source-audited planning values. Final duty can vary by city category, local cess, agreement type, market value, and current state notification.'

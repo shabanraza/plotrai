@@ -7,6 +7,7 @@ import {
   Compass,
   Hammer,
   Heart,
+  Layers3,
   Palette,
   Receipt,
   Ruler,
@@ -19,6 +20,90 @@ import {
 import { Button } from '#/components/ui/button'
 import { ToolCard } from '#/components/landing/tool-card'
 import { ComingSoonCard } from '#/components/landing/coming-soon-card'
+import { itemListLd } from '#/lib/seo'
+
+const LIVE_TOOLS = [
+  {
+    name: 'Vastu Checker',
+    description: 'Free online Vastu checker for Indian home floor plans with violations and remedies.',
+    path: '/vastu-checker',
+  },
+  {
+    name: '2D Floor Plan to 3D Render',
+    description: 'AI tool that converts 2D architectural floor plans into furnished 3D isometric renders.',
+    path: '/floor-plan-3d',
+  },
+  {
+    name: 'Interior Restyle AI',
+    description: 'AI room redesign tool for restyling interior photos while preserving the layout.',
+    path: '/interior-restyle',
+  },
+  {
+    name: 'Empty Room Stager AI',
+    description: 'AI virtual staging tool that furnishes empty room photos for property listings.',
+    path: '/empty-room-stager',
+  },
+  {
+    name: 'Plot Area Converter',
+    description: 'Indian land area converter for sq ft, gaj, bigha, cent, acre, marla, kanal, and more.',
+    path: '/plot-converter',
+  },
+  {
+    name: 'Construction Material Calculator',
+    description: 'Cement, sand, aggregate, brick, and steel quantity calculator for Indian construction.',
+    path: '/material-calculator',
+  },
+  {
+    name: 'Concrete Calculator India',
+    description: 'Cement, sand, and aggregate calculator for PCC and site-mixed concrete.',
+    path: '/concrete-calculator',
+  },
+  {
+    name: 'RCC Slab Calculator India',
+    description: 'RCC slab material calculator for cement, sand, aggregate, and steel.',
+    path: '/rcc-slab-calculator',
+  },
+  {
+    name: 'Cement Sand Aggregate Calculator India',
+    description: 'Focused cement, sand, and aggregate quantity calculator for concrete volume.',
+    path: '/cement-sand-aggregate-calculator',
+  },
+  {
+    name: 'Stamp Duty Calculator India',
+    description: 'State-wise stamp duty and registration charge calculator for Indian property buyers.',
+    path: '/stamp-duty-calculator',
+  },
+  {
+    name: 'Construction Cost Calculator India',
+    description: 'House construction cost calculator by city, finish tier, floors, and built-up area.',
+    path: '/construction-cost-calculator',
+  },
+  {
+    name: 'Property Capital Gains Calculator India',
+    description: 'Property LTCG and STCG tax calculator with indexation and exemption shortcuts.',
+    path: '/property-capital-gains-calculator',
+  },
+  {
+    name: 'Indexation Calculator India',
+    description: 'CII indexed cost and indexed capital gain calculator for Indian property.',
+    path: '/indexation-calculator',
+  },
+  {
+    name: 'BBMP Property Tax Calculator',
+    description: 'Bangalore property tax estimate using area, unit value, depreciation, and rebate.',
+    path: '/bbmp-property-tax-calculator',
+  },
+  {
+    name: 'GHMC Property Tax Calculator',
+    description: 'Hyderabad property tax estimate using plinth area, rental value, and cess.',
+    path: '/ghmc-property-tax-calculator',
+  },
+  {
+    name: 'MCD Property Tax Calculator',
+    description: 'Delhi MCD property tax estimate using annual value, slab, and rebate.',
+    path: '/mcd-property-tax-calculator',
+  },
+] as const
 
 export const Route = createFileRoute('/')({
   component: LandingPage,
@@ -47,6 +132,7 @@ export const Route = createFileRoute('/')({
       { name: 'twitter:image', content: 'https://plotrai.in/og/landing.png' },
     ],
     links: [{ rel: 'canonical', href: 'https://plotrai.in' }],
+    scripts: [itemListLd('Free property and home design tools for India', LIVE_TOOLS)],
   }),
 })
 
@@ -214,6 +300,27 @@ function ToolsSection() {
           icon={Calculator}
         />
         <ToolCard
+          to="/concrete-calculator"
+          status="utility"
+          title="Concrete Calculator"
+          description="Cement, sand, and aggregate for PCC or site-mixed concrete."
+          icon={Layers3}
+        />
+        <ToolCard
+          to="/rcc-slab-calculator"
+          status="utility"
+          title="RCC Slab Calculator"
+          description="Slab cement, steel, sand, and aggregate quantity from dimensions."
+          icon={Hammer}
+        />
+        <ToolCard
+          to="/cement-sand-aggregate-calculator"
+          status="utility"
+          title="Cement Sand Aggregate Calculator"
+          description="Focused concrete material quantity in bags and cubic feet."
+          icon={Calculator}
+        />
+        <ToolCard
           to="/stamp-duty-calculator"
           status="utility"
           title="Stamp Duty Calculator"
@@ -233,6 +340,34 @@ function ToolsSection() {
           title="Capital Gains Calculator"
           description="Post-Jul-2024 dual regime — picks the lower tax for you."
           icon={TrendingUp}
+        />
+        <ToolCard
+          to="/indexation-calculator"
+          status="utility"
+          title="Indexation Calculator"
+          description="CII indexed cost and indexed capital gain for property tax planning."
+          icon={TrendingUp}
+        />
+        <ToolCard
+          to="/bbmp-property-tax-calculator"
+          status="utility"
+          title="BBMP Property Tax Calculator"
+          description="Bangalore property tax estimate with unit value, cess, and rebate."
+          icon={Building2}
+        />
+        <ToolCard
+          to="/ghmc-property-tax-calculator"
+          status="utility"
+          title="GHMC Property Tax Calculator"
+          description="Hyderabad property tax estimate from plinth area and rental value."
+          icon={Building2}
+        />
+        <ToolCard
+          to="/mcd-property-tax-calculator"
+          status="utility"
+          title="MCD Property Tax Calculator"
+          description="Delhi property tax estimate with annual value and rebate."
+          icon={Building2}
         />
       </div>
     </section>
@@ -282,12 +417,6 @@ function ComingSoonSection() {
       </div>
 
       <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <ComingSoonCard
-          icon={Building2}
-          title="Property Tax Calculator"
-          description="Unified BBMP / MCD / PCMC / GHMC / KMC property tax in one form."
-          toolKey="property-tax"
-        />
         <ComingSoonCard
           icon={Palette}
           title="Color Palette Generator"
