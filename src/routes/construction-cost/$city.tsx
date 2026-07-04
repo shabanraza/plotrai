@@ -4,6 +4,7 @@ import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import { Button } from '#/components/ui/button'
 import {
   Table,
@@ -25,6 +26,7 @@ import {
   CONSTRUCTION_LAST_UPDATED,
   type FinishTier,
 } from '#/data/construction-cost-rates'
+import { getArticleLinkItem } from '#/data/blog-content'
 import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/construction-cost/$city')({
@@ -210,6 +212,15 @@ function CityConstructionPage() {
             additional 15-25% over the construction cost for a complete handover.
           </p>
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={([
+            'steel-price-house-construction',
+            'cement-vs-rmc',
+            'modular-kitchen-cost-india',
+          ] as const).map(getArticleLinkItem)}
+          description={`Continue with the material and finishing guides that shape real ${content.city} build budgets.`}
+        />
 
         <ToolFaq items={faqs} />
 

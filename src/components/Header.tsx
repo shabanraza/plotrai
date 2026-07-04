@@ -25,6 +25,9 @@ export default function Header() {
             Home
           </Link>
           <ToolsMenu />
+          <Link to="/blog" className={NAV_INACTIVE} activeProps={{ className: NAV_ACTIVE }}>
+            Blog
+          </Link>
           <Link to="/about" className={NAV_INACTIVE} activeProps={{ className: NAV_ACTIVE }}>
             About
           </Link>

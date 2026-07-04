@@ -37,7 +37,9 @@ import {
 } from '#/data/stamp-duty-rates'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import { STAMP_DUTY_FAQS, STAMP_DUTY_CONTEXT } from '#/data/tool-seo-content'
+import { getArticleLinkItem } from '#/data/blog-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
 import { Link } from '@tanstack/react-router'
@@ -355,6 +357,15 @@ function StampDutyCalculatorPage() {
             <p key={i}>{p}</p>
           ))}
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={([
+            'stamp-duty-registration-charges-india',
+            'circle-rate-vs-market-rate',
+            'property-document-checklist',
+          ] as const).map(getArticleLinkItem)}
+          description="Continue with the buyer-side guides that explain the due-diligence and pricing context around this fee estimate."
+        />
 
         <ToolSection
           number="STATES"

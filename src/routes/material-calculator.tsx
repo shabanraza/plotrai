@@ -34,7 +34,9 @@ import { Button } from '#/components/ui/button'
 import { Spinner } from '#/components/ui/spinner'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import { MATERIAL_CALC_FAQS, MATERIAL_CALC_CONTEXT } from '#/data/tool-seo-content'
+import { getArticleLinkItem } from '#/data/blog-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/material-calculator')({
@@ -317,6 +319,15 @@ function MaterialCalculatorPage() {
             <p key={i}>{p}</p>
           ))}
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={([
+            'steel-price-house-construction',
+            'cement-vs-rmc',
+            'false-ceiling-cost-per-sq-ft',
+          ] as const).map(getArticleLinkItem)}
+          description="Use these guides to turn quantity estimates into better material and finishing decisions."
+        />
 
         <ToolFaq items={MATERIAL_CALC_FAQS} />
       </div>

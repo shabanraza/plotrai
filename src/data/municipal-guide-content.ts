@@ -1,4 +1,5 @@
 import type { FaqItem } from '#/lib/seo'
+import type { BlogSlug } from '#/data/blog-content'
 
 export type MunicipalGuideSlug =
   | 'bbmp-property-tax-2026-27'
@@ -29,6 +30,7 @@ export interface MunicipalGuideContent {
   trendSignal: string
   steps: ReadonlyArray<GuideStep>
   references: ReadonlyArray<GuideReference>
+  relatedGuides?: ReadonlyArray<BlogSlug>
   context: ReadonlyArray<string>
   faqs: ReadonlyArray<FaqItem>
 }
@@ -78,22 +80,27 @@ export const MUNICIPAL_GUIDE_CONTENT: Record<
       { label: 'High-intent query', value: 'bbmp property tax 2026-27' },
       { label: 'Related intent', value: 'receipt, payment, notices, e-khata' },
     ],
+    relatedGuides: [
+      'property-document-checklist',
+      'stamp-duty-registration-charges-india',
+      'rera-project-search-guide',
+    ],
     context: [
       'BBMP property tax queries spike when a new assessment year opens, notices are issued, or residents need receipt/payment proof. For 2026-27, the strongest search intent is not only “calculator” but also “what changed, where do I pay, and how do I check notices”.',
       'This guide keeps the official portal path and the calculator path together. Use it as a planning checklist; BBMP remains the final source for payable amount, arrears, rebates, and property-record status.',
     ],
     faqs: [
       {
-        q: 'BBMP property tax 2026-27 kaise check karein?',
-        a: 'BBMP property tax 2026-27 check karne ke liye SAS, PID, khata, ya e-khata details ready rakhein, official BBMP portal par record verify karein, aur estimate ke liye BBMP Property Tax Calculator use karein.',
+        q: 'How do I check BBMP property tax 2026-27?',
+        a: 'To check BBMP property tax 2026-27, keep your SAS, PID, khata, or e-khata details ready, verify the property record on the official BBMP portal, and use the BBMP Property Tax Calculator for an estimate.',
       },
       {
-        q: 'BBMP property tax receipt download kahan se hota hai?',
-        a: 'Payment ke baad receipt official BBMP property tax portal se download ya print hoti hai. Plotr Ai receipt store nahi karta; yeh sirf estimate aur checklist provide karta hai.',
+        q: 'Where can I download a BBMP property tax receipt?',
+        a: 'After payment, the receipt can be downloaded or printed from the official BBMP property tax portal. Plotr Ai does not store receipts; it only provides an estimate and checklist.',
       },
       {
-        q: 'BBMP e-khata notice property tax ko affect karta hai?',
-        a: 'E-khata ya property-record notice assessment, owner details, ya payment workflow ko affect kar sakta hai. Final status hamesha official BBMP/e-aasthi records se verify karein.',
+        q: 'Can a BBMP e-khata notice affect property tax?',
+        a: 'An e-khata or property-record notice can affect assessment, owner details, or payment workflow. Always verify the final status through official BBMP/e-aasthi records.',
       },
     ],
   },
@@ -138,22 +145,27 @@ export const MUNICIPAL_GUIDE_CONTENT: Record<
       { label: 'High-intent query', value: 'ghmc property tax search by house number' },
       { label: 'Related intent', value: 'dues, receipt, payment, mobile number' },
     ],
+    relatedGuides: [
+      'property-document-checklist',
+      'rera-project-search-guide',
+      'circle-rate-vs-market-rate',
+    ],
     context: [
       'GHMC search demand is heavily lookup-driven. Users often know their house number but not their exact tax formula, so the page should help them move from “find my property” to “understand the payable amount”.',
       'For Hyderabad residential properties, use the calculator for a quick planning estimate, then verify the actual demand, arrears, rebates, and receipt history on GHMC services.',
     ],
     faqs: [
       {
-        q: 'GHMC property tax house number se search ho sakta hai?',
+        q: 'Can GHMC property tax be searched by house number?',
         a: 'GHMC property tax lookup usually supports property identifiers such as PTIN, house number, or linked owner/mobile details depending on the official portal flow. Use official GHMC services for final search results.',
       },
       {
-        q: 'GHMC property tax dues kaise check karein?',
-        a: 'GHMC dues check karne ke liye official property tax service par property record search karein. Estimate ke liye plinth area, monthly rental value, tax slab, depreciation, aur cess fields use karein.',
+        q: 'How do I check GHMC property tax dues?',
+        a: 'To check GHMC dues, search the property record on the official property tax service. For an estimate, use plinth area, monthly rental value, tax slab, depreciation, and cess fields.',
       },
       {
-        q: 'GHMC receipt download kaise karein?',
-        a: 'Paid receipt official GHMC services se download hoti hai. Plotr Ai calculator tax amount estimate karta hai, payment ya receipt generation nahi.',
+        q: 'How do I download a GHMC property tax receipt?',
+        a: 'A paid receipt can be downloaded from official GHMC services. The Plotr Ai calculator estimates tax amount only; it does not handle payment or receipt generation.',
       },
     ],
   },
@@ -198,22 +210,27 @@ export const MUNICIPAL_GUIDE_CONTENT: Record<
       { label: 'High-intent query', value: 'ca number in property tax' },
       { label: 'Related intent', value: 'last date, receipt, mcdonline.nic' },
     ],
+    relatedGuides: [
+      'property-document-checklist',
+      'circle-rate-vs-market-rate',
+      'stamp-duty-registration-charges-india',
+    ],
     context: [
       'MCD property tax searches are often identifier-first. People are not only looking for a calculator; they need to understand what the CA number or UPIC is, where it appears, and how it connects to the payment record.',
       'This guide intentionally keeps the identifier explanation, official portal, and calculator together so Delhi homeowners can move from record lookup to an estimated payable amount without leaving the page family.',
     ],
     faqs: [
       {
-        q: 'MCD property tax mein CA number kya hota hai?',
-        a: 'CA number property tax record se linked identifier ho sakta hai, similar to the way UPIC or property IDs help locate a Delhi property record. Exact naming can vary by portal flow and receipt format.',
+        q: 'What is a CA number in MCD property tax?',
+        a: 'A CA number can be an identifier linked to a property tax record, similar to the way UPIC or property IDs help locate a Delhi property record. Exact naming can vary by portal flow and receipt format.',
       },
       {
-        q: 'MCD property tax last date 2025-26 kaise check karein?',
-        a: 'MCD property tax last date aur rebate window official MCD portal par verify karein. Dates assessment year ke hisaab se change ho sakti hain, so calculator result ko payment deadline nahi maana chahiye.',
+        q: 'How do I check the MCD property tax last date for 2025-26?',
+        a: 'Verify the MCD property tax last date and rebate window on the official MCD portal. Dates can change by assessment year, so a calculator result should not be treated as a payment deadline.',
       },
       {
-        q: 'MCD tax estimate aur official demand alag kyun ho sakta hai?',
-        a: 'Official demand colony category, property use, covered area, age factor, structure factor, occupancy, arrears, and rebates se calculate hoti hai. Plotr Ai planning estimate deta hai; final amount MCD record se verify karein.',
+        q: 'Why can an MCD tax estimate differ from official demand?',
+        a: 'Official demand is calculated from colony category, property use, covered area, age factor, structure factor, occupancy, arrears, and rebates. Plotr Ai provides a planning estimate; verify the final amount through the MCD record.',
       },
     ],
   },

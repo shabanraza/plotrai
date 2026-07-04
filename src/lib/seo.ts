@@ -13,6 +13,16 @@ export interface ToolSchemaInput {
   faqs?: ReadonlyArray<FaqItem>
 }
 
+export interface ArticleSchemaInput {
+  headline: string
+  description: string
+  path: string
+  datePublished: string
+  dateModified: string
+  image?: string
+  type?: 'Article' | 'BlogPosting'
+}
+
 interface JsonLdScript {
   type: 'application/ld+json'
   children: string
@@ -96,6 +106,36 @@ export function itemListLd(
     })),
   }
   return { type: 'application/ld+json', children: JSON.stringify(schema) }
+}
+
+export function articleLd(input: ArticleSchemaInput): JsonLdScript {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': input.type ?? 'Article',
+    headline: input.headline,
+    description: input.description,
+    url: SITE_URL + input.path,
+    datePublished: input.datePublished,
+    dateModified: input.dateModified,
+    image: input.image ?? `${SITE_URL}/og/landing.png`,
+    author: {
+      '@type': 'Organization',
+      name: 'Plotr Ai',
+      url: SITE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Plotr Ai',
+      url: SITE_URL,
+      logo: `${SITE_URL}/favicon.svg`,
+    },
+    mainEntityOfPage: SITE_URL + input.path,
+  }
+  return { type: 'application/ld+json', children: JSON.stringify(schema) }
+}
+
+export function blogPostingLd(input: Omit<ArticleSchemaInput, 'type'>): JsonLdScript {
+  return articleLd({ ...input, type: 'BlogPosting' })
 }
 
 /** Returns a canonical link object for TanStack Start head() */

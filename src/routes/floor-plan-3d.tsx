@@ -52,6 +52,11 @@ function FloorPlan3DPage() {
       eyebrowIcon={Box}
       eyebrowLabel="AI Render · Live"
       faqs={IMAGE_TOOL_FAQS}
+      relatedGuides={[
+        'floor-plan-to-3d-ai-guide',
+        '30x40-house-plan',
+        'duplex-house-design',
+      ]}
     />
   )
 }

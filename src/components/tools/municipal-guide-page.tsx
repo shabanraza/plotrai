@@ -14,6 +14,8 @@ import { ToolContext } from '#/components/tools/tool-context'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
+import { getArticleLinkItem } from '#/data/blog-content'
 import type { MunicipalGuideContent } from '#/data/municipal-guide-content'
 
 interface MunicipalGuidePageProps {
@@ -137,6 +139,11 @@ export function MunicipalGuidePage({ content }: MunicipalGuidePageProps) {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={(content.relatedGuides ?? []).map(getArticleLinkItem)}
+          description="Continue with the deeper buyer-side guides that pair with this municipal search intent."
+        />
 
         <ToolFaq items={content.faqs} />
       </div>

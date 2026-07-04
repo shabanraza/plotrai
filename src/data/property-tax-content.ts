@@ -1,4 +1,5 @@
 import type { FaqItem } from '#/lib/seo'
+import type { BlogSlug } from '#/data/blog-content'
 
 export type PropertyTaxSlug =
   | 'bbmp-property-tax-calculator'
@@ -21,6 +22,7 @@ export interface PropertyTaxContent {
   lastUpdated: string
   sourceUrls: ReadonlyArray<{ label: string; url: string }>
   guideLinks?: ReadonlyArray<{ label: string; href: string; description: string }>
+  relatedGuides?: ReadonlyArray<BlogSlug>
   estimateNote: string
   context: ReadonlyArray<string>
   faqs: ReadonlyArray<FaqItem>
@@ -61,6 +63,11 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
             'Assessment-year checklist, e-khata notice context, payment and receipt search intent.',
         },
       ],
+      relatedGuides: [
+        'property-document-checklist',
+        'stamp-duty-registration-charges-india',
+        'circle-rate-vs-market-rate',
+      ],
       estimateNote:
         'BBMP residential estimate uses built-up area x monthly UAV x 10 months, then depreciation, 20% tax, 24% cess, and optional early-payment rebate.',
       context: [
@@ -69,11 +76,11 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
       ],
       faqs: [
         {
-          q: 'BBMP property tax kaise calculate hota hai?',
+          q: 'How is BBMP property tax calculated?',
           a: 'BBMP property tax usually depends on built-up area, usage type, unit area value, property age depreciation, and cess. This calculator uses a simplified planning formula so you can estimate the yearly amount before final payment on the BBMP portal.',
         },
         {
-          q: 'BBMP property tax online payment ke liye kya chahiye?',
+          q: 'What is needed for BBMP property tax online payment?',
           a: 'You generally need your property identification details such as SAS application number, PID, or khata-related information. This tool does not pay tax; it only estimates the amount.',
         },
       ],
@@ -107,6 +114,11 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
             'House number/PTIN lookup guide for dues, receipt, and official payment checks.',
         },
       ],
+      relatedGuides: [
+        'property-document-checklist',
+        'rera-project-search-guide',
+        'stamp-duty-registration-charges-india',
+      ],
       estimateNote:
         'GHMC residential estimate uses plinth area x monthly rental value x 12 months, then slab tax, depreciation, and library cess. Exact tax depends on official assessment.',
       context: [
@@ -115,11 +127,11 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
       ],
       faqs: [
         {
-          q: 'GHMC property tax ka formula kya hai?',
+          q: 'What is the GHMC property tax formula?',
           a: 'For residential property, GHMC tax is commonly estimated from gross annual rental value, a slab rate, building depreciation, and library cess. Exact payable tax can vary by locality and official assessment.',
         },
         {
-          q: 'Hyderabad mein property tax due dates kab hoti hain?',
+          q: 'When are property tax due dates in Hyderabad?',
           a: 'GHMC property tax is generally paid in half-yearly cycles. Check the official GHMC portal for the current year due dates, rebates, and interest rules.',
         },
       ],
@@ -153,6 +165,11 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
             'CA number, UPIC, last-date, receipt, and official Delhi property-tax record guide.',
         },
       ],
+      relatedGuides: [
+        'property-document-checklist',
+        'circle-rate-vs-market-rate',
+        'stamp-duty-registration-charges-india',
+      ],
       estimateNote:
         'MCD estimate is a planning shortcut. Official payable tax depends on UPIC, colony category, covered area, use, occupancy, structure, age factors, and current rebates.',
       context: [
@@ -161,11 +178,11 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
       ],
       faqs: [
         {
-          q: 'MCD property tax Delhi mein kaise calculate hota hai?',
+          q: 'How is MCD property tax calculated in Delhi?',
           a: 'MCD property tax depends on annual value, property category, covered area, usage, occupancy, structure, and age factors. This calculator gives a planning estimate from the most visible inputs.',
         },
         {
-          q: 'MCD property tax mein rebate milta hai?',
+          q: 'Is rebate available on MCD property tax?',
           a: 'Rebate rules can apply for early payment, specific owner categories, or property types. Adjust the rebate field if you know your eligible discount before paying on the official portal.',
         },
       ],

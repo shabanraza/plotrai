@@ -215,36 +215,36 @@ export function buildStateFaqs(content: StateContent): ReadonlyArray<FaqItem> {
 
   const faqs: Array<FaqItem> = [
     {
-      q: `${content.displayName} mein stamp duty kitni lagti hai 2026 mein?`,
-      a: `${content.displayName} mein male buyers ko ${r.male}% stamp duty + ${r.registration}% registration deni hoti hai. Female buyers ko ${r.female}% stamp duty + ${r.registration}% registration. ${r.note ?? ''} Total transaction cost male buyers ke liye ${(r.male + r.registration).toFixed(2)}% aur female buyers ke liye ${(r.female + r.registration).toFixed(2)}% banta hai.`,
+      q: `How much stamp duty applies in ${content.displayName} in 2026?`,
+      a: `In ${content.displayName}, male buyers pay ${r.male}% stamp duty + ${r.registration}% registration. Female buyers pay ${r.female}% stamp duty + ${r.registration}% registration. ${r.note ?? ''} Total transaction cost is ${(r.male + r.registration).toFixed(2)}% for male buyers and ${(r.female + r.registration).toFixed(2)}% for female buyers.`,
     },
     {
-      q: `${content.displayName} mein female buyer ko stamp duty discount milta hai?`,
+      q: `Do female buyers get a stamp duty discount in ${content.displayName}?`,
       a:
         womenSavings > 0
-          ? `Haan, ${content.displayName} mein female buyers ko ${womenSavings.toFixed(2)}% ka stamp duty concession milta hai (${r.female}% vs ${r.male}% for males). Property female owner ke naam pe ya joint with female as primary owner register karne pe yeh discount applicable hai.`
-          : `${content.displayName} mein female buyers ke liye koi separate stamp duty concession nahi hai — male aur female dono ${r.male}% rate pay karte hain. State-wise variation hoti hai, isliye ${content.displayName} ke liye yeh dhyan rakhna zaroori hai.`,
+          ? `Yes, female buyers in ${content.displayName} get a ${womenSavings.toFixed(2)}% stamp duty concession (${r.female}% vs ${r.male}% for males). This discount usually applies when the property is registered in a woman's name or jointly with a woman as the primary owner.`
+          : `${content.displayName} does not have a separate stamp duty concession for female buyers; male and female buyers both pay ${r.male}%. Rules vary by state, so this is important to note for ${content.displayName}.`,
     },
     {
-      q: `${content.displayName} ke liye stamp duty kahan jama karein?`,
+      q: `Where can stamp duty be paid for ${content.displayName}?`,
       a: content.igrPortal
-        ? `${content.displayName} mein stamp duty ${content.igrPortal.label} portal (${content.igrPortal.url}) se online jama ki ja sakti hai. E-stamp paper print karke sub-registrar office mein document registration ke time submit karna hota hai. In-person registration ke liye nazdeeki sub-registrar office contact karein.`
-        : `${content.displayName} mein stamp duty state IGR portal pe online ya nearest sub-registrar office mein deposit ki ja sakti hai. E-stamp paper aur online challan dono accept hote hain.`,
+        ? `Stamp duty for ${content.displayName} can be paid online through ${content.igrPortal.label} (${content.igrPortal.url}). Print the e-stamp paper and submit it at the sub-registrar office during document registration. For in-person registration, contact the nearest sub-registrar office.`
+        : `Stamp duty in ${content.displayName} can be deposited online through the state IGR portal or at the nearest sub-registrar office. E-stamp paper and online challan are generally accepted.`,
     },
     {
-      q: `${content.displayName} mein 1 crore ke flat pe stamp duty kitni banegi?`,
-      a: `${content.displayName} mein ₹1 crore ke flat pe male buyer ko ₹${(100 * r.male / 100).toLocaleString('en-IN')} lakh stamp duty + ₹${(100 * r.registration / 100).toLocaleString('en-IN')} lakh registration = ₹${((100 * (r.male + r.registration)) / 100).toLocaleString('en-IN')} lakh total deni hoti hai. Female buyer ko ₹${((100 * (r.female + r.registration)) / 100).toLocaleString('en-IN')} lakh — bachat ${((100 * womenSavings) / 100).toFixed(1)} lakh.`,
+      q: `How much stamp duty applies on a ₹1 crore flat in ${content.displayName}?`,
+      a: `For a ₹1 crore flat in ${content.displayName}, a male buyer pays ₹${(100 * r.male / 100).toLocaleString('en-IN')} lakh stamp duty + ₹${(100 * r.registration / 100).toLocaleString('en-IN')} lakh registration = ₹${((100 * (r.male + r.registration)) / 100).toLocaleString('en-IN')} lakh total. A female buyer pays ₹${((100 * (r.female + r.registration)) / 100).toLocaleString('en-IN')} lakh, saving about ₹${((100 * womenSavings) / 100).toFixed(1)} lakh where a concession applies.`,
     },
     {
-      q: `${content.displayName} mein under-construction property pe stamp duty kab deni hoti hai?`,
-      a: `Under-construction property ke liye ${content.displayName} mein stamp duty sale agreement register karte time deni hoti hai (typically 20-25% payment ke baad). Sale deed final hone pe possession ke time additional registration fee bhi pay karna pad sakta hai. Builder se construction-linked GST (5%) alag se collect kiya jata hai — yeh stamp duty se separate hai.`,
+      q: `When is stamp duty paid on under-construction property in ${content.displayName}?`,
+      a: `For under-construction property in ${content.displayName}, stamp duty is paid when the sale agreement is registered, typically after 20-25% payment. An additional registration fee may apply when the final sale deed is executed at possession. The builder may also collect construction-linked GST (5%) separately; GST is not part of stamp duty.`,
     },
   ]
 
   if (cityList) {
     faqs.push({
-      q: `${content.displayName} ke konse cities ka data is calculator mein hai?`,
-      a: `${content.displayName} ke liye humne city-specific rates include kiye hain ${cityList} ke liye. In sab cities ke liye rates state-default se thode different ho sakte hain (especially Mumbai aur Pune mein metro cess). Calculator mein city select karne pe local rates apply hote hain.`,
+      q: `Which cities in ${content.displayName} are covered by this calculator?`,
+      a: `For ${content.displayName}, this calculator includes city-specific rates for ${cityList}. Rates for these cities can differ slightly from the state default, especially where metro cess applies. Select a city in the calculator to apply local rates.`,
     })
   }
 

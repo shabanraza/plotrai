@@ -22,10 +22,12 @@ import {
 import { CII, CII_LAST_UPDATED, FY_LIST } from '#/data/cii'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import {
   CAPITAL_GAINS_FAQS,
   CAPITAL_GAINS_CONTEXT,
 } from '#/data/tool-seo-content'
+import { getArticleLinkItem } from '#/data/blog-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import { calculatePropertyCapitalGains } from '#/lib/indexation'
 
@@ -356,6 +358,15 @@ function CapitalGainsCalculatorPage() {
             <p key={i}>{p}</p>
           ))}
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={([
+            'property-document-checklist',
+            'circle-rate-vs-market-rate',
+            'stamp-duty-registration-charges-india',
+          ] as const).map(getArticleLinkItem)}
+          description="Use these guides to connect sale-tax planning to the full property transaction picture."
+        />
 
         <ToolFaq items={CAPITAL_GAINS_FAQS} />
       </div>

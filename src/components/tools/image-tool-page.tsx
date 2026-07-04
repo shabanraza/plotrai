@@ -22,6 +22,7 @@ import { ToolPageShell, Workbench } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import {
   ImageDropzone,
   type ImageDropzoneValue,
@@ -38,6 +39,7 @@ import { track } from '#/lib/track'
 import type { FaqItem } from '#/lib/seo'
 import { Input } from '#/components/ui/input'
 import { Label } from '#/components/ui/label'
+import { getArticleLinkItem, type BlogSlug } from '#/data/blog-content'
 
 const STYLE_OPTIONS: ReadonlyArray<{ id: ImageEditStyle; label: string }> = [
   { id: 'modern', label: 'Modern' },
@@ -60,6 +62,7 @@ interface ImageToolPageProps {
   eyebrowLabel?: string
   context?: { title: string; paragraphs: ReadonlyArray<string> }
   faqs?: ReadonlyArray<FaqItem>
+  relatedGuides?: ReadonlyArray<BlogSlug>
 }
 
 export function ImageToolPage({
@@ -73,6 +76,7 @@ export function ImageToolPage({
   eyebrowLabel,
   context,
   faqs,
+  relatedGuides,
 }: ImageToolPageProps) {
   const [image, setImage] = useState<ImageDropzoneValue | null>(null)
   const [style, setStyle] = useState<ImageEditStyle>('modern')
@@ -158,6 +162,7 @@ export function ImageToolPage({
             number="01"
             label="Upload"
             description={uploadHint}
+            layout="stacked"
             rule={false}
           >
             <ImageDropzone value={image} onChange={setImage} />
@@ -167,6 +172,7 @@ export function ImageToolPage({
             number="02"
             label="Style"
             description="How should the AI render the result?"
+            layout="stacked"
           >
             <ToggleGroup
               type="single"
@@ -191,6 +197,7 @@ export function ImageToolPage({
             number="03"
             label="Quality"
             description="High takes ~2× longer, more detail."
+            layout="stacked"
           >
             <ToggleGroup
               type="single"
@@ -281,7 +288,7 @@ export function ImageToolPage({
         </Workbench.Sidebar>
 
         <Workbench.Result>
-          <ToolSection label="Result" rule={false}>
+          <ToolSection label="Result" layout="stacked" rule={false}>
             {!image ? (
               <Empty>
                 <EmptyHeader>
@@ -308,7 +315,7 @@ export function ImageToolPage({
         </Workbench.Result>
       </Workbench>
 
-      {(context || faqs) && (
+      {(context || faqs || relatedGuides?.length) && (
         <div className="mt-12 flex flex-col gap-10">
           {context && (
             <ToolContext title={context.title}>
@@ -316,6 +323,12 @@ export function ImageToolPage({
                 <p key={i}>{p}</p>
               ))}
             </ToolContext>
+          )}
+          {relatedGuides && relatedGuides.length > 0 && (
+            <RelatedGuidesSection
+              items={relatedGuides.map(getArticleLinkItem)}
+              description="Read the companion planning guides before you lock the layout or interior direction."
+            />
           )}
           {faqs && faqs.length > 0 && <ToolFaq items={faqs} />}
         </div>

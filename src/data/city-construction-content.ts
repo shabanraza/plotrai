@@ -226,34 +226,34 @@ export function buildCityFaqs(content: CityContent): ReadonlyArray<FaqItem> {
 
   const faqs: Array<FaqItem> = [
     {
-      q: `${content.city} mein construction cost per sq ft kitni hai 2026 mein?`,
-      a: `${content.city} mein 2026 ke standard quality construction ka rate ₹${r.standard.toLocaleString('en-IN')}/sq ft hai. Basic finish ₹${r.basic.toLocaleString('en-IN')}/sq ft, premium ₹${r.premium.toLocaleString('en-IN')}/sq ft, aur luxury ₹${r.luxury.toLocaleString('en-IN')}/sq ft ke rates apply hote hain. Yeh rates ${content.state} ke local labour aur material costs reflect karte hain.`,
+      q: `What is the construction cost per sq ft in ${content.city} in 2026?`,
+      a: `In ${content.city}, the 2026 standard-quality construction rate is ₹${r.standard.toLocaleString('en-IN')}/sq ft. Basic finish is ₹${r.basic.toLocaleString('en-IN')}/sq ft, premium is ₹${r.premium.toLocaleString('en-IN')}/sq ft, and luxury is ₹${r.luxury.toLocaleString('en-IN')}/sq ft. These rates reflect local labour and material costs in ${content.state}.`,
     },
     {
-      q: `${content.city} mein 1000 sq ft ka ghar banane mein kitna kharcha aayega?`,
-      a: `${content.city} mein 1000 sq ft ka standard quality ghar banane mein approximately ₹${(cost1000 / 100000).toFixed(1)} lakh kharcha aata hai. Basic ke liye ₹${((r.basic * 1000) / 100000).toFixed(1)} lakh, premium ke liye ₹${((r.premium * 1000) / 100000).toFixed(1)} lakh, aur luxury ke liye ₹${((r.luxury * 1000) / 100000).toFixed(1)} lakh budget chahiye. Yeh civil construction ka cost hai — land aur government approvals alag se.`,
+      q: `How much does it cost to build a 1000 sq ft house in ${content.city}?`,
+      a: `A 1000 sq ft standard-quality house in ${content.city} costs approximately ₹${(cost1000 / 100000).toFixed(1)} lakh. Budget around ₹${((r.basic * 1000) / 100000).toFixed(1)} lakh for basic finish, ₹${((r.premium * 1000) / 100000).toFixed(1)} lakh for premium, and ₹${((r.luxury * 1000) / 100000).toFixed(1)} lakh for luxury. This is civil construction cost only; land and government approvals are separate.`,
     },
     {
-      q: `${content.city} mein 1500 sq ft house construction cost kya hai?`,
-      a: `${content.city} mein 1500 sq ft ka standard ghar approximately ₹${(cost1500 / 100000).toFixed(1)} lakh mein ban jaata hai. Premium quality ke liye ₹${((r.premium * 1500) / 100000).toFixed(1)} lakh aur luxury ke liye ₹${((r.luxury * 1500) / 100000).toFixed(1)} lakh tak ja sakta hai. 10% contingency bhi rakhein design changes aur unforeseen expenses ke liye.`,
+      q: `What is the 1500 sq ft house construction cost in ${content.city}?`,
+      a: `A 1500 sq ft standard house in ${content.city} costs approximately ₹${(cost1500 / 100000).toFixed(1)} lakh. Premium quality can cost around ₹${((r.premium * 1500) / 100000).toFixed(1)} lakh, while luxury quality can reach ₹${((r.luxury * 1500) / 100000).toFixed(1)} lakh. Keep a 10% contingency for design changes and unforeseen expenses.`,
     },
     {
-      q: `${content.city} mein 2000 sq ft duplex banane ka cost?`,
-      a: `${content.city} mein 2000 sq ft ka standard duplex approximately ₹${(cost2000 / 100000).toFixed(1)} lakh mein construct hota hai. Two-floor structure ke liye foundation aur structure cost slightly zyada hota hai single-floor ke comparison mein, but per-sq-ft rate roughly same rehta hai.`,
+      q: `What is the cost to build a 2000 sq ft duplex in ${content.city}?`,
+      a: `A 2000 sq ft standard duplex in ${content.city} costs approximately ₹${(cost2000 / 100000).toFixed(1)} lakh. Foundation and structural cost can be slightly higher for a two-floor structure than a single-floor house, but the per-sq-ft rate usually stays close to the same range.`,
     },
     {
-      q: `${content.city} mein construction labour aur material cost ka ratio?`,
-      a: `${content.city} mein typical residential construction mein 65% material + 30% labour + 5% contingency split hota hai. Material breakdown: cement ~15%, steel ~12%, bricks ~10%, aggregates ~8%, finishing ~20%. ${content.city} ke labour rates ${content.state} ke other cities se compare karke decide karein.`,
+      q: `What is the labour and material cost ratio for construction in ${content.city}?`,
+      a: `Typical residential construction in ${content.city} follows a 65% material + 30% labour + 5% contingency split. Material breakdown is roughly cement 15%, steel 12%, bricks 10%, aggregates 8%, and finishing 20%. Compare labour rates in ${content.city} with other cities in ${content.state} before finalising a contractor quote.`,
     },
     {
-      q: `${content.city} mein construction cost mein kya included hota hai aur kya nahi?`,
-      a: `${content.city} ke quote mein included: civil structure (foundation, slab, columns, walls), basic electrical/plumbing rough-in, doors and windows, basic flooring, and labour. Excluded: modular kitchen, false ceiling, AC, premium fittings, landscaping, compound wall, government approval fees (typically ₹50-200/sq ft additional in ${content.city}).`,
+      q: `What is included and excluded in construction cost in ${content.city}?`,
+      a: `A typical ${content.city} quote includes civil structure (foundation, slab, columns, walls), basic electrical/plumbing rough-in, doors and windows, basic flooring, and labour. It excludes modular kitchen, false ceiling, AC, premium fittings, landscaping, compound wall, and government approval fees, which can add ₹50-200/sq ft in ${content.city}.`,
     },
   ]
 
   if (content.slug === 'bangalore' || content.slug === 'north-bangalore') {
     faqs.splice(1, 0, {
-      q: 'North Bangalore mein house construction cost kitni hai?',
+      q: 'What is the house construction cost in North Bangalore?',
       a: `North Bangalore areas such as Yelahanka, Hebbal outskirts, Devanahalli, Hennur, and Thanisandra typically cost around ₹${r.standard.toLocaleString('en-IN')}/sq ft for standard finish, ₹${r.basic.toLocaleString('en-IN')}/sq ft basic, and ₹${r.premium.toLocaleString('en-IN')}/sq ft premium. Sites farther from central BBMP zones can be cheaper, but borewell, soil, and approval costs vary by layout.`,
     })
   }

@@ -4,6 +4,7 @@ import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import { Button } from '#/components/ui/button'
 import {
   Table,
@@ -21,6 +22,7 @@ import {
   buildStateFaqs,
 } from '#/data/state-stamp-duty-content'
 import { STAMP_DUTY_LAST_UPDATED } from '#/data/stamp-duty-rates'
+import { getArticleLinkItem } from '#/data/blog-content'
 import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/stamp-duty/$state')({
@@ -228,6 +230,15 @@ function StateStampDutyPage() {
             )}
           </p>
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={([
+            'stamp-duty-registration-charges-india',
+            'circle-rate-vs-market-rate',
+            'property-document-checklist',
+          ] as const).map(getArticleLinkItem)}
+          description={`Use these buyer-side guides to understand the wider transaction costs around ${content.displayName} registration.`}
+        />
 
         <ToolFaq items={faqs} />
 

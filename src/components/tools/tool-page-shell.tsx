@@ -40,6 +40,13 @@ const VARIANT_MAX_W: Record<Variant, string> = {
   reading: 'max-w-3xl',
 }
 
+const VARIANT_CONTENT_W: Record<Variant, string> = {
+  workbench: '',
+  progressive: 'max-w-[1040px]',
+  'single-column': 'max-w-[980px]',
+  reading: 'max-w-[760px]',
+}
+
 export function ToolPageShell({
   breadcrumb,
   eyebrow,
@@ -51,59 +58,62 @@ export function ToolPageShell({
   footnote,
 }: ToolPageShellProps) {
   const Icon = eyebrow?.icon
+  const contentWidth = VARIANT_CONTENT_W[variant]
   return (
     <main className={cn('mx-auto px-4 pb-16 pt-8 sm:px-6 sm:pt-10', VARIANT_MAX_W[variant])}>
-      {breadcrumb && breadcrumb.length > 0 && (
-        <Breadcrumb className="mb-6">
-          <BreadcrumbList>
-            {breadcrumb.map((entry, i) => {
-              const isLast = i === breadcrumb.length - 1
-              return (
-                <span key={`${entry.label}-${i}`} className="contents">
-                  <BreadcrumbItem>
-                    {isLast || !entry.href ? (
-                      <BreadcrumbPage>{entry.label}</BreadcrumbPage>
-                    ) : (
-                      <BreadcrumbLink asChild>
-                        <Link to={entry.href}>{entry.label}</Link>
-                      </BreadcrumbLink>
-                    )}
-                  </BreadcrumbItem>
-                  {!isLast && <BreadcrumbSeparator />}
-                </span>
-              )
-            })}
-          </BreadcrumbList>
-        </Breadcrumb>
-      )}
+      <div className={cn('mx-auto w-full', contentWidth)}>
+        {breadcrumb && breadcrumb.length > 0 && (
+          <Breadcrumb className="mb-6">
+            <BreadcrumbList>
+              {breadcrumb.map((entry, i) => {
+                const isLast = i === breadcrumb.length - 1
+                return (
+                  <span key={`${entry.label}-${i}`} className="contents">
+                    <BreadcrumbItem>
+                      {isLast || !entry.href ? (
+                        <BreadcrumbPage>{entry.label}</BreadcrumbPage>
+                      ) : (
+                        <BreadcrumbLink asChild>
+                          <Link to={entry.href}>{entry.label}</Link>
+                        </BreadcrumbLink>
+                      )}
+                    </BreadcrumbItem>
+                    {!isLast && <BreadcrumbSeparator />}
+                  </span>
+                )
+              })}
+            </BreadcrumbList>
+          </Breadcrumb>
+        )}
 
-      <header className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-        <div className="min-w-0 flex-1">
-          {eyebrow && (
-            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent-teal)]/25 bg-[var(--accent-teal-light)] px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--accent-teal)]">
-              {Icon && <Icon className="size-3" />}
-              {eyebrow.label}
-            </span>
-          )}
-          <h1 className="text-balance text-2xl font-semibold leading-tight tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px] md:text-[32px]">
-            {title}
-          </h1>
-          {tagline && (
-            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--muted-foreground)]">
-              {tagline}
-            </p>
-          )}
-        </div>
-        {headerActions && <div className="shrink-0">{headerActions}</div>}
-      </header>
+        <header className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="min-w-0 flex-1">
+            {eyebrow && (
+              <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent-teal)]/25 bg-[var(--accent-teal-light)] px-3 py-1 text-xs font-medium text-[var(--accent-teal)]">
+                {Icon && <Icon className="size-3" />}
+                {eyebrow.label}
+              </span>
+            )}
+            <h1 className="w-full text-balance text-[2.05rem] font-semibold leading-[1.02] text-[var(--foreground)] sm:text-[2.55rem] md:text-[2.9rem]">
+              {title}
+            </h1>
+            {tagline && (
+              <p className="mt-4 max-w-[62ch] text-[1rem] leading-8 text-[var(--muted-foreground)] sm:text-[1.15rem]">
+                {tagline}
+              </p>
+            )}
+          </div>
+          {headerActions && <div className="shrink-0">{headerActions}</div>}
+        </header>
 
-      {children}
+        {children}
 
-      {footnote && (
-        <p className="mt-12 max-w-2xl text-xs leading-relaxed text-[var(--muted-foreground)]/80">
-          {footnote}
-        </p>
-      )}
+        {footnote && (
+          <p className="mt-12 max-w-[62ch] text-xs leading-6 text-[var(--muted-foreground)]/80">
+            {footnote}
+          </p>
+        )}
+      </div>
     </main>
   )
 }

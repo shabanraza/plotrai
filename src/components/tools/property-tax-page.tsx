@@ -5,6 +5,7 @@ import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import { Badge } from '#/components/ui/badge'
 import {
   Field,
@@ -27,6 +28,7 @@ import {
   TableRow,
 } from '#/components/ui/table'
 import type { PropertyTaxContent } from '#/data/property-tax-content'
+import { getArticleLinkItem } from '#/data/blog-content'
 import { calculatePropertyTax } from '#/lib/property-tax'
 
 interface PropertyTaxPageProps {
@@ -203,6 +205,11 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
             ))}
           </p>
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={(content.relatedGuides ?? []).map(getArticleLinkItem)}
+          description="Use these explainers for due diligence, document checks, and transaction planning around municipal tax."
+        />
 
         <ToolFaq items={content.faqs} />
       </div>

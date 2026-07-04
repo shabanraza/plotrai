@@ -39,10 +39,12 @@ import {
 } from '#/data/construction-cost-rates'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import {
   CONSTRUCTION_COST_FAQS,
   CONSTRUCTION_COST_CONTEXT,
 } from '#/data/tool-seo-content'
+import { getArticleLinkItem } from '#/data/blog-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import { CITY_CONTENT } from '#/data/city-construction-content'
 import { Link } from '@tanstack/react-router'
@@ -300,6 +302,15 @@ function ConstructionCostCalculatorPage() {
             <p key={i}>{p}</p>
           ))}
         </ToolContext>
+
+        <RelatedGuidesSection
+          items={([
+            'steel-price-house-construction',
+            'false-ceiling-cost-per-sq-ft',
+            'modular-kitchen-cost-india',
+          ] as const).map(getArticleLinkItem)}
+          description="These explainers help break the total estimate into material and finishing decisions."
+        />
 
         <ToolSection
           number="CITIES"

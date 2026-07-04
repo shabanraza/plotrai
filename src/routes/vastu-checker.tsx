@@ -281,7 +281,12 @@ function VastuCheckerPage() {
           </div>
 
           <aside className="lg:sticky lg:top-6">
-            <ToolSection label="Zone map" description="Live preview of room placement." rule={false}>
+            <ToolSection
+              label="Zone map"
+              description="Live preview of room placement."
+              layout="stacked"
+              rule={false}
+            >
               <div className="flex flex-col gap-3">
                 <VastuMandala rooms={rooms} facing={plotDetails.facing} />
                 <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs text-[var(--muted-foreground)]">
