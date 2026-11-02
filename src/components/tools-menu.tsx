@@ -7,6 +7,7 @@ import {
   Hammer,
   KeyRound,
   Layers3,
+  MapPinned,
   Receipt,
   Ruler,
   Sofa,
@@ -106,6 +107,13 @@ const TOOLS: ReadonlyArray<ToolEntry> = [
     icon: KeyRound,
     title: 'Home Buying Cost',
     description: 'Stamp duty, GST, down payment and EMI together.',
+    status: 'utility',
+  },
+  {
+    to: '/delhi-circle-rate',
+    icon: MapPinned,
+    title: 'Delhi Circle Rate',
+    description: 'Category A–H rates and minimum value.',
     status: 'utility',
   },
   {
