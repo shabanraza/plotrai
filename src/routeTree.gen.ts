@@ -40,6 +40,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as StampDutyStateRouteImport } from './routes/stamp-duty/$state'
+import { Route as ConvertPairRouteImport } from './routes/convert/$pair'
 import { Route as ConstructionCostCityRouteImport } from './routes/construction-cost/$city'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
@@ -206,6 +207,11 @@ const StampDutyStateRoute = StampDutyStateRouteImport.update({
   path: '/stamp-duty/$state',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConvertPairRoute = ConvertPairRouteImport.update({
+  id: '/convert/$pair',
+  path: '/convert/$pair',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConstructionCostCityRoute = ConstructionCostCityRouteImport.update({
   id: '/construction-cost/$city',
   path: '/construction-cost/$city',
@@ -255,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
+  '/convert/$pair': typeof ConvertPairRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -290,6 +297,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
+  '/convert/$pair': typeof ConvertPairRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -327,6 +335,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
+  '/convert/$pair': typeof ConvertPairRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -365,6 +374,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/construction-cost/$city'
+    | '/convert/$pair'
     | '/stamp-duty/$state'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -400,6 +410,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/construction-cost/$city'
+    | '/convert/$pair'
     | '/stamp-duty/$state'
     | '/blog'
   id:
@@ -436,6 +447,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/blog/$slug'
     | '/construction-cost/$city'
+    | '/convert/$pair'
     | '/stamp-duty/$state'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -472,6 +484,7 @@ export interface RootRouteChildren {
   VastuCheckerRoute: typeof VastuCheckerRoute
   ApiChatRoute: typeof ApiChatRoute
   ConstructionCostCityRoute: typeof ConstructionCostCityRoute
+  ConvertPairRoute: typeof ConvertPairRoute
   StampDutyStateRoute: typeof StampDutyStateRoute
 }
 
@@ -694,6 +707,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StampDutyStateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/convert/$pair': {
+      id: '/convert/$pair'
+      path: '/convert/$pair'
+      fullPath: '/convert/$pair'
+      preLoaderRoute: typeof ConvertPairRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/construction-cost/$city': {
       id: '/construction-cost/$city'
       path: '/construction-cost/$city'
@@ -763,6 +783,7 @@ const rootRouteChildren: RootRouteChildren = {
   VastuCheckerRoute: VastuCheckerRoute,
   ApiChatRoute: ApiChatRoute,
   ConstructionCostCityRoute: ConstructionCostCityRoute,
+  ConvertPairRoute: ConvertPairRoute,
   StampDutyStateRoute: StampDutyStateRoute,
 }
 export const routeTree = rootRouteImport
