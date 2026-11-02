@@ -5,6 +5,7 @@ import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
+import { HomeLoanCta } from '#/components/tools/home-loan-cta'
 import { Button } from '#/components/ui/button'
 import {
   Table,
@@ -208,6 +209,28 @@ function StateStampDutyPage() {
                 <ArrowRight />
               </Link>
             </Button>
+          </div>
+        </ToolSection>
+
+        <ToolSection
+          number="04"
+          label="Total cost of buying"
+          description={`Stamp duty is one part of the bill. Add GST, brokerage, down payment and EMI for ${content.displayName}.`}
+        >
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted-foreground)]">
+                Banks don&apos;t finance stamp duty or registration. See the full cash you need
+                upfront and your monthly EMI.
+              </p>
+              <Button asChild variant="outline">
+                <Link to="/home-buying-cost-calculator">
+                  Home buying cost calculator
+                  <ArrowRight data-icon="inline-end" />
+                </Link>
+              </Button>
+            </div>
+            <HomeLoanCta source={`stamp-duty-${content.slug}`} />
           </div>
         </ToolSection>
 

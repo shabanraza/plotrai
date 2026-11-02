@@ -7,6 +7,7 @@ import {
   Compass,
   Hammer,
   Heart,
+  KeyRound,
   Layers3,
   Palette,
   Receipt,
@@ -72,6 +73,11 @@ const LIVE_TOOLS = [
     name: 'Stamp Duty Calculator India',
     description: 'State-wise stamp duty and registration charge calculator for Indian property buyers.',
     path: '/stamp-duty-calculator',
+  },
+  {
+    name: 'Home Buying Cost Calculator India',
+    description: 'Total cost of buying a house in India: stamp duty, GST, brokerage, down payment, and home loan EMI.',
+    path: '/home-buying-cost-calculator',
   },
   {
     name: 'Construction Cost Calculator India',
@@ -341,6 +347,13 @@ function ToolsSection() {
           title="Stamp Duty Calculator"
           description="State + city stamp duty and registration. Female-buyer rates included."
           icon={Receipt}
+        />
+        <ToolCard
+          to="/home-buying-cost-calculator"
+          status="utility"
+          title="Home Buying Cost Calculator"
+          description="Stamp duty, GST, brokerage, down payment and EMI — the full cash you need."
+          icon={KeyRound}
         />
         <ToolCard
           to="/construction-cost-calculator"
