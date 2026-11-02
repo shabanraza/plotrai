@@ -438,4 +438,28 @@
     <changefreq>monthly</changefreq>
     <priority>0.76</priority>
   </url>
+  <url>
+    <loc>https://plotrai.in/stamp-duty/uttarakhand</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://plotrai.in/stamp-duty/jharkhand</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://plotrai.in/stamp-duty/jammu-kashmir</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://plotrai.in/stamp-duty/chhattisgarh</loc>
+    <lastmod>2026-11-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>

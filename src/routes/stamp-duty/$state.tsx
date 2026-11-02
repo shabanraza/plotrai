@@ -101,7 +101,11 @@ function StateStampDutyPage() {
       title={`${content.displayName} Stamp Duty Calculator 2026`}
       tagline={`Stamp duty + registration rates for ${content.displayName}, with male, female, and joint buyer breakdowns. Updated ${STAMP_DUTY_LAST_UPDATED}.`}
       variant="single-column"
-      footnote={`Rates last refreshed ${STAMP_DUTY_LAST_UPDATED} from ${content.igrPortal?.label ?? 'state IGR portal'}. Always cross-check with the local sub-registrar office before legal documents.`}
+      footnote={
+        content.rateSources
+          ? `Rates checked ${STAMP_DUTY_LAST_UPDATED} against the published sources listed on this page; ${content.displayName} does not publish a rate table online. Always cross-check with the local sub-registrar office before legal documents.`
+          : `Rates last refreshed ${STAMP_DUTY_LAST_UPDATED} from ${content.igrPortal?.label ?? 'state IGR portal'}. Always cross-check with the local sub-registrar office before legal documents.`
+      }
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Rates at a glance" rule={false}>
@@ -229,6 +233,25 @@ function StateStampDutyPage() {
               </>
             )}
           </p>
+          {content.rateSources && (
+            <p>
+              Rates on this page were checked against:{' '}
+              {content.rateSources.map((s, i) => (
+                <span key={s.url}>
+                  {i > 0 && ', '}
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[var(--accent-teal)] hover:underline"
+                  >
+                    {s.label}
+                    <ExternalLink className="size-3" />
+                  </a>
+                </span>
+              ))}
+            </p>
+          )}
         </ToolContext>
 
         <RelatedGuidesSection
