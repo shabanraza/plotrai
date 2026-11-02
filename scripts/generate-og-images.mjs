@@ -337,6 +337,20 @@ const CITY_CARDS = [
   'Chandigarh',
   'Bhopal',
   'Patna',
+  'Nagpur',
+  'Surat',
+  'Vadodara',
+  'Nashik',
+  'Visakhapatnam',
+  'Mysore',
+  'Ranchi',
+  'Dehradun',
+  'Raipur',
+  'Bhubaneswar',
+  'Ludhiana',
+  'Agra',
+  'Varanasi',
+  'Madurai',
 ].map((city) => {
   const slug = city.toLowerCase().replaceAll(' ', '-')
   return {

@@ -208,6 +208,133 @@ export const CITY_CONTENT: ReadonlyArray<CityContent> = [
       'PMC bye-laws permit FAR up to 2.0 in residential zones — making vertical construction economical.',
     ],
   },
+  // Added 2026-11-02; rates derived from InfraLens (see infralens-rates.ts).
+  {
+    slug: 'nagpur',
+    city: 'Nagpur',
+    state: 'Maharashtra',
+    extraContext: [
+      'Nagpur building plans are approved by the Nagpur Municipal Corporation inside city limits and by NMRDA in the surrounding region. Check which authority covers your plot before you budget approval fees.',
+      'Nagpur summers are among the hottest in India, so roof insulation, terrace waterproofing and heat-reflective paint are worth budgeting for on top of the base rate.',
+    ],
+  },
+  {
+    slug: 'surat',
+    city: 'Surat',
+    state: 'Gujarat',
+    extraContext: [
+      'Surat construction rates track close to Ahmedabad. Plans are approved by the Surat Municipal Corporation in city limits and SUDA in the wider urban area.',
+      'Much of Surat sits on low-lying ground near the Tapi, so check the plinth height and drainage requirements for your area — raising the plinth adds to foundation cost.',
+    ],
+  },
+  {
+    slug: 'vadodara',
+    city: 'Vadodara',
+    state: 'Gujarat',
+    extraContext: [
+      'Vadodara rates sit slightly below Ahmedabad and Surat. Plans are sanctioned by the Vadodara Municipal Corporation, or VUDA outside city limits.',
+      'Parts of Vadodara near the Vishwamitri river are flood-prone, so plinth height and drainage can add to foundation cost on low-lying plots.',
+    ],
+  },
+  {
+    slug: 'nashik',
+    city: 'Nashik',
+    state: 'Maharashtra',
+    extraContext: [
+      'Nashik construction costs run below Pune and Mumbai, with easy access to sand, aggregate and labour from the surrounding districts.',
+      'Plans inside city limits are approved by the Nashik Municipal Corporation. Plots outside fall under the regional development authority, so confirm jurisdiction first.',
+    ],
+  },
+  {
+    slug: 'visakhapatnam',
+    city: 'Visakhapatnam',
+    state: 'Andhra Pradesh',
+    extraContext: [
+      'Visakhapatnam (Vizag) plans are approved by GVMC within city limits and VMRDA in the wider metro region.',
+      'Vizag is a coastal city, so plan for corrosion protection on reinforcement steel and good-quality exterior paint, which add a little to the standard rate.',
+    ],
+  },
+  {
+    slug: 'mysore',
+    city: 'Mysore',
+    state: 'Karnataka',
+    extraContext: [
+      'Mysore (Mysuru) construction costs run below Bangalore, with similar specifications and easier site logistics.',
+      'Plans are approved by the Mysuru City Corporation, or by the urban development authority for layouts outside the corporation. Check the layout approval before buying a plot.',
+    ],
+  },
+  {
+    slug: 'ranchi',
+    city: 'Ranchi',
+    state: 'Jharkhand',
+    extraContext: [
+      'Ranchi has some of the lower construction rates among state capitals, helped by local availability of aggregate and labour.',
+      'Plans are approved by the Ranchi Municipal Corporation within city limits and the Ranchi Regional Development Authority outside. Rocky sites can raise excavation costs.',
+    ],
+  },
+  {
+    slug: 'dehradun',
+    city: 'Dehradun',
+    state: 'Uttarakhand',
+    extraContext: [
+      'Dehradun rates sit above most north Indian tier-2 cities because materials are trucked in and sloping sites need retaining walls and deeper foundations.',
+      'Dehradun is in a high seismic zone, so earthquake-resistant design per IS 1893 is essential. Plans are approved by the Mussoorie Dehradun Development Authority (MDDA).',
+    ],
+  },
+  {
+    slug: 'raipur',
+    city: 'Raipur',
+    state: 'Chhattisgarh',
+    extraContext: [
+      'Raipur has among the lowest construction rates of any state capital, helped by local cement and steel production in Chhattisgarh.',
+      'Plans are approved by the Raipur Municipal Corporation inside city limits and the development authority for Naya Raipur and outer areas.',
+    ],
+  },
+  {
+    slug: 'bhubaneswar',
+    city: 'Bhubaneswar',
+    state: 'Odisha',
+    extraContext: [
+      'Bhubaneswar plans are approved by the Bhubaneswar Development Authority (BDA). The city has a planned layout with clear zoning, which keeps approval straightforward.',
+      'Odisha is cyclone-prone, so plan for stronger roof anchoring, window frames and good drainage — these add modestly to the base rate.',
+    ],
+  },
+  {
+    slug: 'ludhiana',
+    city: 'Ludhiana',
+    state: 'Punjab',
+    extraContext: [
+      'Ludhiana rates sit slightly below Chandigarh. Plans are approved by the Municipal Corporation Ludhiana inside city limits and GLADA in the wider area.',
+      'Plot sizes in Ludhiana are often quoted in marla and gaj, so convert to sq ft before comparing contractor quotes.',
+    ],
+  },
+  {
+    slug: 'agra',
+    city: 'Agra',
+    state: 'Uttar Pradesh',
+    extraContext: [
+      'Agra construction costs are close to Lucknow and Kanpur. Plans are approved by the Agra Development Authority.',
+      'Areas near the Taj Mahal fall inside the Taj Trapezium Zone, where construction and industrial activity face extra restrictions — check before you buy a plot.',
+    ],
+  },
+  {
+    slug: 'varanasi',
+    city: 'Varanasi',
+    state: 'Uttar Pradesh',
+    extraContext: [
+      'Varanasi has some of the lowest construction rates in Uttar Pradesh. Plans are approved by the Varanasi Development Authority.',
+      'Old-city plots are narrow with limited road access, which raises material handling and labour costs. Newer areas on the city outskirts are easier to build on.',
+    ],
+  },
+  {
+    slug: 'madurai',
+    city: 'Madurai',
+    state: 'Tamil Nadu',
+    extraContext: [
+      'Madurai construction costs run below Chennai and close to Coimbatore. Plans are approved by the Madurai Corporation and the local planning authority.',
+      'Plot sizes in Madurai are often quoted in cents, so convert to sq ft before comparing quotes.',
+    ],
+  },
 ]
 
 export const CITY_BY_SLUG = new Map(CITY_CONTENT.map((c) => [c.slug, c]))
