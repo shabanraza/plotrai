@@ -27,7 +27,7 @@ function DisclaimerPage() {
       title="Disclaimer"
       tagline="Calculator outputs are planning estimates. Final decisions should be checked with the right professional or authority."
       variant="reading"
-      footnote="Last updated 22 June 2026."
+      footnote="Last updated 2 November 2026."
     >
       <div className="flex flex-col gap-8">
         <ToolSection
@@ -58,6 +58,16 @@ function DisclaimerPage() {
             AI-generated images, reports, or suggestions may contain mistakes.
             Review outputs before using them in construction, purchase, legal,
             or financial decisions.
+          </p>
+        </ToolSection>
+
+        <ToolSection number="04" label="Partner links">
+          <p className="text-sm leading-relaxed text-[var(--muted-foreground)]">
+            Some pages link to home loan and other partner offers. If you apply
+            through these links we may earn a commission, at no extra cost to
+            you. Partner links never change our calculator results. Loan
+            approval, interest rates, and terms are decided solely by the
+            lender.
           </p>
         </ToolSection>
       </div>

@@ -350,6 +350,17 @@ function StampDutyCalculatorPage() {
               </p>
             </div>
           </div>
+
+          <p className="mt-4 text-sm text-[var(--muted-foreground)]">
+            Need GST, brokerage and your monthly EMI too?{' '}
+            <Link
+              to="/home-buying-cost-calculator"
+              className="inline-flex items-center gap-1 font-medium text-[var(--accent-teal)] hover:underline"
+            >
+              Open the home buying cost calculator
+              <ArrowRight className="size-3.5" />
+            </Link>
+          </p>
         </ToolSection>
 
         <ToolContext title={STAMP_DUTY_CONTEXT.title}>

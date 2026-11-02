@@ -19,6 +19,8 @@ export interface StateContent {
   igrPortal?: { label: string; url: string }
   /** State-specific extra context paragraphs */
   extraContext?: ReadonlyArray<string>
+  /** Published sources the rates were checked against, shown on the page. */
+  rateSources?: ReadonlyArray<{ label: string; url: string }>
 }
 
 export const STATE_CONTENT: ReadonlyArray<StateContent> = [
@@ -184,6 +186,71 @@ export const STATE_CONTENT: ReadonlyArray<StateContent> = [
     igrPortal: { label: 'Chandigarh Estate Office', url: 'https://chandigarh.gov.in' },
     extraContext: [
       'As a Union Territory, Chandigarh offers a 1% female-buyer concession (4% vs 5% for males). Combined transaction cost is among the lowest in north India at 6%.',
+    ],
+  },
+  {
+    slug: 'uttarakhand',
+    state: 'Uttarakhand',
+    displayName: 'Uttarakhand',
+    igrPortal: {
+      label: 'Uttarakhand Stamps & Registration',
+      url: 'https://registration.uk.gov.in',
+    },
+    extraContext: [
+      'Uttarakhand charges 5% stamp duty for men and for joint male-female ownership. Women get a 25% concession (3.75%) on property valued up to ₹25 lakh; above ₹25 lakh the standard 5% applies.',
+      'The registration fee is 2% of the property value, capped at ₹25,000. Dehradun, Haridwar, Rishikesh and Haldwani follow the same statewide rates.',
+    ],
+    rateSources: [
+      {
+        label: 'HomeFirst — Uttarakhand stamp duty (Aug 2026)',
+        url: 'https://homefirstindia.com/blog/article/stamp-duty-registration-charges-in-uttarakhand/',
+      },
+    ],
+  },
+  {
+    slug: 'jharkhand',
+    state: 'Jharkhand',
+    displayName: 'Jharkhand',
+    extraContext: [
+      'Jharkhand charges a flat 4% stamp duty and 3% registration fee for every buyer, so the government cost is 7% of the property value. Ranchi, Jamshedpur, Dhanbad and Bokaro follow the same rates.',
+      'Jharkhand earlier waived stamp duty for women, but the waiver was rolled back in 2020. Women now pay the same 4% as men.',
+    ],
+    rateSources: [
+      {
+        label: 'Square Yards — Jharkhand stamp duty (Sep 2026)',
+        url: 'https://squareyards.com/blog/stamp-duty-and-registration-charges-in-jharkhand',
+      },
+    ],
+  },
+  {
+    slug: 'jammu-kashmir',
+    state: 'Jammu & Kashmir (UT)',
+    displayName: 'Jammu & Kashmir',
+    igrPortal: { label: 'NGDRS Jammu & Kashmir', url: 'https://ngdrs.jk.gov.in' },
+    extraContext: [
+      'Jammu & Kashmir has one of the largest women’s concessions in India: women pay 3% stamp duty against 7% for men, and joint male-female purchases pay 5%.',
+      'A 1.2% registration fee applies to sale deeds for all buyers, so the total government cost is 8.2% for men and 4.2% for women.',
+    ],
+    rateSources: [
+      {
+        label: 'Square Yards — J&K stamp duty (Aug 2026)',
+        url: 'https://www.squareyards.com/blog/stamp-duty-and-registration-charges-in-jammu-and-kashmir',
+      },
+    ],
+  },
+  {
+    slug: 'chhattisgarh',
+    state: 'Chhattisgarh',
+    displayName: 'Chhattisgarh',
+    extraContext: [
+      'Chhattisgarh charges 5% stamp duty for men and 4% for women and joint male-female buyers. The 4% registration fee is high compared with most states, so the total is 9% for men and 8% for women.',
+      'From FY 2026–27, property registered in a woman’s name gets a 50% reduction in the registration fee. Confirm on the state NGDRS portal or with the sub-registrar before registration.',
+    ],
+    rateSources: [
+      {
+        label: 'HomeFirst — Chhattisgarh stamp duty (Aug 2026)',
+        url: 'https://homefirstindia.com/blog/article/stamp-duty-registration-charges-in-chhattisgarh/',
+      },
     ],
   },
 ]

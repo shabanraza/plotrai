@@ -5,6 +5,7 @@ import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
+import { HomeLoanCta } from '#/components/tools/home-loan-cta'
 import { Button } from '#/components/ui/button'
 import {
   Table,
@@ -101,7 +102,11 @@ function StateStampDutyPage() {
       title={`${content.displayName} Stamp Duty Calculator 2026`}
       tagline={`Stamp duty + registration rates for ${content.displayName}, with male, female, and joint buyer breakdowns. Updated ${STAMP_DUTY_LAST_UPDATED}.`}
       variant="single-column"
-      footnote={`Rates last refreshed ${STAMP_DUTY_LAST_UPDATED} from ${content.igrPortal?.label ?? 'state IGR portal'}. Always cross-check with the local sub-registrar office before legal documents.`}
+      footnote={
+        content.rateSources
+          ? `Rates checked ${STAMP_DUTY_LAST_UPDATED} against the published sources listed on this page; ${content.displayName} does not publish a rate table online. Always cross-check with the local sub-registrar office before legal documents.`
+          : `Rates last refreshed ${STAMP_DUTY_LAST_UPDATED} from ${content.igrPortal?.label ?? 'state IGR portal'}. Always cross-check with the local sub-registrar office before legal documents.`
+      }
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Rates at a glance" rule={false}>
@@ -207,6 +212,28 @@ function StateStampDutyPage() {
           </div>
         </ToolSection>
 
+        <ToolSection
+          number="04"
+          label="Total cost of buying"
+          description={`Stamp duty is one part of the bill. Add GST, brokerage, down payment and EMI for ${content.displayName}.`}
+        >
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
+              <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted-foreground)]">
+                Banks don&apos;t finance stamp duty or registration. See the full cash you need
+                upfront and your monthly EMI.
+              </p>
+              <Button asChild variant="outline">
+                <Link to="/home-buying-cost-calculator">
+                  Home buying cost calculator
+                  <ArrowRight data-icon="inline-end" />
+                </Link>
+              </Button>
+            </div>
+            <HomeLoanCta source={`stamp-duty-${content.slug}`} />
+          </div>
+        </ToolSection>
+
         <ToolContext title={`How stamp duty works in ${content.displayName}`}>
           {content.extraContext?.map((p: string, i: number) => <p key={i}>{p}</p>)}
           <p>
@@ -229,6 +256,25 @@ function StateStampDutyPage() {
               </>
             )}
           </p>
+          {content.rateSources && (
+            <p>
+              Rates on this page were checked against:{' '}
+              {content.rateSources.map((s, i) => (
+                <span key={s.url}>
+                  {i > 0 && ', '}
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-[var(--accent-teal)] hover:underline"
+                  >
+                    {s.label}
+                    <ExternalLink className="size-3" />
+                  </a>
+                </span>
+              ))}
+            </p>
+          )}
         </ToolContext>
 
         <RelatedGuidesSection

@@ -269,6 +269,49 @@ export const STAMP_DUTY: ReadonlyArray<StateEntry> = [
     state: 'Chandigarh (UT)',
     default: { male: 5, female: 4, joint: 4.5, registration: 1 },
   },
+  // Added 2026-11-02 from secondary sources (no official rate table online) — see rateSources
+  // in state-stamp-duty-content.ts.
+  {
+    state: 'Uttarakhand',
+    default: {
+      male: 5,
+      female: 3.75,
+      joint: 5,
+      registration: 2,
+      registrationCap: 25000,
+      note: 'The 3.75% women’s rate applies only to property valued up to ₹25 lakh; above that women pay 5%. Some sources quote a ₹50,000 registration cap — confirm at the sub-registrar.',
+    },
+  },
+  {
+    state: 'Jharkhand',
+    default: {
+      male: 4,
+      female: 4,
+      joint: 4,
+      registration: 3,
+      note: 'The earlier stamp duty waiver for women was rolled back in 2020; all buyers now pay the same rate.',
+    },
+  },
+  {
+    state: 'Jammu & Kashmir (UT)',
+    default: {
+      male: 7,
+      female: 3,
+      joint: 5,
+      registration: 1.2,
+      note: 'The 1.2% registration fee applies to sale deeds.',
+    },
+  },
+  {
+    state: 'Chhattisgarh',
+    default: {
+      male: 5,
+      female: 4,
+      joint: 4,
+      registration: 4,
+      note: 'From FY 2026–27 women get a 50% reduction in the 4% registration fee for property in their name (not reflected in the total above). Verify on ngdrs.cg.gov.in before registration.',
+    },
+  },
 ]
 
 export const STAMP_DUTY_LAST_UPDATED = '2026-Q2'

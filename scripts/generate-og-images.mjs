@@ -298,6 +298,10 @@ const STATE_CARDS = [
   { slug: 'andhra-pradesh', name: 'Andhra Pradesh' },
   { slug: 'bihar', name: 'Bihar' },
   { slug: 'chandigarh', name: 'Chandigarh' },
+  { slug: 'uttarakhand', name: 'Uttarakhand' },
+  { slug: 'jharkhand', name: 'Jharkhand' },
+  { slug: 'jammu-kashmir', name: 'Jammu & Kashmir' },
+  { slug: 'chhattisgarh', name: 'Chhattisgarh' },
 ].map(({ slug, name }) => ({
   slug: `stamp-duty-${slug}`,
   routePath: `/stamp-duty/${slug}`,

@@ -62,6 +62,29 @@ export const STAMP_DUTY_FAQS: ReadonlyArray<FaqItem> = [
   },
 ]
 
+export const HOME_BUYING_COST_FAQS: ReadonlyArray<FaqItem> = [
+  {
+    q: 'What is the total cost of buying a house in India?',
+    a: 'On top of the agreement value, budget for stamp duty (3–8% by state), registration (usually 1%), GST on under-construction property (5%, or 1% for affordable housing), brokerage (around 1% on resale), legal and documentation fees, and the home loan processing fee (0.25–1% of the loan). Together these one-time charges are typically 7–14% of the property price.',
+  },
+  {
+    q: 'How much down payment do I need for a home loan?',
+    a: 'RBI caps the loan-to-value ratio at 90% for properties up to ₹30 lakh, 80% for ₹30–75 lakh, and 75% above ₹75 lakh. So the minimum down payment is 10%, 20%, or 25% of the property value. Stamp duty, registration, and GST are not financed by most banks and must be paid in cash on top of the down payment.',
+  },
+  {
+    q: 'How is home loan EMI calculated?',
+    a: 'EMI = P × r × (1 + r)^n / ((1 + r)^n − 1), where P is the loan amount, r is the monthly interest rate (annual rate ÷ 12 ÷ 100), and n is the tenure in months. A ₹50 lakh loan at 8.5% for 20 years works out to about ₹43,400 a month.',
+  },
+  {
+    q: 'Is GST charged on a ready-to-move flat?',
+    a: 'No. GST applies only to under-construction property sold before the completion certificate is issued: 5% without input tax credit, or 1% for affordable housing (value up to ₹45 lakh and carpet area within 60 sq m in metros or 90 sq m elsewhere). Ready-to-move and resale homes attract no GST.',
+  },
+  {
+    q: 'Can stamp duty be included in the home loan?',
+    a: 'Generally no. Banks lend against the agreement value and treat stamp duty, registration, and GST as the buyer\'s own contribution. Plan to pay these from savings along with your down payment.',
+  },
+]
+
 export const MATERIAL_CALC_FAQS: ReadonlyArray<FaqItem> = [
   {
     q: 'What is the cement, sand, and aggregate ratio for M20 concrete?',

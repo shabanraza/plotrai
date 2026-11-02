@@ -1,6 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
-import { Ruler } from 'lucide-react'
+import { ArrowRight, Ruler } from 'lucide-react'
+import { LAND_UNIT_PAGES, pageTitle } from '#/data/land-unit-pages'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { Input } from '#/components/ui/input'
@@ -290,6 +291,26 @@ function PlotConverterPage() {
               </Table>
             </div>
           )}
+        </ToolSection>
+
+        <ToolSection
+          number="03"
+          label="Popular conversions"
+          description="Ready tables for the most searched land unit pairs."
+        >
+          <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+            {LAND_UNIT_PAGES.map((p) => (
+              <Link
+                key={p.slug}
+                to="/convert/$pair"
+                params={{ pair: p.slug }}
+                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+              >
+                {pageTitle(p)}
+                <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />
+              </Link>
+            ))}
+          </div>
         </ToolSection>
 
         <ToolFaq items={PLOT_CONVERTER_FAQS} />

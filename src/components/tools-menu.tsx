@@ -5,6 +5,7 @@ import {
   Calculator,
   Compass,
   Hammer,
+  KeyRound,
   Layers3,
   Receipt,
   Ruler,
@@ -98,6 +99,13 @@ const TOOLS: ReadonlyArray<ToolEntry> = [
     icon: Receipt,
     title: 'Stamp Duty Calculator',
     description: 'State-wise stamp duty + registration in India.',
+    status: 'utility',
+  },
+  {
+    to: '/home-buying-cost-calculator',
+    icon: KeyRound,
+    title: 'Home Buying Cost',
+    description: 'Stamp duty, GST, down payment and EMI together.',
     status: 'utility',
   },
   {
