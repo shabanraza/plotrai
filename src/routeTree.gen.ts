@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VastuCheckerRouteImport } from './routes/vastu-checker'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TaxRouteImport } from './routes/tax'
 import { Route as StampDutyCalculatorRouteImport } from './routes/stamp-duty-calculator'
 import { Route as RccSlabCalculatorRouteImport } from './routes/rcc-slab-calculator'
 import { Route as PropertyCapitalGainsCalculatorRouteImport } from './routes/property-capital-gains-calculator'
@@ -20,6 +21,7 @@ import { Route as PlotConverterRouteImport } from './routes/plot-converter'
 import { Route as McdPropertyTaxCalculatorRouteImport } from './routes/mcd-property-tax-calculator'
 import { Route as McdPropertyTaxCaNumberRouteImport } from './routes/mcd-property-tax-ca-number'
 import { Route as MaterialCalculatorRouteImport } from './routes/material-calculator'
+import { Route as LandRouteImport } from './routes/land'
 import { Route as JaipurPropertyTaxCalculatorRouteImport } from './routes/jaipur-property-tax-calculator'
 import { Route as InteriorRestyleRouteImport } from './routes/interior-restyle'
 import { Route as IndexationCalculatorRouteImport } from './routes/indexation-calculator'
@@ -30,12 +32,15 @@ import { Route as GhmcPropertyTaxCalculatorRouteImport } from './routes/ghmc-pro
 import { Route as FloorPlan3dRouteImport } from './routes/floor-plan-3d'
 import { Route as EmptyRoomStagerRouteImport } from './routes/empty-room-stager'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as DesignRouteImport } from './routes/design'
 import { Route as DelhiCircleRateRouteImport } from './routes/delhi-circle-rate'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConstructionMaterialsRouteImport } from './routes/construction-materials'
 import { Route as ConstructionCostCalculatorRouteImport } from './routes/construction-cost-calculator'
 import { Route as ConcreteCalculatorRouteImport } from './routes/concrete-calculator'
 import { Route as CementSandAggregateCalculatorRouteImport } from './routes/cement-sand-aggregate-calculator'
+import { Route as BuyRouteImport } from './routes/buy'
+import { Route as BuildRouteImport } from './routes/build'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BbmpPropertyTaxCalculatorRouteImport } from './routes/bbmp-property-tax-calculator'
 import { Route as BbmpPropertyTax202627RouteImport } from './routes/bbmp-property-tax-2026-27'
@@ -56,6 +61,11 @@ const VastuCheckerRoute = VastuCheckerRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TaxRoute = TaxRouteImport.update({
+  id: '/tax',
+  path: '/tax',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StampDutyCalculatorRoute = StampDutyCalculatorRouteImport.update({
@@ -103,6 +113,11 @@ const McdPropertyTaxCaNumberRoute = McdPropertyTaxCaNumberRouteImport.update({
 const MaterialCalculatorRoute = MaterialCalculatorRouteImport.update({
   id: '/material-calculator',
   path: '/material-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LandRoute = LandRouteImport.update({
+  id: '/land',
+  path: '/land',
   getParentRoute: () => rootRouteImport,
 } as any)
 const JaipurPropertyTaxCalculatorRoute =
@@ -159,6 +174,11 @@ const DisclaimerRoute = DisclaimerRouteImport.update({
   path: '/disclaimer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DesignRoute = DesignRouteImport.update({
+  id: '/design',
+  path: '/design',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DelhiCircleRateRoute = DelhiCircleRateRouteImport.update({
   id: '/delhi-circle-rate',
   path: '/delhi-circle-rate',
@@ -191,6 +211,16 @@ const CementSandAggregateCalculatorRoute =
     path: '/cement-sand-aggregate-calculator',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BuyRoute = BuyRouteImport.update({
+  id: '/buy',
+  path: '/buy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuildRoute = BuildRouteImport.update({
+  id: '/build',
+  path: '/build',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -254,12 +284,15 @@ export interface FileRoutesByFullPath {
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/blog': typeof BlogRouteWithChildren
+  '/build': typeof BuildRoute
+  '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
   '/contact': typeof ContactRoute
   '/delhi-circle-rate': typeof DelhiCircleRateRoute
+  '/design': typeof DesignRoute
   '/disclaimer': typeof DisclaimerRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
@@ -270,6 +303,7 @@ export interface FileRoutesByFullPath {
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
   '/jaipur-property-tax-calculator': typeof JaipurPropertyTaxCalculatorRoute
+  '/land': typeof LandRoute
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
@@ -279,6 +313,7 @@ export interface FileRoutesByFullPath {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
@@ -293,12 +328,15 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
+  '/build': typeof BuildRoute
+  '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
   '/contact': typeof ContactRoute
   '/delhi-circle-rate': typeof DelhiCircleRateRoute
+  '/design': typeof DesignRoute
   '/disclaimer': typeof DisclaimerRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
@@ -309,6 +347,7 @@ export interface FileRoutesByTo {
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
   '/jaipur-property-tax-calculator': typeof JaipurPropertyTaxCalculatorRoute
+  '/land': typeof LandRoute
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
@@ -318,6 +357,7 @@ export interface FileRoutesByTo {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
@@ -334,12 +374,15 @@ export interface FileRoutesById {
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/blog': typeof BlogRouteWithChildren
+  '/build': typeof BuildRoute
+  '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
   '/contact': typeof ContactRoute
   '/delhi-circle-rate': typeof DelhiCircleRateRoute
+  '/design': typeof DesignRoute
   '/disclaimer': typeof DisclaimerRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
@@ -350,6 +393,7 @@ export interface FileRoutesById {
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
   '/jaipur-property-tax-calculator': typeof JaipurPropertyTaxCalculatorRoute
+  '/land': typeof LandRoute
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
@@ -359,6 +403,7 @@ export interface FileRoutesById {
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
@@ -376,12 +421,15 @@ export interface FileRouteTypes {
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/blog'
+    | '/build'
+    | '/buy'
     | '/cement-sand-aggregate-calculator'
     | '/concrete-calculator'
     | '/construction-cost-calculator'
     | '/construction-materials'
     | '/contact'
     | '/delhi-circle-rate'
+    | '/design'
     | '/disclaimer'
     | '/empty-room-stager'
     | '/floor-plan-3d'
@@ -392,6 +440,7 @@ export interface FileRouteTypes {
     | '/indexation-calculator'
     | '/interior-restyle'
     | '/jaipur-property-tax-calculator'
+    | '/land'
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
@@ -401,6 +450,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
     | '/stamp-duty-calculator'
+    | '/tax'
     | '/terms'
     | '/vastu-checker'
     | '/api/chat'
@@ -415,12 +465,15 @@ export interface FileRouteTypes {
     | '/about'
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
+    | '/build'
+    | '/buy'
     | '/cement-sand-aggregate-calculator'
     | '/concrete-calculator'
     | '/construction-cost-calculator'
     | '/construction-materials'
     | '/contact'
     | '/delhi-circle-rate'
+    | '/design'
     | '/disclaimer'
     | '/empty-room-stager'
     | '/floor-plan-3d'
@@ -431,6 +484,7 @@ export interface FileRouteTypes {
     | '/indexation-calculator'
     | '/interior-restyle'
     | '/jaipur-property-tax-calculator'
+    | '/land'
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
@@ -440,6 +494,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
     | '/stamp-duty-calculator'
+    | '/tax'
     | '/terms'
     | '/vastu-checker'
     | '/api/chat'
@@ -455,12 +510,15 @@ export interface FileRouteTypes {
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/blog'
+    | '/build'
+    | '/buy'
     | '/cement-sand-aggregate-calculator'
     | '/concrete-calculator'
     | '/construction-cost-calculator'
     | '/construction-materials'
     | '/contact'
     | '/delhi-circle-rate'
+    | '/design'
     | '/disclaimer'
     | '/empty-room-stager'
     | '/floor-plan-3d'
@@ -471,6 +529,7 @@ export interface FileRouteTypes {
     | '/indexation-calculator'
     | '/interior-restyle'
     | '/jaipur-property-tax-calculator'
+    | '/land'
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
@@ -480,6 +539,7 @@ export interface FileRouteTypes {
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
     | '/stamp-duty-calculator'
+    | '/tax'
     | '/terms'
     | '/vastu-checker'
     | '/api/chat'
@@ -496,12 +556,15 @@ export interface RootRouteChildren {
   BbmpPropertyTax202627Route: typeof BbmpPropertyTax202627Route
   BbmpPropertyTaxCalculatorRoute: typeof BbmpPropertyTaxCalculatorRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BuildRoute: typeof BuildRoute
+  BuyRoute: typeof BuyRoute
   CementSandAggregateCalculatorRoute: typeof CementSandAggregateCalculatorRoute
   ConcreteCalculatorRoute: typeof ConcreteCalculatorRoute
   ConstructionCostCalculatorRoute: typeof ConstructionCostCalculatorRoute
   ConstructionMaterialsRoute: typeof ConstructionMaterialsRoute
   ContactRoute: typeof ContactRoute
   DelhiCircleRateRoute: typeof DelhiCircleRateRoute
+  DesignRoute: typeof DesignRoute
   DisclaimerRoute: typeof DisclaimerRoute
   EmptyRoomStagerRoute: typeof EmptyRoomStagerRoute
   FloorPlan3dRoute: typeof FloorPlan3dRoute
@@ -512,6 +575,7 @@ export interface RootRouteChildren {
   IndexationCalculatorRoute: typeof IndexationCalculatorRoute
   InteriorRestyleRoute: typeof InteriorRestyleRoute
   JaipurPropertyTaxCalculatorRoute: typeof JaipurPropertyTaxCalculatorRoute
+  LandRoute: typeof LandRoute
   MaterialCalculatorRoute: typeof MaterialCalculatorRoute
   McdPropertyTaxCaNumberRoute: typeof McdPropertyTaxCaNumberRoute
   McdPropertyTaxCalculatorRoute: typeof McdPropertyTaxCalculatorRoute
@@ -521,6 +585,7 @@ export interface RootRouteChildren {
   PropertyCapitalGainsCalculatorRoute: typeof PropertyCapitalGainsCalculatorRoute
   RccSlabCalculatorRoute: typeof RccSlabCalculatorRoute
   StampDutyCalculatorRoute: typeof StampDutyCalculatorRoute
+  TaxRoute: typeof TaxRoute
   TermsRoute: typeof TermsRoute
   VastuCheckerRoute: typeof VastuCheckerRoute
   ApiChatRoute: typeof ApiChatRoute
@@ -543,6 +608,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tax': {
+      id: '/tax'
+      path: '/tax'
+      fullPath: '/tax'
+      preLoaderRoute: typeof TaxRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/stamp-duty-calculator': {
@@ -606,6 +678,13 @@ declare module '@tanstack/react-router' {
       path: '/material-calculator'
       fullPath: '/material-calculator'
       preLoaderRoute: typeof MaterialCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/land': {
+      id: '/land'
+      path: '/land'
+      fullPath: '/land'
+      preLoaderRoute: typeof LandRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/jaipur-property-tax-calculator': {
@@ -678,6 +757,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DisclaimerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/design': {
+      id: '/design'
+      path: '/design'
+      fullPath: '/design'
+      preLoaderRoute: typeof DesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/delhi-circle-rate': {
       id: '/delhi-circle-rate'
       path: '/delhi-circle-rate'
@@ -718,6 +804,20 @@ declare module '@tanstack/react-router' {
       path: '/cement-sand-aggregate-calculator'
       fullPath: '/cement-sand-aggregate-calculator'
       preLoaderRoute: typeof CementSandAggregateCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/buy': {
+      id: '/buy'
+      path: '/buy'
+      fullPath: '/buy'
+      preLoaderRoute: typeof BuyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/build': {
+      id: '/build'
+      path: '/build'
+      fullPath: '/build'
+      preLoaderRoute: typeof BuildRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog': {
@@ -818,12 +918,15 @@ const rootRouteChildren: RootRouteChildren = {
   BbmpPropertyTax202627Route: BbmpPropertyTax202627Route,
   BbmpPropertyTaxCalculatorRoute: BbmpPropertyTaxCalculatorRoute,
   BlogRoute: BlogRouteWithChildren,
+  BuildRoute: BuildRoute,
+  BuyRoute: BuyRoute,
   CementSandAggregateCalculatorRoute: CementSandAggregateCalculatorRoute,
   ConcreteCalculatorRoute: ConcreteCalculatorRoute,
   ConstructionCostCalculatorRoute: ConstructionCostCalculatorRoute,
   ConstructionMaterialsRoute: ConstructionMaterialsRoute,
   ContactRoute: ContactRoute,
   DelhiCircleRateRoute: DelhiCircleRateRoute,
+  DesignRoute: DesignRoute,
   DisclaimerRoute: DisclaimerRoute,
   EmptyRoomStagerRoute: EmptyRoomStagerRoute,
   FloorPlan3dRoute: FloorPlan3dRoute,
@@ -835,6 +938,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexationCalculatorRoute: IndexationCalculatorRoute,
   InteriorRestyleRoute: InteriorRestyleRoute,
   JaipurPropertyTaxCalculatorRoute: JaipurPropertyTaxCalculatorRoute,
+  LandRoute: LandRoute,
   MaterialCalculatorRoute: MaterialCalculatorRoute,
   McdPropertyTaxCaNumberRoute: McdPropertyTaxCaNumberRoute,
   McdPropertyTaxCalculatorRoute: McdPropertyTaxCalculatorRoute,
@@ -844,6 +948,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertyCapitalGainsCalculatorRoute: PropertyCapitalGainsCalculatorRoute,
   RccSlabCalculatorRoute: RccSlabCalculatorRoute,
   StampDutyCalculatorRoute: StampDutyCalculatorRoute,
+  TaxRoute: TaxRoute,
   TermsRoute: TermsRoute,
   VastuCheckerRoute: VastuCheckerRoute,
   ApiChatRoute: ApiChatRoute,

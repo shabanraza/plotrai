@@ -1,4 +1,4 @@
-const SITE_URL = 'https://plotrai.in'
+export const SITE_URL = 'https://plotrai.in'
 
 export interface FaqItem {
   q: string

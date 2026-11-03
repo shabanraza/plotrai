@@ -1,11 +1,15 @@
 import { describe, expect, it } from 'vitest'
+import { TOPIC_HUB_DESTINATION } from '#/data/blog-content'
 import { CITY_CONTENT } from '#/data/city-construction-content'
+import { HUB_CONTENT } from '#/data/hub-content'
 import { LAND_UNIT_PAGES } from '#/data/land-unit-pages'
 import {
   SITE_ENTRIES,
   SITE_HUBS,
   SITE_PROGRAMMATIC,
+  breadcrumbForPath,
   entriesForHub,
+  hubPath,
   searchFilter,
 } from '#/data/site-map'
 import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
@@ -46,6 +50,49 @@ describe('searchFilter', () => {
   it('ignores the number typed before a unit', () => {
     expect(match('Gaj to sq ft', '100 gaj')).toBe(true)
     expect(match('Concrete Calculator', '100 gaj')).toBe(false)
+  })
+})
+
+describe('breadcrumbForPath', () => {
+  it('nests tools under their hub', () => {
+    expect(breadcrumbForPath('/stamp-duty-calculator')).toEqual([
+      { label: 'Home', href: '/' },
+      { label: 'Buying a home', href: '/buy' },
+      { label: 'Stamp Duty Calculator' },
+    ])
+  })
+
+  it('nests state, city and unit pages under their parent tool', () => {
+    const state = STATE_CONTENT[0]
+    const trail = breadcrumbForPath(`/stamp-duty/${state.slug}/`, state.displayName)
+    expect(trail?.map((c) => c.href)).toEqual(['/', '/buy', '/stamp-duty-calculator', undefined])
+    expect(trail?.at(-1)?.label).toBe(state.displayName)
+    expect(breadcrumbForPath(`/construction-cost/${CITY_CONTENT[0].slug}`)?.[2].href).toBe(
+      '/construction-cost-calculator',
+    )
+    expect(breadcrumbForPath(`/convert/${LAND_UNIT_PAGES[0].slug}`)?.[2].href).toBe(
+      '/plot-converter',
+    )
+  })
+
+  it('returns null outside the site map', () => {
+    expect(breadcrumbForPath('/privacy-policy')).toBeNull()
+  })
+})
+
+describe('hub content', () => {
+  it('has copy and FAQs for every hub', () => {
+    for (const hub of SITE_HUBS) {
+      const content = HUB_CONTENT[hub.id]
+      expect(content.h1.length, hub.id).toBeGreaterThan(0)
+      expect(content.metaDescription.length, hub.id).toBeLessThanOrEqual(160)
+      expect(content.faqs.length, hub.id).toBeGreaterThan(0)
+    }
+  })
+
+  it('sends every old topic hub to a real hub', () => {
+    const hubPaths = new Set(SITE_HUBS.map((h) => hubPath(h.id)))
+    for (const dest of Object.values(TOPIC_HUB_DESTINATION)) expect(hubPaths.has(dest.to)).toBe(true)
   })
 })
 

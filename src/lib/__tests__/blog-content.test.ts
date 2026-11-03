@@ -6,6 +6,7 @@ import {
   BLOG_BY_SLUG,
   BLOG_TOOL_META,
   TOPIC_HUBS,
+  TOPIC_HUB_DESTINATION,
 } from '#/data/blog-content'
 
 const SITEMAP_PATH = resolve(process.cwd(), 'public/sitemap.xml')
@@ -48,7 +49,7 @@ describe('blog content', () => {
     }
   })
 
-  it('keeps blog and topic hub urls in the sitemap', () => {
+  it('lists blog and hub urls in the sitemap, and not the redirected topic hubs', () => {
     const sitemap = readFileSync(SITEMAP_PATH, 'utf8')
 
     expect(sitemap).toContain('https://plotrai.in/blog')
@@ -57,8 +58,10 @@ describe('blog content', () => {
       expect(sitemap).toContain(`https://plotrai.in${article.path}`)
     }
 
+    // Old topic hubs 301 to the goal hubs, so only the destinations belong in the sitemap
     for (const hub of TOPIC_HUBS) {
-      expect(sitemap).toContain(`https://plotrai.in${hub.path}`)
+      expect(sitemap).not.toContain(`<loc>https://plotrai.in${hub.path}</loc>`)
+      expect(sitemap).toContain(`<loc>https://plotrai.in${TOPIC_HUB_DESTINATION[hub.path].to}</loc>`)
     }
   })
 })

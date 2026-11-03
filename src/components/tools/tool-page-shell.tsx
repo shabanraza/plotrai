@@ -1,5 +1,7 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useRouterState } from '@tanstack/react-router'
 import type { LucideIcon } from 'lucide-react'
+import { breadcrumbForPath } from '#/data/site-map'
+import { SITE_URL } from '#/lib/seo'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -59,14 +61,19 @@ export function ToolPageShell({
 }: ToolPageShellProps) {
   const Icon = eyebrow?.icon
   const contentWidth = VARIANT_CONTENT_W[variant]
+  // Pages in the site map get Home › Hub › [parent tool] › Page; the page's own last label is kept
+  const pathname = useRouterState({ select: (s) => s.location.pathname })
+  const derived = breadcrumbForPath(pathname, breadcrumb?.at(-1)?.label)
+  const trail = derived ?? breadcrumb
   return (
     <main className={cn('mx-auto px-4 pb-16 pt-8 sm:px-6 sm:pt-10', VARIANT_MAX_W[variant])}>
+      {derived && <BreadcrumbJsonLd trail={derived} pathname={pathname} />}
       <div className={cn('mx-auto w-full', contentWidth)}>
-        {breadcrumb && breadcrumb.length > 0 && (
+        {trail && trail.length > 0 && (
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
-              {breadcrumb.map((entry, i) => {
-                const isLast = i === breadcrumb.length - 1
+              {trail.map((entry, i) => {
+                const isLast = i === trail.length - 1
                 return (
                   <span key={`${entry.label}-${i}`} className="contents">
                     <BreadcrumbItem>
@@ -143,3 +150,30 @@ Workbench.Sidebar = WorkbenchSidebar
 Workbench.Result = WorkbenchResult
 
 export { Workbench }
+
+/** BreadcrumbList structured data for the visible trail (JSON-LD is valid in the body). */
+function BreadcrumbJsonLd({
+  trail,
+  pathname,
+}: {
+  trail: ReadonlyArray<BreadcrumbEntry>
+  pathname: string
+}) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map((entry, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: entry.label,
+      item: `${SITE_URL}${entry.href ?? pathname}`,
+    })),
+  }
+  return (
+    <script
+      type="application/ld+json"
+      // Escape "<" so a label can never close the script tag
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, '\u003c') }}
+    />
+  )
+}

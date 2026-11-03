@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import {
   Breadcrumb,
@@ -8,10 +8,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '#/components/ui/breadcrumb'
-import {
-  TOPIC_HUBS,
-  getArticlesByCluster,
-} from '#/data/blog-content'
+import { getArticlesByCluster } from '#/data/blog-content'
+import { SITE_HUBS, hubPath } from '#/data/site-map'
 import { canonicalLink } from '#/lib/seo'
 
 const CLUSTER_LABELS = {
@@ -79,14 +77,14 @@ function BlogIndexPage() {
           </div>
         </header>
 
-        <section className="grid border-t border-[var(--border)] pt-8 lg:grid-cols-3">
-          {TOPIC_HUBS.map((hub) => (
-            <a
-              key={hub.path}
-              href={hub.path}
-              className="group grid gap-4 border-b border-[var(--border)] py-6 transition-colors first:pt-0 lg:grid-rows-[auto_1fr_auto] lg:border-b-0 lg:border-r lg:px-6 lg:py-0 first:lg:pl-0 last:lg:border-r-0 last:lg:pr-0"
+        <section className="grid gap-x-6 border-t border-[var(--border)] pt-2 sm:grid-cols-2 lg:grid-cols-5">
+          {SITE_HUBS.map((hub) => (
+            <Link
+              key={hub.id}
+              to={hubPath(hub.id)}
+              className="group grid gap-3 border-b border-[var(--border)] py-5 no-underline lg:grid-rows-[auto_1fr_auto]"
             >
-              <h2 className="text-[1.35rem] leading-[1.15] font-semibold text-[var(--foreground)]">
+              <h2 className="text-[1.2rem] leading-[1.15] font-semibold text-[var(--foreground)]">
                 {hub.title}
               </h2>
               <p className="text-sm leading-7 text-[var(--muted-foreground)] sm:text-[15px]">
@@ -96,7 +94,7 @@ function BlogIndexPage() {
                 Explore
                 <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
               </span>
-            </a>
+            </Link>
           ))}
         </section>
 

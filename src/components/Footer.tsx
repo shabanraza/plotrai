@@ -1,7 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { CITY_CONTENT } from '#/data/city-construction-content'
 import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
-import { BLOG_BY_SLUG, TOPIC_HUBS, type BlogSlug } from '#/data/blog-content'
+import { BLOG_BY_SLUG, type BlogSlug } from '#/data/blog-content'
+import { SITE_HUBS, hubPath } from '#/data/site-map'
 
 const TOOL_LINKS = [
   { label: 'Vastu Checker', to: '/vastu-checker' },
@@ -48,7 +49,7 @@ const FOOTER_GUIDE_SLUGS: ReadonlyArray<BlogSlug> = [
 
 const GUIDE_LINKS = [
   { label: 'All Guides', to: '/blog' },
-  ...TOPIC_HUBS.map((hub) => ({ label: hub.title, to: hub.path })),
+  ...SITE_HUBS.map((hub) => ({ label: hub.title, to: hubPath(hub.id) })),
   ...FOOTER_GUIDE_SLUGS.map((slug) => {
     const article = BLOG_BY_SLUG.get(slug)
     if (!article) {
