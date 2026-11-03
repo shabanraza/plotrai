@@ -1,160 +1,64 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { ArrowRight, BadgeCheck, CalendarCheck, Search, Sparkles } from 'lucide-react'
+import { openSiteSearch } from '#/components/site-search'
+import { Field, FieldLabel } from '#/components/ui/field'
 import {
-  ArrowRight,
-  Box,
-  Building2,
-  Calculator,
-  Compass,
-  Hammer,
-  Heart,
-  KeyRound,
-  Layers3,
-  MapPinned,
-  Palette,
-  Receipt,
-  Ruler,
-  Sofa,
-  TrendingUp,
-  Wand2,
-  Sparkles,
-  type LucideIcon,
-} from 'lucide-react'
-import { Button } from '#/components/ui/button'
-import { ToolCard } from '#/components/landing/tool-card'
-import { ComingSoonCard } from '#/components/landing/coming-soon-card'
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '#/components/ui/select'
+import { BLOG_ARTICLES } from '#/data/blog-content'
+import { CITY_CONTENT } from '#/data/city-construction-content'
+import {
+  HUB_PROGRAMMATIC_LABEL,
+  SITE_HUBS,
+  SITE_TOOLS,
+  entriesForHub,
+  hubPath,
+  type HubId,
+  type SiteEntry,
+} from '#/data/site-map'
+import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
 import { itemListLd } from '#/lib/seo'
 
-const LIVE_TOOLS = [
-  {
-    name: 'Vastu Checker',
-    description: 'Free online Vastu checker for Indian home floor plans with violations and remedies.',
-    path: '/vastu-checker',
-  },
-  {
-    name: '2D Floor Plan to 3D Render',
-    description: 'AI tool that converts 2D architectural floor plans into furnished 3D isometric renders.',
-    path: '/floor-plan-3d',
-  },
-  {
-    name: 'Interior Restyle AI',
-    description: 'AI room redesign tool for restyling interior photos while preserving the layout.',
-    path: '/interior-restyle',
-  },
-  {
-    name: 'Empty Room Stager AI',
-    description: 'AI virtual staging tool that furnishes empty room photos for property listings.',
-    path: '/empty-room-stager',
-  },
-  {
-    name: 'Plot Area Converter',
-    description: 'Indian land area converter for sq ft, gaj, bigha, cent, acre, marla, kanal, and more.',
-    path: '/plot-converter',
-  },
-  {
-    name: 'Construction Material Calculator',
-    description: 'Cement, sand, aggregate, brick, and steel quantity calculator for Indian construction.',
-    path: '/material-calculator',
-  },
-  {
-    name: 'Concrete Calculator India',
-    description: 'Cement, sand, and aggregate calculator for PCC and site-mixed concrete.',
-    path: '/concrete-calculator',
-  },
-  {
-    name: 'RCC Slab Calculator India',
-    description: 'RCC slab material calculator for cement, sand, aggregate, and steel.',
-    path: '/rcc-slab-calculator',
-  },
-  {
-    name: 'Cement Sand Aggregate Calculator India',
-    description: 'Focused cement, sand, and aggregate quantity calculator for concrete volume.',
-    path: '/cement-sand-aggregate-calculator',
-  },
-  {
-    name: 'Stamp Duty Calculator India',
-    description: 'State-wise stamp duty and registration charge calculator for Indian property buyers.',
-    path: '/stamp-duty-calculator',
-  },
-  {
-    name: 'Home Buying Cost Calculator India',
-    description: 'Total cost of buying a house in India: stamp duty, GST, brokerage, down payment, and home loan EMI.',
-    path: '/home-buying-cost-calculator',
-  },
-  {
-    name: 'Delhi Circle Rate 2026',
-    description: 'Delhi circle rates for categories A to H with a minimum property value and stamp duty calculator.',
-    path: '/delhi-circle-rate',
-  },
-  {
-    name: 'Construction Cost Calculator India',
-    description: 'House construction cost calculator by city, finish tier, floors, and built-up area.',
-    path: '/construction-cost-calculator',
-  },
-  {
-    name: 'Property Capital Gains Calculator India',
-    description: 'Property LTCG and STCG tax calculator with indexation and exemption shortcuts.',
-    path: '/property-capital-gains-calculator',
-  },
-  {
-    name: 'Indexation Calculator India',
-    description: 'CII indexed cost and indexed capital gain calculator for Indian property.',
-    path: '/indexation-calculator',
-  },
-  {
-    name: 'BBMP Property Tax Calculator',
-    description: 'Bangalore property tax estimate using area, unit value, depreciation, and rebate.',
-    path: '/bbmp-property-tax-calculator',
-  },
-  {
-    name: 'BBMP Property Tax 2026-27 Guide',
-    description: 'Bangalore property tax 2026-27 checklist, e-khata notice context, and receipt links.',
-    path: '/bbmp-property-tax-2026-27',
-  },
-  {
-    name: 'GHMC Property Tax Calculator',
-    description: 'Hyderabad property tax estimate using plinth area, rental value, and cess.',
-    path: '/ghmc-property-tax-calculator',
-  },
-  {
-    name: 'GHMC Property Tax Search by House Number',
-    description: 'Hyderabad property tax lookup guide for house number, PTIN, dues, and receipts.',
-    path: '/ghmc-property-tax-search-by-house-number',
-  },
-  {
-    name: 'MCD Property Tax Calculator',
-    description: 'Delhi MCD property tax estimate using annual value, slab, and rebate.',
-    path: '/mcd-property-tax-calculator',
-  },
-  {
-    name: 'MCD Property Tax CA Number Guide',
-    description: 'Delhi property tax guide for CA number, UPIC, last date, and official receipts.',
-    path: '/mcd-property-tax-ca-number',
-  },
-  {
-    name: 'Jaipur Property Tax Calculator',
-    description: 'Jaipur UD tax calculator for plots, houses and flats with exemptions and rebates.',
-    path: '/jaipur-property-tax-calculator',
-  },
+const TITLE = 'Property and Home-Building Calculators for India'
+const DESCRIPTION =
+  'Free calculators for buying, building and owning a home in India: stamp duty by state, construction cost by city, materials, land units and property tax. Sources on every page.'
+
+/**
+ * Ordered by Search Console clicks, Aug 1 – Oct 31 2026, with state and city pages counted
+ * towards their parent tool: construction cost 315, stamp duty 308, material 278, GHMC 112,
+ * capital gains 55, plot converter 12. Re-rank from the weekly GSC review; don't hand-pick.
+ */
+const MOST_USED_PATHS = [
+  '/construction-cost-calculator',
+  '/stamp-duty-calculator',
+  '/material-calculator',
+  '/ghmc-property-tax-calculator',
+  '/property-capital-gains-calculator',
+  '/plot-converter',
 ] as const
+
+const MOST_USED = MOST_USED_PATHS.map((path) => {
+  const tool = SITE_TOOLS.find((t) => t.to === path)
+  if (!tool) throw new Error(`Most-used tool missing from site map: ${path}`)
+  return tool
+})
+
+const LATEST_GUIDES = [...BLOG_ARTICLES]
+  .sort((a, b) => b.datePublished.localeCompare(a.datePublished))
+  .slice(0, 3)
 
 export const Route = createFileRoute('/')({
   component: LandingPage,
   head: () => ({
     meta: [
-      {
-        name: 'description',
-        content:
-          'Vastu, stamp duty, construction material, capital gains, floor plans — free single-purpose tools built for Indian homeowners.',
-      },
-      {
-        property: 'og:title',
-        content: 'Plotr Ai — Free single-purpose tools for Indian homeowners',
-      },
-      {
-        property: 'og:description',
-        content:
-          'Vastu, stamp duty, construction material, capital gains, floor plans — built for India.',
-      },
+      { title: `${TITLE} · Plotr Ai` },
+      { name: 'description', content: DESCRIPTION },
+      { property: 'og:title', content: TITLE },
+      { property: 'og:description', content: DESCRIPTION },
       { property: 'og:image', content: 'https://plotrai.in/og/landing.png' },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
@@ -164,358 +68,276 @@ export const Route = createFileRoute('/')({
       { name: 'twitter:image', content: 'https://plotrai.in/og/landing.png' },
     ],
     links: [{ rel: 'canonical', href: 'https://plotrai.in' }],
-    scripts: [itemListLd('Free property and home design tools for India', LIVE_TOOLS)],
+    scripts: [
+      itemListLd(
+        'Free property and home-building calculators for India',
+        SITE_TOOLS.map((t) => ({ name: t.title, description: t.description, path: t.to })),
+      ),
+    ],
   }),
 })
-
-interface Pill {
-  to?: string
-  icon: LucideIcon
-  /** Two-line uppercase label. Use \n for the line break. */
-  label: string
-  bgClass: string
-  iconClass: string
-}
-
-/** Soft pastels via existing element-* CSS tokens — no purple, no gradients. */
-const PILLS: ReadonlyArray<Pill> = [
-  {
-    to: '/construction-cost-calculator',
-    icon: Hammer,
-    label: 'Construction\nGuide',
-    bgClass: 'bg-[var(--element-water-bg-occupied)]',
-    iconClass: 'text-[var(--element-water-border)]',
-  },
-  {
-    to: '/vastu-checker',
-    icon: Compass,
-    label: 'Vastu\nGuide',
-    bgClass: 'bg-[var(--element-air-bg-occupied)]',
-    iconClass: 'text-[var(--element-air-border)]',
-  },
-  {
-    to: '/material-calculator',
-    icon: Calculator,
-    label: 'Material\nCalculator',
-    bgClass: 'bg-[var(--element-fire-bg-occupied)]',
-    iconClass: 'text-[var(--element-fire-border)]',
-  },
-  {
-    icon: Heart,
-    label: '100% Free\nfor India',
-    bgClass: 'bg-[var(--accent-teal-light)]',
-    iconClass: 'text-[var(--accent-teal)]',
-  },
-]
 
 function LandingPage() {
   return (
     <main className="mx-auto max-w-6xl px-4 sm:px-6">
       <Hero />
-      <ToolPillsSection />
-      <ToolsSection />
-      <ComingSoonSection />
-      <Footnote />
+      <GoalsSection />
+      <MostUsedSection />
+      <RatesSection />
+      <GuidesSection />
+      <TrustStrip />
     </main>
+  )
+}
+
+function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
+  return (
+    <div className="mb-6 flex flex-col gap-1.5">
+      <p className="text-sm font-medium text-[var(--accent-teal)]">
+        {kicker}
+      </p>
+      <h2 className="text-[22px] font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[26px]">
+        {title}
+      </h2>
+    </div>
   )
 }
 
 function Hero() {
   return (
-    <section className="flex flex-col items-center gap-11 pt-16 pb-16 text-center sm:pt-24 sm:pb-20">
-      <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border)] bg-[var(--muted)]/60 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[var(--muted-foreground)]">
-        <span className="size-1.5 rounded-full bg-[var(--accent-teal)]" aria-hidden />
-        Indian home design toolkit
-      </span>
-
-      <h1 className="max-w-3xl text-balance text-3xl font-semibold leading-[1.15] tracking-[-0.02em] text-[var(--foreground)] sm:text-4xl md:text-5xl">
-        Free single-purpose tools{' '}
-        <span className="text-[var(--accent-teal)]">for Indian homeowners.</span>
+    <section className="flex flex-col items-center gap-6 pt-12 pb-12 text-center sm:pt-20 sm:pb-16">
+      <h1 className="max-w-3xl text-balance text-[2rem] font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--foreground)] sm:text-5xl">
+        Property and home-building calculators{' '}
+        <span className="text-[var(--accent-teal)]">for India</span>
       </h1>
-
-      <p className="max-w-xl text-[15px] leading-relaxed text-[var(--muted-foreground)]">
-        Vastu compliance, 2D-to-3D renders, interior restyling, plot-area conversion. No signup,
-        no credit card — open a tool and start.
+      <p className="text-base text-[var(--foreground)]/80 sm:text-lg">
+        Free, with sources on every page.
       </p>
-
-      <div className="flex flex-wrap items-center justify-center gap-3">
-        <Button asChild>
-          <Link to="/vastu-checker">
-            Try Vastu Checker
-            <ArrowRight />
-          </Link>
-        </Button>
-        <Button asChild variant="ghost">
-          <a href="#tools">Browse all tools</a>
-        </Button>
-      </div>
+      <button
+        type="button"
+        onClick={openSiteSearch}
+        className="frosted mt-2 flex h-14 w-full max-w-xl items-center gap-3 rounded-xl px-4 text-left text-base text-[var(--muted-foreground)] transition-colors hover:border-[var(--accent-teal)]/40 focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:outline-none"
+      >
+        <Search className="size-5 shrink-0 text-[var(--accent-teal)]" />
+        <span className="min-w-0 flex-1 truncate">Try “punjab stamp duty” or “100 gaj”</span>
+        <kbd className="hidden rounded border border-[var(--border)] px-1.5 py-0.5 font-mono text-[11px] sm:inline">
+          Ctrl K
+        </kbd>
+      </button>
     </section>
   )
 }
 
-function ToolPillsSection() {
-  return (
-    <section className="border-t border-[var(--border)] py-14 sm:py-20">
-      {/* centred tagline */}
-      <div className="mx-auto flex max-w-3xl items-center gap-3 px-4 sm:gap-5 sm:px-6">
-        <span className="h-px flex-1 bg-[var(--accent-teal)]/40" aria-hidden />
-        <h2 className="text-balance text-center text-lg font-semibold tracking-tight text-[var(--foreground)] sm:text-xl md:text-2xl">
-          Design better. Build smarter.{' '}
-          <span className="text-[var(--accent-teal)]">Live auspicious.</span>
-        </h2>
-        <span className="h-px flex-1 bg-[var(--accent-teal)]/40" aria-hidden />
-      </div>
+const PROGRAMMATIC_NOUN = { state: 'states', city: 'cities', unit: 'conversions' } as const
 
-      {/* big pastel pills with 2-line uppercase labels */}
-      <ul className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-y-8 sm:mt-12 sm:grid-cols-4 sm:gap-y-0 sm:divide-x sm:divide-[var(--border)]">
-        {PILLS.map((p) => (
-          <PillItem key={p.label} pill={p} />
+function hubCountLabel(id: HubId) {
+  const tools = entriesForHub(id, 'tool').length
+  const toolLabel = `${tools} ${tools === 1 ? 'tool' : 'tools'}`
+  const quick = HUB_PROGRAMMATIC_LABEL[id]
+  if (!quick || !(quick.kind in PROGRAMMATIC_NOUN)) return toolLabel
+  const pages = entriesForHub(id, quick.kind).length
+  return `${toolLabel} · ${pages} ${PROGRAMMATIC_NOUN[quick.kind as keyof typeof PROGRAMMATIC_NOUN]}`
+}
+
+function GoalsSection() {
+  return (
+    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+      <SectionHeading kicker="Start here" title="What are you doing?" />
+      <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {SITE_HUBS.map((hub) => {
+          const Icon = hub.icon
+          return (
+            <li key={hub.id} className="last:col-span-2 sm:last:col-span-1">
+              <Link
+                to={hubPath(hub.id)}
+                className="frosted group flex h-full flex-col gap-3 rounded-xl p-4 no-underline transition-colors hover:border-[var(--accent-teal)]/40 sm:p-5"
+              >
+                <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+                  <Icon className="size-5" />
+                </span>
+                <span className="flex flex-1 flex-col gap-1">
+                  <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+                    {hub.title}
+                  </span>
+                  <span className="text-sm leading-snug text-[var(--foreground)]/75">
+                    {hub.description}
+                  </span>
+                </span>
+                <span className="text-xs text-[var(--muted-foreground)]">
+                  {hubCountLabel(hub.id)}
+                </span>
+              </Link>
+            </li>
+          )
+        })}
+      </ul>
+    </section>
+  )
+}
+
+function MostUsedSection() {
+  return (
+    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+      <SectionHeading kicker="Most used" title="The calculators people use most" />
+      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {MOST_USED.map((tool) => (
+          <li key={tool.to}>
+            <ToolTile tool={tool} />
+          </li>
         ))}
       </ul>
     </section>
   )
 }
 
-function ToolsSection() {
+function ToolTile({ tool }: { tool: SiteEntry }) {
+  const Icon = tool.icon
   return (
-    <section id="tools" className="scroll-mt-16 border-t border-[var(--border)] py-16 sm:py-20">
-      <div className="text-center">
-        <h2 className="text-2xl font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px]">
-          Explore all tools
-        </h2>
-      </div>
+    <Link
+      to={tool.to}
+      className="frosted group grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl p-4 no-underline transition-colors hover:border-[var(--accent-teal)]/40"
+    >
+      <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+        {Icon && <Icon className="size-5" />}
+      </span>
+      <span className="flex min-w-0 flex-col gap-0.5">
+        <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+          {tool.title}
+        </span>
+        <span className="text-sm leading-snug text-[var(--foreground)]/75">{tool.description}</span>
+      </span>
+      <ArrowRight className="size-4 text-[var(--muted-foreground)] transition-transform group-hover:translate-x-0.5" />
+    </Link>
+  )
+}
 
-      {/* tool grid */}
-      <div className="mt-10 grid gap-5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
-        <ToolCard
-          to="/vastu-checker"
-          status="flagship"
-          title="Vastu Checker"
-          description="Score your floor plan against 14 classical Vastu rules. Manual or upload."
-          icon={Compass}
-          ctaLabel="Try Vastu Checker"
-          featured
-        />
-        <ToolCard
-          to="/floor-plan-3d"
-          status="live"
-          title="Floor Plan → 3D"
-          description="Drop a 2D plan, get a furnished isometric 3D render in seconds."
-          icon={Box}
-        />
-        <ToolCard
-          to="/interior-restyle"
-          status="live"
-          title="Interior Restyle"
-          description="Re-render any room photo in Modern, Indian, Scandi, Minimal, or Luxury."
-          icon={Wand2}
-        />
-        <ToolCard
-          to="/empty-room-stager"
-          status="live"
-          title="Empty Room Stager"
-          description="Upload an empty room photo. AI furnishes it photorealistically."
-          icon={Sofa}
-        />
-        <ToolCard
-          to="/plot-converter"
-          status="utility"
-          title="Plot Area Converter"
-          description="Gunta, bigha, marla, kanal, ankanam, gaj — region-aware conversions."
-          icon={Ruler}
-        />
-        <ToolCard
-          to="/material-calculator"
-          status="utility"
-          title="Material Calculator"
-          description="Cement bags, sand cuft, bricks, steel kg for any construction element."
-          icon={Calculator}
-        />
-        <ToolCard
-          to="/concrete-calculator"
-          status="utility"
-          title="Concrete Calculator"
-          description="Cement, sand, and aggregate for PCC or site-mixed concrete."
-          icon={Layers3}
-        />
-        <ToolCard
-          to="/rcc-slab-calculator"
-          status="utility"
-          title="RCC Slab Calculator"
-          description="Slab cement, steel, sand, and aggregate quantity from dimensions."
-          icon={Hammer}
-        />
-        <ToolCard
-          to="/cement-sand-aggregate-calculator"
-          status="utility"
-          title="Cement Sand Aggregate Calculator"
-          description="Focused concrete material quantity in bags and cubic feet."
-          icon={Calculator}
-        />
-        <ToolCard
-          to="/stamp-duty-calculator"
-          status="utility"
-          title="Stamp Duty Calculator"
-          description="State + city stamp duty and registration. Female-buyer rates included."
-          icon={Receipt}
-        />
-        <ToolCard
-          to="/home-buying-cost-calculator"
-          status="utility"
-          title="Home Buying Cost Calculator"
-          description="Stamp duty, GST, brokerage, down payment and EMI — the full cash you need."
-          icon={KeyRound}
-        />
-        <ToolCard
-          to="/delhi-circle-rate"
-          status="utility"
-          title="Delhi Circle Rate"
-          description="Category A–H land and construction rates, minimum value and stamp duty."
-          icon={MapPinned}
-        />
-        <ToolCard
-          to="/construction-cost-calculator"
-          status="utility"
-          title="Construction Cost Calculator"
-          description="Per sq ft cost by city, finish tier, and floors. Stage-wise breakdown."
-          icon={Hammer}
-        />
-        <ToolCard
-          to="/property-capital-gains-calculator"
-          status="utility"
-          title="Capital Gains Calculator"
-          description="Post-Jul-2024 dual regime — picks the lower tax for you."
-          icon={TrendingUp}
-        />
-        <ToolCard
-          to="/indexation-calculator"
-          status="utility"
-          title="Indexation Calculator"
-          description="CII indexed cost and indexed capital gain for property tax planning."
-          icon={TrendingUp}
-        />
-        <ToolCard
-          to="/bbmp-property-tax-calculator"
-          status="utility"
-          title="BBMP Property Tax Calculator"
-          description="Bangalore property tax estimate with unit value, cess, and rebate."
-          icon={Building2}
-        />
-        <ToolCard
-          to="/bbmp-property-tax-2026-27"
-          status="utility"
-          title="BBMP Property Tax 2026-27"
-          description="Bangalore checklist for dues, e-khata notices, receipt, and payment intent."
-          icon={Building2}
-        />
-        <ToolCard
-          to="/ghmc-property-tax-calculator"
-          status="utility"
-          title="GHMC Property Tax Calculator"
-          description="Hyderabad property tax estimate from plinth area and rental value."
-          icon={Building2}
-        />
-        <ToolCard
-          to="/ghmc-property-tax-search-by-house-number"
-          status="utility"
-          title="GHMC House Number Search"
-          description="Hyderabad property tax lookup guide for house number, PTIN, dues, and receipt."
-          icon={Building2}
-        />
-        <ToolCard
-          to="/mcd-property-tax-calculator"
-          status="utility"
-          title="MCD Property Tax Calculator"
-          description="Delhi property tax estimate with annual value and rebate."
-          icon={Building2}
-        />
-        <ToolCard
-          to="/mcd-property-tax-ca-number"
-          status="utility"
-          title="MCD CA Number Guide"
-          description="Delhi CA number, UPIC, last date, and receipt guide with calculator link."
-          icon={Building2}
-        />
-        <ToolCard
-          to="/jaipur-property-tax-calculator"
-          status="utility"
-          title="Jaipur Property Tax Calculator"
-          description="UD tax from plot area and DLC rate, with exemptions and rebates."
-          icon={Building2}
-        />
+function RatesSection() {
+  const navigate = useNavigate()
+  return (
+    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+      <SectionHeading kicker="Rates for your area" title="Jump straight to your state or city" />
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Field>
+          <FieldLabel htmlFor="home-state">Stamp duty in</FieldLabel>
+          <Select onValueChange={(slug) => navigate({ to: `/stamp-duty/${slug}` })}>
+            <SelectTrigger id="home-state" className="h-12 w-full bg-transparent text-base">
+              <SelectValue placeholder="Choose your state" />
+            </SelectTrigger>
+            <SelectContent>
+              {[...STATE_CONTENT]
+                .sort((a, b) => a.displayName.localeCompare(b.displayName))
+                .map((s) => (
+                  <SelectItem key={s.slug} value={s.slug}>
+                    {s.displayName}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="home-city">Construction cost in</FieldLabel>
+          <Select onValueChange={(slug) => navigate({ to: `/construction-cost/${slug}` })}>
+            <SelectTrigger id="home-city" className="h-12 w-full bg-transparent text-base">
+              <SelectValue placeholder="Choose your city" />
+            </SelectTrigger>
+            <SelectContent>
+              {[...CITY_CONTENT]
+                .sort((a, b) => a.city.localeCompare(b.city))
+                .map((c) => (
+                  <SelectItem key={c.slug} value={c.slug}>
+                    {c.city}
+                  </SelectItem>
+                ))}
+            </SelectContent>
+          </Select>
+        </Field>
       </div>
     </section>
   )
 }
 
-function PillItem({ pill }: { pill: Pill }) {
-  const Icon = pill.icon
-  const inner = (
-    <div className="flex flex-col items-center justify-center gap-2 px-2 text-center sm:flex-row sm:gap-3 sm:px-6 sm:text-left">
-      <span
-        className={`flex size-12 shrink-0 items-center justify-center rounded-full sm:size-14 ${pill.bgClass}`}
-      >
-        <Icon className={`size-5 sm:size-6 ${pill.iconClass}`} />
-      </span>
-      <span className="whitespace-pre-line text-[11px] font-bold uppercase leading-tight tracking-[0.06em] text-[var(--foreground)] sm:text-sm">
-        {pill.label}
-      </span>
-    </div>
-  )
-
-  if (pill.to) {
-    return (
-      <li>
-        <Link to={pill.to} className="block no-underline transition-opacity hover:opacity-80">
-          {inner}
+function GuidesSection() {
+  return (
+    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+      <div className="flex items-end justify-between gap-4">
+        <SectionHeading kicker="Latest guides" title="New on Plotr Ai" />
+        <Link
+          to="/blog"
+          className="mb-6 inline-flex shrink-0 items-center gap-1 text-sm font-medium text-[var(--accent-teal)] no-underline"
+        >
+          All guides
+          <ArrowRight className="size-3.5" />
         </Link>
-      </li>
-    )
-  }
-  return <li>{inner}</li>
-}
-
-function ComingSoonSection() {
-  return (
-    <section className="border-t border-[var(--border)] py-16 sm:py-20">
-      <div className="flex flex-col items-center gap-3 text-center">
-        <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
-          Roadmap
-        </p>
-        <h2 className="text-2xl font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[28px]">
-          Shipping next
-        </h2>
-        <p className="max-w-xl text-sm leading-relaxed text-[var(--muted-foreground)]">
-          Drop your email on a tool below. We ping you only when that one ships.
-        </p>
       </div>
-
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <ComingSoonCard
-          icon={Palette}
-          title="Color Palette Generator"
-          description="Room photo or mood → matched paint codes from Asian Paints, Berger, Dulux."
-          toolKey="color-palette"
-        />
-        <ComingSoonCard
-          icon={Sparkles}
-          title="3D Plan Walkthrough"
-          description="Real-time isometric walkthroughs of your floor plan. Drop your email for early access."
-          toolKey="walkthrough"
-        />
-      </div>
+      <ul className="grid gap-3 md:grid-cols-3">
+        {LATEST_GUIDES.map((guide) => (
+          <li key={guide.slug}>
+            <Link
+              to="/blog/$slug"
+              params={{ slug: guide.slug }}
+              className="frosted group flex h-full flex-col gap-2 rounded-xl p-5 no-underline transition-colors hover:border-[var(--accent-teal)]/40"
+            >
+              <span className="text-xs text-[var(--muted-foreground)]">
+                {formatDate(guide.datePublished)}
+              </span>
+              <span className="text-base font-semibold leading-snug text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+                {guide.title}
+              </span>
+              <span className="line-clamp-3 text-sm leading-relaxed text-[var(--foreground)]/75">
+                {guide.description}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }
 
-function Footnote() {
+function formatDate(iso: string) {
+  return new Date(`${iso}T00:00:00Z`).toLocaleDateString('en-IN', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  })
+}
+
+const TRUST_ITEMS = [
+  {
+    icon: BadgeCheck,
+    title: 'Sources on every page',
+    text: 'Rates name the state notification, corporation or survey they come from.',
+  },
+  {
+    icon: CalendarCheck,
+    title: 'Dates shown',
+    text: 'Each page says when its rates were last checked.',
+  },
+  {
+    icon: Sparkles,
+    title: 'Free, no signup',
+    text: 'Open a calculator and start. Nothing to install.',
+  },
+] as const
+
+function TrustStrip() {
   return (
-    <section className="border-t border-[var(--border)] py-10">
-      <p className="text-center text-xs leading-relaxed text-[var(--muted-foreground)]">
-        Made for Indian homeowners. All tools run on standard web — no installs. Vastu Checker
-        analysis is local; AI renders use OpenAI's image API. Rates and conversions are kept
-        current to local Indian standards; for legal documents, cross-check with your local
-        sub-registrar.
+    <section className="border-t border-[var(--border)] py-10 sm:py-12">
+      <ul className="grid gap-6 sm:grid-cols-3">
+        {TRUST_ITEMS.map(({ icon: Icon, title, text }) => (
+          <li key={title} className="flex gap-3">
+            <Icon className="mt-0.5 size-5 shrink-0 text-[var(--accent-teal)]" />
+            <span className="flex flex-col gap-1">
+              <span className="text-sm font-semibold text-[var(--foreground)]">{title}</span>
+              <span className="text-sm leading-relaxed text-[var(--foreground)]/75">{text}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p className="mt-8 text-xs leading-relaxed text-[var(--muted-foreground)]">
+        Estimates for planning. For legal documents and final payments, confirm with your
+        sub-registrar, municipal corporation or a qualified professional.
       </p>
     </section>
   )

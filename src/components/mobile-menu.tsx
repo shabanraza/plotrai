@@ -90,7 +90,7 @@ export function MobileMenu({ onSearch }: { onSearch: () => void }) {
                   </ul>
                   {quick && quickLinks.length > 0 && (
                     <>
-                      <p className="mt-3 mb-1 px-2 font-mono text-[10.5px] font-medium tracking-[0.12em] text-[var(--muted-foreground)] uppercase">
+                      <p className="mt-3 mb-1 px-2 text-xs font-medium text-[var(--muted-foreground)]">
                         {quick.label}
                       </p>
                       <ul className="grid grid-cols-2">
