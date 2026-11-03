@@ -30,6 +30,7 @@ import { Route as GhmcPropertyTaxCalculatorRouteImport } from './routes/ghmc-pro
 import { Route as FloorPlan3dRouteImport } from './routes/floor-plan-3d'
 import { Route as EmptyRoomStagerRouteImport } from './routes/empty-room-stager'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as DelhiCircleRateRouteImport } from './routes/delhi-circle-rate'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConstructionMaterialsRouteImport } from './routes/construction-materials'
 import { Route as ConstructionCostCalculatorRouteImport } from './routes/construction-cost-calculator'
@@ -158,6 +159,11 @@ const DisclaimerRoute = DisclaimerRouteImport.update({
   path: '/disclaimer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DelhiCircleRateRoute = DelhiCircleRateRouteImport.update({
+  id: '/delhi-circle-rate',
+  path: '/delhi-circle-rate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -253,6 +259,7 @@ export interface FileRoutesByFullPath {
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
   '/contact': typeof ContactRoute
+  '/delhi-circle-rate': typeof DelhiCircleRateRoute
   '/disclaimer': typeof DisclaimerRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
@@ -291,6 +298,7 @@ export interface FileRoutesByTo {
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
   '/contact': typeof ContactRoute
+  '/delhi-circle-rate': typeof DelhiCircleRateRoute
   '/disclaimer': typeof DisclaimerRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
@@ -331,6 +339,7 @@ export interface FileRoutesById {
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
   '/contact': typeof ContactRoute
+  '/delhi-circle-rate': typeof DelhiCircleRateRoute
   '/disclaimer': typeof DisclaimerRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
@@ -372,6 +381,7 @@ export interface FileRouteTypes {
     | '/construction-cost-calculator'
     | '/construction-materials'
     | '/contact'
+    | '/delhi-circle-rate'
     | '/disclaimer'
     | '/empty-room-stager'
     | '/floor-plan-3d'
@@ -410,6 +420,7 @@ export interface FileRouteTypes {
     | '/construction-cost-calculator'
     | '/construction-materials'
     | '/contact'
+    | '/delhi-circle-rate'
     | '/disclaimer'
     | '/empty-room-stager'
     | '/floor-plan-3d'
@@ -449,6 +460,7 @@ export interface FileRouteTypes {
     | '/construction-cost-calculator'
     | '/construction-materials'
     | '/contact'
+    | '/delhi-circle-rate'
     | '/disclaimer'
     | '/empty-room-stager'
     | '/floor-plan-3d'
@@ -489,6 +501,7 @@ export interface RootRouteChildren {
   ConstructionCostCalculatorRoute: typeof ConstructionCostCalculatorRoute
   ConstructionMaterialsRoute: typeof ConstructionMaterialsRoute
   ContactRoute: typeof ContactRoute
+  DelhiCircleRateRoute: typeof DelhiCircleRateRoute
   DisclaimerRoute: typeof DisclaimerRoute
   EmptyRoomStagerRoute: typeof EmptyRoomStagerRoute
   FloorPlan3dRoute: typeof FloorPlan3dRoute
@@ -665,6 +678,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DisclaimerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/delhi-circle-rate': {
+      id: '/delhi-circle-rate'
+      path: '/delhi-circle-rate'
+      fullPath: '/delhi-circle-rate'
+      preLoaderRoute: typeof DelhiCircleRateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -803,6 +823,7 @@ const rootRouteChildren: RootRouteChildren = {
   ConstructionCostCalculatorRoute: ConstructionCostCalculatorRoute,
   ConstructionMaterialsRoute: ConstructionMaterialsRoute,
   ContactRoute: ContactRoute,
+  DelhiCircleRateRoute: DelhiCircleRateRoute,
   DisclaimerRoute: DisclaimerRoute,
   EmptyRoomStagerRoute: EmptyRoomStagerRoute,
   FloorPlan3dRoute: FloorPlan3dRoute,
