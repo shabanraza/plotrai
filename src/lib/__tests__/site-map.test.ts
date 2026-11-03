@@ -9,6 +9,7 @@ import {
   SITE_PROGRAMMATIC,
   breadcrumbForPath,
   entriesForHub,
+  footerLinksForHub,
   hubPath,
   searchFilter,
 } from '#/data/site-map'
@@ -103,6 +104,19 @@ describe('site map coverage', () => {
     for (const entry of SITE_ENTRIES) {
       // Some entries split the closing tag across lines, so match up to "<" only
       expect(sitemap, entry.to).toContain(`<loc>https://plotrai.in${entry.to}<`)
+    }
+  })
+})
+
+describe('footerLinksForHub', () => {
+  it('gives every hub between 1 and 6 unique, known links', () => {
+    const known = new Set(SITE_ENTRIES.map((e) => e.to))
+    for (const hub of SITE_HUBS) {
+      const links = footerLinksForHub(hub.id)
+      expect(links.length).toBeGreaterThan(0)
+      expect(links.length).toBeLessThanOrEqual(6)
+      expect(new Set(links.map((l) => l.to)).size).toBe(links.length)
+      for (const link of links) expect(known, link.to).toContain(link.to)
     }
   })
 })

@@ -171,6 +171,22 @@ export function entriesForHub(hub: HubId, kind?: EntryKind) {
   return SITE_ENTRIES.filter((e) => e.hub === hub && (!kind || e.kind === kind))
 }
 
+const FOOTER_LINKS_PER_HUB = 6
+
+/**
+ * Footer links for a hub: calculators first, then the hub's other tools, then its most popular
+ * state/city/unit pages to fill the column. Capped so the footer stays short.
+ */
+export function footerLinksForHub(hub: HubId): Array<{ label: string; to: string }> {
+  const tools = entriesForHub(hub, 'tool')
+  const ranked = [
+    ...tools.filter((t) => /calculator/i.test(t.title)),
+    ...tools.filter((t) => !/calculator/i.test(t.title)),
+    ...entriesForHub(hub).filter((e) => e.kind !== 'tool' && e.kind !== 'guide'),
+  ]
+  return ranked.slice(0, FOOTER_LINKS_PER_HUB).map((e) => ({ label: e.title, to: e.to }))
+}
+
 export const SITE_HUB_BY_ID = new Map(SITE_HUBS.map((hub) => [hub.id, hub]))
 
 export function hubPath(hub: HubId) {
