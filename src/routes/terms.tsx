@@ -24,7 +24,7 @@ function TermsPage() {
     <ToolPageShell
       breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Terms' }]}
       eyebrow={{ icon: FileText, label: 'Terms' }}
-      title="Terms of Use"
+      title="Terms of use"
       tagline="The basic rules for using Plotr Ai’s free calculators and home-planning tools."
       variant="reading"
       footnote="Last updated 22 June 2026."

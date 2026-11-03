@@ -89,7 +89,7 @@ export const Route = createFileRoute('/delhi-circle-rate')({
         name: 'description',
         content: `Delhi circle rates 2026 for categories A to H: land from ₹23,280 to ₹7,74,000 per sq m, plus construction rates. Calculate the minimum property value and stamp duty in Delhi.`,
       },
-      { property: 'og:title', content: 'Delhi Circle Rate 2026' },
+      { property: 'og:title', content: 'Delhi circle rate 2026' },
       {
         property: 'og:description',
         content: 'Category-wise Delhi circle rates and a calculator for minimum property value and stamp duty.',
@@ -142,9 +142,9 @@ function DelhiCircleRatePage() {
 
   return (
     <ToolPageShell
-      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Delhi Circle Rate' }]}
+      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Delhi circle rate' }]}
       eyebrow={{ icon: MapPinned, label: 'Circle rate · Delhi' }}
-      title="Delhi Circle Rate 2026"
+      title="Delhi circle rate 2026"
       tagline="Minimum land and construction rates for Delhi colony categories A to H, with a calculator for the minimum property value and the stamp duty you'll pay on it."
       variant="single-column"
       footnote={`Rates notified ${DELHI_CIRCLE_RATE_NOTIFIED} (4th revision), still in force when checked on ${CIRCLE_RATES_CHECKED}. Covers residential plots, houses and builder floors with a land share; flats, commercial and industrial property use different rates. Confirm your colony's category and the final value with the sub-registrar.`}
@@ -241,8 +241,8 @@ function DelhiCircleRatePage() {
                   onChange={(e) => setAgreementLakh(e.target.value)}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
-                    Lakh
+                  <InputGroupText className="text-sm">
+                    lakh
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
@@ -413,7 +413,7 @@ function Stat({ label, value, highlight }: { label: string; value: number; highl
   return (
     <div>
       <p
-        className={`font-mono text-[10px] uppercase tracking-[0.16em] ${highlight ? 'text-[var(--accent-teal)]' : 'text-[var(--muted-foreground)]'}`}
+        className={`text-sm ${highlight ? 'text-[var(--accent-teal)]' : 'text-[var(--muted-foreground)]'}`}
       >
         {label}
       </p>

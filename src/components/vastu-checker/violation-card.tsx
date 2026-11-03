@@ -45,7 +45,7 @@ export function ViolationCard({ violation, index }: ViolationCardProps) {
           <AlertTriangle className="size-3" />
           {config.label}
         </Badge>
-        <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+        <span className="font-mono text-sm text-[var(--muted-foreground)]">
           {violation.ruleId}
         </span>
       </div>

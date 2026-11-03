@@ -11,7 +11,7 @@ export const Route = createFileRoute('/bbmp-property-tax-calculator')({
     meta: [
       { title: 'BBMP Property Tax Calculator Bangalore · Plotr Ai' },
       { name: 'description', content: CONTENT.description },
-      { property: 'og:title', content: 'BBMP Property Tax Calculator' },
+      { property: 'og:title', content: 'BBMP property tax calculator' },
       { property: 'og:description', content: CONTENT.description },
       { property: 'og:url', content: 'https://plotrai.in/bbmp-property-tax-calculator' },
       { property: 'og:type', content: 'website' },

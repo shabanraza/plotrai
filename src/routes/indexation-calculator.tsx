@@ -101,10 +101,10 @@ function IndexationCalculatorPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Indexation Calculator' },
+        { label: 'Indexation calculator' },
       ]}
       eyebrow={{ icon: TrendingUp, label: 'CII · Property tax planning' }}
-      title="Indexation Calculator"
+      title="Indexation calculator"
       tagline="Calculate indexed cost of acquisition using India's Cost Inflation Index. Useful for property LTCG comparisons where the old 20% indexed regime is still available."
       variant="single-column"
       footnote={`CII values last checked ${CII_LAST_UPDATED}. This page estimates indexed cost only; use the full property capital gains calculator for old-vs-new regime comparison and Section 54/54EC exemptions.`}
@@ -173,7 +173,7 @@ function IndexationCalculatorPage() {
 
         <ToolSection number="02" label="Indexed result">
           <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+            <p className="text-sm text-[var(--muted-foreground)]">
               Indexed cost of acquisition
             </p>
             <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">
@@ -271,8 +271,8 @@ function MoneyField({
           onChange={(event) => onChange(event.target.value)}
         />
         <InputGroupAddon align="inline-end">
-          <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
-            Lakh
+          <InputGroupText className="text-sm">
+            lakh
           </InputGroupText>
         </InputGroupAddon>
       </InputGroup>

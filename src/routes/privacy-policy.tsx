@@ -22,9 +22,9 @@ export const Route = createFileRoute('/privacy-policy')({
 function PrivacyPolicyPage() {
   return (
     <ToolPageShell
-      breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Privacy Policy' }]}
+      breadcrumb={[{ label: 'Home', href: '/' }, { label: 'Privacy policy' }]}
       eyebrow={{ icon: ShieldCheck, label: 'Policy' }}
-      title="Privacy Policy"
+      title="Privacy policy"
       tagline="How Plotr Ai handles calculator inputs, analytics, cookies, and advertising-related data."
       variant="reading"
       footnote="Last updated 22 June 2026. This page should be reviewed whenever analytics, advertising, or data-processing tools change."

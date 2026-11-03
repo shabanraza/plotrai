@@ -159,10 +159,10 @@ function MaterialCalculatorPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Material Calculator' },
+        { label: 'Material calculator' },
       ]}
       eyebrow={{ icon: Calculator, label: 'Calculator · Live' }}
-      title="Construction Material Calculator"
+      title="Construction material calculator"
       tagline="Calculate cement, bricks, steel, sand, and aggregate needed for any construction element. Fresh Indian market rates — editable per project."
       variant="single-column"
       footnote={`Quantities are estimated using standard Indian site-engineer thumb rules (M20 mix for RCC, 1:6 for brickwork mortar, 1:4 for plaster). Add 5–10% wastage when ordering. Default rates last updated ${RATES_LAST_UPDATED}.`}
@@ -218,7 +218,7 @@ function MaterialCalculatorPage() {
           action={
             <div className="flex items-center gap-2">
               {liveMeta?.isLive && (
-                <Badge variant="secondary" className="gap-1.5 font-mono text-[10px] uppercase tracking-[0.12em]">
+                <Badge variant="secondary" className="gap-1.5 text-xs">
                   <span className="size-1.5 rounded-full bg-[var(--accent-teal)]" aria-hidden />
                   Live
                 </Badge>
@@ -250,7 +250,7 @@ function MaterialCalculatorPage() {
                     }
                   />
                   <InputGroupAddon align="inline-end">
-                    <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
+                    <InputGroupText className="text-sm">
                       /{MATERIAL_RATES[key].unit}
                     </InputGroupText>
                   </InputGroupAddon>

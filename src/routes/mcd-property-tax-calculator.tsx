@@ -11,7 +11,7 @@ export const Route = createFileRoute('/mcd-property-tax-calculator')({
     meta: [
       { title: 'MCD Property Tax Calculator Delhi · Plotr Ai' },
       { name: 'description', content: CONTENT.description },
-      { property: 'og:title', content: 'MCD Property Tax Calculator' },
+      { property: 'og:title', content: 'MCD property tax calculator' },
       { property: 'og:description', content: CONTENT.description },
       { property: 'og:url', content: 'https://plotrai.in/mcd-property-tax-calculator' },
       { property: 'og:type', content: 'website' },

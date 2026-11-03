@@ -135,10 +135,10 @@ function ConstructionCostCalculatorPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Construction Cost Calculator' },
+        { label: 'Construction cost calculator' },
       ]}
       eyebrow={{ icon: Hammer, label: 'Calculator · Live' }}
-      title="Construction Cost Calculator"
+      title="Construction cost calculator"
       tagline="Estimate house construction cost per sq ft in India, broken down across 7 build stages. Bangalore, Mumbai, Delhi, Pune, Chennai, Hyderabad and more."
       variant="single-column"
       footnote={`City × tier base rates last refreshed ${CONSTRUCTION_LAST_UPDATED}. ${CONSTRUCTION_ESTIMATE_NOTE} Excludes land cost, government approvals, soil-bearing-capacity surprises, and contractor margin.`}
@@ -178,7 +178,7 @@ function ConstructionCostCalculatorPage() {
                   onChange={(e) => setAreaInput(e.target.value)}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
+                  <InputGroupText className="text-sm">
                     sq ft
                   </InputGroupText>
                 </InputGroupAddon>
@@ -241,7 +241,7 @@ function ConstructionCostCalculatorPage() {
           description={`At ₹${formatINR(result.baseRatePerSqft)} / sq ft for ${TIER_LABELS[tier].label.toLowerCase()} finish in ${city}.`}
         >
           <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+            <p className="text-sm text-[var(--muted-foreground)]">
               Total estimated construction cost
             </p>
             <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">

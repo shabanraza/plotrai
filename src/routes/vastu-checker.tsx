@@ -196,9 +196,9 @@ function VastuCheckerPage() {
 
   return (
     <ToolPageShell
-      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Vastu Checker' }]}
+      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Vastu checker' }]}
       eyebrow={{ icon: Compass, label: 'Flagship · Live' }}
-      title="Vastu Compliance Checker"
+      title="Vastu compliance checker"
       tagline="Score your floor plan against 14 classical Vastu Shastra rules. Manual input or upload a plan — get instant violations and remedies."
       variant="progressive"
       headerActions={

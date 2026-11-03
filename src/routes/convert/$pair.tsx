@@ -91,7 +91,7 @@ function UnitPairPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Plot Area Converter', href: '/plot-converter' },
+        { label: 'Plot area converter', href: '/plot-converter' },
         { label: name },
       ]}
       eyebrow={{ icon: Ruler, label: 'Land unit converter' }}
@@ -134,7 +134,7 @@ function UnitPairPage() {
               </InputGroup>
             </Field>
             <div className="flex flex-col gap-1 sm:items-end">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+              <p className="text-sm text-[var(--muted-foreground)]">
                 = {page.toShort}
               </p>
               <p className="text-3xl font-semibold leading-none tabular-nums tracking-tight text-[var(--foreground)]">

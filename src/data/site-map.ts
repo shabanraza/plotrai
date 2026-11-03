@@ -92,32 +92,32 @@ export const SITE_HUBS: ReadonlyArray<SiteHub> = [
 
 export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   // Buy
-  { title: 'Stamp Duty Calculator', to: '/stamp-duty-calculator', description: 'Stamp duty and registration by state.', hub: 'buy', kind: 'tool', icon: Receipt, keywords: ['registration charges', 'registry'] },
-  { title: 'Home Buying Cost Calculator', to: '/home-buying-cost-calculator', description: 'Stamp duty, GST, down payment and EMI together.', hub: 'buy', kind: 'tool', icon: KeyRound, keywords: ['emi', 'home loan', 'down payment', 'gst'] },
-  { title: 'Delhi Circle Rate', to: '/delhi-circle-rate', description: 'Category A–H rates and minimum property value.', hub: 'buy', kind: 'tool', icon: MapPinned, keywords: ['delhi', 'circle rate', 'minimum value'] },
+  { title: 'Stamp duty calculator', to: '/stamp-duty-calculator', description: 'Stamp duty and registration by state.', hub: 'buy', kind: 'tool', icon: Receipt, keywords: ['registration charges', 'registry'] },
+  { title: 'Home buying cost calculator', to: '/home-buying-cost-calculator', description: 'Stamp duty, GST, down payment and EMI together.', hub: 'buy', kind: 'tool', icon: KeyRound, keywords: ['emi', 'home loan', 'down payment', 'gst'] },
+  { title: 'Delhi circle rate', to: '/delhi-circle-rate', description: 'Category A–H rates and minimum property value.', hub: 'buy', kind: 'tool', icon: MapPinned, keywords: ['delhi', 'circle rate', 'minimum value'] },
   // Build
-  { title: 'Construction Cost Calculator', to: '/construction-cost-calculator', description: 'Per sq ft cost by city and finish, stage-wise.', hub: 'build', kind: 'tool', icon: Hammer, keywords: ['house construction cost', 'building cost'] },
-  { title: 'Material Calculator', to: '/material-calculator', description: 'Cement, bricks, steel and sand for any element.', hub: 'build', kind: 'tool', icon: Calculator, keywords: ['cement bags', 'bricks', 'steel', 'sand'] },
-  { title: 'Concrete Calculator', to: '/concrete-calculator', description: 'Cement, sand and aggregate for PCC and concrete.', hub: 'build', kind: 'tool', icon: Layers3 },
-  { title: 'RCC Slab Calculator', to: '/rcc-slab-calculator', description: 'Slab cement, steel, sand and aggregate.', hub: 'build', kind: 'tool', icon: Hammer, keywords: ['roof slab'] },
-  { title: 'Cement Sand Aggregate Calculator', to: '/cement-sand-aggregate-calculator', description: 'Concrete material quantity by mix.', hub: 'build', kind: 'tool', icon: Calculator, keywords: ['m20', 'm15', 'cum'] },
+  { title: 'Construction cost calculator', to: '/construction-cost-calculator', description: 'Per sq ft cost by city and finish, stage-wise.', hub: 'build', kind: 'tool', icon: Hammer, keywords: ['house construction cost', 'building cost'] },
+  { title: 'Material calculator', to: '/material-calculator', description: 'Cement, bricks, steel and sand for any element.', hub: 'build', kind: 'tool', icon: Calculator, keywords: ['cement bags', 'bricks', 'steel', 'sand'] },
+  { title: 'Concrete calculator', to: '/concrete-calculator', description: 'Cement, sand and aggregate for PCC and concrete.', hub: 'build', kind: 'tool', icon: Layers3 },
+  { title: 'RCC slab calculator', to: '/rcc-slab-calculator', description: 'Slab cement, steel, sand and aggregate.', hub: 'build', kind: 'tool', icon: Hammer, keywords: ['roof slab'] },
+  { title: 'Cement sand aggregate calculator', to: '/cement-sand-aggregate-calculator', description: 'Concrete material quantity by mix.', hub: 'build', kind: 'tool', icon: Calculator, keywords: ['m20', 'm15', 'cum'] },
   // Land
-  { title: 'Plot Area Converter', to: '/plot-converter', description: 'Every Indian land unit, region-aware.', hub: 'land', kind: 'tool', icon: Ruler, keywords: ['gaj', 'bigha', 'acre', 'marla', 'gunta', 'cent'] },
+  { title: 'Plot area converter', to: '/plot-converter', description: 'Every Indian land unit, region-aware.', hub: 'land', kind: 'tool', icon: Ruler, keywords: ['gaj', 'bigha', 'acre', 'marla', 'gunta', 'cent'] },
   // Tax
-  { title: 'Capital Gains Calculator', to: '/property-capital-gains-calculator', description: 'Property LTCG under both regimes.', hub: 'tax', kind: 'tool', icon: TrendingUp, keywords: ['ltcg', 'sell property tax'] },
-  { title: 'Indexation Calculator', to: '/indexation-calculator', description: 'CII indexed cost and gain.', hub: 'tax', kind: 'tool', icon: TrendingUp, keywords: ['cii', 'cost inflation index'] },
-  { title: 'BBMP Property Tax Calculator', to: '/bbmp-property-tax-calculator', description: 'Bangalore property tax estimate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['bangalore', 'bengaluru'] },
-  { title: 'BBMP Property Tax 2026-27', to: '/bbmp-property-tax-2026-27', description: 'Due dates, e-khata and receipts.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['bangalore'] },
-  { title: 'GHMC Property Tax Calculator', to: '/ghmc-property-tax-calculator', description: 'Hyderabad property tax estimate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['hyderabad'] },
-  { title: 'GHMC House Number Search', to: '/ghmc-property-tax-search-by-house-number', description: 'Find Hyderabad tax by house number.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['hyderabad', 'ptin'] },
-  { title: 'MCD Property Tax Calculator', to: '/mcd-property-tax-calculator', description: 'Delhi property tax estimate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['delhi', 'house tax'] },
-  { title: 'MCD CA Number Guide', to: '/mcd-property-tax-ca-number', description: 'Delhi CA number, UPIC and receipts.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['delhi', 'upic'] },
-  { title: 'Jaipur Property Tax Calculator', to: '/jaipur-property-tax-calculator', description: 'UD tax from plot area and DLC rate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['jaipur', 'ud tax', 'rajasthan', 'dlc'] },
+  { title: 'Capital gains calculator', to: '/property-capital-gains-calculator', description: 'Property LTCG under both regimes.', hub: 'tax', kind: 'tool', icon: TrendingUp, keywords: ['ltcg', 'sell property tax'] },
+  { title: 'Indexation calculator', to: '/indexation-calculator', description: 'CII indexed cost and gain.', hub: 'tax', kind: 'tool', icon: TrendingUp, keywords: ['cii', 'cost inflation index'] },
+  { title: 'BBMP property tax calculator', to: '/bbmp-property-tax-calculator', description: 'Bangalore property tax estimate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['bangalore', 'bengaluru'] },
+  { title: 'BBMP property tax 2026-27', to: '/bbmp-property-tax-2026-27', description: 'Due dates, e-khata and receipts.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['bangalore'] },
+  { title: 'GHMC property tax calculator', to: '/ghmc-property-tax-calculator', description: 'Hyderabad property tax estimate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['hyderabad'] },
+  { title: 'GHMC house number search', to: '/ghmc-property-tax-search-by-house-number', description: 'Find Hyderabad tax by house number.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['hyderabad', 'ptin'] },
+  { title: 'MCD property tax calculator', to: '/mcd-property-tax-calculator', description: 'Delhi property tax estimate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['delhi', 'house tax'] },
+  { title: 'MCD CA number guide', to: '/mcd-property-tax-ca-number', description: 'Delhi CA number, UPIC and receipts.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['delhi', 'upic'] },
+  { title: 'Jaipur property tax calculator', to: '/jaipur-property-tax-calculator', description: 'UD tax from plot area and DLC rate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['jaipur', 'ud tax', 'rajasthan', 'dlc'] },
   // Design
-  { title: 'Vastu Checker', to: '/vastu-checker', description: 'Score a floor plan against 14 Vastu rules.', hub: 'design', kind: 'tool', icon: Compass },
-  { title: 'Floor Plan to 3D', to: '/floor-plan-3d', description: 'Turn a 2D plan into a furnished 3D render.', hub: 'design', kind: 'tool', icon: Box },
-  { title: 'Interior Restyle', to: '/interior-restyle', description: 'Re-render a room photo in a new style.', hub: 'design', kind: 'tool', icon: Wand2 },
-  { title: 'Empty Room Stager', to: '/empty-room-stager', description: 'Furnish an empty room photo with AI.', hub: 'design', kind: 'tool', icon: Sofa },
+  { title: 'Vastu checker', to: '/vastu-checker', description: 'Score a floor plan against 14 Vastu rules.', hub: 'design', kind: 'tool', icon: Compass },
+  { title: 'Floor plan to 3D', to: '/floor-plan-3d', description: 'Turn a 2D plan into a furnished 3D render.', hub: 'design', kind: 'tool', icon: Box },
+  { title: 'Interior restyle', to: '/interior-restyle', description: 'Re-render a room photo in a new style.', hub: 'design', kind: 'tool', icon: Wand2 },
+  { title: 'Empty room stager', to: '/empty-room-stager', description: 'Furnish an empty room photo with AI.', hub: 'design', kind: 'tool', icon: Sofa },
 ]
 
 const CLUSTER_HUB: Record<BlogCluster, HubId> = {
@@ -209,7 +209,7 @@ export function breadcrumbForPath(path: string, currentLabel?: string): Crumb[] 
   const parent = PARENT_TOOL[entry.kind]
   const parentEntry = parent ? ENTRY_BY_PATH.get(parent) : undefined
   if (parentEntry) trail.push({ label: parentEntry.title, href: parentEntry.to })
-  trail.push({ label: currentLabel ?? entry.title })
+  trail.push({ label: entry.kind === 'tool' ? entry.title : (currentLabel ?? entry.title) })
   return trail
 }
 

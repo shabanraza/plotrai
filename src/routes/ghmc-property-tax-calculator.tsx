@@ -11,7 +11,7 @@ export const Route = createFileRoute('/ghmc-property-tax-calculator')({
     meta: [
       { title: 'GHMC Property Tax Calculator Hyderabad · Plotr Ai' },
       { name: 'description', content: CONTENT.description },
-      { property: 'og:title', content: 'GHMC Property Tax Calculator' },
+      { property: 'og:title', content: 'GHMC property tax calculator' },
       { property: 'og:description', content: CONTENT.description },
       { property: 'og:url', content: 'https://plotrai.in/ghmc-property-tax-calculator' },
       { property: 'og:type', content: 'website' },

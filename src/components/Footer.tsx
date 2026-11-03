@@ -5,31 +5,31 @@ import { BLOG_BY_SLUG, type BlogSlug } from '#/data/blog-content'
 import { SITE_HUBS, hubPath } from '#/data/site-map'
 
 const TOOL_LINKS = [
-  { label: 'Vastu Checker', to: '/vastu-checker' },
-  { label: 'Floor Plan to 3D', to: '/floor-plan-3d' },
-  { label: 'Interior Restyle', to: '/interior-restyle' },
-  { label: 'Empty Room Stager', to: '/empty-room-stager' },
-  { label: 'Plot Area Converter', to: '/plot-converter' },
-  { label: 'Material Calculator', to: '/material-calculator' },
-  { label: 'Concrete Calculator', to: '/concrete-calculator' },
-  { label: 'RCC Slab Calculator', to: '/rcc-slab-calculator' },
-  { label: 'Cement Sand Aggregate Calculator', to: '/cement-sand-aggregate-calculator' },
-  { label: 'Stamp Duty Calculator', to: '/stamp-duty-calculator' },
-  { label: 'Construction Cost Calculator', to: '/construction-cost-calculator' },
-  { label: 'Capital Gains Calculator', to: '/property-capital-gains-calculator' },
-  { label: 'Indexation Calculator', to: '/indexation-calculator' },
+  { label: 'Vastu checker', to: '/vastu-checker' },
+  { label: 'Floor plan to 3D', to: '/floor-plan-3d' },
+  { label: 'Interior restyle', to: '/interior-restyle' },
+  { label: 'Empty room stager', to: '/empty-room-stager' },
+  { label: 'Plot area converter', to: '/plot-converter' },
+  { label: 'Material calculator', to: '/material-calculator' },
+  { label: 'Concrete calculator', to: '/concrete-calculator' },
+  { label: 'RCC slab calculator', to: '/rcc-slab-calculator' },
+  { label: 'Cement sand aggregate calculator', to: '/cement-sand-aggregate-calculator' },
+  { label: 'Stamp duty calculator', to: '/stamp-duty-calculator' },
+  { label: 'Construction cost calculator', to: '/construction-cost-calculator' },
+  { label: 'Capital gains calculator', to: '/property-capital-gains-calculator' },
+  { label: 'Indexation calculator', to: '/indexation-calculator' },
 ] as const
 
 const PROPERTY_TAX_LINKS = [
-  { label: 'BBMP Property Tax Calculator', to: '/bbmp-property-tax-calculator' },
-  { label: 'BBMP Property Tax 2026-27', to: '/bbmp-property-tax-2026-27' },
-  { label: 'GHMC Property Tax Calculator', to: '/ghmc-property-tax-calculator' },
+  { label: 'BBMP property tax calculator', to: '/bbmp-property-tax-calculator' },
+  { label: 'BBMP property tax 2026-27', to: '/bbmp-property-tax-2026-27' },
+  { label: 'GHMC property tax calculator', to: '/ghmc-property-tax-calculator' },
   {
-    label: 'GHMC Property Tax Search by House Number',
+    label: 'GHMC property tax search by house number',
     to: '/ghmc-property-tax-search-by-house-number',
   },
-  { label: 'MCD Property Tax Calculator', to: '/mcd-property-tax-calculator' },
-  { label: 'MCD Property Tax CA Number Guide', to: '/mcd-property-tax-ca-number' },
+  { label: 'MCD property tax calculator', to: '/mcd-property-tax-calculator' },
+  { label: 'MCD property tax CA number guide', to: '/mcd-property-tax-ca-number' },
 ] as const
 
 const STATIC_LINKS = [
@@ -48,7 +48,7 @@ const FOOTER_GUIDE_SLUGS: ReadonlyArray<BlogSlug> = [
 ]
 
 const GUIDE_LINKS = [
-  { label: 'All Guides', to: '/blog' },
+  { label: 'All guides', to: '/blog' },
   ...SITE_HUBS.map((hub) => ({ label: hub.title, to: hubPath(hub.id) })),
   ...FOOTER_GUIDE_SLUGS.map((slug) => {
     const article = BLOG_BY_SLUG.get(slug)
@@ -63,14 +63,14 @@ const FOOTER_GROUPS = [
   { title: 'Tools', links: TOOL_LINKS },
   { title: 'Property Tax', links: PROPERTY_TAX_LINKS },
   {
-    title: 'Construction Cost',
+    title: 'Construction cost',
     links: CITY_CONTENT.map((city) => ({
       label: `${city.city} Construction Cost`,
       to: `/construction-cost/${city.slug}`,
     })),
   },
   {
-    title: 'Stamp Duty',
+    title: 'Stamp duty',
     links: STATE_CONTENT.map((state) => ({
       label: `${state.displayName} Stamp Duty`,
       to: `/stamp-duty/${state.slug}`,

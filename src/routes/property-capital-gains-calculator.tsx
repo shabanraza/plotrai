@@ -113,10 +113,10 @@ function CapitalGainsCalculatorPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Capital Gains Calculator' },
+        { label: 'Capital gains calculator' },
       ]}
       eyebrow={{ icon: TrendingUp, label: 'Calculator · Live' }}
-      title="Property Capital Gains Calculator"
+      title="Property capital gains calculator"
       tagline="Computes both post-Jul-2024 regimes — 12.5% without indexation vs 20% with indexation — and tells you which one wins. Plus Section 54 / 54F / 54EC shortcuts."
       variant="single-column"
       footnote={`CII values last checked ${CII_LAST_UPDATED}. The dual regime applies only to properties acquired before 2024-07-23. For properties acquired on/after that date, the new 12.5% no-indexation rate is mandatory. For final filing, consult a CA; this is a planning tool.`}
@@ -158,8 +158,8 @@ function CapitalGainsCalculatorPage() {
                   onChange={(e) => setPurchasePriceLakh(e.target.value)}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
-                    Lakh
+                  <InputGroupText className="text-sm">
+                    lakh
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
@@ -206,8 +206,8 @@ function CapitalGainsCalculatorPage() {
                   onChange={(e) => setSalePriceLakh(e.target.value)}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
-                    Lakh
+                  <InputGroupText className="text-sm">
+                    lakh
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
@@ -313,7 +313,7 @@ function CapitalGainsCalculatorPage() {
             <div className="flex items-start gap-3">
               <CheckCircle className="size-5 shrink-0 text-[var(--accent-teal)]" />
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
+                <p className="text-sm text-[var(--accent-teal)]">
                   Recommended
                 </p>
                 <p className="mt-1 text-base font-semibold text-[var(--foreground)]">
@@ -399,7 +399,7 @@ function RegimeBlock({
             : 'border-[var(--border)] bg-[var(--background)]'
       }`}
     >
-      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+      <p className="text-sm text-[var(--muted-foreground)]">
         {label}
       </p>
       {disabled && disabledNote && (

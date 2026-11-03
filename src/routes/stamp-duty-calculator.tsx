@@ -140,10 +140,10 @@ function StampDutyCalculatorPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Stamp Duty Calculator' },
+        { label: 'Stamp duty calculator' },
       ]}
       eyebrow={{ icon: Receipt, label: 'Calculator · Live' }}
-      title="Stamp Duty Calculator"
+      title="Stamp duty calculator"
       tagline="State-wise stamp duty and registration charges for Indian property purchases. Female-buyer rates included. Updated 2026."
       variant="single-column"
       footnote={`Rates last refreshed ${STAMP_DUTY_LAST_UPDATED}. ${STAMP_DUTY_ESTIMATE_NOTE} Stamp duty + registration are paid in cash above and beyond your home loan. For legal-grade calculation, cross-check with your state IGR portal or sub-registrar office.`}
@@ -239,8 +239,8 @@ function StampDutyCalculatorPage() {
                   onChange={(e) => setPropertyValueLakh(e.target.value)}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
-                    Lakh
+                  <InputGroupText className="text-sm">
+                    lakh
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
@@ -326,7 +326,7 @@ function StampDutyCalculatorPage() {
 
           <div className="mt-6 grid gap-3 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-4 text-sm sm:grid-cols-3">
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+              <p className="text-sm text-[var(--muted-foreground)]">
                 Down payment ({(100 - parseFloat(loanLtv || '0')).toFixed(0)}%)
               </p>
               <p className="mt-1 text-base font-semibold tabular-nums text-[var(--foreground)]">
@@ -334,7 +334,7 @@ function StampDutyCalculatorPage() {
               </p>
             </div>
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+              <p className="text-sm text-[var(--muted-foreground)]">
                 + Government fees
               </p>
               <p className="mt-1 text-base font-semibold tabular-nums text-[var(--foreground)]">
@@ -342,7 +342,7 @@ function StampDutyCalculatorPage() {
               </p>
             </div>
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
+              <p className="text-sm text-[var(--accent-teal)]">
                 Total cash needed
               </p>
               <p className="mt-1 text-lg font-bold tabular-nums text-[var(--accent-teal)]">

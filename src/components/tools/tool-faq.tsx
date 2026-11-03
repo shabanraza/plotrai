@@ -12,7 +12,6 @@ export function ToolFaq({ number = 'FAQ', items }: ToolFaqProps) {
     <ToolSection
       number={number}
       label="Common questions"
-      description="Common questions people ask before using this tool."
     >
       <dl className="flex flex-col">
         {items.map((item, i) => (
