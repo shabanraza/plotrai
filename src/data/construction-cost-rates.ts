@@ -2,7 +2,12 @@
  * City × finish-tier base rates for residential construction in India (₹/sq ft built-up).
  * Sourced from Houseyog 2026 averages, contractor quotes, and tier-1 vs tier-2 city benchmarks.
  * Rates exclude land cost. Refresh quarterly.
+ *
+ * Cities in INFRALENS_DERIVED_CITIES come from InfraLens published rates scaled onto this table's
+ * scale — see infralens-rates.ts.
  */
+
+import { INFRALENS_CALIBRATION, INFRALENS_NEW_CITIES } from './infralens-rates'
 
 export type FinishTier = 'basic' | 'standard' | 'premium' | 'luxury'
 
@@ -13,7 +18,7 @@ export interface CityRates {
   luxury: number
 }
 
-export const CITY_RATES: Record<string, CityRates> = {
+const BASE_CITY_RATES: Record<string, CityRates> = {
   Mumbai: { basic: 1900, standard: 2400, premium: 3000, luxury: 4200 },
   Delhi: { basic: 1700, standard: 2200, premium: 2800, luxury: 3800 },
   Bangalore: { basic: 1700, standard: 2150, premium: 2750, luxury: 3700 },
@@ -41,6 +46,51 @@ export const CITY_RATES: Record<string, CityRates> = {
   Chandigarh: { basic: 1600, standard: 2050, premium: 2600, luxury: 3500 },
   Bhopal: { basic: 1350, standard: 1750, premium: 2250, luxury: 3150 },
   Patna: { basic: 1350, standard: 1750, premium: 2250, luxury: 3150 },
+}
+
+const FINISH_TIERS: ReadonlyArray<FinishTier> = ['basic', 'standard', 'premium', 'luxury']
+
+function median(values: ReadonlyArray<number>) {
+  const sorted = [...values].sort((a, b) => a - b)
+  const mid = Math.floor(sorted.length / 2)
+  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
+}
+
+/**
+ * Per-tier ratio of our rates to InfraLens rates, taken as the median across calibration cities
+ * present in both tables. Used to put InfraLens-sourced cities on the same scale as ours.
+ */
+export const INFRALENS_CALIBRATION_FACTOR = Object.fromEntries(
+  FINISH_TIERS.map((tier) => [
+    tier,
+    median(
+      Object.entries(INFRALENS_CALIBRATION).map(
+        ([city, infralens]) => BASE_CITY_RATES[city][tier] / infralens[tier],
+      ),
+    ),
+  ]),
+) as Record<FinishTier, number>
+
+const roundTo50 = (n: number) => Math.round(n / 50) * 50
+
+/** Cities added from InfraLens (24 Oct 2026), scaled by the calibration factor. */
+export const INFRALENS_DERIVED_CITIES: ReadonlyArray<string> = INFRALENS_NEW_CITIES.map(
+  (c) => c.city,
+)
+
+export const CITY_RATES: Record<string, CityRates> = {
+  ...BASE_CITY_RATES,
+  ...Object.fromEntries(
+    INFRALENS_NEW_CITIES.map(({ city, rates }) => [
+      city,
+      Object.fromEntries(
+        FINISH_TIERS.map((tier) => [
+          tier,
+          roundTo50(rates[tier] * INFRALENS_CALIBRATION_FACTOR[tier]),
+        ]),
+      ) as unknown as CityRates,
+    ]),
+  ),
   Other: { basic: 1450, standard: 1850, premium: 2400, luxury: 3300 },
 }
 
