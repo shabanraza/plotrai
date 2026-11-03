@@ -43,6 +43,7 @@ export type BlogToolPath =
   | '/mcd-property-tax-calculator'
   | '/concrete-calculator'
   | '/rcc-slab-calculator'
+  | '/delhi-circle-rate'
 
 export interface BlogSectionTable {
   columns: ReadonlyArray<string>
@@ -156,6 +157,10 @@ export const BLOG_TOOL_META: Record<
   '/rcc-slab-calculator': {
     title: 'RCC Slab Calculator',
     description: 'Calculate slab material quantities for reinforced concrete work.',
+  },
+  '/delhi-circle-rate': {
+    title: 'Delhi Circle Rate',
+    description: 'Category A–H circle rates with minimum value and stamp duty.',
   },
 }
 
@@ -425,9 +430,9 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
       },
     ],
     relatedTools: [
+      '/delhi-circle-rate',
       '/stamp-duty-calculator',
       '/plot-converter',
-      '/property-capital-gains-calculator',
     ],
     relatedArticles: [
       'stamp-duty-registration-charges-india',

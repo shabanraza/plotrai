@@ -9,6 +9,7 @@ import {
   Heart,
   KeyRound,
   Layers3,
+  MapPinned,
   Palette,
   Receipt,
   Ruler,
@@ -78,6 +79,11 @@ const LIVE_TOOLS = [
     name: 'Home Buying Cost Calculator India',
     description: 'Total cost of buying a house in India: stamp duty, GST, brokerage, down payment, and home loan EMI.',
     path: '/home-buying-cost-calculator',
+  },
+  {
+    name: 'Delhi Circle Rate 2026',
+    description: 'Delhi circle rates for categories A to H with a minimum property value and stamp duty calculator.',
+    path: '/delhi-circle-rate',
   },
   {
     name: 'Construction Cost Calculator India',
@@ -354,6 +360,13 @@ function ToolsSection() {
           title="Home Buying Cost Calculator"
           description="Stamp duty, GST, brokerage, down payment and EMI — the full cash you need."
           icon={KeyRound}
+        />
+        <ToolCard
+          to="/delhi-circle-rate"
+          status="utility"
+          title="Delhi Circle Rate"
+          description="Category A–H land and construction rates, minimum value and stamp duty."
+          icon={MapPinned}
         />
         <ToolCard
           to="/construction-cost-calculator"
