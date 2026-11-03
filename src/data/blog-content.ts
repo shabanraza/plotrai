@@ -168,7 +168,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'property-document-checklist',
     path: '/blog/property-document-checklist',
-    title: 'Property Document Checklist in India Before You Buy',
+    title: 'Property document checklist in India before you buy',
     description:
       'A practical property document checklist for Indian homebuyers covering title, approvals, tax receipts, RERA, and possession risks.',
     cluster: 'property-buyer',
@@ -177,7 +177,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '8 min read',
     hero: {
-      eyebrow: 'Property Buyer Guide',
+      eyebrow: 'Property buyer guide',
       stat: '10 essential checks',
       supporting: 'Reduce title, approval, and payment surprises before token money.',
     },
@@ -265,7 +265,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'rera-project-search-guide',
     path: '/blog/rera-project-search-guide',
-    title: 'How to Use RERA Project Search Before Booking a Property',
+    title: 'How to use RERA project search before booking a property',
     description:
       'A step-by-step RERA project search guide for Indian buyers to verify builders, project phase, approvals, and delivery signals.',
     cluster: 'property-buyer',
@@ -274,7 +274,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '7 min read',
     hero: {
-      eyebrow: 'Property Buyer Guide',
+      eyebrow: 'Property buyer guide',
       stat: '4-step builder check',
       supporting: 'Validate the project before you lock a booking form or token payment.',
     },
@@ -361,7 +361,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'circle-rate-vs-market-rate',
     path: '/blog/circle-rate-vs-market-rate',
-    title: 'Circle Rate vs Market Rate in India: What Buyers Should Know',
+    title: 'Circle rate vs market rate in India: what buyers should know',
     description:
       'Understand the difference between circle rate and market rate, and how it affects stamp duty, registration, and deal negotiation in India.',
     cluster: 'property-buyer',
@@ -370,7 +370,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'Property Buyer Guide',
+      eyebrow: 'Property buyer guide',
       stat: '2 prices to track',
       supporting: 'One affects tax. The other affects the real deal you are negotiating.',
     },
@@ -452,7 +452,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'stamp-duty-registration-charges-india',
     path: '/blog/stamp-duty-registration-charges-india',
-    title: 'Stamp Duty and Registration Charges in India: Budgeting the Extra Cash',
+    title: 'Stamp duty and registration charges in India: budgeting the extra cash',
     description:
       'Understand stamp duty and registration charges in India, why they differ by state, and how to budget them before you finalize a property purchase.',
     cluster: 'property-buyer',
@@ -461,7 +461,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '7 min read',
     hero: {
-      eyebrow: 'Property Buyer Guide',
+      eyebrow: 'Property buyer guide',
       stat: 'Often 4% to 8%+',
       supporting: 'This is usually the biggest cash outflow beyond the property value itself.',
     },
@@ -543,7 +543,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: '30x40-house-plan',
     path: '/blog/30x40-house-plan',
-    title: '30x40 House Plan Ideas for Indian Homeowners',
+    title: '30x40 house plan ideas for Indian homeowners',
     description:
       'Layout ideas, room priorities, parking tradeoffs, and practical planning tips for a 30x40 house plan in India.',
     cluster: 'house-design',
@@ -552,7 +552,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '7 min read',
     hero: {
-      eyebrow: 'House Design Guide',
+      eyebrow: 'House design guide',
       stat: '1,200 sq ft plot logic',
       supporting: 'Balance parking, stair placement, ventilation, and future floors without crowding the plan.',
     },
@@ -634,7 +634,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'north-facing-house-plan',
     path: '/blog/north-facing-house-plan',
-    title: 'North-Facing House Plan Tips for Indian Homes',
+    title: 'North-facing house plan tips for Indian homes',
     description:
       'Planning tips for a north-facing house including entry, room placement, parking, and Vastu-friendly compromises that still work in real life.',
     cluster: 'house-design',
@@ -643,7 +643,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'House Design Guide',
+      eyebrow: 'House design guide',
       stat: 'North frontage planning',
       supporting: 'Balance road access, daylight, parking, and Vastu preferences on compact plots.',
     },
@@ -721,7 +721,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'duplex-house-design',
     path: '/blog/duplex-house-design',
-    title: 'Duplex House Design Ideas for Indian Families',
+    title: 'Duplex house design ideas for Indian families',
     description:
       'Planning advice for duplex house design in India, including stair strategy, privacy, room split, and future flexibility.',
     cluster: 'house-design',
@@ -730,7 +730,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '7 min read',
     hero: {
-      eyebrow: 'House Design Guide',
+      eyebrow: 'House design guide',
       stat: 'Two-level planning',
       supporting: 'Use the upper floor for privacy without making the stair the house’s biggest problem.',
     },
@@ -807,7 +807,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'floor-plan-to-3d-ai-guide',
     path: '/blog/floor-plan-to-3d-ai-guide',
-    title: 'How to Convert a Floor Plan to 3D with AI',
+    title: 'How to convert a floor plan to 3D with AI',
     description:
       'A practical guide to turning a 2D floor plan into a useful 3D preview, including what inputs improve the render and what AI can and cannot validate.',
     cluster: 'house-design',
@@ -816,7 +816,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'House Design Guide',
+      eyebrow: 'House design guide',
       stat: 'Best with clean 2D inputs',
       supporting: 'AI renders are strongest as layout and mood validators, not structural drawings.',
     },
@@ -894,7 +894,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'steel-price-house-construction',
     path: '/blog/steel-price-house-construction',
-    title: 'How Steel Price Changes Affect House Construction Cost',
+    title: 'How steel price changes affect house construction cost',
     description:
       'Understand how changes in steel price affect a house construction budget, especially for slabs, beams, and staged payments.',
     cluster: 'materials-cost',
@@ -903,7 +903,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '7 min read',
     hero: {
-      eyebrow: 'Construction Materials Guide',
+      eyebrow: 'Construction materials guide',
       stat: 'High impact on RCC work',
       supporting: 'Steel moves a small number of items, but those items sit in the cost-critical structure.',
     },
@@ -985,7 +985,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'cement-vs-rmc',
     path: '/blog/cement-vs-rmc',
-    title: 'Cement Mix vs Ready-Mix Concrete for Home Construction',
+    title: 'Cement mix vs ready-mix concrete for home construction',
     description:
       'A practical comparison of site-mixed cement concrete versus RMC for Indian home construction projects.',
     cluster: 'materials-cost',
@@ -994,7 +994,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'Construction Materials Guide',
+      eyebrow: 'Construction materials guide',
       stat: 'Quality vs convenience tradeoff',
       supporting: 'Choose based on volume, access, supervision, and timeline rather than habit.',
     },
@@ -1070,7 +1070,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'false-ceiling-cost-per-sq-ft',
     path: '/blog/false-ceiling-cost-per-sq-ft',
-    title: 'False Ceiling Cost per Sq Ft in India',
+    title: 'False ceiling cost per sq ft in India',
     description:
       'A planning guide to false ceiling cost per square foot in India, including material choices, room strategy, and hidden cost drivers.',
     cluster: 'materials-cost',
@@ -1079,7 +1079,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'Construction Materials Guide',
+      eyebrow: 'Construction materials guide',
       stat: 'Room-by-room budgeting',
       supporting: 'False ceiling cost swings more on design intent and detailing than on area alone.',
     },
@@ -1152,7 +1152,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
   {
     slug: 'modular-kitchen-cost-india',
     path: '/blog/modular-kitchen-cost-india',
-    title: 'Modular Kitchen Cost in India: How to Budget by Scope',
+    title: 'Modular kitchen cost in India: how to budget by scope',
     description:
       'A practical modular kitchen cost guide for Indian homeowners covering layout, finishes, storage decisions, and cost tiers.',
     cluster: 'materials-cost',
@@ -1161,7 +1161,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
     dateModified: '2026-07-03',
     readingTime: '7 min read',
     hero: {
-      eyebrow: 'Construction Materials Guide',
+      eyebrow: 'Construction materials guide',
       stat: 'Scope drives price',
       supporting: 'Cabinet finish, shutter count, hardware, and countertop decisions move the budget faster than area alone.',
     },
@@ -1240,11 +1240,11 @@ export const BLOG_SLUGS = BLOG_ARTICLES.map((article) => article.slug)
 export const TOPIC_HUBS: ReadonlyArray<TopicHub> = [
   {
     path: '/property-buyer-guide',
-    title: 'Property Buyer Guide for Indian Homeowners',
+    title: 'Property buyer guide for Indian homeowners',
     description:
       'Practical guides for document checks, RERA search, circle rate, registration cost, and the high-friction steps before you book a property.',
     cluster: 'property-buyer',
-    eyebrow: 'Topic Hub · Property Buyer',
+    eyebrow: 'Topic hub · Property buyer',
     intro: [
       'This hub is for the messy stage before purchase decisions become irreversible. It groups the due-diligence, tax, and lookup content that buyers usually discover too late.',
       'Use it when you are shortlisting a property, checking documents, or working out how much extra cash the transaction really needs beyond the quoted price.',
@@ -1273,11 +1273,11 @@ export const TOPIC_HUBS: ReadonlyArray<TopicHub> = [
   },
   {
     path: '/house-design',
-    title: 'House Design Guides for Indian Plots and Families',
+    title: 'House design guides for Indian plots and families',
     description:
       'Planning guides for compact plots, north-facing homes, duplex layouts, and 2D-to-3D visualization before you finalize a design direction.',
     cluster: 'house-design',
-    eyebrow: 'Topic Hub · House Design',
+    eyebrow: 'Topic hub · House design',
     intro: [
       'This hub covers the planning questions that happen before detailed interior design and before construction drawings are frozen.',
       'The goal is simple: help you make better decisions about layout, room priorities, orientation, and visualization while the design is still flexible.',
@@ -1306,11 +1306,11 @@ export const TOPIC_HUBS: ReadonlyArray<TopicHub> = [
   },
   {
     path: '/construction-materials',
-    title: 'Construction Materials and Cost Guides for Home Building',
+    title: 'Construction materials and cost guides for home building',
     description:
       'Practical guidance on steel price impact, concrete choices, false ceiling budgeting, and modular kitchen scope for Indian home builders.',
     cluster: 'materials-cost',
-    eyebrow: 'Topic Hub · Materials and Cost',
+    eyebrow: 'Topic hub · Materials and cost',
     intro: [
       'This hub helps homeowners connect quantity, scope, and finishing choices to real project cost. It is designed for the stage where civil work, interiors, and contractor decisions start to overlap.',
       'Use it to turn scattered quotes into a more structured view of what is essential, what is optional, and what needs a contingency buffer.',

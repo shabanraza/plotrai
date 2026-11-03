@@ -72,7 +72,7 @@ export const COST_BLOG_ARTICLES = [
   {
     slug: 'construction-cost-per-floor',
     path: '/blog/construction-cost-per-floor',
-    title: 'Construction Cost per Floor in India (2026)',
+    title: 'Construction cost per floor in India (2026)',
     description:
       'How much one floor of a house costs to build in India in 2026, why the ground floor costs more than upper floors, and a per-floor budget table by finish tier.',
     cluster: 'materials-cost',
@@ -81,7 +81,7 @@ export const COST_BLOG_ARTICLES = [
     dateModified: '2026-11-02',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'Construction Cost Guide',
+      eyebrow: 'Construction cost guide',
       stat: `${costRange(1000, 'standard')} per 1,000 sq ft floor`,
       supporting: `Standard finish, ground floor, across ${CITY_NAMES.length} Indian cities. Upper floors cost roughly ${100 - GROUND_ONLY_PERCENT}% of that.`,
     },
@@ -156,7 +156,7 @@ export const COST_BLOG_ARTICLES = [
   {
     slug: '2bhk-house-construction-cost',
     path: '/blog/2bhk-house-construction-cost',
-    title: '2BHK House Construction Cost in India (2026)',
+    title: '2BHK house construction cost in India (2026)',
     description:
       'What it costs to build a 2BHK house in India in 2026 — built-up area, per-sq-ft rates by finish, a cost table for 800 to 1,100 sq ft, and what is not included.',
     cluster: 'materials-cost',
@@ -165,7 +165,7 @@ export const COST_BLOG_ARTICLES = [
     dateModified: '2026-11-02',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'Construction Cost Guide',
+      eyebrow: 'Construction cost guide',
       stat: `${costRange(900, 'standard')} for a 900 sq ft 2BHK`,
       supporting: `Standard finish, civil construction only, across ${CITY_NAMES.length} Indian cities.`,
     },
@@ -233,7 +233,7 @@ export const COST_BLOG_ARTICLES = [
   {
     slug: '30x40-house-construction-cost',
     path: '/blog/30x40-house-construction-cost',
-    title: '30x40 House Construction Cost in India (2026)',
+    title: '30x40 house construction cost in India (2026)',
     description:
       'Construction cost for a 30x40 (1,200 sq ft) plot in 2026: ground floor and G+1 budgets by finish, how setbacks change built-up area, and what to add on top.',
     cluster: 'materials-cost',
@@ -242,7 +242,7 @@ export const COST_BLOG_ARTICLES = [
     dateModified: '2026-11-02',
     readingTime: '5 min read',
     hero: {
-      eyebrow: 'Construction Cost Guide',
+      eyebrow: 'Construction cost guide',
       stat: `${costRange(1000, 'standard')} ground floor`,
       supporting: 'Standard finish on about 1,000 sq ft built-up per floor on a 30x40 plot.',
     },
@@ -283,7 +283,7 @@ export const COST_BLOG_ARTICLES = [
   {
     slug: '30x50-house-construction-cost',
     path: '/blog/30x50-house-construction-cost',
-    title: '30x50 House Construction Cost in India (2026)',
+    title: '30x50 house construction cost in India (2026)',
     description:
       'Construction cost for a 30x50 (1,500 sq ft) plot in 2026: ground floor and G+1 budgets by finish, setback impact on built-up area, and common layouts.',
     cluster: 'materials-cost',
@@ -292,7 +292,7 @@ export const COST_BLOG_ARTICLES = [
     dateModified: '2026-11-02',
     readingTime: '5 min read',
     hero: {
-      eyebrow: 'Construction Cost Guide',
+      eyebrow: 'Construction cost guide',
       stat: `${costRange(1250, 'standard')} ground floor`,
       supporting: 'Standard finish on about 1,250 sq ft built-up per floor on a 30x50 plot.',
     },
@@ -332,7 +332,7 @@ export const COST_BLOG_ARTICLES = [
   {
     slug: '2bhk-3bhk-interior-cost',
     path: '/blog/2bhk-3bhk-interior-cost',
-    title: '2BHK and 3BHK Interior Design Cost in India (2026)',
+    title: '2BHK and 3BHK interior design cost in India (2026)',
     description:
       'What 2BHK and 3BHK interiors cost in India in 2026 by city tier and package, what the quotes include, and how to keep the budget under control.',
     cluster: 'materials-cost',
@@ -341,7 +341,7 @@ export const COST_BLOG_ARTICLES = [
     dateModified: '2026-11-02',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'Interior Cost Guide',
+      eyebrow: 'Interior cost guide',
       stat: '₹8–13L for a metro 2BHK',
       supporting: 'Published 2026 price ranges from interior firms. Your quote depends on scope, finish and city.',
     },
@@ -424,7 +424,7 @@ export const COST_BLOG_ARTICLES = [
   {
     slug: 'home-loan-for-plot',
     path: '/blog/home-loan-for-plot',
-    title: 'Home Loan for Plot Purchase in India: Rules and Tax Benefits',
+    title: 'Home loan for plot purchase in India: rules and tax benefits',
     description:
       'How a plot loan differs from a home loan, what lenders check, and when you can claim tax benefits under Section 24(b) and 80C — with the official Income Tax rules.',
     cluster: 'property-buyer',
@@ -433,7 +433,7 @@ export const COST_BLOG_ARTICLES = [
     dateModified: '2026-11-02',
     readingTime: '6 min read',
     hero: {
-      eyebrow: 'Property Buyer Guide',
+      eyebrow: 'Property buyer guide',
       stat: 'No tax benefit until the house is built',
       supporting: 'Interest on a plot-only loan qualifies only once a house is constructed on it.',
     },
