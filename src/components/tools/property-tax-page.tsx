@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react'
-import { Link } from '@tanstack/react-router'
 import { Building2 } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ResultBar } from '#/components/tools/result-bar'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
-import { Badge } from '#/components/ui/badge'
 import {
   Field,
   FieldDescription,
@@ -64,8 +65,12 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
       title={content.title}
       tagline={content.description}
       variant="single-column"
-      footnote={`Source checked ${content.lastUpdated}. ${content.estimateNote} Use this for planning, then verify payable dues on the official municipal portal.`}
     >
+      <ResultBar
+        label={`Estimated ${content.authority} property tax`}
+        value={`₹${formatINR(result.payable)}`}
+        targetId="result"
+      />
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Property inputs" rule={false}>
           <FieldGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -120,7 +125,7 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
           </FieldGroup>
         </ToolSection>
 
-        <ToolSection number="02" label="Estimated annual tax">
+        <ToolSection id="result" number="02" label="Estimated annual tax">
           <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
             <p className="text-sm text-[var(--muted-foreground)]">
               Estimated payable for {content.authority}
@@ -161,49 +166,12 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
           </Table>
         </ToolSection>
 
-        {content.guideLinks && content.guideLinks.length > 0 && (
-          <ToolSection
-            number="03"
-            label="Related search guide"
-            description="Use the guide page for identifiers, due-date intent, receipts, and official portal checks."
-          >
-            <div className="grid gap-3">
-              {content.guideLinks.map((guide) => (
-                <Link
-                  key={guide.href}
-                  to={guide.href}
-                  className="flex flex-col gap-2 rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-3.5 transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
-                >
-                  <div className="flex flex-wrap items-center gap-2">
-                    <Badge variant="secondary">Guide</Badge>
-                    <span className="text-sm font-semibold text-[var(--foreground)]">
-                      {guide.label}
-                    </span>
-                  </div>
-                  <span className="text-sm leading-relaxed text-[var(--muted-foreground)]">
-                    {guide.description}
-                  </span>
-                </Link>
-              ))}
-            </div>
-          </ToolSection>
-        )}
+        <NextStepCard from={`/${content.slug}`} />
 
         <ToolContext title={`How ${content.authority} property tax works`}>
           {content.context.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-          <p>
-            Official source:{' '}
-            {content.sourceUrls.map((source, index) => (
-              <span key={source.url}>
-                {index > 0 && ' · '}
-                <a href={source.url} target="_blank" rel="noreferrer">
-                  {source.label}
-                </a>
-              </span>
-            ))}
-          </p>
         </ToolContext>
 
         <RelatedGuidesSection
@@ -212,6 +180,12 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
         />
 
         <ToolFaq items={content.faqs} />
+
+        <ToolSources
+          sources={content.sourceUrls}
+          checked={content.lastUpdated}
+          note={`${content.estimateNote} Use this for planning, then check the amount due on the official municipal portal.`}
+        />
       </div>
     </ToolPageShell>
   )

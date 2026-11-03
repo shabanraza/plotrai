@@ -35,9 +35,14 @@ import {
   STAGES,
   TIER_LABELS,
   CONSTRUCTION_LAST_UPDATED,
+  CONSTRUCTION_SOURCE_URLS,
   type FinishTier,
 } from '#/data/construction-cost-rates'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ResultBar } from '#/components/tools/result-bar'
+import { ToolSources, type ToolSource } from '#/components/tools/tool-sources'
+import { INFRALENS_NEW_CITIES, INFRALENS_UPDATED, infralensUrl } from '#/data/infralens-rates'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import {
@@ -141,8 +146,12 @@ function ConstructionCostCalculatorPage() {
       title="Construction cost calculator"
       tagline="Estimate house construction cost per sq ft in India, broken down across 7 build stages. Bangalore, Mumbai, Delhi, Pune, Chennai, Hyderabad and more."
       variant="single-column"
-      footnote={`City × tier base rates last refreshed ${CONSTRUCTION_LAST_UPDATED}. ${CONSTRUCTION_ESTIMATE_NOTE} Excludes land cost, government approvals, soil-bearing-capacity surprises, and contractor margin.`}
     >
+      <ResultBar
+        label={`Construction cost in ${city}`}
+        value={`₹${formatINR(result.totalCost)}`}
+        targetId="result"
+      />
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Project basics" rule={false}>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -236,6 +245,7 @@ function ConstructionCostCalculatorPage() {
         </ToolSection>
 
         <ToolSection
+          id="result"
           number="03"
           label="Total estimate"
           description={`At ₹${formatINR(result.baseRatePerSqft)} / sq ft for ${TIER_LABELS[tier].label.toLowerCase()} finish in ${city}.`}
@@ -297,6 +307,8 @@ function ConstructionCostCalculatorPage() {
           </Table>
         </ToolSection>
 
+        <NextStepCard from="/construction-cost-calculator" />
+
         <ToolContext title={CONSTRUCTION_COST_CONTEXT.title}>
           {CONSTRUCTION_COST_CONTEXT.paragraphs.map((p, i) => (
             <p key={i}>{p}</p>
@@ -333,9 +345,28 @@ function ConstructionCostCalculatorPage() {
         </ToolSection>
 
         <ToolFaq items={CONSTRUCTION_COST_FAQS} />
+
+        <ToolSources
+          sources={constructionSources(city)}
+          checked={CONSTRUCTION_LAST_UPDATED}
+          note={`${CONSTRUCTION_ESTIMATE_NOTE} Excludes land cost, government approvals, soil-bearing-capacity surprises, and contractor margin.`}
+        />
       </div>
     </ToolPageShell>
   )
+}
+
+/** Base table benchmarks, plus the InfraLens page for cities added by calibrating against it. */
+function constructionSources(city: string): ToolSource[] {
+  const sources: ToolSource[] = CONSTRUCTION_SOURCE_URLS.map((label) => ({ label }))
+  const derived = INFRALENS_NEW_CITIES.find((c) => c.city === city)
+  if (derived) {
+    sources.push({
+      label: `InfraLens construction rates for ${city} (updated ${INFRALENS_UPDATED}), scaled to our table`,
+      url: infralensUrl(derived.slug),
+    })
+  }
+  return sources
 }
 
 function formatINR(n: number) {

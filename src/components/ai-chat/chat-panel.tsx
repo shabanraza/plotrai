@@ -73,7 +73,7 @@ export function ChatPanel() {
       <SheetTrigger asChild>
         <button
           type="button"
-          className="fixed bottom-5 right-5 z-40 flex h-12 items-center gap-2 rounded-full bg-[var(--accent-teal)] px-4 text-sm font-semibold text-white shadow-lg shadow-[var(--accent-teal)]/30 transition-transform hover:scale-105 sm:bottom-7 sm:right-7"
+          className="fixed bottom-5 right-5 z-40 flex h-12 items-center gap-2 rounded-full [:root[data-result-bar=visible]_&]:bottom-24 bg-[var(--accent-teal)] px-4 text-sm font-semibold text-white shadow-lg shadow-[var(--accent-teal)]/30 transition-transform hover:scale-105 sm:bottom-7 sm:right-7"
           aria-label="Open Plotr Ai assistant"
           onClick={() => track('chat_opened')}
         >

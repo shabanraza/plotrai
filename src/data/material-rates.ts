@@ -1,8 +1,10 @@
 /**
  * Indian construction material rates — refresh quarterly.
- * Source: average of Houseyog / IndiaMart / contractor quotes (Tier-1 cities, 2026-Q2).
  * Users can override these on the calculator page.
  */
+export const MATERIAL_RATES_BASELINE_SOURCE =
+  'Average of Houseyog, IndiaMart and contractor quotes (Tier-1 cities, 2026-Q2)'
+
 export const MATERIAL_RATES = {
   cement: { value: 400, unit: 'bag', label: 'Cement (50kg bag)' },
   sand: { value: 65, unit: 'cuft', label: 'Sand' },

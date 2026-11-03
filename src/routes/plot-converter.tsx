@@ -25,6 +25,8 @@ import {
   TableRow,
 } from '#/components/ui/table'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { PLOT_CONVERTER_FAQS } from '#/data/tool-seo-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
 import {
@@ -155,7 +157,6 @@ function PlotConverterPage() {
       title="Plot area converter"
       tagline="Convert between sq ft, sq m, gaj, acre, hectare, gunta, bigha, marla, kanal, ankanam and more — region-aware to local Indian standards."
       variant="single-column"
-      footnote={`Land-unit standards last reviewed ${LAND_UNIT_LAST_UPDATED}. Bigha and katha sizes vary by region. We use common local planning standards; for legal documents, cross-check with your local sub-registrar office.`}
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Enter value" rule={false}>
@@ -293,6 +294,8 @@ function PlotConverterPage() {
           )}
         </ToolSection>
 
+        <NextStepCard from="/plot-converter" />
+
         <ToolSection
           number="03"
           label="Popular conversions"
@@ -314,6 +317,12 @@ function PlotConverterPage() {
         </ToolSection>
 
         <ToolFaq items={PLOT_CONVERTER_FAQS} />
+
+        <ToolSources
+          sources={[{ label: 'Common local planning standards for each region’s land units' }]}
+          checked={LAND_UNIT_LAST_UPDATED}
+          note="Bigha and katha sizes vary by state and sometimes by district. For legal documents, confirm the local value with your sub-registrar or land records office. The conversion pages linked above cite a source for each unit."
+        />
       </div>
     </ToolPageShell>
   )

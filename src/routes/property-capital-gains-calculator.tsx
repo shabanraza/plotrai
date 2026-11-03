@@ -19,9 +19,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
-import { CII, CII_LAST_UPDATED, FY_LIST } from '#/data/cii'
+import { CII, CII_LAST_UPDATED, CII_SOURCE_URLS, FY_LIST } from '#/data/cii'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ResultBar } from '#/components/tools/result-bar'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import {
   CAPITAL_GAINS_FAQS,
@@ -119,8 +122,12 @@ function CapitalGainsCalculatorPage() {
       title="Property capital gains calculator"
       tagline="Computes both post-Jul-2024 regimes — 12.5% without indexation vs 20% with indexation — and tells you which one wins. Plus Section 54 / 54F / 54EC shortcuts."
       variant="single-column"
-      footnote={`CII values last checked ${CII_LAST_UPDATED}. The dual regime applies only to properties acquired before 2024-07-23. For properties acquired on/after that date, the new 12.5% no-indexation rate is mandatory. For final filing, consult a CA; this is a planning tool.`}
     >
+      <ResultBar
+        label="Capital gains tax payable"
+        value={`₹${formatINR(result.recommendedTax)}`}
+        targetId="result"
+      />
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Purchase details" rule={false}>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -244,6 +251,7 @@ function CapitalGainsCalculatorPage() {
         )}
 
         <ToolSection
+          id="result"
           number={result.isLongTerm ? '03' : '04'}
           label="Tax breakdown"
           description={
@@ -348,10 +356,12 @@ function CapitalGainsCalculatorPage() {
             />
             <ExemptionCard
               section="Section 54EC"
-              detail="Invest LTCG in NHAI/REC capital-gain bonds within 6 months. Max ₹50 lakh, 5-year lockin. Reduces tax dollar-for-dollar."
+              detail="Invest LTCG in NHAI/REC capital-gain bonds within 6 months. Max ₹50 lakh, 5-year lockin. Reduces tax rupee for rupee."
             />
           </div>
         </ToolSection>
+
+        <NextStepCard from="/property-capital-gains-calculator" />
 
         <ToolContext title={CAPITAL_GAINS_CONTEXT.title}>
           {CAPITAL_GAINS_CONTEXT.paragraphs.map((p, i) => (
@@ -369,6 +379,15 @@ function CapitalGainsCalculatorPage() {
         />
 
         <ToolFaq items={CAPITAL_GAINS_FAQS} />
+
+        <ToolSources
+          sources={CII_SOURCE_URLS.map((url) => ({
+            label: 'Income Tax Department — Cost Inflation Index table',
+            url,
+          }))}
+          checked={CII_LAST_UPDATED}
+          note="The two-regime choice applies only to property bought before 23 July 2024; for property bought on or after that date, 12.5% without indexation is the only option. This is a planning tool; confirm the final figure with a CA before filing."
+        />
       </div>
     </ToolPageShell>
   )
