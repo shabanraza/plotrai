@@ -16,7 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '#/components/ui/sheet'
-import { HUB_PROGRAMMATIC_LABEL, SITE_HUBS, entriesForHub } from '#/data/site-map'
+import { HUB_PROGRAMMATIC_LABEL, SITE_HUBS, entriesForHub, hubPath } from '#/data/site-map'
 import { shortLabel } from './tools-menu'
 
 const ROW_CLASS =
@@ -71,6 +71,15 @@ export function MobileMenu({ onSearch }: { onSearch: () => void }) {
                 </AccordionTrigger>
                 <AccordionContent className="pb-3">
                   <ul className="grid">
+                    <li>
+                      <Link
+                        to={hubPath(hub.id)}
+                        onClick={close}
+                        className={`${ROW_CLASS} font-medium text-[var(--accent-teal)]`}
+                      >
+                        Overview
+                      </Link>
+                    </li>
                     {entriesForHub(hub.id, 'tool').map((tool) => (
                       <li key={tool.to}>
                         <Link to={tool.to} onClick={close} className={ROW_CLASS}>

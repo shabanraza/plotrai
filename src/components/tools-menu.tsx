@@ -11,6 +11,7 @@ import {
   HUB_PROGRAMMATIC_LABEL,
   SITE_HUBS,
   entriesForHub,
+  hubPath,
   type SiteEntry,
   type SiteHub,
 } from '#/data/site-map'
@@ -63,6 +64,13 @@ function HubPanel({ hub }: { hub: SiteHub }) {
             <ToolMenuItem key={tool.to} tool={tool} />
           ))}
         </ul>
+        <Link
+          to={hubPath(hub.id)}
+          className="mt-1 inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium text-[var(--accent-teal)] no-underline hover:bg-[var(--muted)]/60"
+        >
+          Everything in {hub.title.toLowerCase()}
+          <ArrowRight className="size-3.5" />
+        </Link>
       </div>
 
       {hasSide && (

@@ -1379,16 +1379,36 @@ export function getToolLinkItem(path: BlogToolPath) {
   }
 }
 
+/**
+ * The topic hubs were merged into the goal hubs in the 2026-11 redesign; the old URLs 301 to
+ * these. Kept here (not imported from site-map.ts) because site-map.ts imports this file.
+ */
+export const TOPIC_HUB_DESTINATION: Record<
+  TopicHubPath,
+  { to: string; label: string; description: string }
+> = {
+  '/property-buyer-guide': {
+    to: '/buy',
+    label: 'Buying a home',
+    description: 'Stamp duty by state, total buying cost and EMI, plus buyer guides.',
+  },
+  '/house-design': {
+    to: '/design',
+    label: 'Designing',
+    description: 'Vastu, 3D floor plans, AI interiors and house plan guides.',
+  },
+  '/construction-materials': {
+    to: '/build',
+    label: 'Building a house',
+    description: 'Construction cost by city, material quantities and cost guides.',
+  },
+}
+
 export function getTopicHubLinkItem(path: TopicHubPath) {
-  const hub = TOPIC_HUB_BY_PATH.get(path)
+  const hub = TOPIC_HUB_DESTINATION[path]
   if (!hub) {
     throw new Error(`Unknown hub path: ${path}`)
   }
 
-  return {
-    to: hub.path,
-    label: hub.title,
-    description: hub.description,
-    badge: 'Hub',
-  }
+  return { ...hub, badge: 'Hub' }
 }

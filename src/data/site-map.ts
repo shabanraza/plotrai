@@ -168,6 +168,48 @@ export function entriesForHub(hub: HubId, kind?: EntryKind) {
   return SITE_ENTRIES.filter((e) => e.hub === hub && (!kind || e.kind === kind))
 }
 
+export const SITE_HUB_BY_ID = new Map(SITE_HUBS.map((hub) => [hub.id, hub]))
+
+export function hubPath(hub: HubId) {
+  return `/${hub}`
+}
+
+const ENTRY_BY_PATH = new Map(SITE_ENTRIES.map((e) => [e.to, e]))
+
+/** Programmatic pages sit under the tool they extend: Home › Buying a home › Stamp Duty Calculator › Punjab. */
+const PARENT_TOOL: Partial<Record<EntryKind, string>> = {
+  state: '/stamp-duty-calculator',
+  city: '/construction-cost-calculator',
+  unit: '/plot-converter',
+}
+
+export interface Crumb {
+  label: string
+  href?: string
+}
+
+/**
+ * Breadcrumb trail for any page in the site map, or null for pages outside it (legal pages,
+ * the home page). `currentLabel` overrides the last crumb, e.g. "Punjab" for a state page.
+ */
+export function breadcrumbForPath(path: string, currentLabel?: string): Crumb[] | null {
+  const normalized = path.length > 1 ? path.replace(/\/+$/, '') : path
+  const entry = ENTRY_BY_PATH.get(normalized)
+  if (!entry) return null
+  const hub = SITE_HUB_BY_ID.get(entry.hub)
+  if (!hub) return null
+
+  const trail: Crumb[] = [
+    { label: 'Home', href: '/' },
+    { label: hub.title, href: hubPath(hub.id) },
+  ]
+  const parent = PARENT_TOOL[entry.kind]
+  const parentEntry = parent ? ENTRY_BY_PATH.get(parent) : undefined
+  if (parentEntry) trail.push({ label: parentEntry.title, href: parentEntry.to })
+  trail.push({ label: currentLabel ?? entry.title })
+  return trail
+}
+
 /** Label for a hub's programmatic link group in menus, e.g. "Stamp duty by state". */
 export const HUB_PROGRAMMATIC_LABEL: Partial<Record<HubId, { kind: EntryKind; label: string }>> = {
   buy: { kind: 'state', label: 'Stamp duty by state' },
