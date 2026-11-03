@@ -1,4 +1,5 @@
 import type { FaqItem } from '#/lib/seo'
+import { COST_BLOG_ARTICLES } from '#/data/cost-blog-articles'
 
 export type BlogCluster = 'property-buyer' | 'house-design' | 'materials-cost'
 
@@ -15,6 +16,12 @@ export type BlogSlug =
   | 'cement-vs-rmc'
   | 'false-ceiling-cost-per-sq-ft'
   | 'modular-kitchen-cost-india'
+  | 'construction-cost-per-floor'
+  | '2bhk-house-construction-cost'
+  | '30x40-house-construction-cost'
+  | '30x50-house-construction-cost'
+  | '2bhk-3bhk-interior-cost'
+  | 'home-loan-for-plot'
 
 export type TopicHubPath =
   | '/property-buyer-guide'
@@ -36,6 +43,7 @@ export type BlogToolPath =
   | '/mcd-property-tax-calculator'
   | '/concrete-calculator'
   | '/rcc-slab-calculator'
+  | '/delhi-circle-rate'
 
 export interface BlogSectionTable {
   columns: ReadonlyArray<string>
@@ -149,6 +157,10 @@ export const BLOG_TOOL_META: Record<
   '/rcc-slab-calculator': {
     title: 'RCC Slab Calculator',
     description: 'Calculate slab material quantities for reinforced concrete work.',
+  },
+  '/delhi-circle-rate': {
+    title: 'Delhi Circle Rate',
+    description: 'Category A–H circle rates with minimum value and stamp duty.',
   },
 }
 
@@ -418,9 +430,9 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
       },
     ],
     relatedTools: [
+      '/delhi-circle-rate',
       '/stamp-duty-calculator',
       '/plot-converter',
-      '/property-capital-gains-calculator',
     ],
     relatedArticles: [
       'stamp-duty-registration-charges-india',
@@ -1218,6 +1230,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
       },
     ],
   },
+  ...COST_BLOG_ARTICLES,
 ] as const
 
 export const BLOG_BY_SLUG = new Map(BLOG_ARTICLES.map((article) => [article.slug, article]))

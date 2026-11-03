@@ -9,6 +9,7 @@ import {
   Heart,
   KeyRound,
   Layers3,
+  MapPinned,
   Palette,
   Receipt,
   Ruler,
@@ -80,6 +81,11 @@ const LIVE_TOOLS = [
     path: '/home-buying-cost-calculator',
   },
   {
+    name: 'Delhi Circle Rate 2026',
+    description: 'Delhi circle rates for categories A to H with a minimum property value and stamp duty calculator.',
+    path: '/delhi-circle-rate',
+  },
+  {
     name: 'Construction Cost Calculator India',
     description: 'House construction cost calculator by city, finish tier, floors, and built-up area.',
     path: '/construction-cost-calculator',
@@ -123,6 +129,11 @@ const LIVE_TOOLS = [
     name: 'MCD Property Tax CA Number Guide',
     description: 'Delhi property tax guide for CA number, UPIC, last date, and official receipts.',
     path: '/mcd-property-tax-ca-number',
+  },
+  {
+    name: 'Jaipur Property Tax Calculator',
+    description: 'Jaipur UD tax calculator for plots, houses and flats with exemptions and rebates.',
+    path: '/jaipur-property-tax-calculator',
   },
 ] as const
 
@@ -356,6 +367,13 @@ function ToolsSection() {
           icon={KeyRound}
         />
         <ToolCard
+          to="/delhi-circle-rate"
+          status="utility"
+          title="Delhi Circle Rate"
+          description="Category A–H land and construction rates, minimum value and stamp duty."
+          icon={MapPinned}
+        />
+        <ToolCard
           to="/construction-cost-calculator"
           status="utility"
           title="Construction Cost Calculator"
@@ -416,6 +434,13 @@ function ToolsSection() {
           status="utility"
           title="MCD CA Number Guide"
           description="Delhi CA number, UPIC, last date, and receipt guide with calculator link."
+          icon={Building2}
+        />
+        <ToolCard
+          to="/jaipur-property-tax-calculator"
+          status="utility"
+          title="Jaipur Property Tax Calculator"
+          description="UD tax from plot area and DLC rate, with exemptions and rebates."
           icon={Building2}
         />
       </div>
