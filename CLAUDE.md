@@ -60,9 +60,9 @@ Reference files to imitate:
 - `src/routes/vastu-checker.tsx` — progressive with Tabs swap
 - `src/components/tools/image-tool-page.tsx` — workbench (sidebar + result)
 
-### 7. Landing — frosted cards, grid, no editorial decoration
+### 7. Landing — goal-first, frosted tiles, no editorial decoration
 
-`/` uses `.frosted` class (`src/styles.css`) for tool tiles in a 3-col grid. No chapter numerals, no rotating italic word, no compass watermark. Hero is short — small pill, big sans h1, subhead, two CTAs, stats strip.
+`/` follows the redesign spec (`docs/superpowers/specs/2026-11-02-site-redesign.md` §4): short hero (sans h1, one-line subhead, a search box that opens the site search), five goal cards linking to the hubs, "Most used" tools ordered by real GSC/GA4 data (never hand-picked), state/city selects, latest guides, trust strip. Tiles use `.frosted` (`src/styles.css`). All lists come from `src/data/site-map.ts`. No chapter numerals, no rotating italic word, no compass watermark.
 
 ### 8. SEO discipline (every NEW tool)
 

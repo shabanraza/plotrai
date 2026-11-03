@@ -91,7 +91,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
                 ))}
               </ul>
               {quickLinks.length > QUICK_LINK_LIMIT && (
-                <p className="mt-1 px-2 font-mono text-[11px] text-[var(--muted-foreground)]">
+                <p className="mt-1 px-2 text-xs text-[var(--muted-foreground)]">
                   +{quickLinks.length - QUICK_LINK_LIMIT} more · search to find yours
                 </p>
               )}
@@ -130,7 +130,7 @@ export function shortLabel(entry: SiteEntry) {
 
 function PanelKicker({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-1.5 px-2 font-mono text-[10.5px] font-medium tracking-[0.12em] text-[var(--muted-foreground)] uppercase">
+    <p className="mb-1.5 px-2 text-xs font-medium text-[var(--muted-foreground)]">
       {children}
     </p>
   )

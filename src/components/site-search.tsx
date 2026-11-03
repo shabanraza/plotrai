@@ -29,6 +29,13 @@ const KIND_ICON = { state: MapPin, city: Building2, unit: Ruler, guide: BookOpen
 
 const HUB_LABEL = Object.fromEntries(SITE_HUBS.map((h) => [h.id, h.label]))
 
+const OPEN_EVENT = 'plotrai:open-search'
+
+/** Opens the header's search palette from anywhere on the page (e.g. the home page search box). */
+export function openSiteSearch() {
+  window.dispatchEvent(new Event(OPEN_EVENT))
+}
+
 /**
  * Site-wide search palette over site-map.ts. Opens with Ctrl K / ⌘K or from the header buttons.
  * Matching is client-side (cmdk), across titles plus each entry's keywords.
@@ -49,8 +56,15 @@ export function SiteSearch({
         onOpenChange(!open)
       }
     }
+    function onOpenRequest() {
+      onOpenChange(true)
+    }
     window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
+    window.addEventListener(OPEN_EVENT, onOpenRequest)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener(OPEN_EVENT, onOpenRequest)
+    }
   }, [open, onOpenChange])
 
   function go(entry: SiteEntry) {
@@ -86,7 +100,7 @@ export function SiteSearch({
                   >
                     {Icon && <Icon className="text-[var(--accent-teal)]" />}
                     <span className="min-w-0 flex-1 truncate">{entry.title}</span>
-                    <span className="hidden font-mono text-[10.5px] tracking-wider text-[var(--muted-foreground)] uppercase sm:inline">
+                    <span className="hidden text-xs text-[var(--muted-foreground)] sm:inline">
                       {HUB_LABEL[entry.hub]}
                     </span>
                   </CommandItem>
