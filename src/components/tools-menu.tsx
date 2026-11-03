@@ -1,20 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import {
-  Box,
-  Building2,
-  Calculator,
-  Compass,
-  Hammer,
-  KeyRound,
-  Layers3,
-  MapPinned,
-  Receipt,
-  Ruler,
-  Sofa,
-  TrendingUp,
-  Wand2,
-  type LucideIcon,
-} from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -22,203 +7,137 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '#/components/ui/navigation-menu'
+import {
+  HUB_PROGRAMMATIC_LABEL,
+  SITE_HUBS,
+  entriesForHub,
+  type SiteEntry,
+  type SiteHub,
+} from '#/data/site-map'
 
-interface ToolEntry {
-  to: string
-  icon: LucideIcon
-  title: string
-  description: string
-  status: 'flagship' | 'live' | 'utility'
-}
+/** How many "by state / by city" quick links a hub panel shows before "See all". */
+const QUICK_LINK_LIMIT = 8
+const GUIDE_LIMIT = 2
 
-const TOOLS: ReadonlyArray<ToolEntry> = [
-  {
-    to: '/vastu-checker',
-    icon: Compass,
-    title: 'Vastu Checker',
-    description: 'Score floor plans against 14 classical Vastu rules.',
-    status: 'flagship',
-  },
-  {
-    to: '/floor-plan-3d',
-    icon: Box,
-    title: 'Floor Plan → 3D',
-    description: '2D plan → furnished isometric 3D render.',
-    status: 'live',
-  },
-  {
-    to: '/interior-restyle',
-    icon: Wand2,
-    title: 'Interior Restyle',
-    description: 'Re-render any room photo in a new style.',
-    status: 'live',
-  },
-  {
-    to: '/empty-room-stager',
-    icon: Sofa,
-    title: 'Empty Room Stager',
-    description: 'AI-furnish an empty room photo.',
-    status: 'live',
-  },
-  {
-    to: '/plot-converter',
-    icon: Ruler,
-    title: 'Plot Area Converter',
-    description: 'Gunta, bigha, marla — region-aware land units.',
-    status: 'utility',
-  },
-  {
-    to: '/material-calculator',
-    icon: Calculator,
-    title: 'Material Calculator',
-    description: 'Cement, bricks, steel, sand for any element.',
-    status: 'utility',
-  },
-  {
-    to: '/concrete-calculator',
-    icon: Layers3,
-    title: 'Concrete Calculator',
-    description: 'Cement, sand, aggregate for PCC/concrete.',
-    status: 'utility',
-  },
-  {
-    to: '/rcc-slab-calculator',
-    icon: Hammer,
-    title: 'RCC Slab Calculator',
-    description: 'Slab cement, steel, sand, aggregate quantity.',
-    status: 'utility',
-  },
-  {
-    to: '/cement-sand-aggregate-calculator',
-    icon: Calculator,
-    title: 'Cement Sand Aggregate',
-    description: 'Focused concrete material quantity.',
-    status: 'utility',
-  },
-  {
-    to: '/stamp-duty-calculator',
-    icon: Receipt,
-    title: 'Stamp Duty Calculator',
-    description: 'State-wise stamp duty + registration in India.',
-    status: 'utility',
-  },
-  {
-    to: '/home-buying-cost-calculator',
-    icon: KeyRound,
-    title: 'Home Buying Cost',
-    description: 'Stamp duty, GST, down payment and EMI together.',
-    status: 'utility',
-  },
-  {
-    to: '/delhi-circle-rate',
-    icon: MapPinned,
-    title: 'Delhi Circle Rate',
-    description: 'Category A–H rates and minimum value.',
-    status: 'utility',
-  },
-  {
-    to: '/construction-cost-calculator',
-    icon: Hammer,
-    title: 'Construction Cost Calculator',
-    description: 'Per sq ft × city × tier — stage-wise breakdown.',
-    status: 'utility',
-  },
-  {
-    to: '/property-capital-gains-calculator',
-    icon: TrendingUp,
-    title: 'Capital Gains Calculator',
-    description: 'Property LTCG — both regimes computed.',
-    status: 'utility',
-  },
-  {
-    to: '/indexation-calculator',
-    icon: TrendingUp,
-    title: 'Indexation Calculator',
-    description: 'CII indexed cost and indexed gain.',
-    status: 'utility',
-  },
-  {
-    to: '/bbmp-property-tax-calculator',
-    icon: Building2,
-    title: 'BBMP Property Tax',
-    description: 'Bangalore property tax planning estimate.',
-    status: 'utility',
-  },
-  {
-    to: '/bbmp-property-tax-2026-27',
-    icon: Building2,
-    title: 'BBMP 2026-27 Guide',
-    description: 'Bangalore due-year checklist and receipt links.',
-    status: 'utility',
-  },
-  {
-    to: '/ghmc-property-tax-calculator',
-    icon: Building2,
-    title: 'GHMC Property Tax',
-    description: 'Hyderabad property tax planning estimate.',
-    status: 'utility',
-  },
-  {
-    to: '/ghmc-property-tax-search-by-house-number',
-    icon: Building2,
-    title: 'GHMC House Number Search',
-    description: 'Hyderabad property lookup and dues guide.',
-    status: 'utility',
-  },
-  {
-    to: '/mcd-property-tax-calculator',
-    icon: Building2,
-    title: 'MCD Property Tax',
-    description: 'Delhi property tax planning estimate.',
-    status: 'utility',
-  },
-  {
-    to: '/mcd-property-tax-ca-number',
-    icon: Building2,
-    title: 'MCD CA Number Guide',
-    description: 'Delhi CA number, UPIC, deadline, receipt guide.',
-    status: 'utility',
-  },
-  {
-    to: '/jaipur-property-tax-calculator',
-    icon: Building2,
-    title: 'Jaipur Property Tax',
-    description: 'UD tax from plot area and DLC rate.',
-    status: 'utility',
-  },
-]
+const TRIGGER_CLASS =
+  'h-8 bg-transparent px-3 text-[13px] font-medium text-[var(--muted-foreground)] hover:bg-[var(--chip-bg)] hover:text-[var(--foreground)] data-[state=open]:bg-[var(--chip-bg)] data-[state=open]:text-[var(--foreground)]'
 
+const PANEL_CLASS =
+  'left-0 top-full mt-2 rounded-xl border border-[var(--border)] bg-[var(--popover)] p-3 shadow-[0_1px_2px_rgba(24,24,27,0.04),0_8px_24px_-4px_rgba(24,24,27,0.10),0_24px_48px_-12px_rgba(24,24,27,0.10)] dark:shadow-[0_2px_4px_rgba(0,0,0,0.4),0_12px_32px_-4px_rgba(0,0,0,0.5)]'
+
+/**
+ * Desktop header menus: one dropdown per hub (Buy, Build, Land, Tax, Design). Tools sit on the
+ * left; "by state / by city" quick links and top guides on the right. All read from site-map.ts.
+ */
 export function ToolsMenu() {
   return (
     <NavigationMenu viewport={false}>
-      <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="h-8 bg-transparent px-3 text-[13px] font-medium text-[var(--muted-foreground)] hover:bg-[var(--chip-bg)] hover:text-[var(--foreground)] data-[state=open]:bg-[var(--chip-bg)] data-[state=open]:text-[var(--foreground)]">
-            Tools
-          </NavigationMenuTrigger>
-          <NavigationMenuContent className="left-1/2 top-full mt-2 -translate-x-1/2 rounded-xl border border-[var(--border)] bg-[var(--popover)] p-3 shadow-[0_1px_2px_rgba(24,24,27,0.04),0_8px_24px_-4px_rgba(24,24,27,0.10),0_24px_48px_-12px_rgba(24,24,27,0.10)] md:!w-[640px] md:max-w-[calc(100vw-2rem)] dark:shadow-[0_2px_4px_rgba(0,0,0,0.4),0_12px_32px_-4px_rgba(0,0,0,0.5)]">
-            <ul className="grid gap-1 sm:grid-cols-2">
-              {TOOLS.map((tool) => (
-                <ToolMenuItem key={tool.to} tool={tool} />
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
+      <NavigationMenuList className="gap-0.5">
+        {SITE_HUBS.map((hub) => (
+          // static: panels position against the whole menu, so the rightmost hub cannot overflow
+          <NavigationMenuItem key={hub.id} className="static">
+            <NavigationMenuTrigger className={TRIGGER_CLASS}>{hub.label}</NavigationMenuTrigger>
+            <NavigationMenuContent className={`${PANEL_CLASS} ${panelWidth(hub)}`}>
+              <HubPanel hub={hub} />
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        ))}
       </NavigationMenuList>
     </NavigationMenu>
   )
 }
 
-function ToolMenuItem({ tool }: { tool: ToolEntry }) {
+function HubPanel({ hub }: { hub: SiteHub }) {
+  const tools = entriesForHub(hub.id, 'tool')
+  const quick = HUB_PROGRAMMATIC_LABEL[hub.id]
+  const quickLinks = quick ? entriesForHub(hub.id, quick.kind) : []
+  const guides = entriesForHub(hub.id, 'guide').slice(0, GUIDE_LIMIT)
+  const hasSide = quickLinks.length > 0 || guides.length > 0
+
+  return (
+    <div className={hasSide ? 'grid gap-3 md:grid-cols-[1.15fr_1fr]' : 'grid'}>
+      <div>
+        <PanelKicker>{hub.title}</PanelKicker>
+        <ul className="grid gap-0.5">
+          {tools.map((tool) => (
+            <ToolMenuItem key={tool.to} tool={tool} />
+          ))}
+        </ul>
+      </div>
+
+      {hasSide && (
+        <div className="flex flex-col gap-3 border-t border-[var(--border)] pt-3 md:border-t-0 md:border-l md:pt-0 md:pl-3">
+          {quick && quickLinks.length > 0 && (
+            <div>
+              <PanelKicker>{quick.label}</PanelKicker>
+              <ul className="grid grid-cols-2 gap-x-2">
+                {quickLinks.slice(0, QUICK_LINK_LIMIT).map((entry) => (
+                  <li key={entry.to}>
+                    <Link
+                      to={entry.to}
+                      className="block truncate rounded-md px-2 py-1.5 text-[13px] text-[var(--foreground)] no-underline hover:bg-[var(--muted)]/60"
+                    >
+                      {shortLabel(entry)}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              {quickLinks.length > QUICK_LINK_LIMIT && (
+                <p className="mt-1 px-2 font-mono text-[11px] text-[var(--muted-foreground)]">
+                  +{quickLinks.length - QUICK_LINK_LIMIT} more · search to find yours
+                </p>
+              )}
+            </div>
+          )}
+          {guides.length > 0 && (
+            <div>
+              <PanelKicker>Guides</PanelKicker>
+              <ul className="grid gap-0.5">
+                {guides.map((guide) => (
+                  <li key={guide.to}>
+                    <Link
+                      to={guide.to}
+                      className="group flex items-start gap-1.5 rounded-md px-2 py-1.5 text-[13px] leading-snug text-[var(--foreground)] no-underline hover:bg-[var(--muted)]/60"
+                    >
+                      <ArrowRight className="mt-0.5 size-3.5 shrink-0 text-[var(--accent-teal)]" />
+                      <span className="line-clamp-2">{guide.title}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/** "Punjab stamp duty" → "Punjab", "Pune construction cost" → "Pune"; unit pages keep their title. */
+export function shortLabel(entry: SiteEntry) {
+  if (entry.kind === 'state') return entry.title.replace(/ stamp duty$/, '')
+  if (entry.kind === 'city') return entry.title.replace(/ construction cost$/, '')
+  return entry.title
+}
+
+function PanelKicker({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="mb-1.5 px-2 font-mono text-[10.5px] font-medium tracking-[0.12em] text-[var(--muted-foreground)] uppercase">
+      {children}
+    </p>
+  )
+}
+
+function ToolMenuItem({ tool }: { tool: SiteEntry }) {
   const Icon = tool.icon
   return (
     <li>
       <Link
         to={tool.to}
-        className="group grid grid-cols-[auto_1fr] gap-3 rounded-lg p-3 no-underline outline-none transition-colors hover:bg-[var(--muted)]/60 focus-visible:bg-[var(--muted)]/60"
+        className="group grid grid-cols-[auto_1fr] gap-3 rounded-lg p-2 no-underline outline-none transition-colors hover:bg-[var(--muted)]/60 focus-visible:bg-[var(--muted)]/60"
       >
         <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
-          <Icon className="size-4" />
+          {Icon && <Icon className="size-4" />}
         </span>
         <span className="flex min-w-0 flex-col gap-0.5">
           <span className="text-sm font-semibold text-[var(--foreground)]">{tool.title}</span>
@@ -229,4 +148,11 @@ function ToolMenuItem({ tool }: { tool: ToolEntry }) {
       </Link>
     </li>
   )
+}
+
+/** Two-column panels (tools + quick links/guides) are wide; tool-only panels stay narrow. */
+function panelWidth(hub: SiteHub) {
+  const hasSide =
+    Boolean(HUB_PROGRAMMATIC_LABEL[hub.id]) || entriesForHub(hub.id, 'guide').length > 0
+  return hasSide ? 'md:!w-[600px]' : 'md:!w-[360px]'
 }
