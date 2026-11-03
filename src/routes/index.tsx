@@ -130,6 +130,11 @@ const LIVE_TOOLS = [
     description: 'Delhi property tax guide for CA number, UPIC, last date, and official receipts.',
     path: '/mcd-property-tax-ca-number',
   },
+  {
+    name: 'Jaipur Property Tax Calculator',
+    description: 'Jaipur UD tax calculator for plots, houses and flats with exemptions and rebates.',
+    path: '/jaipur-property-tax-calculator',
+  },
 ] as const
 
 export const Route = createFileRoute('/')({
@@ -429,6 +434,13 @@ function ToolsSection() {
           status="utility"
           title="MCD CA Number Guide"
           description="Delhi CA number, UPIC, last date, and receipt guide with calculator link."
+          icon={Building2}
+        />
+        <ToolCard
+          to="/jaipur-property-tax-calculator"
+          status="utility"
+          title="Jaipur Property Tax Calculator"
+          description="UD tax from plot area and DLC rate, with exemptions and rebates."
           icon={Building2}
         />
       </div>

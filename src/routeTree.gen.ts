@@ -20,6 +20,7 @@ import { Route as PlotConverterRouteImport } from './routes/plot-converter'
 import { Route as McdPropertyTaxCalculatorRouteImport } from './routes/mcd-property-tax-calculator'
 import { Route as McdPropertyTaxCaNumberRouteImport } from './routes/mcd-property-tax-ca-number'
 import { Route as MaterialCalculatorRouteImport } from './routes/material-calculator'
+import { Route as JaipurPropertyTaxCalculatorRouteImport } from './routes/jaipur-property-tax-calculator'
 import { Route as InteriorRestyleRouteImport } from './routes/interior-restyle'
 import { Route as IndexationCalculatorRouteImport } from './routes/indexation-calculator'
 import { Route as HouseDesignRouteImport } from './routes/house-design'
@@ -104,6 +105,12 @@ const MaterialCalculatorRoute = MaterialCalculatorRouteImport.update({
   path: '/material-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const JaipurPropertyTaxCalculatorRoute =
+  JaipurPropertyTaxCalculatorRouteImport.update({
+    id: '/jaipur-property-tax-calculator',
+    path: '/jaipur-property-tax-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const InteriorRestyleRoute = InteriorRestyleRouteImport.update({
   id: '/interior-restyle',
   path: '/interior-restyle',
@@ -262,6 +269,7 @@ export interface FileRoutesByFullPath {
   '/house-design': typeof HouseDesignRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
+  '/jaipur-property-tax-calculator': typeof JaipurPropertyTaxCalculatorRoute
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
@@ -300,6 +308,7 @@ export interface FileRoutesByTo {
   '/house-design': typeof HouseDesignRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
+  '/jaipur-property-tax-calculator': typeof JaipurPropertyTaxCalculatorRoute
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
@@ -340,6 +349,7 @@ export interface FileRoutesById {
   '/house-design': typeof HouseDesignRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
+  '/jaipur-property-tax-calculator': typeof JaipurPropertyTaxCalculatorRoute
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
@@ -381,6 +391,7 @@ export interface FileRouteTypes {
     | '/house-design'
     | '/indexation-calculator'
     | '/interior-restyle'
+    | '/jaipur-property-tax-calculator'
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
@@ -419,6 +430,7 @@ export interface FileRouteTypes {
     | '/house-design'
     | '/indexation-calculator'
     | '/interior-restyle'
+    | '/jaipur-property-tax-calculator'
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
@@ -458,6 +470,7 @@ export interface FileRouteTypes {
     | '/house-design'
     | '/indexation-calculator'
     | '/interior-restyle'
+    | '/jaipur-property-tax-calculator'
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
@@ -498,6 +511,7 @@ export interface RootRouteChildren {
   HouseDesignRoute: typeof HouseDesignRoute
   IndexationCalculatorRoute: typeof IndexationCalculatorRoute
   InteriorRestyleRoute: typeof InteriorRestyleRoute
+  JaipurPropertyTaxCalculatorRoute: typeof JaipurPropertyTaxCalculatorRoute
   MaterialCalculatorRoute: typeof MaterialCalculatorRoute
   McdPropertyTaxCaNumberRoute: typeof McdPropertyTaxCaNumberRoute
   McdPropertyTaxCalculatorRoute: typeof McdPropertyTaxCalculatorRoute
@@ -592,6 +606,13 @@ declare module '@tanstack/react-router' {
       path: '/material-calculator'
       fullPath: '/material-calculator'
       preLoaderRoute: typeof MaterialCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jaipur-property-tax-calculator': {
+      id: '/jaipur-property-tax-calculator'
+      path: '/jaipur-property-tax-calculator'
+      fullPath: '/jaipur-property-tax-calculator'
+      preLoaderRoute: typeof JaipurPropertyTaxCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/interior-restyle': {
@@ -813,6 +834,7 @@ const rootRouteChildren: RootRouteChildren = {
   HouseDesignRoute: HouseDesignRoute,
   IndexationCalculatorRoute: IndexationCalculatorRoute,
   InteriorRestyleRoute: InteriorRestyleRoute,
+  JaipurPropertyTaxCalculatorRoute: JaipurPropertyTaxCalculatorRoute,
   MaterialCalculatorRoute: MaterialCalculatorRoute,
   McdPropertyTaxCaNumberRoute: McdPropertyTaxCaNumberRoute,
   McdPropertyTaxCalculatorRoute: McdPropertyTaxCalculatorRoute,

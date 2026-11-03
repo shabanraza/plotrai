@@ -179,6 +179,13 @@ const TOOLS: ReadonlyArray<ToolEntry> = [
     description: 'Delhi CA number, UPIC, deadline, receipt guide.',
     status: 'utility',
   },
+  {
+    to: '/jaipur-property-tax-calculator',
+    icon: Building2,
+    title: 'Jaipur Property Tax',
+    description: 'UD tax from plot area and DLC rate.',
+    status: 'utility',
+  },
 ]
 
 export function ToolsMenu() {
