@@ -1,6 +1,8 @@
 import { cn } from '#/lib/utils'
 
 interface ToolSectionProps {
+  /** Anchor for in-page links, e.g. the mobile result bar */
+  id?: string
   number?: string
   label: string
   description?: string
@@ -20,6 +22,7 @@ interface ToolSectionProps {
 }
 
 export function ToolSection({
+  id,
   number,
   label,
   description,
@@ -33,7 +36,9 @@ export function ToolSection({
 
   return (
     <section
+      id={id}
       className={cn(
+        'scroll-mt-20',
         rule && 'border-t border-[var(--border)] pt-7',
         isStacked
           ? 'flex flex-col gap-4'

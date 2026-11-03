@@ -36,12 +36,15 @@ import {
   type StampDutyRate,
 } from '#/data/stamp-duty-rates'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ResultBar } from '#/components/tools/result-bar'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import { STAMP_DUTY_FAQS, STAMP_DUTY_CONTEXT } from '#/data/tool-seo-content'
 import { getArticleLinkItem } from '#/data/blog-content'
 import { canonicalLink, softwareAppLd, faqPageLd } from '#/lib/seo'
-import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
+import { STATE_CONTENT, stampDutySources } from '#/data/state-stamp-duty-content'
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { calculateStampDuty, type StampDutyGender } from '#/lib/stamp-duty'
@@ -146,8 +149,12 @@ function StampDutyCalculatorPage() {
       title="Stamp duty calculator"
       tagline="State-wise stamp duty and registration charges for Indian property purchases. Female-buyer rates included. Updated 2026."
       variant="single-column"
-      footnote={`Rates last refreshed ${STAMP_DUTY_LAST_UPDATED}. ${STAMP_DUTY_ESTIMATE_NOTE} Stamp duty + registration are paid in cash above and beyond your home loan. For legal-grade calculation, cross-check with your state IGR portal or sub-registrar office.`}
     >
+      <ResultBar
+        label={`Stamp duty + registration in ${cityName || stateName}`}
+        value={`₹${formatINR(result.totalGovernmentCharges)}`}
+        targetId="result"
+      />
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Where is the property?" rule={false}>
           <div className="grid gap-4 sm:grid-cols-2">
@@ -272,6 +279,7 @@ function StampDutyCalculatorPage() {
         </ToolSection>
 
         <ToolSection
+          id="result"
           number="04"
           label="Total payable"
           description={`Stamp duty + registration in ${cityName || stateName} for a ${gender} buyer.`}
@@ -351,17 +359,9 @@ function StampDutyCalculatorPage() {
             </div>
           </div>
 
-          <p className="mt-4 text-sm text-[var(--muted-foreground)]">
-            Need GST, brokerage and your monthly EMI too?{' '}
-            <Link
-              to="/home-buying-cost-calculator"
-              className="inline-flex items-center gap-1 font-medium text-[var(--accent-teal)] hover:underline"
-            >
-              Open the home buying cost calculator
-              <ArrowRight className="size-3.5" />
-            </Link>
-          </p>
         </ToolSection>
+
+        <NextStepCard from="/stamp-duty-calculator" />
 
         <ToolContext title={STAMP_DUTY_CONTEXT.title}>
           {STAMP_DUTY_CONTEXT.paragraphs.map((p, i) => (
@@ -399,6 +399,12 @@ function StampDutyCalculatorPage() {
         </ToolSection>
 
         <ToolFaq items={STAMP_DUTY_FAQS} />
+
+        <ToolSources
+          sources={stampDutySources(stateName)}
+          checked={STAMP_DUTY_LAST_UPDATED}
+          note={`${STAMP_DUTY_ESTIMATE_NOTE} Stamp duty and registration are paid in cash on top of your home loan. For a legal-grade figure, check with your state IGR portal or sub-registrar office.`}
+        />
       </div>
     </ToolPageShell>
   )

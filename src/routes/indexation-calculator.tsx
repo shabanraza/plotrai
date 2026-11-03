@@ -1,9 +1,11 @@
-import { createFileRoute, Link } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
-import { ArrowRight, TrendingUp } from 'lucide-react'
+import { TrendingUp } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { ToolContext } from '#/components/tools/tool-context'
 import {
   Field,
@@ -26,7 +28,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '#/components/ui/select'
-import { Button } from '#/components/ui/button'
 import {
   Table,
   TableBody,
@@ -35,7 +36,7 @@ import {
   TableHeader,
   TableRow,
 } from '#/components/ui/table'
-import { CII, CII_LAST_UPDATED, FY_LIST } from '#/data/cii'
+import { CII, CII_LAST_UPDATED, CII_SOURCE_URLS, FY_LIST } from '#/data/cii'
 import { CAPITAL_GAINS_FAQS } from '#/data/tool-seo-content'
 import { canonicalLink, faqPageLd, softwareAppLd } from '#/lib/seo'
 import { calculateIndexation } from '#/lib/indexation'
@@ -107,7 +108,6 @@ function IndexationCalculatorPage() {
       title="Indexation calculator"
       tagline="Calculate indexed cost of acquisition using India's Cost Inflation Index. Useful for property LTCG comparisons where the old 20% indexed regime is still available."
       variant="single-column"
-      footnote={`CII values last checked ${CII_LAST_UPDATED}. This page estimates indexed cost only; use the full property capital gains calculator for old-vs-new regime comparison and Section 54/54EC exemptions.`}
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Indexation inputs" rule={false}>
@@ -208,21 +208,7 @@ function IndexationCalculatorPage() {
           </Table>
         </ToolSection>
 
-        <ToolSection number="03" label="Need the full property tax comparison?">
-          <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
-            <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted-foreground)]">
-              For property sold after July 2024, many older properties need old
-              indexed-regime vs new 12.5% no-indexation comparison. The full
-              calculator runs both.
-            </p>
-            <Button asChild>
-              <Link to="/property-capital-gains-calculator">
-                Open capital gains calculator
-                <ArrowRight data-icon="inline-end" />
-              </Link>
-            </Button>
-          </div>
-        </ToolSection>
+        <NextStepCard from="/indexation-calculator" />
 
         <ToolContext title="What indexation means">
           <p>
@@ -238,6 +224,15 @@ function IndexationCalculatorPage() {
         </ToolContext>
 
         <ToolFaq items={CAPITAL_GAINS_FAQS.slice(1, 4)} />
+
+        <ToolSources
+          sources={CII_SOURCE_URLS.map((url) => ({
+            label: 'Income Tax Department — Cost Inflation Index table',
+            url,
+          }))}
+          checked={CII_LAST_UPDATED}
+          note="This page estimates the indexed cost only. Use the property capital gains calculator to compare both tax regimes and Section 54 / 54EC exemptions."
+        />
       </div>
     </ToolPageShell>
   )

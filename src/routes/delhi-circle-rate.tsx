@@ -4,6 +4,8 @@ import { ArrowRight, ExternalLink, Info, MapPinned } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { ToolContext } from '#/components/tools/tool-context'
 import { Alert, AlertDescription } from '#/components/ui/alert'
 import { Badge } from '#/components/ui/badge'
@@ -147,7 +149,6 @@ function DelhiCircleRatePage() {
       title="Delhi circle rate 2026"
       tagline="Minimum land and construction rates for Delhi colony categories A to H, with a calculator for the minimum property value and the stamp duty you'll pay on it."
       variant="single-column"
-      footnote={`Rates notified ${DELHI_CIRCLE_RATE_NOTIFIED} (4th revision), still in force when checked on ${CIRCLE_RATES_CHECKED}. Covers residential plots, houses and builder floors with a land share; flats, commercial and industrial property use different rates. Confirm your colony's category and the final value with the sub-registrar.`}
     >
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="Circle rates by category" rule={false}>
@@ -327,6 +328,8 @@ function DelhiCircleRatePage() {
           </div>
         </ToolSection>
 
+        <NextStepCard from="/delhi-circle-rate" />
+
         <ToolContext title="How circle rates work in Delhi">
           <p>
             A circle rate is the minimum value the government accepts for a property. Delhi groups
@@ -337,23 +340,6 @@ function DelhiCircleRatePage() {
             Stamp duty and registration are charged on the higher of the agreed price and the circle
             value. In Delhi stamp duty is {delhiRate.male}% for men, {delhiRate.female}% for women and{' '}
             {delhiRate.joint}% for joint owners, plus {delhiRate.registration}% registration.
-          </p>
-          <p>
-            Rates on this page were cross-checked against:{' '}
-            {DELHI_CIRCLE_RATE_SOURCES.map((s, i) => (
-              <span key={s.url}>
-                {i > 0 && ', '}
-                <a
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[var(--accent-teal)] hover:underline"
-                >
-                  {s.label}
-                  <ExternalLink className="size-3" />
-                </a>
-              </span>
-            ))}
           </p>
         </ToolContext>
 
@@ -367,6 +353,12 @@ function DelhiCircleRatePage() {
         </ToolSection>
 
         <ToolFaq items={FAQS} />
+
+        <ToolSources
+          sources={DELHI_CIRCLE_RATE_SOURCES}
+          checked={CIRCLE_RATES_CHECKED}
+          note={`Rates notified ${DELHI_CIRCLE_RATE_NOTIFIED} (4th revision) and still in force when checked. Covers residential plots, houses and builder floors with a land share; flats, commercial and industrial property use different rates. Confirm your colony's category and the final value with the sub-registrar.`}
+        />
       </div>
     </ToolPageShell>
   )

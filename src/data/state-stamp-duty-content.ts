@@ -317,3 +317,13 @@ export function buildStateFaqs(content: StateContent): ReadonlyArray<FaqItem> {
 
   return faqs
 }
+
+/**
+ * Sources for a state's stamp duty rates: the cited notifications where we have them, otherwise
+ * an unlinked IGR attribution (shown without an Official badge because there is no link to check).
+ */
+export function stampDutySources(state: string): Array<{ label: string; url?: string }> {
+  const cited = STATE_CONTENT.find((s) => s.state === state)?.rateSources
+  if (cited?.length) return [...cited]
+  return [{ label: `${state} Inspector General of Registration (IGR) rate notification` }]
+}

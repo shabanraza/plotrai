@@ -4,6 +4,8 @@ import { ArrowRight, Info, KeyRound } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { ResultBar } from '#/components/tools/result-bar'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { ToolContext } from '#/components/tools/tool-context'
 import { HomeLoanCta } from '#/components/tools/home-loan-cta'
 import { Alert, AlertDescription } from '#/components/ui/alert'
@@ -43,7 +45,7 @@ import {
   STAMP_DUTY_LAST_UPDATED,
   type StampDutyRate,
 } from '#/data/stamp-duty-rates'
-import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
+import { STATE_CONTENT, stampDutySources } from '#/data/state-stamp-duty-content'
 import { HOME_BUYING_COST_FAQS } from '#/data/tool-seo-content'
 import { canonicalLink, faqPageLd, softwareAppLd } from '#/lib/seo'
 import {
@@ -164,8 +166,12 @@ function HomeBuyingCostCalculatorPage() {
       title="Home buying cost calculator"
       tagline="The full cash you need to buy a home in India — stamp duty, registration, GST, brokerage and loan fees on top of the price, plus your down payment and monthly EMI."
       variant="single-column"
-      footnote={`Stamp duty rates last refreshed ${STAMP_DUTY_LAST_UPDATED}. Loan limits follow RBI loan-to-value slabs. Interest rate, brokerage, and legal fees are editable defaults — use the figures from your bank sanction letter and broker for a final budget. Stamp duty is charged on the higher of agreement value and circle rate.`}
     >
+      <ResultBar
+        label="Cash needed upfront"
+        value={`₹${formatINR(result.upfrontCash)}`}
+        targetId="result"
+      />
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="The property" rule={false}>
           <FieldGroup className="grid gap-4 sm:grid-cols-2">
@@ -356,6 +362,7 @@ function HomeBuyingCostCalculatorPage() {
         </ToolSection>
 
         <ToolSection
+          id="result"
           number="04"
           label="What it really costs"
           description={`${cityName || stateName} · ${STAGE_LABEL[stage]} · ${GENDER_LABEL[gender]} buyer`}
@@ -490,6 +497,15 @@ function HomeBuyingCostCalculatorPage() {
         </ToolContext>
 
         <ToolFaq items={HOME_BUYING_COST_FAQS} />
+
+        <ToolSources
+          sources={[
+            ...stampDutySources(stateName),
+            { label: 'Reserve Bank of India loan-to-value limits for housing loans' },
+          ]}
+          checked={STAMP_DUTY_LAST_UPDATED}
+          note="Stamp duty is charged on the higher of the agreement value and the circle rate. Interest rate, brokerage and legal fees are editable defaults; use the figures from your bank sanction letter and broker for a final budget."
+        />
       </div>
     </ToolPageShell>
   )

@@ -27,12 +27,15 @@ import {
   type ElementType,
   type Dimensions,
 } from '#/lib/material-calc'
-import { MATERIAL_RATES, RATES_LAST_UPDATED } from '#/data/material-rates'
+import { MATERIAL_RATES, MATERIAL_RATES_BASELINE_SOURCE, RATES_LAST_UPDATED } from '#/data/material-rates'
 import { getLiveRates, type LiveRates } from '#/server/get-live-rates'
 import { Badge } from '#/components/ui/badge'
 import { Button } from '#/components/ui/button'
 import { Spinner } from '#/components/ui/spinner'
 import { ToolFaq } from '#/components/tools/tool-faq'
+import { NextStepCard } from '#/components/tools/next-step-card'
+import { ResultBar } from '#/components/tools/result-bar'
+import { ToolSources } from '#/components/tools/tool-sources'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import { MATERIAL_CALC_FAQS, MATERIAL_CALC_CONTEXT } from '#/data/tool-seo-content'
@@ -165,8 +168,14 @@ function MaterialCalculatorPage() {
       title="Construction material calculator"
       tagline="Calculate cement, bricks, steel, sand, and aggregate needed for any construction element. Fresh Indian market rates — editable per project."
       variant="single-column"
-      footnote={`Quantities are estimated using standard Indian site-engineer thumb rules (M20 mix for RCC, 1:6 for brickwork mortar, 1:4 for plaster). Add 5–10% wastage when ordering. Default rates last updated ${RATES_LAST_UPDATED}.`}
     >
+      {rows.length > 0 && (
+        <ResultBar
+          label="Estimated material cost"
+          value={`₹${formatINR(totalCost)}`}
+          targetId="result"
+        />
+      )}
       <div className="flex flex-col gap-10">
         <ToolSection number="01" label="What are you building?" rule={false}>
           <ToggleGroup
@@ -261,6 +270,7 @@ function MaterialCalculatorPage() {
         </ToolSection>
 
         <ToolSection
+          id="result"
           number="04"
           label="Results"
           description={
@@ -314,6 +324,8 @@ function MaterialCalculatorPage() {
           )}
         </ToolSection>
 
+        <NextStepCard from="/material-calculator" />
+
         <ToolContext title={MATERIAL_CALC_CONTEXT.title}>
           {MATERIAL_CALC_CONTEXT.paragraphs.map((p, i) => (
             <p key={i}>{p}</p>
@@ -330,6 +342,16 @@ function MaterialCalculatorPage() {
         />
 
         <ToolFaq items={MATERIAL_CALC_FAQS} />
+
+        <ToolSources
+          sources={
+            liveMeta?.isLive
+              ? [{ label: liveMeta.source, url: liveMeta.sourceUrl }]
+              : [{ label: MATERIAL_RATES_BASELINE_SOURCE }]
+          }
+          checked={liveMeta?.isLive ? liveMeta.fetchedAt.slice(0, 10) : RATES_LAST_UPDATED}
+          note="Quantities use standard Indian site-engineer thumb rules (M20 mix for RCC, 1:6 mortar for brickwork, 1:4 for plaster). Add 5–10% wastage when ordering, and replace any rate with your local quote above."
+        />
       </div>
     </ToolPageShell>
   )
