@@ -95,3 +95,14 @@ describe('hub content', () => {
     for (const dest of Object.values(TOPIC_HUB_DESTINATION)) expect(hubPaths.has(dest.to)).toBe(true)
   })
 })
+
+describe('site map coverage', () => {
+  it('lists every tool page in the sitemap', async () => {
+    const { readFileSync } = await import('node:fs')
+    const sitemap = readFileSync('public/sitemap.xml', 'utf8')
+    for (const entry of SITE_ENTRIES) {
+      // Some entries split the closing tag across lines, so match up to "<" only
+      expect(sitemap, entry.to).toContain(`<loc>https://plotrai.in${entry.to}<`)
+    }
+  })
+})

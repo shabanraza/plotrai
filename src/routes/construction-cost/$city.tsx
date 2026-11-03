@@ -27,6 +27,11 @@ import {
   type FinishTier,
 } from '#/data/construction-cost-rates'
 import { getArticleLinkItem } from '#/data/blog-content'
+import {
+  INFRALENS_NEW_CITIES,
+  INFRALENS_UPDATED,
+  infralensUrl,
+} from '#/data/infralens-rates'
 import { softwareAppLd, faqPageLd } from '#/lib/seo'
 
 export const Route = createFileRoute('/construction-cost/$city')({
@@ -87,6 +92,7 @@ function CityConstructionPage() {
   if (!r) return null
 
   const faqs = buildCityFaqs(content)
+  const infralens = INFRALENS_NEW_CITIES.find((c) => c.city === content.city)
   const otherCities = CITY_CONTENT.filter((c) => c.slug !== content.slug).slice(0, 8)
   const tiers: ReadonlyArray<FinishTier> = ['basic', 'standard', 'premium', 'luxury']
 
@@ -211,6 +217,21 @@ function CityConstructionPage() {
             government approvals, modular kitchen, AC, and premium interior fitments — budget an
             additional 15-25% over the construction cost for a complete handover.
           </p>
+          {infralens && (
+            <p>
+              {content.city} rates are based on{' '}
+              <a
+                href={infralensUrl(infralens.slug)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[var(--accent-teal)] hover:underline"
+              >
+                InfraLens published rates
+              </a>{' '}
+              (updated {INFRALENS_UPDATED}), scaled to match the other cities on this site so
+              city-to-city comparisons stay consistent.
+            </p>
+          )}
         </ToolContext>
 
         <RelatedGuidesSection
