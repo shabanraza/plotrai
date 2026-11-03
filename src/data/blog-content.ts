@@ -1,4 +1,5 @@
 import type { FaqItem } from '#/lib/seo'
+import { COST_BLOG_ARTICLES } from '#/data/cost-blog-articles'
 
 export type BlogCluster = 'property-buyer' | 'house-design' | 'materials-cost'
 
@@ -15,6 +16,12 @@ export type BlogSlug =
   | 'cement-vs-rmc'
   | 'false-ceiling-cost-per-sq-ft'
   | 'modular-kitchen-cost-india'
+  | 'construction-cost-per-floor'
+  | '2bhk-house-construction-cost'
+  | '30x40-house-construction-cost'
+  | '30x50-house-construction-cost'
+  | '2bhk-3bhk-interior-cost'
+  | 'home-loan-for-plot'
 
 export type TopicHubPath =
   | '/property-buyer-guide'
@@ -1223,6 +1230,7 @@ export const BLOG_ARTICLES: ReadonlyArray<BlogArticle> = [
       },
     ],
   },
+  ...COST_BLOG_ARTICLES,
 ] as const
 
 export const BLOG_BY_SLUG = new Map(BLOG_ARTICLES.map((article) => [article.slug, article]))
