@@ -44,8 +44,8 @@ function EmptyRoomStagerPage() {
   return (
     <ImageToolPage
       mode="empty-room-stager"
-      toolName="Empty Room Stager"
-      title="Empty Room Stager"
+      toolName="Empty room stager"
+      title="Empty room stager"
       tagline="Upload an empty room photo and let AI furnish it — perfect for real-estate listings and pre-purchase visualization."
       uploadHint="Empty room photo · PNG/JPG up to 10MB"
       ctaLabel="Furnish Room"

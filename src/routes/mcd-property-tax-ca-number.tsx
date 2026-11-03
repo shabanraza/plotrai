@@ -11,7 +11,7 @@ export const Route = createFileRoute('/mcd-property-tax-ca-number')({
     meta: [
       { title: 'MCD Property Tax CA Number Guide · Plotr Ai' },
       { name: 'description', content: CONTENT.description },
-      { property: 'og:title', content: 'MCD Property Tax CA Number Guide' },
+      { property: 'og:title', content: 'MCD property tax CA number guide' },
       { property: 'og:description', content: CONTENT.description },
       { property: 'og:url', content: 'https://plotrai.in/mcd-property-tax-ca-number' },
       { property: 'og:type', content: 'website' },

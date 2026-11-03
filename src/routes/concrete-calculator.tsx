@@ -9,7 +9,7 @@ import { MATERIAL_CALC_FAQS } from '#/data/tool-seo-content'
 const CONFIG: SpecificMaterialConfig = {
   mode: 'pcc',
   path: 'concrete-calculator',
-  title: 'Concrete Calculator',
+  title: 'Concrete calculator',
   description:
     'Calculate cement, sand, and aggregate for PCC or site-mixed concrete in India. Choose dimensions, thickness, and concrete grade.',
   defaultLength: 10,

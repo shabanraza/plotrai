@@ -103,63 +103,63 @@ export const BLOG_TOOL_META: Record<
   { title: string; description: string }
 > = {
   '/construction-cost-calculator': {
-    title: 'Construction Cost Calculator',
+    title: 'Construction cost calculator',
     description: 'Estimate stage-wise house construction cost by city and finish tier.',
   },
   '/material-calculator': {
-    title: 'Material Calculator',
+    title: 'Material calculator',
     description: 'Calculate cement, sand, aggregate, brick, and steel quantities.',
   },
   '/stamp-duty-calculator': {
-    title: 'Stamp Duty Calculator',
+    title: 'Stamp duty calculator',
     description: 'Check stamp duty and registration charges by state in India.',
   },
   '/floor-plan-3d': {
-    title: 'Floor Plan to 3D',
+    title: 'Floor plan to 3D',
     description: 'Convert a 2D floor plan into a furnished 3D render.',
   },
   '/interior-restyle': {
-    title: 'Interior Restyle',
+    title: 'Interior restyle',
     description: 'Preview alternate interior styles from a room photo.',
   },
   '/plot-converter': {
-    title: 'Plot Area Converter',
+    title: 'Plot area converter',
     description: 'Convert between Indian land units like gaj, marla, and bigha.',
   },
   '/property-capital-gains-calculator': {
-    title: 'Capital Gains Calculator',
+    title: 'Capital gains calculator',
     description: 'Compare property capital gains tax outcomes across regimes.',
   },
   '/indexation-calculator': {
-    title: 'Indexation Calculator',
+    title: 'Indexation calculator',
     description: 'Work out indexed cost using Cost Inflation Index values.',
   },
   '/vastu-checker': {
-    title: 'Vastu Checker',
+    title: 'Vastu checker',
     description: 'Score a home layout against practical Vastu rules and remedies.',
   },
   '/bbmp-property-tax-calculator': {
-    title: 'BBMP Property Tax Calculator',
+    title: 'BBMP property tax calculator',
     description: 'Estimate Bangalore property tax using a simplified planning model.',
   },
   '/ghmc-property-tax-calculator': {
-    title: 'GHMC Property Tax Calculator',
+    title: 'GHMC property tax calculator',
     description: 'Estimate Hyderabad residential property tax before portal payment.',
   },
   '/mcd-property-tax-calculator': {
-    title: 'MCD Property Tax Calculator',
+    title: 'MCD property tax calculator',
     description: 'Estimate Delhi property tax from visible residential inputs.',
   },
   '/concrete-calculator': {
-    title: 'Concrete Calculator',
+    title: 'Concrete calculator',
     description: 'Estimate concrete ingredients for PCC and site-mix jobs.',
   },
   '/rcc-slab-calculator': {
-    title: 'RCC Slab Calculator',
+    title: 'RCC slab calculator',
     description: 'Calculate slab material quantities for reinforced concrete work.',
   },
   '/delhi-circle-rate': {
-    title: 'Delhi Circle Rate',
+    title: 'Delhi circle rate',
     description: 'Category A–H circle rates with minimum value and stamp duty.',
   },
 }

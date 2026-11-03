@@ -95,7 +95,7 @@ export function MunicipalGuidePage({ content }: MunicipalGuidePageProps) {
                 key={reference.label}
                 className="flex flex-col gap-1 rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-3"
               >
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+                <p className="text-sm text-[var(--muted-foreground)]">
                   {reference.label}
                 </p>
                 <p className="text-sm font-semibold leading-snug text-[var(--foreground)]">

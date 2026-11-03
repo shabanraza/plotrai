@@ -95,11 +95,11 @@ function StateStampDutyPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Stamp Duty', href: '/stamp-duty-calculator' },
+        { label: 'Stamp duty', href: '/stamp-duty-calculator' },
         { label: content.displayName },
       ]}
       eyebrow={{ icon: Calculator, label: `Stamp Duty · ${content.displayName}` }}
-      title={`${content.displayName} Stamp Duty Calculator 2026`}
+      title={`${content.displayName} stamp duty calculator 2026`}
       tagline={`Stamp duty + registration rates for ${content.displayName}, with male, female, and joint buyer breakdowns. Updated ${STAMP_DUTY_LAST_UPDATED}.`}
       variant="single-column"
       footnote={

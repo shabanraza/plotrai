@@ -11,7 +11,7 @@ export const Route = createFileRoute('/ghmc-property-tax-search-by-house-number'
     meta: [
       { title: 'GHMC Property Tax Search by House Number · Plotr Ai' },
       { name: 'description', content: CONTENT.description },
-      { property: 'og:title', content: 'GHMC Property Tax Search by House Number' },
+      { property: 'og:title', content: 'GHMC property tax search by house number' },
       { property: 'og:description', content: CONTENT.description },
       {
         property: 'og:url',

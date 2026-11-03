@@ -130,7 +130,7 @@ export function ChatPanel() {
                 return (
                   <li key={m.id} className="flex flex-col gap-1">
                     <div className="flex items-baseline gap-2">
-                      <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+                      <span className="text-sm text-[var(--muted-foreground)]">
                         {m.role === 'user' ? 'You' : 'Plotr Ai'}
                       </span>
                     </div>

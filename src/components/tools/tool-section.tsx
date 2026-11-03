@@ -43,14 +43,16 @@ export function ToolSection({
     >
       <header className={cn('flex flex-col gap-1', !isStacked && 'lg:pt-1')}>
         <div className="flex flex-col gap-1">
-          <p className="flex flex-wrap items-center gap-2 text-xs font-medium text-[var(--muted-foreground)]">
+          <h2 className="flex flex-wrap items-baseline gap-2 text-base font-semibold text-[var(--foreground)]">
             {number && (
-              <span className="text-[var(--accent-teal)]">{number}</span>
+              <span className="text-sm font-medium tabular-nums text-[var(--accent-teal)]">
+                {number}
+              </span>
             )}
             {label}
-          </p>
+          </h2>
           {description && (
-            <p className="text-sm text-[var(--muted-foreground)]">{description}</p>
+            <p className="text-sm text-[var(--foreground)]/75">{description}</p>
           )}
         </div>
       </header>

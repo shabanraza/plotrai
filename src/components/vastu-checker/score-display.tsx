@@ -71,14 +71,14 @@ export function ScoreDisplay({ score, summary }: ScoreDisplayProps) {
       {/* LEFT — score number + grade + badges */}
       <div className="flex flex-col gap-3 min-w-0">
         <div>
-          <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1">
-            Vastu Score
+          <p className="text-sm font-medium text-muted-foreground mb-1">
+            Vastu score
           </p>
           <p className="text-5xl font-bold leading-none" style={{ color: config.color }}>
             {displayScore}
             <span className="text-xl text-muted-foreground font-normal ml-1">/100</span>
           </p>
-          <p className="mt-1.5 text-sm font-semibold uppercase tracking-wide" style={{ color: config.color }}>
+          <p className="mt-1.5 text-sm font-semibold" style={{ color: config.color }}>
             {config.label}
           </p>
         </div>

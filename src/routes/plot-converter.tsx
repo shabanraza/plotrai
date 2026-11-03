@@ -71,7 +71,7 @@ export const Route = createFileRoute('/plot-converter')({
     links: [canonicalLink('/plot-converter')],
     scripts: [
       softwareAppLd({
-        name: 'Plot Area Converter',
+        name: 'Plot area converter',
         description:
           'Free Indian land unit converter for square feet, gaj, bigha, cent, ground, marla, kanal, gunta, acre, hectare.',
         path: '/plot-converter',
@@ -149,10 +149,10 @@ function PlotConverterPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Plot Area Converter' },
+        { label: 'Plot area converter' },
       ]}
       eyebrow={{ icon: Ruler, label: 'Utility · Live' }}
-      title="Plot Area Converter"
+      title="Plot area converter"
       tagline="Convert between sq ft, sq m, gaj, acre, hectare, gunta, bigha, marla, kanal, ankanam and more — region-aware to local Indian standards."
       variant="single-column"
       footnote={`Land-unit standards last reviewed ${LAND_UNIT_LAST_UPDATED}. Bigha and katha sizes vary by region. We use common local planning standards; for legal documents, cross-check with your local sub-registrar office.`}
@@ -183,7 +183,7 @@ function PlotConverterPage() {
                 <SelectContent className="max-h-80">
                   {groupedUnits.map(({ region: r, items }) => (
                     <SelectGroup key={r}>
-                      <SelectLabel className="text-[10px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+                      <SelectLabel className="text-sm text-[var(--muted-foreground)]">
                         {REGION_LABELS[r]}
                       </SelectLabel>
                       {items.map(([k, def]) => (
@@ -197,7 +197,7 @@ function PlotConverterPage() {
               </Select>
             </div>
             <div className="flex flex-col gap-1 sm:items-end">
-              <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[var(--muted-foreground)]">
+              <p className="text-sm text-[var(--muted-foreground)]">
                 = sq ft
               </p>
               <p className="text-3xl font-semibold tabular-nums leading-none tracking-tight text-[var(--foreground)]">
@@ -272,7 +272,7 @@ function PlotConverterPage() {
                         )}
                       </TableCell>
                       <TableCell className="whitespace-normal">
-                        <span className="inline-flex max-w-full items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-[var(--muted-foreground)] sm:tracking-[0.16em]">
+                        <span className="inline-flex max-w-full items-center gap-1.5 text-sm text-[var(--muted-foreground)]">
                           <span
                             className={`size-1.5 rounded-full ${REGION_DOTS[def.region]}`}
                             aria-hidden

@@ -34,7 +34,7 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
       slug: 'bbmp-property-tax-calculator',
       city: 'Bangalore',
       authority: 'BBMP',
-      title: 'BBMP Property Tax Calculator',
+      title: 'BBMP property tax calculator',
       description:
         'Estimate BBMP property tax for residential properties in Bangalore using built-up area, monthly unit value, depreciation, and rebate inputs.',
       defaultArea: 1200,
@@ -89,7 +89,7 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
       slug: 'ghmc-property-tax-calculator',
       city: 'Hyderabad',
       authority: 'GHMC',
-      title: 'GHMC Property Tax Calculator',
+      title: 'GHMC property tax calculator',
       description:
         'Estimate GHMC residential property tax in Hyderabad from plinth area, monthly rental value, slab rate, depreciation, and library cess.',
       defaultArea: 1200,
@@ -140,7 +140,7 @@ export const PROPERTY_TAX_CONTENT: Record<PropertyTaxSlug, PropertyTaxContent> =
       slug: 'mcd-property-tax-calculator',
       city: 'Delhi',
       authority: 'MCD',
-      title: 'MCD Property Tax Calculator',
+      title: 'MCD property tax calculator',
       description:
         'Estimate MCD property tax for Delhi residential properties using annual value, tax rate, occupancy, age depreciation, and rebate.',
       defaultArea: 1000,

@@ -9,7 +9,7 @@ import { MATERIAL_CALC_FAQS } from '#/data/tool-seo-content'
 const CONFIG: SpecificMaterialConfig = {
   mode: 'pcc',
   path: 'cement-sand-aggregate-calculator',
-  title: 'Cement Sand Aggregate Calculator',
+  title: 'Cement sand aggregate calculator',
   description:
     'Calculate cement, sand, and aggregate quantity for concrete in bags and cubic feet using Indian construction thumb rules.',
   defaultLength: 5,
@@ -28,7 +28,7 @@ export const Route = createFileRoute('/cement-sand-aggregate-calculator')({
     meta: [
       { title: 'Cement Sand Aggregate Calculator India · Plotr Ai' },
       { name: 'description', content: CONFIG.description },
-      { property: 'og:title', content: 'Cement Sand Aggregate Calculator' },
+      { property: 'og:title', content: 'Cement sand aggregate calculator' },
       { property: 'og:description', content: CONFIG.description },
       { property: 'og:url', content: 'https://plotrai.in/cement-sand-aggregate-calculator' },
       { property: 'og:type', content: 'website' },

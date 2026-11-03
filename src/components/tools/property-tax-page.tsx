@@ -122,7 +122,7 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
 
         <ToolSection number="02" label="Estimated annual tax">
           <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+            <p className="text-sm text-[var(--muted-foreground)]">
               Estimated payable for {content.authority}
             </p>
             <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">
@@ -254,7 +254,7 @@ function NumberField({
         />
         {suffix && (
           <InputGroupAddon align="inline-end">
-            <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
+            <InputGroupText className="text-sm">
               {suffix}
             </InputGroupText>
           </InputGroupAddon>

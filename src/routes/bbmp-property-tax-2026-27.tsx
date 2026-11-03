@@ -11,7 +11,7 @@ export const Route = createFileRoute('/bbmp-property-tax-2026-27')({
     meta: [
       { title: 'BBMP Property Tax 2026-27 Guide · Plotr Ai' },
       { name: 'description', content: CONTENT.description },
-      { property: 'og:title', content: 'BBMP Property Tax 2026-27' },
+      { property: 'og:title', content: 'BBMP property tax 2026-27' },
       { property: 'og:description', content: CONTENT.description },
       { property: 'og:url', content: 'https://plotrai.in/bbmp-property-tax-2026-27' },
       { property: 'og:type', content: 'website' },

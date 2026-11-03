@@ -58,7 +58,7 @@ describe('breadcrumbForPath', () => {
     expect(breadcrumbForPath('/stamp-duty-calculator')).toEqual([
       { label: 'Home', href: '/' },
       { label: 'Buying a home', href: '/buy' },
-      { label: 'Stamp Duty Calculator' },
+      { label: 'Stamp duty calculator' },
     ])
   })
 

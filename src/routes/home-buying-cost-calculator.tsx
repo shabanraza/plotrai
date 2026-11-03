@@ -158,10 +158,10 @@ function HomeBuyingCostCalculatorPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Home Buying Cost Calculator' },
+        { label: 'Home buying cost calculator' },
       ]}
       eyebrow={{ icon: KeyRound, label: 'Calculator · Buyer budget' }}
-      title="Home Buying Cost Calculator"
+      title="Home buying cost calculator"
       tagline="The full cash you need to buy a home in India — stamp duty, registration, GST, brokerage and loan fees on top of the price, plus your down payment and monthly EMI."
       variant="single-column"
       footnote={`Stamp duty rates last refreshed ${STAMP_DUTY_LAST_UPDATED}. Loan limits follow RBI loan-to-value slabs. Interest rate, brokerage, and legal fees are editable defaults — use the figures from your bank sanction letter and broker for a final budget. Stamp duty is charged on the higher of agreement value and circle rate.`}
@@ -223,8 +223,8 @@ function HomeBuyingCostCalculatorPage() {
                   onChange={(e) => setPropertyValueLakh(e.target.value)}
                 />
                 <InputGroupAddon align="inline-end">
-                  <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
-                    Lakh
+                  <InputGroupText className="text-sm">
+                    lakh
                   </InputGroupText>
                 </InputGroupAddon>
               </InputGroup>
@@ -554,7 +554,7 @@ function Stat({
   return (
     <div>
       <p
-        className={`font-mono text-[10px] uppercase tracking-[0.16em] ${highlight ? 'text-[var(--accent-teal)]' : 'text-[var(--muted-foreground)]'}`}
+        className={`text-sm ${highlight ? 'text-[var(--accent-teal)]' : 'text-[var(--muted-foreground)]'}`}
       >
         {label}
       </p>

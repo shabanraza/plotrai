@@ -102,11 +102,11 @@ function CityConstructionPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Construction Cost', href: '/construction-cost-calculator' },
+        { label: 'Construction cost', href: '/construction-cost-calculator' },
         { label: content.city },
       ]}
       eyebrow={{ icon: Hammer, label: `Construction Cost · ${content.city}` }}
-      title={`${content.city} House Construction Cost 2026`}
+      title={`${content.city} house construction cost 2026`}
       tagline={`House construction cost per sq ft in ${content.city}, ${content.state}, across all finish tiers — with sample budgets and stage-wise breakdown.`}
       variant="single-column"
       footnote={`Rates last refreshed ${CONSTRUCTION_LAST_UPDATED}. Excludes land cost, government approvals, and contractor margin (typically 10-15%). For binding quotes, get site-specific estimates from local contractors.`}
@@ -148,7 +148,7 @@ function CityConstructionPage() {
                   key={sqft}
                   className="flex flex-col gap-1 rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-3.5"
                 >
-                  <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--muted-foreground)]">
+                  <p className="text-sm text-[var(--muted-foreground)]">
                     {sqft.toLocaleString('en-IN')} sq ft
                   </p>
                   <p className="text-lg font-bold tabular-nums text-[var(--foreground)] sm:text-xl">

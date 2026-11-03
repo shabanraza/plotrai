@@ -101,11 +101,11 @@ export function ToolPageShell({
                 {eyebrow.label}
               </span>
             )}
-            <h1 className="w-full text-balance text-[2.05rem] font-semibold leading-[1.02] text-[var(--foreground)] sm:text-[2.55rem] md:text-[2.9rem]">
+            <h1 className="w-full text-balance text-[2rem] font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--foreground)] sm:text-[2.5rem]">
               {title}
             </h1>
             {tagline && (
-              <p className="mt-4 max-w-[62ch] text-[1rem] leading-8 text-[var(--muted-foreground)] sm:text-[1.15rem]">
+              <p className="mt-4 max-w-[62ch] text-base leading-7 text-[var(--foreground)]/80 sm:text-lg sm:leading-8">
                 {tagline}
               </p>
             )}

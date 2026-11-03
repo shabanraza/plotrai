@@ -170,7 +170,7 @@ export function SpecificMaterialCalculatorPage({ config }: { config: SpecificMat
           </Table>
         </ToolSection>
 
-        <ToolContext title={`How this ${config.title.toLowerCase()} works`}>
+        <ToolContext title={`How this ${config.title.replace(/^[A-Z](?=[a-z])/, (c) => c.toLowerCase())} works`}>
           {config.context.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
@@ -211,7 +211,7 @@ function NumberField({
           onChange={(event) => onChange(event.target.value)}
         />
         <InputGroupAddon align="inline-end">
-          <InputGroupText className="font-mono text-[10px] uppercase tracking-[0.14em]">
+          <InputGroupText className="text-sm">
             {suffix}
           </InputGroupText>
         </InputGroupAddon>

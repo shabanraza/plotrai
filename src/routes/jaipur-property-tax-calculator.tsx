@@ -90,7 +90,7 @@ export const Route = createFileRoute('/jaipur-property-tax-calculator')({
     links: [canonicalLink(PATH)],
     scripts: [
       softwareAppLd({
-        name: 'Jaipur Property Tax Calculator',
+        name: 'Jaipur property tax calculator',
         description: 'Jaipur UD tax calculator for plots, houses and flats with exemptions and rebates.',
         path: PATH,
         category: 'FinanceApplication',
@@ -118,9 +118,9 @@ function JaipurPropertyTaxPage() {
 
   return (
     <ToolPageShell
-      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Jaipur Property Tax Calculator' }]}
+      breadcrumb={[{ label: 'Tools', href: '/' }, { label: 'Jaipur property tax calculator' }]}
       eyebrow={{ icon: Building2, label: 'JMC · UD tax' }}
-      title="Jaipur Property Tax Calculator"
+      title="Jaipur property tax calculator"
       tagline="Estimate Jaipur's urban development (UD) tax for a plot, house or flat from its area and DLC rate, with the exemption limits and rebates applied."
       variant="single-column"
       footnote={`Formula and exemptions checked ${CHECKED} against published guides; no official rate schedule was available online. Confirm your assessment and dues on the Jaipur Municipal Corporation portal before paying.`}
@@ -227,7 +227,7 @@ function JaipurPropertyTaxPage() {
           ) : (
             <>
               <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
-                <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--accent-teal)]">
+                <p className="text-sm text-[var(--accent-teal)]">
                   Payable this year
                 </p>
                 <p className="mt-1 text-3xl font-bold tabular-nums text-[var(--accent-teal)]">

@@ -44,8 +44,8 @@ function InteriorRestylePage() {
   return (
     <ImageToolPage
       mode="interior-restyle"
-      toolName="Interior Restyle"
-      title="Interior Restyle"
+      toolName="Interior restyle"
+      title="Interior restyle"
       tagline="Upload a photo of any room and re-render it in a new style — same layout, brand-new vibe."
       uploadHint="Interior photo · PNG/JPG up to 10MB"
       ctaLabel="Restyle Room"

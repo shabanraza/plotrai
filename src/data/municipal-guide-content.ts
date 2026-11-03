@@ -43,7 +43,7 @@ export const MUNICIPAL_GUIDE_CONTENT: Record<
     slug: 'bbmp-property-tax-2026-27',
     authority: 'BBMP',
     city: 'Bangalore',
-    title: 'BBMP Property Tax 2026-27',
+    title: 'BBMP property tax 2026-27',
     description:
       'BBMP property tax 2026-27 guide for Bangalore homeowners: calculator link, e-khata notice context, rebate inputs, receipt/payment checkpoints, and official portal links.',
     eyebrow: 'Bangalore · 2026-27',
@@ -108,7 +108,7 @@ export const MUNICIPAL_GUIDE_CONTENT: Record<
     slug: 'ghmc-property-tax-search-by-house-number',
     authority: 'GHMC',
     city: 'Hyderabad',
-    title: 'GHMC Property Tax Search by House Number',
+    title: 'GHMC property tax search by house number',
     description:
       'GHMC property tax search guide for Hyderabad: house number/PTIN lookup intent, dues checks, receipt/payment path, and a residential property tax estimator.',
     eyebrow: 'Hyderabad · Search',
@@ -173,7 +173,7 @@ export const MUNICIPAL_GUIDE_CONTENT: Record<
     slug: 'mcd-property-tax-ca-number',
     authority: 'MCD',
     city: 'Delhi',
-    title: 'MCD Property Tax CA Number Guide',
+    title: 'MCD property tax CA number guide',
     description:
       'MCD property tax CA number guide for Delhi homeowners: what CA number means, where to use it, last-date search intent, official portal link, and tax estimator.',
     eyebrow: 'Delhi · CA Number',

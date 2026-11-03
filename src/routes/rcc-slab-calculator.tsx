@@ -9,7 +9,7 @@ import { MATERIAL_CALC_FAQS } from '#/data/tool-seo-content'
 const CONFIG: SpecificMaterialConfig = {
   mode: 'rcc_slab',
   path: 'rcc-slab-calculator',
-  title: 'RCC Slab Calculator',
+  title: 'RCC slab calculator',
   description:
     'Estimate cement bags, sand, aggregate, and steel required for an RCC slab using length, width, thickness, and concrete grade.',
   defaultLength: 10,

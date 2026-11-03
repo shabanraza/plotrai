@@ -39,7 +39,9 @@ Every page renders correctly at **375px width** before anything else. Use Tailwi
 
 ### 5. Theme — locked in
 
-- **Type**: Inter sans for everything, JetBrains Mono for kicker labels and tabular numerics. NO Fraunces or any decorative serif.
+- **Type**: Inter for everything, including numbers (use the `tabular-nums` class on figures in tables and results; don't turn on `tnum` globally, as it widens Inter's hyphens). JetBrains Mono only for keyboard hints and codes. NO Fraunces or any decorative serif.
+- **Case**: sentence case for every visible heading, label, button and tool name ("Stamp duty calculator", "Total cash needed", "sq ft", "lakh"). Capitals only for acronyms (EMI, GST, BBMP, RCC) and proper nouns. NO `uppercase` class, NO letter-spaced all-caps kickers. Browser-tab `<title>` tags may stay in Title Case.
+- **Scale**: H1 32px mobile / 40px desktop (`ToolPageShell`); section headings 16px semibold (`ToolSection`); labels 14px; body 16px. Muted colour is for captions; descriptions use `foreground` at 75–80%.
 - **Palette**: Teal (#0d9488 / #14b8a6) for accents and primary CTAs. Zinc neutrals everywhere else. NO purple, NO gradients (radial or linear), NO drop-shadows that aren't multi-layer.
 - **Backgrounds**: page is **pure white** in light mode (`oklch(1 0 0)`), slightly off-black in dark (`oklch(0.11 ...)`). Inputs inherit page bg via `bg-transparent` — they should look bright, not disabled.
 - **Surfaces**: `--surface` is the off-white tint reserved for sections that need lift (landing tools section). Tool pages don't need it — they use editorial layout.
