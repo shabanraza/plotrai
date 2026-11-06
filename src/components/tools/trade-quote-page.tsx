@@ -31,6 +31,8 @@ export interface TradeLineDef {
   description: string
   unit: string
   auto?: string
+  /** Ties the description to `autoDescriptions` until the user edits it */
+  descKey?: string
   qty?: string
 }
 
@@ -61,6 +63,8 @@ interface TradeQuotePageProps {
   defaultLines: ReadonlyArray<TradeLineDef>
   /** Quantities from the builder, keyed by each line's `auto` */
   autoQty?: Record<string, number>
+  /** Descriptions from the builder, keyed by each line's `descKey` */
+  autoDescriptions?: Record<string, string>
   /** Builder sections (rooms, points, walls…) rendered above the line items */
   builder?: React.ReactNode
   lineItemsLabel?: string
@@ -93,6 +97,7 @@ export function TradeQuotePage({
   tool,
   defaultLines,
   autoQty = {},
+  autoDescriptions = {},
   builder,
   lineItemsLabel = 'Line items',
   docKind = 'quotation',
@@ -124,9 +129,15 @@ export function TradeQuotePage({
   }, [])
 
   const resolved = lines.map((l) => {
-    if (!l.auto) return l
-    const q = autoQty[l.auto] ?? 0
-    return { ...l, qty: q > 0 ? String(Math.round(q * 100) / 100) : '' }
+    let out = l
+    if (l.descKey && autoDescriptions[l.descKey]) {
+      out = { ...out, description: autoDescriptions[l.descKey] }
+    }
+    if (l.auto) {
+      const q = autoQty[l.auto] ?? 0
+      out = { ...out, qty: q > 0 ? String(Math.round(q * 100) / 100) : '' }
+    }
+    return out
   })
   const quoteLines: Array<QuoteLine> = resolved
     .filter((l) => l.description.trim())
@@ -152,6 +163,7 @@ export function TradeQuotePage({
         if (l.id !== id) return l
         // Typing a quantity takes the line off auto-fill
         if ('qty' in patch) return { ...l, ...patch, auto: undefined }
+        if ('description' in patch) return { ...l, ...patch, descKey: undefined }
         return { ...l, ...patch }
       }),
     )

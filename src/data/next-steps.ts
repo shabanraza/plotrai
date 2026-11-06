@@ -40,6 +40,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Pipes, fittings and labour per sanitary point, from a fixture count.',
   },
   '/plumbing-quotation-format': {
+    to: '/false-ceiling-quotation-format',
+    title: 'Next trade: a false ceiling quotation',
+    description: 'Gypsum or POP per sq ft with material, area worked out from room sizes.',
+  },
+  '/false-ceiling-quotation-format': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',
