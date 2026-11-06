@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
+import { NavigationMenu as NavigationMenuPrimitive } from 'radix-ui'
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -93,6 +94,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
             </ul>
           </>
         )}
+        <MenuLink>
         <Link
           to={hubPath(hub.id)}
           className="mt-1 inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium text-[var(--brand)] no-underline hover:bg-[var(--muted)]/60"
@@ -100,6 +102,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
           Everything in {hub.title.toLowerCase()}
           <ArrowRight className="size-3.5" />
         </Link>
+        </MenuLink>
       </div>
 
       {hasSide && (
@@ -110,12 +113,14 @@ function HubPanel({ hub }: { hub: SiteHub }) {
               <ul className="grid grid-cols-2 gap-x-2">
                 {quickLinks.slice(0, QUICK_LINK_LIMIT).map((entry) => (
                   <li key={entry.to}>
+                    <MenuLink>
                     <Link
                       to={entry.to}
                       className="block truncate rounded-md px-2 py-1.5 text-[13px] text-[var(--foreground)] no-underline hover:bg-[var(--muted)]/60"
                     >
                       {shortLabel(entry)}
                     </Link>
+                    </MenuLink>
                   </li>
                 ))}
               </ul>
@@ -132,6 +137,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
               <ul className="grid gap-0.5">
                 {guides.map((guide) => (
                   <li key={guide.to}>
+                    <MenuLink>
                     <Link
                       to={guide.to}
                       className="group flex items-start gap-1.5 rounded-md px-2 py-1.5 text-[13px] leading-snug text-[var(--foreground)] no-underline hover:bg-[var(--muted)]/60"
@@ -139,6 +145,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
                       <ArrowRight className="mt-0.5 size-3.5 shrink-0 text-[var(--brand)]" />
                       <span className="line-clamp-2">{guide.title}</span>
                     </Link>
+                    </MenuLink>
                   </li>
                 ))}
               </ul>
@@ -170,6 +177,7 @@ function ToolMenuItem({ tool }: { tool: SiteEntry }) {
   const Icon = tool.icon
   return (
     <li>
+      <MenuLink>
       <Link
         to={tool.to}
         className="group grid grid-cols-[auto_1fr] gap-3 rounded-lg p-2 no-underline outline-none transition-colors hover:bg-[var(--muted)]/60 focus-visible:bg-[var(--muted)]/60"
@@ -184,6 +192,7 @@ function ToolMenuItem({ tool }: { tool: SiteEntry }) {
           </span>
         </span>
       </Link>
+      </MenuLink>
     </li>
   )
 }
@@ -204,6 +213,7 @@ function CompactToolItem({ tool }: { tool: SiteEntry }) {
   const Icon = tool.icon
   return (
     <li>
+      <MenuLink>
       <Link
         to={tool.to}
         title={tool.description}
@@ -212,6 +222,7 @@ function CompactToolItem({ tool }: { tool: SiteEntry }) {
         {Icon && <Icon className="size-4 shrink-0 text-[var(--muted-foreground)]" />}
         <span className="truncate">{tool.title}</span>
       </Link>
+      </MenuLink>
     </li>
   )
 }
@@ -223,4 +234,12 @@ function panelWidth(hub: SiteHub) {
   const compact = entriesForHub(hub.id, 'tool').length > COMPACT_AFTER
   if (compact) return hasSide ? 'md:!w-[min(820px,calc(100vw-2rem))]' : 'md:!w-[560px]'
   return hasSide ? 'md:!w-[600px]' : 'md:!w-[360px]'
+}
+
+/**
+ * Radix closes the menu only when a NavigationMenu.Link is selected, so every router Link in a
+ * panel goes through this. asChild keeps our own classes; the primitive adds no styles.
+ */
+function MenuLink({ children }: { children: React.ReactElement }) {
+  return <NavigationMenuPrimitive.Link asChild>{children}</NavigationMenuPrimitive.Link>
 }
