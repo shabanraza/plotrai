@@ -1,3 +1,4 @@
+import { SolarIllustration } from '#/components/illustrations'
 import { Link } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
 import { NumberField, parseNumber } from '#/components/tools/calc-fields'
@@ -88,6 +89,7 @@ export function SolarCalculator({
 
   return (
     <QuantityToolPage
+      illustration={<SolarIllustration />}
       content={content}
       headline={
         result.grossCost > 0
