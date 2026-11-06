@@ -34,6 +34,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     title: 'Add cement, sand and aggregate for the slab',
     description: 'The RCC slab calculator gives the concrete materials for the same slab.',
   },
+  '/solar-panel-cost-calculator': {
+    to: '/construction-cost-calculator',
+    title: 'Building a new house? Budget the whole build',
+    description: 'Per sq ft construction cost for your city, broken down by build stage.',
+  },
   '/stamp-duty-calculator': {
     to: '/home-buying-cost-calculator',
     title: 'Add GST, the down payment and your EMI',

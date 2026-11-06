@@ -15,6 +15,7 @@ import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TaxRouteImport } from './routes/tax'
 import { Route as SteelCalculatorRouteImport } from './routes/steel-calculator'
 import { Route as StampDutyCalculatorRouteImport } from './routes/stamp-duty-calculator'
+import { Route as SolarPanelCostCalculatorRouteImport } from './routes/solar-panel-cost-calculator'
 import { Route as RccSlabCalculatorRouteImport } from './routes/rcc-slab-calculator'
 import { Route as PropertyCapitalGainsCalculatorRouteImport } from './routes/property-capital-gains-calculator'
 import { Route as PropertyBuyerGuideRouteImport } from './routes/property-buyer-guide'
@@ -88,6 +89,12 @@ const StampDutyCalculatorRoute = StampDutyCalculatorRouteImport.update({
   path: '/stamp-duty-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SolarPanelCostCalculatorRoute =
+  SolarPanelCostCalculatorRouteImport.update({
+    id: '/solar-panel-cost-calculator',
+    path: '/solar-panel-cost-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const RccSlabCalculatorRoute = RccSlabCalculatorRouteImport.update({
   id: '/rcc-slab-calculator',
   path: '/rcc-slab-calculator',
@@ -345,6 +352,7 @@ export interface FileRoutesByFullPath {
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
+  '/solar-panel-cost-calculator': typeof SolarPanelCostCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/steel-calculator': typeof SteelCalculatorRoute
   '/tax': typeof TaxRoute
@@ -394,6 +402,7 @@ export interface FileRoutesByTo {
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
+  '/solar-panel-cost-calculator': typeof SolarPanelCostCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/steel-calculator': typeof SteelCalculatorRoute
   '/tax': typeof TaxRoute
@@ -445,6 +454,7 @@ export interface FileRoutesById {
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
+  '/solar-panel-cost-calculator': typeof SolarPanelCostCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
   '/steel-calculator': typeof SteelCalculatorRoute
   '/tax': typeof TaxRoute
@@ -497,6 +507,7 @@ export interface FileRouteTypes {
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
+    | '/solar-panel-cost-calculator'
     | '/stamp-duty-calculator'
     | '/steel-calculator'
     | '/tax'
@@ -546,6 +557,7 @@ export interface FileRouteTypes {
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
+    | '/solar-panel-cost-calculator'
     | '/stamp-duty-calculator'
     | '/steel-calculator'
     | '/tax'
@@ -596,6 +608,7 @@ export interface FileRouteTypes {
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
+    | '/solar-panel-cost-calculator'
     | '/stamp-duty-calculator'
     | '/steel-calculator'
     | '/tax'
@@ -647,6 +660,7 @@ export interface RootRouteChildren {
   PropertyBuyerGuideRoute: typeof PropertyBuyerGuideRoute
   PropertyCapitalGainsCalculatorRoute: typeof PropertyCapitalGainsCalculatorRoute
   RccSlabCalculatorRoute: typeof RccSlabCalculatorRoute
+  SolarPanelCostCalculatorRoute: typeof SolarPanelCostCalculatorRoute
   StampDutyCalculatorRoute: typeof StampDutyCalculatorRoute
   SteelCalculatorRoute: typeof SteelCalculatorRoute
   TaxRoute: typeof TaxRoute
@@ -701,6 +715,13 @@ declare module '@tanstack/react-router' {
       path: '/stamp-duty-calculator'
       fullPath: '/stamp-duty-calculator'
       preLoaderRoute: typeof StampDutyCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solar-panel-cost-calculator': {
+      id: '/solar-panel-cost-calculator'
+      path: '/solar-panel-cost-calculator'
+      fullPath: '/solar-panel-cost-calculator'
+      preLoaderRoute: typeof SolarPanelCostCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rcc-slab-calculator': {
@@ -1050,6 +1071,7 @@ const rootRouteChildren: RootRouteChildren = {
   PropertyBuyerGuideRoute: PropertyBuyerGuideRoute,
   PropertyCapitalGainsCalculatorRoute: PropertyCapitalGainsCalculatorRoute,
   RccSlabCalculatorRoute: RccSlabCalculatorRoute,
+  SolarPanelCostCalculatorRoute: SolarPanelCostCalculatorRoute,
   StampDutyCalculatorRoute: StampDutyCalculatorRoute,
   SteelCalculatorRoute: SteelCalculatorRoute,
   TaxRoute: TaxRoute,
