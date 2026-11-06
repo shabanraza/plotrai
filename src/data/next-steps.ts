@@ -55,6 +55,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Foundation to handover per sq ft, with a stage-wise payment schedule.',
   },
   '/house-construction-quotation': {
+    to: '/boq-format-residential-building',
+    title: 'Need a bill of quantities? Make a BOQ',
+    description: 'Cement, sand, aggregate, bricks and steel from your elements, as PDF or Excel.',
+  },
+  '/boq-format-residential-building': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',

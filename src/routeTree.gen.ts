@@ -55,6 +55,7 @@ import { Route as CementSandAggregateCalculatorRouteImport } from './routes/ceme
 import { Route as BuyRouteImport } from './routes/buy'
 import { Route as BuildRouteImport } from './routes/build'
 import { Route as BrickCalculatorRouteImport } from './routes/brick-calculator'
+import { Route as BoqFormatResidentialBuildingRouteImport } from './routes/boq-format-residential-building'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BbmpPropertyTaxCalculatorRouteImport } from './routes/bbmp-property-tax-calculator'
 import { Route as BbmpPropertyTax202627RouteImport } from './routes/bbmp-property-tax-2026-27'
@@ -313,6 +314,12 @@ const BrickCalculatorRoute = BrickCalculatorRouteImport.update({
   path: '/brick-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BoqFormatResidentialBuildingRoute =
+  BoqFormatResidentialBuildingRouteImport.update({
+    id: '/boq-format-residential-building',
+    path: '/boq-format-residential-building',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -381,6 +388,7 @@ export interface FileRoutesByFullPath {
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/blog': typeof BlogRouteWithChildren
+  '/boq-format-residential-building': typeof BoqFormatResidentialBuildingRoute
   '/brick-calculator': typeof BrickCalculatorRoute
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
@@ -440,6 +448,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
+  '/boq-format-residential-building': typeof BoqFormatResidentialBuildingRoute
   '/brick-calculator': typeof BrickCalculatorRoute
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
@@ -501,6 +510,7 @@ export interface FileRoutesById {
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/blog': typeof BlogRouteWithChildren
+  '/boq-format-residential-building': typeof BoqFormatResidentialBuildingRoute
   '/brick-calculator': typeof BrickCalculatorRoute
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
@@ -563,6 +573,7 @@ export interface FileRouteTypes {
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/blog'
+    | '/boq-format-residential-building'
     | '/brick-calculator'
     | '/build'
     | '/buy'
@@ -622,6 +633,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
+    | '/boq-format-residential-building'
     | '/brick-calculator'
     | '/build'
     | '/buy'
@@ -682,6 +694,7 @@ export interface FileRouteTypes {
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/blog'
+    | '/boq-format-residential-building'
     | '/brick-calculator'
     | '/build'
     | '/buy'
@@ -743,6 +756,7 @@ export interface RootRouteChildren {
   BbmpPropertyTax202627Route: typeof BbmpPropertyTax202627Route
   BbmpPropertyTaxCalculatorRoute: typeof BbmpPropertyTaxCalculatorRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BoqFormatResidentialBuildingRoute: typeof BoqFormatResidentialBuildingRoute
   BrickCalculatorRoute: typeof BrickCalculatorRoute
   BuildRoute: typeof BuildRoute
   BuyRoute: typeof BuyRoute
@@ -1120,6 +1134,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrickCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/boq-format-residential-building': {
+      id: '/boq-format-residential-building'
+      path: '/boq-format-residential-building'
+      fullPath: '/boq-format-residential-building'
+      preLoaderRoute: typeof BoqFormatResidentialBuildingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog': {
       id: '/blog'
       path: '/blog'
@@ -1225,6 +1246,7 @@ const rootRouteChildren: RootRouteChildren = {
   BbmpPropertyTax202627Route: BbmpPropertyTax202627Route,
   BbmpPropertyTaxCalculatorRoute: BbmpPropertyTaxCalculatorRoute,
   BlogRoute: BlogRouteWithChildren,
+  BoqFormatResidentialBuildingRoute: BoqFormatResidentialBuildingRoute,
   BrickCalculatorRoute: BrickCalculatorRoute,
   BuildRoute: BuildRoute,
   BuyRoute: BuyRoute,
