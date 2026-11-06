@@ -61,6 +61,16 @@ export function portalSizeBand(monthlyUnits: number): string {
   return 'above 3 kW'
 }
 
+/** A state top-up paid per kW up to a rupee cap, e.g. UPNEDA ₹15,000/kW up to ₹30,000. */
+export interface StateSubsidyRule {
+  perKw: number
+  cap: number
+}
+
+export function stateSubsidyFor(kw: number, rule: StateSubsidyRule): number {
+  return Math.min(positive(kw) * rule.perKw, rule.cap)
+}
+
 export interface SolarInput {
   kw: number
   category: StateCategory

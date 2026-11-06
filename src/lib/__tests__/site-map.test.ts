@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { TOPIC_HUB_DESTINATION } from '#/data/blog-content'
 import { CITY_CONTENT } from '#/data/city-construction-content'
+import { SOLAR_CITIES } from '#/data/solar-city-content'
 import { HUB_CONTENT } from '#/data/hub-content'
 import { LAND_UNIT_PAGES } from '#/data/land-unit-pages'
 import {
@@ -27,9 +28,9 @@ describe('site map', () => {
     }
   })
 
-  it('derives one programmatic entry per state, city and unit pair', () => {
+  it('derives one programmatic entry per state, city, solar city and unit pair', () => {
     expect(SITE_PROGRAMMATIC).toHaveLength(
-      STATE_CONTENT.length + CITY_CONTENT.length + LAND_UNIT_PAGES.length,
+      STATE_CONTENT.length + CITY_CONTENT.length + SOLAR_CITIES.length + LAND_UNIT_PAGES.length,
     )
   })
 

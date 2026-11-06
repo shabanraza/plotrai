@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate } from '@tanstack/react-router'
-import { BookOpen, Building2, MapPin, Ruler } from 'lucide-react'
+import { BookOpen, Building2, MapPin, Ruler, Sun } from 'lucide-react'
 import {
   CommandDialog,
   CommandEmpty,
@@ -21,11 +21,12 @@ const GROUPS: ReadonlyArray<{ kind: EntryKind; heading: string }> = [
   { kind: 'tool', heading: 'Calculators and tools' },
   { kind: 'state', heading: 'Stamp duty by state' },
   { kind: 'city', heading: 'Construction cost by city' },
+  { kind: 'solar', heading: 'Solar panel cost by city' },
   { kind: 'unit', heading: 'Land unit conversions' },
   { kind: 'guide', heading: 'Guides' },
 ]
 
-const KIND_ICON = { state: MapPin, city: Building2, unit: Ruler, guide: BookOpen } as const
+const KIND_ICON = { state: MapPin, city: Building2, solar: Sun, unit: Ruler, guide: BookOpen } as const
 
 const HUB_LABEL = Object.fromEntries(SITE_HUBS.map((h) => [h.id, h.label]))
 

@@ -21,6 +21,14 @@ const BRIDGEWAY_PRICE = {
   url: 'https://bridgewaypower.in/blog/1kw-solar-system-price-india-2026',
 }
 
+/** Sources behind the central subsidy, generation and price figures, shared with the city pages. */
+export const SOLAR_CENTRAL_SOURCES = [
+  PM_SURYA_GHAR,
+  PM_SURYA_GHAR_FAQ,
+  BSES_FAQ,
+  BRIDGEWAY_PRICE,
+]
+
 export const SOLAR_CONTENT: FinishingToolContent = {
   path: '/solar-panel-cost-calculator',
   title: 'Solar panel cost calculator',
@@ -68,6 +76,6 @@ export const SOLAR_CONTENT: FinishingToolContent = {
       a: 'Yes. A group housing society or resident welfare association gets ₹18,000 per kW for common facilities such as lifts, lighting and EV charging, up to 3 kW per house and 500 kW in total.',
     },
   ],
-  sources: [PM_SURYA_GHAR, PM_SURYA_GHAR_FAQ, BSES_FAQ, BRIDGEWAY_PRICE],
+  sources: SOLAR_CENTRAL_SOURCES,
   note: 'Estimate only. The subsidy follows the PM Surya Ghar slabs for residential consumers; the installed price and generation are indicative, so use your vendor’s quote and your discom’s tariff.',
 }

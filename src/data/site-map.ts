@@ -24,6 +24,7 @@ import {
 import { BLOG_ARTICLES, type BlogCluster } from '#/data/blog-content'
 import { CITY_CONTENT } from '#/data/city-construction-content'
 import { LAND_UNIT_PAGES, pageTitle } from '#/data/land-unit-pages'
+import { SOLAR_CITIES, solarCityPath } from '#/data/solar-city-content'
 import { STATE_CONTENT } from '#/data/state-stamp-duty-content'
 
 /**
@@ -45,7 +46,7 @@ export interface SiteHub {
   icon: LucideIcon
 }
 
-export type EntryKind = 'tool' | 'state' | 'city' | 'unit' | 'guide'
+export type EntryKind = 'tool' | 'state' | 'city' | 'solar' | 'unit' | 'guide'
 
 export interface SiteEntry {
   title: string
@@ -155,6 +156,14 @@ export const SITE_PROGRAMMATIC: ReadonlyArray<SiteEntry> = [
     kind: 'city',
     keywords: [c.state, 'per sq ft'],
   })),
+  ...SOLAR_CITIES.map<SiteEntry>((c) => ({
+    title: `Solar panel cost in ${c.city}`,
+    to: solarCityPath(c.slug),
+    description: `Rooftop solar cost after subsidy in ${c.city}.`,
+    hub: 'build',
+    kind: 'solar',
+    keywords: [c.state, 'solar subsidy', 'pm surya ghar'],
+  })),
   ...LAND_UNIT_PAGES.map<SiteEntry>((p) => ({
     title: pageTitle(p),
     to: `/convert/${p.slug}`,
@@ -211,6 +220,7 @@ const ENTRY_BY_PATH = new Map(SITE_ENTRIES.map((e) => [e.to, e]))
 const PARENT_TOOL: Partial<Record<EntryKind, string>> = {
   state: '/stamp-duty-calculator',
   city: '/construction-cost-calculator',
+  solar: '/solar-panel-cost-calculator',
   unit: '/plot-converter',
 }
 

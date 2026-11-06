@@ -4,7 +4,19 @@ import {
   centralSubsidy,
   portalSizeBand,
   sizeForUnits,
+  stateSubsidyFor,
 } from '#/lib/solar-calc'
+
+describe('state top-ups', () => {
+  it('pays per kW up to the cap', () => {
+    const up = { perKw: 15000, cap: 30000 }
+    expect(stateSubsidyFor(1, up)).toBe(15000)
+    expect(stateSubsidyFor(3, up)).toBe(30000)
+    const delhi = { perKw: 2000, cap: 10000 }
+    expect(stateSubsidyFor(3, delhi)).toBe(6000)
+    expect(stateSubsidyFor(8, delhi)).toBe(10000)
+  })
+})
 
 describe('PM Surya Ghar subsidy', () => {
   it('matches the portal slabs: ₹30,000, ₹60,000, ₹78,000 and the cap', () => {

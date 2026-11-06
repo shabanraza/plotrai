@@ -54,6 +54,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as StampDutyStateRouteImport } from './routes/stamp-duty/$state'
+import { Route as SolarPanelCostCityRouteImport } from './routes/solar-panel-cost/$city'
 import { Route as ConvertPairRouteImport } from './routes/convert/$pair'
 import { Route as ConstructionCostCityRouteImport } from './routes/construction-cost/$city'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
@@ -294,6 +295,11 @@ const StampDutyStateRoute = StampDutyStateRouteImport.update({
   path: '/stamp-duty/$state',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SolarPanelCostCityRoute = SolarPanelCostCityRouteImport.update({
+  id: '/solar-panel-cost/$city',
+  path: '/solar-panel-cost/$city',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ConvertPairRoute = ConvertPairRouteImport.update({
   id: '/convert/$pair',
   path: '/convert/$pair',
@@ -363,6 +369,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
   '/convert/$pair': typeof ConvertPairRoute
+  '/solar-panel-cost/$city': typeof SolarPanelCostCityRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -413,6 +420,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
   '/convert/$pair': typeof ConvertPairRoute
+  '/solar-panel-cost/$city': typeof SolarPanelCostCityRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -465,6 +473,7 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
   '/convert/$pair': typeof ConvertPairRoute
+  '/solar-panel-cost/$city': typeof SolarPanelCostCityRoute
   '/stamp-duty/$state': typeof StampDutyStateRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -518,6 +527,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/construction-cost/$city'
     | '/convert/$pair'
+    | '/solar-panel-cost/$city'
     | '/stamp-duty/$state'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -568,6 +578,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/construction-cost/$city'
     | '/convert/$pair'
+    | '/solar-panel-cost/$city'
     | '/stamp-duty/$state'
     | '/blog'
   id:
@@ -619,6 +630,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/construction-cost/$city'
     | '/convert/$pair'
+    | '/solar-panel-cost/$city'
     | '/stamp-duty/$state'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -670,6 +682,7 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ConstructionCostCityRoute: typeof ConstructionCostCityRoute
   ConvertPairRoute: typeof ConvertPairRoute
+  SolarPanelCostCityRoute: typeof SolarPanelCostCityRoute
   StampDutyStateRoute: typeof StampDutyStateRoute
 }
 
@@ -990,6 +1003,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StampDutyStateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/solar-panel-cost/$city': {
+      id: '/solar-panel-cost/$city'
+      path: '/solar-panel-cost/$city'
+      fullPath: '/solar-panel-cost/$city'
+      preLoaderRoute: typeof SolarPanelCostCityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/convert/$pair': {
       id: '/convert/$pair'
       path: '/convert/$pair'
@@ -1081,6 +1101,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ConstructionCostCityRoute: ConstructionCostCityRoute,
   ConvertPairRoute: ConvertPairRoute,
+  SolarPanelCostCityRoute: SolarPanelCostCityRoute,
   StampDutyStateRoute: StampDutyStateRoute,
 }
 export const routeTree = rootRouteImport
