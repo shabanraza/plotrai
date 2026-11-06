@@ -1,3 +1,4 @@
+import { HouseIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import { useEffect, useMemo, useState } from 'react'
 import { Calculator, RefreshCw } from 'lucide-react'
@@ -161,6 +162,7 @@ function MaterialCalculatorPage() {
 
   return (
     <ToolPageShell
+      illustration={<HouseIllustration />}
       breadcrumb={[
         { label: 'Tools', href: '/' },
         { label: 'Material calculator' },
