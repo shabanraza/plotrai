@@ -28,3 +28,6 @@ worker-configuration.d.ts
 
 # Cloudflare Worker deploy artefacts
 .dev.vars
+# Google service-account keys (Search Console report) — never commit
+*service-account*.json
+gsc-key*.json
