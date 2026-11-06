@@ -10,14 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VastuCheckerRouteImport } from './routes/vastu-checker'
+import { Route as TilesCalculatorRouteImport } from './routes/tiles-calculator'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TaxRouteImport } from './routes/tax'
+import { Route as SteelCalculatorRouteImport } from './routes/steel-calculator'
 import { Route as StampDutyCalculatorRouteImport } from './routes/stamp-duty-calculator'
 import { Route as RccSlabCalculatorRouteImport } from './routes/rcc-slab-calculator'
 import { Route as PropertyCapitalGainsCalculatorRouteImport } from './routes/property-capital-gains-calculator'
 import { Route as PropertyBuyerGuideRouteImport } from './routes/property-buyer-guide'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PlotConverterRouteImport } from './routes/plot-converter'
+import { Route as PlasterCalculatorRouteImport } from './routes/plaster-calculator'
+import { Route as PaintCalculatorRouteImport } from './routes/paint-calculator'
 import { Route as McdPropertyTaxCalculatorRouteImport } from './routes/mcd-property-tax-calculator'
 import { Route as McdPropertyTaxCaNumberRouteImport } from './routes/mcd-property-tax-ca-number'
 import { Route as MaterialCalculatorRouteImport } from './routes/material-calculator'
@@ -41,6 +45,7 @@ import { Route as ConcreteCalculatorRouteImport } from './routes/concrete-calcul
 import { Route as CementSandAggregateCalculatorRouteImport } from './routes/cement-sand-aggregate-calculator'
 import { Route as BuyRouteImport } from './routes/buy'
 import { Route as BuildRouteImport } from './routes/build'
+import { Route as BrickCalculatorRouteImport } from './routes/brick-calculator'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as BbmpPropertyTaxCalculatorRouteImport } from './routes/bbmp-property-tax-calculator'
 import { Route as BbmpPropertyTax202627RouteImport } from './routes/bbmp-property-tax-2026-27'
@@ -58,6 +63,11 @@ const VastuCheckerRoute = VastuCheckerRouteImport.update({
   path: '/vastu-checker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TilesCalculatorRoute = TilesCalculatorRouteImport.update({
+  id: '/tiles-calculator',
+  path: '/tiles-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
@@ -66,6 +76,11 @@ const TermsRoute = TermsRouteImport.update({
 const TaxRoute = TaxRouteImport.update({
   id: '/tax',
   path: '/tax',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SteelCalculatorRoute = SteelCalculatorRouteImport.update({
+  id: '/steel-calculator',
+  path: '/steel-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StampDutyCalculatorRoute = StampDutyCalculatorRouteImport.update({
@@ -97,6 +112,16 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const PlotConverterRoute = PlotConverterRouteImport.update({
   id: '/plot-converter',
   path: '/plot-converter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlasterCalculatorRoute = PlasterCalculatorRouteImport.update({
+  id: '/plaster-calculator',
+  path: '/plaster-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaintCalculatorRoute = PaintCalculatorRouteImport.update({
+  id: '/paint-calculator',
+  path: '/paint-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
 const McdPropertyTaxCalculatorRoute =
@@ -221,6 +246,11 @@ const BuildRoute = BuildRouteImport.update({
   path: '/build',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BrickCalculatorRoute = BrickCalculatorRouteImport.update({
+  id: '/brick-calculator',
+  path: '/brick-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogRoute = BlogRouteImport.update({
   id: '/blog',
   path: '/blog',
@@ -284,6 +314,7 @@ export interface FileRoutesByFullPath {
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/blog': typeof BlogRouteWithChildren
+  '/brick-calculator': typeof BrickCalculatorRoute
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
@@ -307,14 +338,18 @@ export interface FileRoutesByFullPath {
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
+  '/paint-calculator': typeof PaintCalculatorRoute
+  '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/steel-calculator': typeof SteelCalculatorRoute
   '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
+  '/tiles-calculator': typeof TilesCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -328,6 +363,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
+  '/brick-calculator': typeof BrickCalculatorRoute
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
@@ -351,14 +387,18 @@ export interface FileRoutesByTo {
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
+  '/paint-calculator': typeof PaintCalculatorRoute
+  '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/steel-calculator': typeof SteelCalculatorRoute
   '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
+  '/tiles-calculator': typeof TilesCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -374,6 +414,7 @@ export interface FileRoutesById {
   '/bbmp-property-tax-2026-27': typeof BbmpPropertyTax202627Route
   '/bbmp-property-tax-calculator': typeof BbmpPropertyTaxCalculatorRoute
   '/blog': typeof BlogRouteWithChildren
+  '/brick-calculator': typeof BrickCalculatorRoute
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
@@ -397,14 +438,18 @@ export interface FileRoutesById {
   '/material-calculator': typeof MaterialCalculatorRoute
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
+  '/paint-calculator': typeof PaintCalculatorRoute
+  '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
   '/rcc-slab-calculator': typeof RccSlabCalculatorRoute
   '/stamp-duty-calculator': typeof StampDutyCalculatorRoute
+  '/steel-calculator': typeof SteelCalculatorRoute
   '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
+  '/tiles-calculator': typeof TilesCalculatorRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -421,6 +466,7 @@ export interface FileRouteTypes {
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/blog'
+    | '/brick-calculator'
     | '/build'
     | '/buy'
     | '/cement-sand-aggregate-calculator'
@@ -444,14 +490,18 @@ export interface FileRouteTypes {
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
+    | '/paint-calculator'
+    | '/plaster-calculator'
     | '/plot-converter'
     | '/privacy-policy'
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
     | '/stamp-duty-calculator'
+    | '/steel-calculator'
     | '/tax'
     | '/terms'
+    | '/tiles-calculator'
     | '/vastu-checker'
     | '/api/chat'
     | '/blog/$slug'
@@ -465,6 +515,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
+    | '/brick-calculator'
     | '/build'
     | '/buy'
     | '/cement-sand-aggregate-calculator'
@@ -488,14 +539,18 @@ export interface FileRouteTypes {
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
+    | '/paint-calculator'
+    | '/plaster-calculator'
     | '/plot-converter'
     | '/privacy-policy'
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
     | '/stamp-duty-calculator'
+    | '/steel-calculator'
     | '/tax'
     | '/terms'
+    | '/tiles-calculator'
     | '/vastu-checker'
     | '/api/chat'
     | '/blog/$slug'
@@ -510,6 +565,7 @@ export interface FileRouteTypes {
     | '/bbmp-property-tax-2026-27'
     | '/bbmp-property-tax-calculator'
     | '/blog'
+    | '/brick-calculator'
     | '/build'
     | '/buy'
     | '/cement-sand-aggregate-calculator'
@@ -533,14 +589,18 @@ export interface FileRouteTypes {
     | '/material-calculator'
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
+    | '/paint-calculator'
+    | '/plaster-calculator'
     | '/plot-converter'
     | '/privacy-policy'
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
     | '/rcc-slab-calculator'
     | '/stamp-duty-calculator'
+    | '/steel-calculator'
     | '/tax'
     | '/terms'
+    | '/tiles-calculator'
     | '/vastu-checker'
     | '/api/chat'
     | '/blog/$slug'
@@ -556,6 +616,7 @@ export interface RootRouteChildren {
   BbmpPropertyTax202627Route: typeof BbmpPropertyTax202627Route
   BbmpPropertyTaxCalculatorRoute: typeof BbmpPropertyTaxCalculatorRoute
   BlogRoute: typeof BlogRouteWithChildren
+  BrickCalculatorRoute: typeof BrickCalculatorRoute
   BuildRoute: typeof BuildRoute
   BuyRoute: typeof BuyRoute
   CementSandAggregateCalculatorRoute: typeof CementSandAggregateCalculatorRoute
@@ -579,14 +640,18 @@ export interface RootRouteChildren {
   MaterialCalculatorRoute: typeof MaterialCalculatorRoute
   McdPropertyTaxCaNumberRoute: typeof McdPropertyTaxCaNumberRoute
   McdPropertyTaxCalculatorRoute: typeof McdPropertyTaxCalculatorRoute
+  PaintCalculatorRoute: typeof PaintCalculatorRoute
+  PlasterCalculatorRoute: typeof PlasterCalculatorRoute
   PlotConverterRoute: typeof PlotConverterRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   PropertyBuyerGuideRoute: typeof PropertyBuyerGuideRoute
   PropertyCapitalGainsCalculatorRoute: typeof PropertyCapitalGainsCalculatorRoute
   RccSlabCalculatorRoute: typeof RccSlabCalculatorRoute
   StampDutyCalculatorRoute: typeof StampDutyCalculatorRoute
+  SteelCalculatorRoute: typeof SteelCalculatorRoute
   TaxRoute: typeof TaxRoute
   TermsRoute: typeof TermsRoute
+  TilesCalculatorRoute: typeof TilesCalculatorRoute
   VastuCheckerRoute: typeof VastuCheckerRoute
   ApiChatRoute: typeof ApiChatRoute
   ConstructionCostCityRoute: typeof ConstructionCostCityRoute
@@ -603,6 +668,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VastuCheckerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tiles-calculator': {
+      id: '/tiles-calculator'
+      path: '/tiles-calculator'
+      fullPath: '/tiles-calculator'
+      preLoaderRoute: typeof TilesCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/terms': {
       id: '/terms'
       path: '/terms'
@@ -615,6 +687,13 @@ declare module '@tanstack/react-router' {
       path: '/tax'
       fullPath: '/tax'
       preLoaderRoute: typeof TaxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/steel-calculator': {
+      id: '/steel-calculator'
+      path: '/steel-calculator'
+      fullPath: '/steel-calculator'
+      preLoaderRoute: typeof SteelCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/stamp-duty-calculator': {
@@ -657,6 +736,20 @@ declare module '@tanstack/react-router' {
       path: '/plot-converter'
       fullPath: '/plot-converter'
       preLoaderRoute: typeof PlotConverterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plaster-calculator': {
+      id: '/plaster-calculator'
+      path: '/plaster-calculator'
+      fullPath: '/plaster-calculator'
+      preLoaderRoute: typeof PlasterCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/paint-calculator': {
+      id: '/paint-calculator'
+      path: '/paint-calculator'
+      fullPath: '/paint-calculator'
+      preLoaderRoute: typeof PaintCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mcd-property-tax-calculator': {
@@ -820,6 +913,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuildRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brick-calculator': {
+      id: '/brick-calculator'
+      path: '/brick-calculator'
+      fullPath: '/brick-calculator'
+      preLoaderRoute: typeof BrickCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog': {
       id: '/blog'
       path: '/blog'
@@ -918,6 +1018,7 @@ const rootRouteChildren: RootRouteChildren = {
   BbmpPropertyTax202627Route: BbmpPropertyTax202627Route,
   BbmpPropertyTaxCalculatorRoute: BbmpPropertyTaxCalculatorRoute,
   BlogRoute: BlogRouteWithChildren,
+  BrickCalculatorRoute: BrickCalculatorRoute,
   BuildRoute: BuildRoute,
   BuyRoute: BuyRoute,
   CementSandAggregateCalculatorRoute: CementSandAggregateCalculatorRoute,
@@ -942,14 +1043,18 @@ const rootRouteChildren: RootRouteChildren = {
   MaterialCalculatorRoute: MaterialCalculatorRoute,
   McdPropertyTaxCaNumberRoute: McdPropertyTaxCaNumberRoute,
   McdPropertyTaxCalculatorRoute: McdPropertyTaxCalculatorRoute,
+  PaintCalculatorRoute: PaintCalculatorRoute,
+  PlasterCalculatorRoute: PlasterCalculatorRoute,
   PlotConverterRoute: PlotConverterRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   PropertyBuyerGuideRoute: PropertyBuyerGuideRoute,
   PropertyCapitalGainsCalculatorRoute: PropertyCapitalGainsCalculatorRoute,
   RccSlabCalculatorRoute: RccSlabCalculatorRoute,
   StampDutyCalculatorRoute: StampDutyCalculatorRoute,
+  SteelCalculatorRoute: SteelCalculatorRoute,
   TaxRoute: TaxRoute,
   TermsRoute: TermsRoute,
+  TilesCalculatorRoute: TilesCalculatorRoute,
   VastuCheckerRoute: VastuCheckerRoute,
   ApiChatRoute: ApiChatRoute,
   ConstructionCostCityRoute: ConstructionCostCityRoute,

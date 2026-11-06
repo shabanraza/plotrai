@@ -9,6 +9,31 @@ export interface NextStep {
 }
 
 export const NEXT_STEPS: Record<string, NextStep> = {
+  '/brick-calculator': {
+    to: '/plaster-calculator',
+    title: 'Plaster the wall next',
+    description: 'Cement and sand for plastering the same wall area.',
+  },
+  '/plaster-calculator': {
+    to: '/paint-calculator',
+    title: 'Then paint it',
+    description: 'Litres of paint and kg of putty for the plastered area.',
+  },
+  '/paint-calculator': {
+    to: '/construction-cost-calculator',
+    title: 'See the budget for the whole house',
+    description: 'Per sq ft construction cost for your city, broken down by build stage.',
+  },
+  '/tiles-calculator': {
+    to: '/construction-cost-calculator',
+    title: 'See the budget for the whole house',
+    description: 'Per sq ft construction cost for your city, broken down by build stage.',
+  },
+  '/steel-calculator': {
+    to: '/rcc-slab-calculator',
+    title: 'Add cement, sand and aggregate for the slab',
+    description: 'The RCC slab calculator gives the concrete materials for the same slab.',
+  },
   '/stamp-duty-calculator': {
     to: '/home-buying-cost-calculator',
     title: 'Add GST, the down payment and your EMI',
