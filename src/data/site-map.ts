@@ -1,19 +1,24 @@
 import type { LucideIcon } from 'lucide-react'
 import {
   Box,
+  BrickWall,
   Building2,
   Calculator,
   Compass,
+  Grid3x3,
   Hammer,
   KeyRound,
   Layers3,
   MapPinned,
+  PaintRoller,
   Receipt,
   ReceiptIndianRupee,
   Ruler,
+  Shovel,
   Sofa,
   TrendingUp,
   Wand2,
+  Weight,
 } from 'lucide-react'
 import { BLOG_ARTICLES, type BlogCluster } from '#/data/blog-content'
 import { CITY_CONTENT } from '#/data/city-construction-content'
@@ -101,6 +106,11 @@ export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   { title: 'Concrete calculator', to: '/concrete-calculator', description: 'Cement, sand and aggregate for PCC and concrete.', hub: 'build', kind: 'tool', icon: Layers3 },
   { title: 'RCC slab calculator', to: '/rcc-slab-calculator', description: 'Slab cement, steel, sand and aggregate.', hub: 'build', kind: 'tool', icon: Hammer, keywords: ['roof slab'] },
   { title: 'Cement sand aggregate calculator', to: '/cement-sand-aggregate-calculator', description: 'Concrete material quantity by mix.', hub: 'build', kind: 'tool', icon: Calculator, keywords: ['m20', 'm15', 'cum'] },
+  { title: 'Brick calculator', to: '/brick-calculator', description: 'Bricks, cement and sand for a 9 or 4.5 inch wall.', hub: 'build', kind: 'tool', icon: BrickWall, keywords: ['bricks', '9 inch wall', 'brickwork'] },
+  { title: 'Steel calculator', to: '/steel-calculator', description: 'TMT bar weight and steel for slabs, beams and columns.', hub: 'build', kind: 'tool', icon: Weight, keywords: ['tmt', 'rebar', 'bar weight', 'd2/162'] },
+  { title: 'Plaster calculator', to: '/plaster-calculator', description: 'Cement and sand for wall and ceiling plaster.', hub: 'build', kind: 'tool', icon: Shovel, keywords: ['plastering', 'mortar'] },
+  { title: 'Tiles calculator', to: '/tiles-calculator', description: 'How many tiles and boxes for a floor or wall.', hub: 'build', kind: 'tool', icon: Grid3x3, keywords: ['flooring', 'tile boxes', 'vitrified'] },
+  { title: 'Paint calculator', to: '/paint-calculator', description: 'Litres of paint and kg of putty for a room.', hub: 'build', kind: 'tool', icon: PaintRoller, keywords: ['wall paint', 'putty', 'emulsion'] },
   // Land
   { title: 'Plot area converter', to: '/plot-converter', description: 'Every Indian land unit, region-aware.', hub: 'land', kind: 'tool', icon: Ruler, keywords: ['gaj', 'bigha', 'acre', 'marla', 'gunta', 'cent'] },
   // Tax
