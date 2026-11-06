@@ -34,6 +34,7 @@ import { Route as JaipurPropertyTaxCalculatorRouteImport } from './routes/jaipur
 import { Route as InteriorRestyleRouteImport } from './routes/interior-restyle'
 import { Route as IndexationCalculatorRouteImport } from './routes/indexation-calculator'
 import { Route as HouseDesignRouteImport } from './routes/house-design'
+import { Route as HouseConstructionQuotationRouteImport } from './routes/house-construction-quotation'
 import { Route as HomeBuyingCostCalculatorRouteImport } from './routes/home-buying-cost-calculator'
 import { Route as GhmcPropertyTaxSearchByHouseNumberRouteImport } from './routes/ghmc-property-tax-search-by-house-number'
 import { Route as GhmcPropertyTaxCalculatorRouteImport } from './routes/ghmc-property-tax-calculator'
@@ -196,6 +197,12 @@ const HouseDesignRoute = HouseDesignRouteImport.update({
   path: '/house-design',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HouseConstructionQuotationRoute =
+  HouseConstructionQuotationRouteImport.update({
+    id: '/house-construction-quotation',
+    path: '/house-construction-quotation',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const HomeBuyingCostCalculatorRoute =
   HomeBuyingCostCalculatorRouteImport.update({
     id: '/home-buying-cost-calculator',
@@ -386,6 +393,7 @@ export interface FileRoutesByFullPath {
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
   '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
   '/home-buying-cost-calculator': typeof HomeBuyingCostCalculatorRoute
+  '/house-construction-quotation': typeof HouseConstructionQuotationRoute
   '/house-design': typeof HouseDesignRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
@@ -443,6 +451,7 @@ export interface FileRoutesByTo {
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
   '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
   '/home-buying-cost-calculator': typeof HomeBuyingCostCalculatorRoute
+  '/house-construction-quotation': typeof HouseConstructionQuotationRoute
   '/house-design': typeof HouseDesignRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
@@ -502,6 +511,7 @@ export interface FileRoutesById {
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
   '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
   '/home-buying-cost-calculator': typeof HomeBuyingCostCalculatorRoute
+  '/house-construction-quotation': typeof HouseConstructionQuotationRoute
   '/house-design': typeof HouseDesignRoute
   '/indexation-calculator': typeof IndexationCalculatorRoute
   '/interior-restyle': typeof InteriorRestyleRoute
@@ -562,6 +572,7 @@ export interface FileRouteTypes {
     | '/ghmc-property-tax-calculator'
     | '/ghmc-property-tax-search-by-house-number'
     | '/home-buying-cost-calculator'
+    | '/house-construction-quotation'
     | '/house-design'
     | '/indexation-calculator'
     | '/interior-restyle'
@@ -619,6 +630,7 @@ export interface FileRouteTypes {
     | '/ghmc-property-tax-calculator'
     | '/ghmc-property-tax-search-by-house-number'
     | '/home-buying-cost-calculator'
+    | '/house-construction-quotation'
     | '/house-design'
     | '/indexation-calculator'
     | '/interior-restyle'
@@ -677,6 +689,7 @@ export interface FileRouteTypes {
     | '/ghmc-property-tax-calculator'
     | '/ghmc-property-tax-search-by-house-number'
     | '/home-buying-cost-calculator'
+    | '/house-construction-quotation'
     | '/house-design'
     | '/indexation-calculator'
     | '/interior-restyle'
@@ -736,6 +749,7 @@ export interface RootRouteChildren {
   GhmcPropertyTaxCalculatorRoute: typeof GhmcPropertyTaxCalculatorRoute
   GhmcPropertyTaxSearchByHouseNumberRoute: typeof GhmcPropertyTaxSearchByHouseNumberRoute
   HomeBuyingCostCalculatorRoute: typeof HomeBuyingCostCalculatorRoute
+  HouseConstructionQuotationRoute: typeof HouseConstructionQuotationRoute
   HouseDesignRoute: typeof HouseDesignRoute
   IndexationCalculatorRoute: typeof IndexationCalculatorRoute
   InteriorRestyleRoute: typeof InteriorRestyleRoute
@@ -943,6 +957,13 @@ declare module '@tanstack/react-router' {
       path: '/house-design'
       fullPath: '/house-design'
       preLoaderRoute: typeof HouseDesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/house-construction-quotation': {
+      id: '/house-construction-quotation'
+      path: '/house-construction-quotation'
+      fullPath: '/house-construction-quotation'
+      preLoaderRoute: typeof HouseConstructionQuotationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home-buying-cost-calculator': {
@@ -1203,6 +1224,7 @@ const rootRouteChildren: RootRouteChildren = {
   GhmcPropertyTaxSearchByHouseNumberRoute:
     GhmcPropertyTaxSearchByHouseNumberRoute,
   HomeBuyingCostCalculatorRoute: HomeBuyingCostCalculatorRoute,
+  HouseConstructionQuotationRoute: HouseConstructionQuotationRoute,
   HouseDesignRoute: HouseDesignRoute,
   IndexationCalculatorRoute: IndexationCalculatorRoute,
   InteriorRestyleRoute: InteriorRestyleRoute,

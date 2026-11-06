@@ -50,6 +50,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Bricks, cement, sand and steel worked out for walls, plaster and a slab.',
   },
   '/civil-work-quotation-format': {
+    to: '/house-construction-quotation',
+    title: 'Quoting a whole house? Make a stage-wise quotation',
+    description: 'Foundation to handover per sq ft, with a stage-wise payment schedule.',
+  },
+  '/house-construction-quotation': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',
