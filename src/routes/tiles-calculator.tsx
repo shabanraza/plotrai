@@ -1,3 +1,4 @@
+import { TilesIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
 import {
@@ -49,6 +50,7 @@ function TilesCalculatorPage() {
 
   return (
     <QuantityToolPage
+      illustration={<TilesIllustration />}
       content={TILES_CONTENT}
       headline={
         result.tiles > 0
