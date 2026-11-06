@@ -22,6 +22,7 @@ import { Route as PropertyBuyerGuideRouteImport } from './routes/property-buyer-
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as PlotConverterRouteImport } from './routes/plot-converter'
 import { Route as PlasterCalculatorRouteImport } from './routes/plaster-calculator'
+import { Route as PaintingQuotationFormatRouteImport } from './routes/painting-quotation-format'
 import { Route as PaintCalculatorRouteImport } from './routes/paint-calculator'
 import { Route as McdPropertyTaxCalculatorRouteImport } from './routes/mcd-property-tax-calculator'
 import { Route as McdPropertyTaxCaNumberRouteImport } from './routes/mcd-property-tax-ca-number'
@@ -125,6 +126,11 @@ const PlotConverterRoute = PlotConverterRouteImport.update({
 const PlasterCalculatorRoute = PlasterCalculatorRouteImport.update({
   id: '/plaster-calculator',
   path: '/plaster-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PaintingQuotationFormatRoute = PaintingQuotationFormatRouteImport.update({
+  id: '/painting-quotation-format',
+  path: '/painting-quotation-format',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaintCalculatorRoute = PaintCalculatorRouteImport.update({
@@ -352,6 +358,7 @@ export interface FileRoutesByFullPath {
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
   '/paint-calculator': typeof PaintCalculatorRoute
+  '/painting-quotation-format': typeof PaintingQuotationFormatRoute
   '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -403,6 +410,7 @@ export interface FileRoutesByTo {
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
   '/paint-calculator': typeof PaintCalculatorRoute
+  '/painting-quotation-format': typeof PaintingQuotationFormatRoute
   '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -456,6 +464,7 @@ export interface FileRoutesById {
   '/mcd-property-tax-ca-number': typeof McdPropertyTaxCaNumberRoute
   '/mcd-property-tax-calculator': typeof McdPropertyTaxCalculatorRoute
   '/paint-calculator': typeof PaintCalculatorRoute
+  '/painting-quotation-format': typeof PaintingQuotationFormatRoute
   '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
@@ -510,6 +519,7 @@ export interface FileRouteTypes {
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
     | '/paint-calculator'
+    | '/painting-quotation-format'
     | '/plaster-calculator'
     | '/plot-converter'
     | '/privacy-policy'
@@ -561,6 +571,7 @@ export interface FileRouteTypes {
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
     | '/paint-calculator'
+    | '/painting-quotation-format'
     | '/plaster-calculator'
     | '/plot-converter'
     | '/privacy-policy'
@@ -613,6 +624,7 @@ export interface FileRouteTypes {
     | '/mcd-property-tax-ca-number'
     | '/mcd-property-tax-calculator'
     | '/paint-calculator'
+    | '/painting-quotation-format'
     | '/plaster-calculator'
     | '/plot-converter'
     | '/privacy-policy'
@@ -666,6 +678,7 @@ export interface RootRouteChildren {
   McdPropertyTaxCaNumberRoute: typeof McdPropertyTaxCaNumberRoute
   McdPropertyTaxCalculatorRoute: typeof McdPropertyTaxCalculatorRoute
   PaintCalculatorRoute: typeof PaintCalculatorRoute
+  PaintingQuotationFormatRoute: typeof PaintingQuotationFormatRoute
   PlasterCalculatorRoute: typeof PlasterCalculatorRoute
   PlotConverterRoute: typeof PlotConverterRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
@@ -777,6 +790,13 @@ declare module '@tanstack/react-router' {
       path: '/plaster-calculator'
       fullPath: '/plaster-calculator'
       preLoaderRoute: typeof PlasterCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/painting-quotation-format': {
+      id: '/painting-quotation-format'
+      path: '/painting-quotation-format'
+      fullPath: '/painting-quotation-format'
+      preLoaderRoute: typeof PaintingQuotationFormatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/paint-calculator': {
@@ -1085,6 +1105,7 @@ const rootRouteChildren: RootRouteChildren = {
   McdPropertyTaxCaNumberRoute: McdPropertyTaxCaNumberRoute,
   McdPropertyTaxCalculatorRoute: McdPropertyTaxCalculatorRoute,
   PaintCalculatorRoute: PaintCalculatorRoute,
+  PaintingQuotationFormatRoute: PaintingQuotationFormatRoute,
   PlasterCalculatorRoute: PlasterCalculatorRoute,
   PlotConverterRoute: PlotConverterRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,

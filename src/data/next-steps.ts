@@ -20,6 +20,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Litres of paint and kg of putty for the plastered area.',
   },
   '/paint-calculator': {
+    to: '/painting-quotation-format',
+    title: 'Turn this into a painting quotation',
+    description: 'Add your rates for material and labour and download the quote as a PDF.',
+  },
+  '/painting-quotation-format': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',

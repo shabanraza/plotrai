@@ -30,12 +30,12 @@ const IS_1786 = {
   label: 'IS 1786:2008 High strength deformed steel bars (BIS)',
   url: 'https://law.resource.org/pub/in/bis/S03/is.1786.2008.pdf',
 }
-const APCOLITE = {
+export const APCOLITE = {
   label:
     'Asian Paints Apcolite Premium Emulsion data sheet (8.4 m² per litre per coat at 50 µm)',
   url: 'https://static.asianpaints.com/content/dam/ap-qatar-revamp/products/interior/product-information-sheets/APCOLITE-PREMIUM-EMULSION-R.pdf',
 }
-const BIRLA_PUTTY = {
+export const BIRLA_PUTTY = {
   label: 'Birla White WallCare Putty (1.86–2.04 m² per kg)',
   url: 'https://www.birlawhite.com/wallcare-putty',
 }
