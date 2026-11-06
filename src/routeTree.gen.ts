@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WorkOrderFormatRouteImport } from './routes/work-order-format'
 import { Route as VastuCheckerRouteImport } from './routes/vastu-checker'
 import { Route as TilesWorkQuotationFormatRouteImport } from './routes/tiles-work-quotation-format'
 import { Route as TilesCalculatorRouteImport } from './routes/tiles-calculator'
@@ -69,6 +70,11 @@ import { Route as ConstructionCostCityRouteImport } from './routes/construction-
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 
+const WorkOrderFormatRoute = WorkOrderFormatRouteImport.update({
+  id: '/work-order-format',
+  path: '/work-order-format',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VastuCheckerRoute = VastuCheckerRouteImport.update({
   id: '/vastu-checker',
   path: '/vastu-checker',
@@ -435,6 +441,7 @@ export interface FileRoutesByFullPath {
   '/tiles-calculator': typeof TilesCalculatorRoute
   '/tiles-work-quotation-format': typeof TilesWorkQuotationFormatRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/work-order-format': typeof WorkOrderFormatRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
@@ -495,6 +502,7 @@ export interface FileRoutesByTo {
   '/tiles-calculator': typeof TilesCalculatorRoute
   '/tiles-work-quotation-format': typeof TilesWorkQuotationFormatRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/work-order-format': typeof WorkOrderFormatRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
@@ -557,6 +565,7 @@ export interface FileRoutesById {
   '/tiles-calculator': typeof TilesCalculatorRoute
   '/tiles-work-quotation-format': typeof TilesWorkQuotationFormatRoute
   '/vastu-checker': typeof VastuCheckerRoute
+  '/work-order-format': typeof WorkOrderFormatRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/construction-cost/$city': typeof ConstructionCostCityRoute
@@ -620,6 +629,7 @@ export interface FileRouteTypes {
     | '/tiles-calculator'
     | '/tiles-work-quotation-format'
     | '/vastu-checker'
+    | '/work-order-format'
     | '/api/chat'
     | '/blog/$slug'
     | '/construction-cost/$city'
@@ -680,6 +690,7 @@ export interface FileRouteTypes {
     | '/tiles-calculator'
     | '/tiles-work-quotation-format'
     | '/vastu-checker'
+    | '/work-order-format'
     | '/api/chat'
     | '/blog/$slug'
     | '/construction-cost/$city'
@@ -741,6 +752,7 @@ export interface FileRouteTypes {
     | '/tiles-calculator'
     | '/tiles-work-quotation-format'
     | '/vastu-checker'
+    | '/work-order-format'
     | '/api/chat'
     | '/blog/$slug'
     | '/construction-cost/$city'
@@ -803,6 +815,7 @@ export interface RootRouteChildren {
   TilesCalculatorRoute: typeof TilesCalculatorRoute
   TilesWorkQuotationFormatRoute: typeof TilesWorkQuotationFormatRoute
   VastuCheckerRoute: typeof VastuCheckerRoute
+  WorkOrderFormatRoute: typeof WorkOrderFormatRoute
   ApiChatRoute: typeof ApiChatRoute
   ConstructionCostCityRoute: typeof ConstructionCostCityRoute
   ConvertPairRoute: typeof ConvertPairRoute
@@ -812,6 +825,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/work-order-format': {
+      id: '/work-order-format'
+      path: '/work-order-format'
+      fullPath: '/work-order-format'
+      preLoaderRoute: typeof WorkOrderFormatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vastu-checker': {
       id: '/vastu-checker'
       path: '/vastu-checker'
@@ -1294,6 +1314,7 @@ const rootRouteChildren: RootRouteChildren = {
   TilesCalculatorRoute: TilesCalculatorRoute,
   TilesWorkQuotationFormatRoute: TilesWorkQuotationFormatRoute,
   VastuCheckerRoute: VastuCheckerRoute,
+  WorkOrderFormatRoute: WorkOrderFormatRoute,
   ApiChatRoute: ApiChatRoute,
   ConstructionCostCityRoute: ConstructionCostCityRoute,
   ConvertPairRoute: ConvertPairRoute,

@@ -71,6 +71,9 @@ interface TradeQuotePageProps {
   /** "Quotation" or "Work order"; used in labels and the file name */
   docKind?: string
   partyLabels?: { from: string; to: string }
+  /** Labels for the issuer and recipient name fields */
+  nameLabels?: { from: string; to: string }
+  addressLabel?: string
   /** Extra free-text blocks printed under the parties, e.g. scope of work */
   extraFields?: ReadonlyArray<ExtraField>
   defaultTerms?: { advance: string; validity: string; exclusions: string }
@@ -102,6 +105,8 @@ export function TradeQuotePage({
   lineItemsLabel = 'Line items',
   docKind = 'quotation',
   partyLabels = { from: 'Your details', to: 'Client and quote' },
+  nameLabels = { from: 'Business or contractor name', to: 'Client name' },
+  addressLabel = 'Site address',
   extraFields = [],
   defaultTerms = DEFAULT_TERMS,
   extraActions,
@@ -218,7 +223,7 @@ export function TradeQuotePage({
       <div className="flex flex-col gap-12">
         <ToolSection label={partyLabels.from}>
           <FieldGroup className="grid gap-4 sm:grid-cols-3">
-            <TextField id="tq-biz" label="Business or contractor name" value={business.name} onChange={(v) => setBusiness({ ...business, name: v })} />
+            <TextField id="tq-biz" label={nameLabels.from} value={business.name} onChange={(v) => setBusiness({ ...business, name: v })} />
             <TextField id="tq-phone" label="Phone" type="tel" value={business.phone} onChange={(v) => setBusiness({ ...business, phone: v })} />
             <TextField id="tq-gstin" label="GSTIN (optional)" value={business.gstin} onChange={(v) => setBusiness({ ...business, gstin: v.toUpperCase() })} />
           </FieldGroup>
@@ -226,9 +231,9 @@ export function TradeQuotePage({
 
         <ToolSection label={partyLabels.to}>
           <FieldGroup className="grid gap-4 sm:grid-cols-2">
-            <TextField id="tq-client" label="Client name" value={client.name} onChange={(v) => setClient({ ...client, name: v })} />
+            <TextField id="tq-client" label={nameLabels.to} value={client.name} onChange={(v) => setClient({ ...client, name: v })} />
             <Field>
-              <FieldLabel htmlFor="tq-address">Site address</FieldLabel>
+              <FieldLabel htmlFor="tq-address">{addressLabel}</FieldLabel>
               <Textarea id="tq-address" rows={2} value={client.address} onChange={(e) => setClient({ ...client, address: e.target.value })} />
             </Field>
             <TextField id="tq-no" label={noLabel} value={quoteNo} onChange={setQuoteNo} />

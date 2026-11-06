@@ -60,6 +60,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Cement, sand, aggregate, bricks and steel from your elements, as PDF or Excel.',
   },
   '/boq-format-residential-building': {
+    to: '/work-order-format',
+    title: 'Ready to award the work? Issue a work order',
+    description: 'Scope, item rates, payment stages and terms, as a PDF.',
+  },
+  '/work-order-format': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',
