@@ -20,6 +20,16 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Litres of paint and kg of putty for the plastered area.',
   },
   '/paint-calculator': {
+    to: '/painting-quotation-format',
+    title: 'Turn this into a painting quotation',
+    description: 'Add your rates for material and labour and download the quote as a PDF.',
+  },
+  '/painting-quotation-format': {
+    to: '/tiles-work-quotation-format',
+    title: 'Quoting floor tiles too? Make a tiles quotation',
+    description: 'Same format for tile fixing, with tiles and skirting worked out from room sizes.',
+  },
+  '/tiles-work-quotation-format': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',
