@@ -39,6 +39,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     title: 'Building a new house? Budget the whole build',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',
   },
+  '/home-interior-cost-calculator': {
+    to: '/home-buying-cost-calculator',
+    title: 'Buying the flat too? Add stamp duty, GST and EMI',
+    description: 'The home buying cost calculator adds every cost on top of the property price.',
+  },
   '/stamp-duty-calculator': {
     to: '/home-buying-cost-calculator',
     title: 'Add GST, the down payment and your EMI',
