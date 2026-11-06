@@ -7,7 +7,9 @@ import {
   buildUnitPageFaqs,
   convertForPage,
   pageFactor,
+  pageTitle,
 } from '#/data/land-unit-pages'
+import { convertLandArea } from '#/lib/plot-units'
 
 function page(slug: string) {
   const p = LAND_UNIT_PAGE_BY_SLUG.get(slug)
@@ -40,5 +42,34 @@ describe('land unit pages', () => {
       if (p.basis === 'convention') expect(p.variants?.length).toBeGreaterThan(0)
       for (const v of p.variants ?? []) expect(v.source.url).toMatch(/^https:\/\//)
     }
+  })
+
+  it('converts the new exact and acre-fraction pairs', () => {
+    expect(pageFactor(page('sq-ft-to-sq-m'))).toBeCloseTo(0.0929, 4)
+    expect(pageFactor(page('sq-ft-to-acre'))).toBeCloseTo(1 / 43560, 10)
+    expect(pageFactor(page('gaj-to-sq-m'))).toBeCloseTo(0.8361, 4)
+    expect(convertForPage(page('sq-ft-to-cent'), 4356)).toBeCloseTo(10, 10)
+  })
+
+  it('keeps UP bigha, biswa and gaj consistent', () => {
+    expect(pageFactor(page('bigha-to-gaj'))).toBe(3000)
+    expect(convertForPage(page('gaj-to-bigha'), 3000)).toBe(1)
+    expect(pageFactor(page('bigha-to-biswa'))).toBe(20)
+    expect(pageFactor(page('biswa-to-sq-ft'))).toBe(1350)
+    expect(convertForPage(page('gaj-to-biswa'), 150)).toBe(1)
+    expect(pageFactor(page('bigha-to-hectare'))).toBeCloseTo(0.2508, 4)
+  })
+
+  it('uses the cited state bigha sizes and names the state in the title', () => {
+    expect(pageFactor(page('bigha-to-sq-ft-bihar'))).toBe(27220)
+    expect(pageFactor(page('bigha-to-sq-ft-rajasthan'))).toBe(27225)
+    expect(pageFactor(page('bigha-to-sq-ft-west-bengal'))).toBe(14400)
+    expect(pageTitle(page('bigha-to-sq-ft-bihar'))).toBe('Bigha to Sq ft in Bihar')
+    expect(convertLandArea(1, 'bigha_bihar', 'katha_bihar')).toBe(20)
+  })
+
+  it('gives every page a distinct title', () => {
+    const titles = LAND_UNIT_PAGES.map(pageTitle)
+    expect(new Set(titles).size).toBe(titles.length)
   })
 })

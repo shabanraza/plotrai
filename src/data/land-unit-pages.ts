@@ -41,9 +41,13 @@ export interface UnitPairPage {
   basisNote: string
   intro: string
   variants?: ReadonlyArray<UnitVariant>
+  /** State-specific page: put the qualifier in the title and H1 ("Bigha to sq ft in Bihar"). */
+  stateInTitle?: boolean
+  /** The unit whose size varies by state, when it is the `to` unit ("gaj to bigha"). */
+  variantUnit?: string
 }
 
-export const LAND_UNIT_PAGES_LAST_REVIEWED = '2026-11-02'
+export const LAND_UNIT_PAGES_LAST_REVIEWED = '2026-11-06'
 
 const BIGHA_VARIANTS: ReadonlyArray<UnitVariant> = [
   {
@@ -90,6 +94,24 @@ const BIGHA_VARIANTS: ReadonlyArray<UnitVariant> = [
     },
   },
 ]
+
+/** Biswa is 1/20 of the local bigha in UP, Rajasthan and Bihar usage, so it varies with it. */
+const BISWA_SOURCE: SourceRef = {
+  label: 'Bajaj Finserv (1 bigha = 20 biswa)',
+  url: 'https://www.bajajfinserv.in/bigha-to-biswa',
+}
+
+const BISWA_VARIANTS: ReadonlyArray<UnitVariant> = BIGHA_VARIANTS.filter((v) =>
+  /Uttar Pradesh|Bihar|Rajasthan/.test(v.region),
+).map((v) => ({
+  region: v.region,
+  sqft: v.sqft / 20,
+  note: `1/20 of a ${v.sqft.toLocaleString('en-IN')} sq ft bigha.`,
+  source: BISWA_SOURCE,
+}))
+
+const BIGHA_UP_NOTE =
+  'Uses the common UP bigha of 27,000 sq ft. Bigha has no single national size, so check the state table and confirm the size used on your khatauni or sale deed.'
 
 const ACRE_FRACTION_NOTE = (fraction: string) =>
   `Fixed as ${fraction} of an acre (1 acre = 43,560 sq ft) in revenue usage, so the value is exact.`
@@ -245,6 +267,205 @@ export const LAND_UNIT_PAGES: ReadonlyArray<UnitPairPage> = [
       'Farmland is often sold in bigha but financed and valued in acres. Because bigha size varies by state, the acre figure depends on where the land is.',
     variants: BIGHA_VARIANTS,
   },
+  // Exact and acre-fraction pairs
+  {
+    slug: 'sq-ft-to-sq-m',
+    from: 'sqft',
+    to: 'sqm',
+    fromShort: 'sq ft',
+    toShort: 'sq m',
+    commonValues: [100, 500, 1000, 1200, 1500, 2000, 2400],
+    basis: 'exact',
+    basisNote: '1 square foot is about 0.0929 square metres (1 ft = 0.3048 m).',
+    intro:
+      'Flats are sold in square feet, but RERA registrations, sale deeds and building plans often use square metres. Divide square feet by 10.764 to get square metres.',
+  },
+  {
+    slug: 'sq-ft-to-acre',
+    from: 'sqft',
+    to: 'acre',
+    fromShort: 'sq ft',
+    toShort: 'acre',
+    commonValues: [1000, 5000, 10000, 21780, 43560, 100000],
+    basis: 'exact',
+    basisNote: '1 acre is exactly 43,560 square feet.',
+    intro:
+      'Plot layouts and farmhouse plots are often measured in square feet but priced per acre. Divide square feet by 43,560 to get acres.',
+  },
+  {
+    slug: 'gaj-to-sq-m',
+    from: 'sqyd',
+    to: 'sqm',
+    fromShort: 'gaj',
+    toShort: 'sq m',
+    commonValues: [50, 100, 150, 200, 250, 300, 500],
+    basis: 'exact',
+    basisNote: '1 gaj (square yard) is about 0.8361 square metres.',
+    intro:
+      'Plots in North India are quoted in gaj, while development authority maps and building byelaws use square metres. Multiply gaj by 0.836 to get square metres.',
+  },
+  {
+    slug: 'sq-ft-to-cent',
+    from: 'sqft',
+    to: 'cent',
+    fromShort: 'sq ft',
+    toShort: 'cent',
+    commonValues: [500, 1000, 1500, 2000, 2400, 4356, 5000],
+    basis: 'definition',
+    basisNote: ACRE_FRACTION_NOTE('1/100'),
+    intro:
+      'In Kerala and Tamil Nadu, land is sold in cents while houses are planned in square feet. 1 cent = 435.6 sq ft, so divide square feet by 435.6.',
+  },
+  // UP bigha and biswa pairs
+  {
+    slug: 'sq-ft-to-bigha',
+    variantUnit: 'bigha',
+    from: 'sqft',
+    to: 'bigha_uttar',
+    fromShort: 'sq ft',
+    toShort: 'bigha',
+    commonValues: [1000, 5000, 10000, 13500, 27000, 54000],
+    basis: 'convention',
+    basisNote: BIGHA_UP_NOTE,
+    intro:
+      'In Uttar Pradesh a pucca bigha is commonly taken as 27,000 sq ft, so divide square feet by 27,000. The size differs in other states and some UP districts.',
+    variants: BIGHA_VARIANTS,
+  },
+  {
+    slug: 'bigha-to-gaj',
+    from: 'bigha_uttar',
+    to: 'sqyd',
+    fromShort: 'bigha',
+    toShort: 'gaj',
+    fromQualifier: 'UP',
+    commonValues: [0.5, 1, 2, 5, 10],
+    basis: 'convention',
+    basisNote: BIGHA_UP_NOTE,
+    intro:
+      'When farmland is cut into residential plots in UP, bigha are converted into gaj. A 27,000 sq ft UP bigha is 3,000 gaj.',
+    variants: BIGHA_VARIANTS,
+  },
+  {
+    slug: 'gaj-to-bigha',
+    variantUnit: 'bigha',
+    from: 'sqyd',
+    to: 'bigha_uttar',
+    fromShort: 'gaj',
+    toShort: 'bigha',
+    commonValues: [100, 500, 1000, 1500, 3000, 6000],
+    basis: 'convention',
+    basisNote: BIGHA_UP_NOTE,
+    intro:
+      'Plot buyers in UP often need to know what share of a bigha their gaj plot is. With a 27,000 sq ft bigha, 3,000 gaj make 1 bigha.',
+    variants: BIGHA_VARIANTS,
+  },
+  {
+    slug: 'bigha-to-hectare',
+    from: 'bigha_uttar',
+    to: 'hectare',
+    fromShort: 'bigha',
+    toShort: 'hectare',
+    fromQualifier: 'UP',
+    commonValues: [1, 2, 5, 10, 20],
+    basis: 'convention',
+    basisNote: BIGHA_UP_NOTE,
+    intro:
+      'Revenue records and government schemes use hectares, while sellers quote bigha. A 27,000 sq ft UP bigha is about 0.25 hectare.',
+    variants: BIGHA_VARIANTS,
+  },
+  {
+    slug: 'bigha-to-biswa',
+    from: 'bigha_uttar',
+    to: 'biswa_uttar',
+    fromShort: 'bigha',
+    toShort: 'biswa',
+    commonValues: [0.25, 0.5, 1, 2, 5, 10],
+    basis: 'convention',
+    basisNote:
+      '1 bigha = 20 biswa wherever biswa is used, so this ratio holds whatever the local bigha size is.',
+    intro:
+      'Biswa is the smaller unit used with bigha in UP, Rajasthan and Haryana. 20 biswa make a bigha, and 20 biswansi make a biswa.',
+    variants: BISWA_VARIANTS,
+  },
+  {
+    slug: 'biswa-to-sq-ft',
+    from: 'biswa_uttar',
+    to: 'sqft',
+    fromShort: 'biswa',
+    toShort: 'sq ft',
+    fromQualifier: 'UP',
+    commonValues: [1, 2, 5, 10, 15, 20],
+    basis: 'convention',
+    basisNote:
+      'Uses 1/20 of the common 27,000 sq ft UP bigha. Biswa follows the local bigha, so check the state table and your land record.',
+    intro:
+      'Small plots in UP villages and peri-urban areas are often sold in biswa. With a 27,000 sq ft bigha, 1 biswa is 1,350 sq ft.',
+    variants: BISWA_VARIANTS,
+  },
+  {
+    slug: 'gaj-to-biswa',
+    variantUnit: 'biswa',
+    from: 'sqyd',
+    to: 'biswa_uttar',
+    fromShort: 'gaj',
+    toShort: 'biswa',
+    commonValues: [50, 100, 150, 200, 500, 1000],
+    basis: 'convention',
+    basisNote:
+      'Uses a UP biswa of 1,350 sq ft (1/20 of a 27,000 sq ft bigha), which is 150 gaj.',
+    intro:
+      'Plot dealers in UP often quote gaj for land that the khatauni records in biswa. 150 gaj make 1 biswa on the common UP bigha.',
+    variants: BISWA_VARIANTS,
+  },
+  // State bigha pages
+  {
+    slug: 'bigha-to-sq-ft-bihar',
+    from: 'bigha_bihar',
+    to: 'sqft',
+    fromShort: 'bigha',
+    toShort: 'sq ft',
+    fromQualifier: 'Bihar',
+    stateInTitle: true,
+    commonValues: [0.5, 1, 2, 5, 10],
+    basis: 'convention',
+    basisNote:
+      'Uses 27,220 sq ft, the commonly cited Bihar bigha of 20 katha. Some districts differ, so confirm the size on your khatiyan or sale deed.',
+    intro:
+      'In Bihar, 1 bigha = 20 katha and 1 katha = 20 dhur. The commonly cited bigha is about 27,220 sq ft, though katha size changes between districts.',
+    variants: BIGHA_VARIANTS,
+  },
+  {
+    slug: 'bigha-to-sq-ft-rajasthan',
+    from: 'bigha_rajasthan',
+    to: 'sqft',
+    fromShort: 'bigha',
+    toShort: 'sq ft',
+    fromQualifier: 'Rajasthan',
+    stateInTitle: true,
+    commonValues: [0.5, 1, 2, 5, 10],
+    basis: 'convention',
+    basisNote:
+      'Uses the pucca bigha of 27,225 sq ft (165 × 165 ft). A kachha bigha is 17,424 sq ft, so confirm which one your jamabandi uses.',
+    intro:
+      'Rajasthan uses two bighas: the pucca bigha of 27,225 sq ft (165 ft × 165 ft) and the smaller kachha bigha of 17,424 sq ft. Each has 20 biswa.',
+    variants: BIGHA_VARIANTS,
+  },
+  {
+    slug: 'bigha-to-sq-ft-west-bengal',
+    from: 'bigha_west_bengal',
+    to: 'sqft',
+    fromShort: 'bigha',
+    toShort: 'sq ft',
+    fromQualifier: 'West Bengal',
+    stateInTitle: true,
+    commonValues: [0.5, 1, 2, 5, 10],
+    basis: 'convention',
+    basisNote:
+      'Uses 14,400 sq ft: 20 katha of 720 sq ft each. Confirm the area on your khatian or sale deed.',
+    intro:
+      'West Bengal’s bigha is about half the size of the UP or Rajasthan bigha. 1 bigha = 20 katha, and 1 katha = 720 sq ft, so 1 bigha = 14,400 sq ft.',
+    variants: BIGHA_VARIANTS,
+  },
 ]
 
 export const LAND_UNIT_PAGE_BY_SLUG = new Map(
@@ -273,8 +494,14 @@ export function qualifiedUnit(page: UnitPairPage, amount: number | string) {
   return `${amount} ${page.fromShort}${page.fromQualifier ? ` (${page.fromQualifier})` : ''}`
 }
 
+/** Name of the unit whose size the state table shows. */
+export function variantUnit(page: UnitPairPage) {
+  return page.variantUnit ?? page.fromShort
+}
+
 export function pageTitle(page: UnitPairPage) {
-  return `${capitalize(page.fromShort)} to ${capitalize(page.toShort)}`
+  const base = `${capitalize(page.fromShort)} to ${capitalize(page.toShort)}`
+  return page.stateInTitle && page.fromQualifier ? `${base} in ${page.fromQualifier}` : base
 }
 
 export function buildUnitPageFaqs(page: UnitPairPage): ReadonlyArray<FaqItem> {
@@ -296,7 +523,7 @@ export function buildUnitPageFaqs(page: UnitPairPage): ReadonlyArray<FaqItem> {
   ]
   if (page.variants) {
     faqs.push({
-      q: `Is 1 ${page.fromShort} the same size in every state?`,
+      q: `Is 1 ${variantUnit(page)} the same size in every state?`,
       a: `No. ${page.variants.map((v) => `${v.region}: ${v.sqft.toLocaleString('en-IN')} sq ft`).join('; ')}. Always confirm the size used on your land record.`,
     })
   }
