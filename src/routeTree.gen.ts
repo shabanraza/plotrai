@@ -49,6 +49,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ConstructionMaterialsRouteImport } from './routes/construction-materials'
 import { Route as ConstructionCostCalculatorRouteImport } from './routes/construction-cost-calculator'
 import { Route as ConcreteCalculatorRouteImport } from './routes/concrete-calculator'
+import { Route as CivilWorkQuotationFormatRouteImport } from './routes/civil-work-quotation-format'
 import { Route as CementSandAggregateCalculatorRouteImport } from './routes/cement-sand-aggregate-calculator'
 import { Route as BuyRouteImport } from './routes/buy'
 import { Route as BuildRouteImport } from './routes/build'
@@ -278,6 +279,12 @@ const ConcreteCalculatorRoute = ConcreteCalculatorRouteImport.update({
   path: '/concrete-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CivilWorkQuotationFormatRoute =
+  CivilWorkQuotationFormatRouteImport.update({
+    id: '/civil-work-quotation-format',
+    path: '/civil-work-quotation-format',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const CementSandAggregateCalculatorRoute =
   CementSandAggregateCalculatorRouteImport.update({
     id: '/cement-sand-aggregate-calculator',
@@ -371,6 +378,7 @@ export interface FileRoutesByFullPath {
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
+  '/civil-work-quotation-format': typeof CivilWorkQuotationFormatRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
@@ -428,6 +436,7 @@ export interface FileRoutesByTo {
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
+  '/civil-work-quotation-format': typeof CivilWorkQuotationFormatRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
@@ -487,6 +496,7 @@ export interface FileRoutesById {
   '/build': typeof BuildRoute
   '/buy': typeof BuyRoute
   '/cement-sand-aggregate-calculator': typeof CementSandAggregateCalculatorRoute
+  '/civil-work-quotation-format': typeof CivilWorkQuotationFormatRoute
   '/concrete-calculator': typeof ConcreteCalculatorRoute
   '/construction-cost-calculator': typeof ConstructionCostCalculatorRoute
   '/construction-materials': typeof ConstructionMaterialsRoute
@@ -547,6 +557,7 @@ export interface FileRouteTypes {
     | '/build'
     | '/buy'
     | '/cement-sand-aggregate-calculator'
+    | '/civil-work-quotation-format'
     | '/concrete-calculator'
     | '/construction-cost-calculator'
     | '/construction-materials'
@@ -604,6 +615,7 @@ export interface FileRouteTypes {
     | '/build'
     | '/buy'
     | '/cement-sand-aggregate-calculator'
+    | '/civil-work-quotation-format'
     | '/concrete-calculator'
     | '/construction-cost-calculator'
     | '/construction-materials'
@@ -662,6 +674,7 @@ export interface FileRouteTypes {
     | '/build'
     | '/buy'
     | '/cement-sand-aggregate-calculator'
+    | '/civil-work-quotation-format'
     | '/concrete-calculator'
     | '/construction-cost-calculator'
     | '/construction-materials'
@@ -721,6 +734,7 @@ export interface RootRouteChildren {
   BuildRoute: typeof BuildRoute
   BuyRoute: typeof BuyRoute
   CementSandAggregateCalculatorRoute: typeof CementSandAggregateCalculatorRoute
+  CivilWorkQuotationFormatRoute: typeof CivilWorkQuotationFormatRoute
   ConcreteCalculatorRoute: typeof ConcreteCalculatorRoute
   ConstructionCostCalculatorRoute: typeof ConstructionCostCalculatorRoute
   ConstructionMaterialsRoute: typeof ConstructionMaterialsRoute
@@ -1050,6 +1064,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConcreteCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/civil-work-quotation-format': {
+      id: '/civil-work-quotation-format'
+      path: '/civil-work-quotation-format'
+      fullPath: '/civil-work-quotation-format'
+      preLoaderRoute: typeof CivilWorkQuotationFormatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/cement-sand-aggregate-calculator': {
       id: '/cement-sand-aggregate-calculator'
       path: '/cement-sand-aggregate-calculator'
@@ -1187,6 +1208,7 @@ const rootRouteChildren: RootRouteChildren = {
   BuildRoute: BuildRoute,
   BuyRoute: BuyRoute,
   CementSandAggregateCalculatorRoute: CementSandAggregateCalculatorRoute,
+  CivilWorkQuotationFormatRoute: CivilWorkQuotationFormatRoute,
   ConcreteCalculatorRoute: ConcreteCalculatorRoute,
   ConstructionCostCalculatorRoute: ConstructionCostCalculatorRoute,
   ConstructionMaterialsRoute: ConstructionMaterialsRoute,
