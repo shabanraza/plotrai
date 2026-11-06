@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import {
   Box,
+  LayoutGrid,
   Wrench,
   Zap,
   BrickWall,
@@ -119,6 +120,7 @@ export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   { title: 'Tiles work quotation format', to: '/tiles-work-quotation-format', description: 'Tile fixing quote with material and labour, as a free PDF.', hub: 'build', kind: 'tool', icon: Grid3x3, keywords: ['tiles quotation', 'tile fixing quotation', 'flooring quotation', 'tiles work quotation pdf'] },
   { title: 'Electrical quotation format', to: '/electrical-quotation-format', description: 'House wiring quote with material and labour per point, as a PDF.', hub: 'build', kind: 'tool', icon: Zap, keywords: ['electrical quotation', 'house wiring quotation', 'electrician quotation', 'wiring quotation with material'] },
   { title: 'Plumbing quotation format', to: '/plumbing-quotation-format', description: 'Plumbing quote with CPVC, PVC, fittings and labour per point.', hub: 'build', kind: 'tool', icon: Wrench, keywords: ['plumbing quotation', 'plumbing quotation list', 'plumber quotation', 'cpvc'] },
+  { title: 'False ceiling quotation format', to: '/false-ceiling-quotation-format', description: 'Gypsum, POP or PVC false ceiling quote per sq ft with material.', hub: 'build', kind: 'tool', icon: LayoutGrid, keywords: ['false ceiling quotation', 'gypsum ceiling quotation', 'pop ceiling quotation', 'false ceiling rate per sq ft'] },
   { title: 'Solar panel cost calculator', to: '/solar-panel-cost-calculator', description: 'Rooftop solar cost after the PM Surya Ghar subsidy.', hub: 'build', kind: 'tool', icon: Sun, keywords: ['pm surya ghar', 'rooftop solar', 'solar subsidy', '3kw', '5kw'] },
   // Land
   { title: 'Plot area converter', to: '/plot-converter', description: 'Every Indian land unit, region-aware.', hub: 'land', kind: 'tool', icon: Ruler, keywords: ['gaj', 'bigha', 'acre', 'marla', 'gunta', 'cent'] },

@@ -38,6 +38,7 @@ import { Route as HomeBuyingCostCalculatorRouteImport } from './routes/home-buyi
 import { Route as GhmcPropertyTaxSearchByHouseNumberRouteImport } from './routes/ghmc-property-tax-search-by-house-number'
 import { Route as GhmcPropertyTaxCalculatorRouteImport } from './routes/ghmc-property-tax-calculator'
 import { Route as FloorPlan3dRouteImport } from './routes/floor-plan-3d'
+import { Route as FalseCeilingQuotationFormatRouteImport } from './routes/false-ceiling-quotation-format'
 import { Route as EmptyRoomStagerRouteImport } from './routes/empty-room-stager'
 import { Route as ElectricalQuotationFormatRouteImport } from './routes/electrical-quotation-format'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
@@ -217,6 +218,12 @@ const FloorPlan3dRoute = FloorPlan3dRouteImport.update({
   path: '/floor-plan-3d',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FalseCeilingQuotationFormatRoute =
+  FalseCeilingQuotationFormatRouteImport.update({
+    id: '/false-ceiling-quotation-format',
+    path: '/false-ceiling-quotation-format',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EmptyRoomStagerRoute = EmptyRoomStagerRouteImport.update({
   id: '/empty-room-stager',
   path: '/empty-room-stager',
@@ -366,6 +373,7 @@ export interface FileRoutesByFullPath {
   '/disclaimer': typeof DisclaimerRoute
   '/electrical-quotation-format': typeof ElectricalQuotationFormatRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
+  '/false-ceiling-quotation-format': typeof FalseCeilingQuotationFormatRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
   '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
@@ -421,6 +429,7 @@ export interface FileRoutesByTo {
   '/disclaimer': typeof DisclaimerRoute
   '/electrical-quotation-format': typeof ElectricalQuotationFormatRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
+  '/false-ceiling-quotation-format': typeof FalseCeilingQuotationFormatRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
   '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
@@ -478,6 +487,7 @@ export interface FileRoutesById {
   '/disclaimer': typeof DisclaimerRoute
   '/electrical-quotation-format': typeof ElectricalQuotationFormatRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
+  '/false-ceiling-quotation-format': typeof FalseCeilingQuotationFormatRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
   '/ghmc-property-tax-search-by-house-number': typeof GhmcPropertyTaxSearchByHouseNumberRoute
@@ -536,6 +546,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/electrical-quotation-format'
     | '/empty-room-stager'
+    | '/false-ceiling-quotation-format'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
     | '/ghmc-property-tax-search-by-house-number'
@@ -591,6 +602,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/electrical-quotation-format'
     | '/empty-room-stager'
+    | '/false-ceiling-quotation-format'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
     | '/ghmc-property-tax-search-by-house-number'
@@ -647,6 +659,7 @@ export interface FileRouteTypes {
     | '/disclaimer'
     | '/electrical-quotation-format'
     | '/empty-room-stager'
+    | '/false-ceiling-quotation-format'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
     | '/ghmc-property-tax-search-by-house-number'
@@ -704,6 +717,7 @@ export interface RootRouteChildren {
   DisclaimerRoute: typeof DisclaimerRoute
   ElectricalQuotationFormatRoute: typeof ElectricalQuotationFormatRoute
   EmptyRoomStagerRoute: typeof EmptyRoomStagerRoute
+  FalseCeilingQuotationFormatRoute: typeof FalseCeilingQuotationFormatRoute
   FloorPlan3dRoute: typeof FloorPlan3dRoute
   GhmcPropertyTaxCalculatorRoute: typeof GhmcPropertyTaxCalculatorRoute
   GhmcPropertyTaxSearchByHouseNumberRoute: typeof GhmcPropertyTaxSearchByHouseNumberRoute
@@ -945,6 +959,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FloorPlan3dRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/false-ceiling-quotation-format': {
+      id: '/false-ceiling-quotation-format'
+      path: '/false-ceiling-quotation-format'
+      fullPath: '/false-ceiling-quotation-format'
+      preLoaderRoute: typeof FalseCeilingQuotationFormatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/empty-room-stager': {
       id: '/empty-room-stager'
       path: '/empty-room-stager'
@@ -1154,6 +1175,7 @@ const rootRouteChildren: RootRouteChildren = {
   DisclaimerRoute: DisclaimerRoute,
   ElectricalQuotationFormatRoute: ElectricalQuotationFormatRoute,
   EmptyRoomStagerRoute: EmptyRoomStagerRoute,
+  FalseCeilingQuotationFormatRoute: FalseCeilingQuotationFormatRoute,
   FloorPlan3dRoute: FloorPlan3dRoute,
   GhmcPropertyTaxCalculatorRoute: GhmcPropertyTaxCalculatorRoute,
   GhmcPropertyTaxSearchByHouseNumberRoute:
