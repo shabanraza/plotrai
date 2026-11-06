@@ -1,3 +1,4 @@
+import { RccSlabIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import {
   SpecificMaterialCalculatorPage,
@@ -7,6 +8,7 @@ import { canonicalLink, faqPageLd, softwareAppLd } from '#/lib/seo'
 import { MATERIAL_CALC_FAQS } from '#/data/tool-seo-content'
 
 const CONFIG: SpecificMaterialConfig = {
+  illustration: <RccSlabIllustration />,
   mode: 'rcc_slab',
   path: 'rcc-slab-calculator',
   title: 'RCC slab calculator',

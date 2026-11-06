@@ -1,3 +1,4 @@
+import { HouseIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
 import { Hammer } from 'lucide-react'
@@ -139,6 +140,7 @@ function ConstructionCostCalculatorPage() {
 
   return (
     <ToolPageShell
+      illustration={<HouseIllustration />}
       breadcrumb={[
         { label: 'Tools', href: '/' },
         { label: 'Construction cost calculator' },
