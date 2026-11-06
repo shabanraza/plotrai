@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react'
 import {
+  Armchair,
   Box,
   LayoutGrid,
   Wrench,
@@ -137,6 +138,7 @@ export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   { title: 'MCD CA number guide', to: '/mcd-property-tax-ca-number', description: 'Delhi CA number, UPIC and receipts.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['delhi', 'upic'] },
   { title: 'Jaipur property tax calculator', to: '/jaipur-property-tax-calculator', description: 'UD tax from plot area and DLC rate.', hub: 'tax', kind: 'tool', icon: Building2, keywords: ['jaipur', 'ud tax', 'rajasthan', 'dlc'] },
   // Design
+  { title: 'Home interior cost calculator', to: '/home-interior-cost-calculator', description: 'Item-wise interior budget for a 1–4 BHK flat.', hub: 'design', kind: 'tool', icon: Armchair, keywords: ['interior cost', 'modular kitchen', 'wardrobe', '2bhk', '3bhk', 'false ceiling'] },
   { title: 'Vastu checker', to: '/vastu-checker', description: 'Score a floor plan against 14 Vastu rules.', hub: 'design', kind: 'tool', icon: Compass },
   { title: 'Floor plan to 3D', to: '/floor-plan-3d', description: 'Turn a 2D plan into a furnished 3D render.', hub: 'design', kind: 'tool', icon: Box },
   { title: 'Interior restyle', to: '/interior-restyle', description: 'Re-render a room photo in a new style.', hub: 'design', kind: 'tool', icon: Wand2 },
