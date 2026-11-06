@@ -32,7 +32,7 @@ export async function downloadQuotationPdf(input: QuotationPdfInput): Promise<vo
   let y = 18
 
   doc.setFont('helvetica', 'bold').setFontSize(16)
-  doc.text(input.business.name || 'Contractor', left, y)
+  if (input.business.name) doc.text(input.business.name, left, y)
   doc.setFontSize(12).text(input.title, right, y, { align: 'right' })
   doc.setFont('helvetica', 'normal').setFontSize(10)
   y += 6
