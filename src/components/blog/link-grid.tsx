@@ -1,3 +1,4 @@
+import { Link } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
 import { Badge } from '#/components/ui/badge'
 import { cn } from '#/lib/utils'
@@ -28,9 +29,9 @@ export function LinkGrid({
       )}
     >
       {items.map((item) => (
-        <a
+        <Link
           key={item.to}
-          href={item.to}
+          to={item.to}
           className="group flex h-full flex-col gap-2 rounded-lg bg-[var(--muted)] px-4 py-3.5 transition-colors hover:bg-[var(--brand-light)]"
         >
           <div className="flex flex-wrap items-center gap-2">
@@ -55,7 +56,7 @@ export function LinkGrid({
             Explore
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
           </div>
-        </a>
+        </Link>
       ))}
     </div>
   )
