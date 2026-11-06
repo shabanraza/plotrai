@@ -1,3 +1,4 @@
+import { PlasterIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
 import {
@@ -57,6 +58,7 @@ function PlasterCalculatorPage() {
 
   return (
     <QuantityToolPage
+      illustration={<PlasterIllustration />}
       content={PLASTER_CONTENT}
       headline={
         result.cementBags > 0
