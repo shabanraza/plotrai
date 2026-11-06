@@ -45,6 +45,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Gypsum or POP per sq ft with material, area worked out from room sizes.',
   },
   '/false-ceiling-quotation-format': {
+    to: '/civil-work-quotation-format',
+    title: 'Next: a civil work quotation',
+    description: 'Bricks, cement, sand and steel worked out for walls, plaster and a slab.',
+  },
+  '/civil-work-quotation-format': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',
