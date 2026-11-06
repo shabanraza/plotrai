@@ -35,6 +35,11 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'House wiring quote with points, wire, DB and MCBs, labour per point.',
   },
   '/electrical-quotation-format': {
+    to: '/plumbing-quotation-format',
+    title: 'Next trade: a plumbing quotation',
+    description: 'Pipes, fittings and labour per sanitary point, from a fixture count.',
+  },
+  '/plumbing-quotation-format': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',
