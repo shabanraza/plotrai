@@ -66,7 +66,7 @@ function GuidesIndexPage() {
   const grid = showFeatured ? rest.slice(3) : visible
 
   return (
-    <main className="mx-auto w-full max-w-[1120px] px-4 pt-8 pb-16 sm:px-6 sm:pt-10">
+    <main className="mx-auto w-full max-w-6xl px-4 pt-8 pb-16 sm:px-6 sm:pt-10">
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -117,7 +117,7 @@ function GuidesIndexPage() {
           <Link
             to="/blog/$slug"
             params={{ slug: featured.slug }}
-            className="group flex min-h-[240px] flex-col justify-end gap-3 rounded-2xl bg-[var(--muted)] p-6 no-underline transition-colors hover:bg-[var(--accent-teal-light)] sm:p-8"
+            className="group flex min-h-[240px] flex-col justify-end gap-3 rounded-2xl bg-[var(--muted)] p-6 no-underline transition-colors hover:bg-[var(--brand-light)] sm:p-8"
           >
             <GuideMeta article={featured} accent />
             <h2 className="text-balance text-[1.5rem] leading-snug font-semibold text-[var(--foreground)] sm:text-[1.75rem]">
@@ -126,7 +126,7 @@ function GuidesIndexPage() {
             <p className="max-w-[56ch] text-base leading-relaxed text-[var(--foreground)]/80">
               {featured.description}
             </p>
-            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent-teal)]">
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--brand)]">
               Read the guide
               <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
             </span>
@@ -160,7 +160,7 @@ function GuidesIndexPage() {
             <Link
               key={hub.id}
               to={hubPath(hub.id)}
-              className="inline-flex min-h-10 items-center rounded-full bg-[var(--muted)] px-4 text-sm font-medium text-[var(--foreground)] no-underline transition-colors hover:bg-[var(--accent-teal-light)] hover:text-[var(--accent-teal)]"
+              className="inline-flex min-h-10 items-center rounded-full bg-[var(--muted)] px-4 text-sm font-medium text-[var(--foreground)] no-underline transition-colors hover:bg-[var(--brand-light)] hover:text-[var(--brand)]"
             >
               {hub.title}
             </Link>
@@ -176,7 +176,7 @@ function GuideMeta({ article, accent = false }: { article: BlogArticle; accent?:
     <p
       className={
         accent
-          ? 'text-sm font-medium text-[var(--accent-teal)]'
+          ? 'text-sm font-medium text-[var(--muted-foreground)]'
           : 'text-sm text-[var(--foreground)]/65'
       }
     >
@@ -199,7 +199,7 @@ function GuideTile({
       className="group flex flex-col gap-1.5 no-underline"
     >
       <GuideMeta article={article} />
-      <h3 className="text-balance text-[1.0625rem] leading-snug font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)] sm:text-lg">
+      <h3 className="text-balance text-[1.0625rem] leading-snug font-semibold text-[var(--foreground)] group-hover:text-[var(--brand)] sm:text-lg">
         {article.title}
       </h3>
       {showDescription && (

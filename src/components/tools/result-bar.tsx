@@ -50,7 +50,7 @@ export function ResultBar({ label, value, targetId }: ResultBarProps) {
         <span className="truncate text-xs text-[var(--foreground)]/75">{label}</span>
         <span className="text-xl font-semibold tabular-nums text-[var(--foreground)]">{value}</span>
       </span>
-      <span className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-[var(--accent-teal)]">
+      <span className="inline-flex shrink-0 items-center gap-1 text-sm font-medium text-[var(--brand)]">
         See breakdown
         <ChevronDown className="size-4" />
       </span>

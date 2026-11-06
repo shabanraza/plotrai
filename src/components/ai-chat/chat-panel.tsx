@@ -73,7 +73,7 @@ export function ChatPanel() {
       <SheetTrigger asChild>
         <button
           type="button"
-          className="fixed bottom-5 right-5 z-40 flex h-12 items-center gap-2 rounded-full [:root[data-result-bar=visible]_&]:bottom-24 bg-[var(--accent-teal)] px-4 text-sm font-semibold text-white shadow-lg shadow-[var(--accent-teal)]/30 transition-transform hover:scale-105 sm:bottom-7 sm:right-7"
+          className="fixed bottom-5 right-5 z-40 flex h-12 items-center gap-2 rounded-full [:root[data-result-bar=visible]_&]:bottom-24 bg-[var(--primary)] px-4 text-sm font-semibold text-[var(--primary-foreground)] transition-transform hover:scale-105 sm:bottom-7 sm:right-7"
           aria-label="Open Plotr Ai assistant"
           onClick={() => track('chat_opened')}
         >
@@ -88,7 +88,7 @@ export function ChatPanel() {
         <SheetHeader className="flex-row items-center justify-between border-b border-[var(--border)] px-5 py-4">
           <div>
             <SheetTitle className="flex items-center gap-2 text-base">
-              <Sparkles className="size-4 text-[var(--accent-teal)]" />
+              <Sparkles className="size-4 text-[var(--foreground)]" />
               Ask Plotr Ai
             </SheetTitle>
             <SheetDescription className="text-xs">
@@ -115,7 +115,7 @@ export function ChatPanel() {
                     <button
                       type="button"
                       onClick={() => void send(p)}
-                      className="w-full rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-left text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+                      className="w-full rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2 text-left text-sm text-[var(--foreground)] transition-colors hover:border-[var(--brand)]/40 hover:bg-[var(--muted)]/40"
                     >
                       {p}
                     </button>
@@ -138,7 +138,7 @@ export function ChatPanel() {
                       className={cn(
                         'rounded-md px-3 py-2 text-sm leading-relaxed',
                         m.role === 'user'
-                          ? 'bg-[var(--accent-teal-light)] text-[var(--foreground)]'
+                          ? 'bg-[var(--brand-light)] text-[var(--foreground)]'
                           : 'bg-[var(--muted)]/50 text-[var(--foreground)]',
                       )}
                     >
@@ -181,7 +181,7 @@ export function ChatPanel() {
             placeholder="Kuch bhi puchein…"
             rows={1}
             disabled={isLoading}
-            className="max-h-32 min-h-9 flex-1 resize-none rounded-md border border-[var(--input)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/60 focus:border-[var(--accent-teal)] focus:outline-none disabled:opacity-60"
+            className="max-h-32 min-h-9 flex-1 resize-none rounded-md border border-[var(--input)] bg-[var(--background)] px-3 py-2 text-sm text-[var(--foreground)] placeholder:text-[var(--muted-foreground)]/60 focus:border-[var(--brand)] focus:outline-none disabled:opacity-60"
           />
           <Button
             type="submit"

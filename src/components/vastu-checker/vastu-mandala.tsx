@@ -425,7 +425,7 @@ export function VastuMandala({
           {/* N half — teal, long */}
           <polygon
             points="180,42 172,180 188,180"
-            fill="var(--accent-teal)"
+            fill="var(--brand)"
             opacity="0.95"
           />
           {/* S half — muted tail */}
@@ -435,8 +435,8 @@ export function VastuMandala({
             opacity="0.25"
           />
           {/* Center pivot ring */}
-          <circle cx="180" cy="180" r="11" fill="var(--background)" stroke="var(--accent-teal)" strokeWidth="2.5"/>
-          <circle cx="180" cy="180" r="5" fill="var(--accent-teal)"/>
+          <circle cx="180" cy="180" r="11" fill="var(--background)" stroke="var(--brand)" strokeWidth="2.5"/>
+          <circle cx="180" cy="180" r="5" fill="var(--brand)"/>
         </g>
       </svg>
     </div>

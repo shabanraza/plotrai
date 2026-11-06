@@ -224,7 +224,7 @@ function CityConstructionPage() {
                 href={infralensUrl(infralens.slug)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[var(--accent-teal)] hover:underline"
+                className="text-[var(--brand)] hover:underline"
               >
                 InfraLens published rates
               </a>{' '}
@@ -252,7 +252,7 @@ function CityConstructionPage() {
                 key={c.slug}
                 to="/construction-cost/$city"
                 params={{ city: c.slug }}
-                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
               >
                 {c.city}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

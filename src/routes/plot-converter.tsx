@@ -93,7 +93,7 @@ const REGION_LABELS: Record<LandRegion | 'all', string> = {
 }
 
 const REGION_DOTS: Record<LandRegion, string> = {
-  'pan-india': 'bg-[var(--accent-teal)]',
+  'pan-india': 'bg-[var(--brand)]',
   north: 'bg-amber-500',
   south: 'bg-emerald-500',
   east: 'bg-sky-500',
@@ -282,7 +282,7 @@ function PlotConverterPage() {
                         </span>
                       </TableCell>
                       <TableCell className="whitespace-normal text-right">
-                        <span className="text-sm font-semibold tabular-nums tracking-tight text-[var(--accent-teal)] sm:text-base">
+                        <span className="text-sm font-semibold tabular-nums tracking-tight text-[var(--foreground)] sm:text-base">
                           {format(v)}
                         </span>
                       </TableCell>
@@ -307,7 +307,7 @@ function PlotConverterPage() {
                 key={p.slug}
                 to="/convert/$pair"
                 params={{ pair: p.slug }}
-                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
               >
                 {pageTitle(p)}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

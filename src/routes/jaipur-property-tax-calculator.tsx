@@ -184,7 +184,7 @@ function JaipurPropertyTaxPage() {
                   href="https://epanjiyan.rajasthan.gov.in"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[var(--accent-teal)] hover:underline"
+                  className="text-[var(--brand)] hover:underline"
                 >
                   e-Panjiyan
                 </a>
@@ -226,11 +226,11 @@ function JaipurPropertyTaxPage() {
             </Alert>
           ) : (
             <>
-              <div className="mb-6 rounded-xl bg-[var(--accent-teal-light)] p-5">
-                <p className="text-sm text-[var(--accent-teal)]">
+              <div className="mb-6 rounded-xl bg-[var(--muted)] p-5">
+                <p className="text-sm text-[var(--muted-foreground)]">
                   Payable this year
                 </p>
-                <p className="mt-1 text-3xl font-bold tabular-nums text-[var(--accent-teal)]">
+                <p className="mt-1 text-3xl font-bold tabular-nums text-[var(--brand)]">
                   ₹{formatINR(result.payable)}
                 </p>
                 <p className="mt-1 text-sm text-[var(--muted-foreground)]">
@@ -251,7 +251,7 @@ function JaipurPropertyTaxPage() {
                 <TableFooter>
                   <TableRow>
                     <TableCell className="py-3.5 font-semibold">Payable</TableCell>
-                    <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
+                    <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--foreground)]">
                       ₹{formatINR(result.payable)}
                     </TableCell>
                   </TableRow>
@@ -273,7 +273,7 @@ function JaipurPropertyTaxPage() {
               href="https://jaipurmc.org"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[var(--accent-teal)] hover:underline"
+              className="inline-flex items-center gap-1 text-[var(--brand)] hover:underline"
             >
               Jaipur Municipal Corporation portal
               <ExternalLink className="size-3" />
@@ -286,7 +286,7 @@ function JaipurPropertyTaxPage() {
                   href={s.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[var(--accent-teal)] hover:underline"
+                  className="text-[var(--brand)] hover:underline"
                 >
                   {s.label}
                 </a>
@@ -351,7 +351,7 @@ function RelatedLink({ to, label }: { to: string; label: string }) {
   return (
     <Link
       to={to}
-      className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+      className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
     >
       {label}
       <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

@@ -66,7 +66,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
         </ul>
         <Link
           to={hubPath(hub.id)}
-          className="mt-1 inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium text-[var(--accent-teal)] no-underline hover:bg-[var(--muted)]/60"
+          className="mt-1 inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium text-[var(--brand)] no-underline hover:bg-[var(--muted)]/60"
         >
           Everything in {hub.title.toLowerCase()}
           <ArrowRight className="size-3.5" />
@@ -107,7 +107,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
                       to={guide.to}
                       className="group flex items-start gap-1.5 rounded-md px-2 py-1.5 text-[13px] leading-snug text-[var(--foreground)] no-underline hover:bg-[var(--muted)]/60"
                     >
-                      <ArrowRight className="mt-0.5 size-3.5 shrink-0 text-[var(--accent-teal)]" />
+                      <ArrowRight className="mt-0.5 size-3.5 shrink-0 text-[var(--brand)]" />
                       <span className="line-clamp-2">{guide.title}</span>
                     </Link>
                   </li>
@@ -144,7 +144,7 @@ function ToolMenuItem({ tool }: { tool: SiteEntry }) {
         to={tool.to}
         className="group grid grid-cols-[auto_1fr] gap-3 rounded-lg p-2 no-underline outline-none transition-colors hover:bg-[var(--muted)]/60 focus-visible:bg-[var(--muted)]/60"
       >
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-[var(--muted)] text-[var(--foreground)]">
           {Icon && <Icon className="size-4" />}
         </span>
         <span className="flex min-w-0 flex-col gap-0.5">

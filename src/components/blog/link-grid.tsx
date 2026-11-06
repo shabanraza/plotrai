@@ -31,7 +31,7 @@ export function LinkGrid({
         <a
           key={item.to}
           href={item.to}
-          className="group flex h-full flex-col gap-2 rounded-lg bg-[var(--muted)] px-4 py-3.5 transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/35"
+          className="group flex h-full flex-col gap-2 rounded-lg bg-[var(--muted)] px-4 py-3.5 transition-colors hover:bg-[var(--brand-light)]"
         >
           <div className="flex flex-wrap items-center gap-2">
             {item.badge && (
@@ -51,7 +51,7 @@ export function LinkGrid({
           >
             {item.description}
           </p>
-          <div className="mt-auto flex items-center gap-1 text-sm font-medium text-[var(--accent-teal)]">
+          <div className="mt-auto flex items-center gap-1 text-sm font-medium text-[var(--brand)]">
             Explore
             <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
           </div>

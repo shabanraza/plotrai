@@ -70,8 +70,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0.014 285.82);
 
-  /* ── Primary: Teal ── */
-  --primary: oklch(0.57 0.11 178);       /* teal-600: #0d9488 */
+  /* ── Primary: near-black buttons (white in dark mode) ── */
+  --primary: oklch(0.21 0.006 285.885);  /* zinc-900: #18181b */
   --primary-foreground: oklch(0.985 0.002 247.86); /* white-ish */
 
   /* ── Secondary ── */
@@ -82,7 +82,7 @@
   --muted: oklch(0.967 0.003 264.54);    /* zinc-100 */
   --muted-foreground: oklch(0.442 0.017 285.82); /* zinc-600: #52525b — WCAG AA on white */
 
-  /* ── Accent: Teal light ── */
+  /* ── Accent (shadcn hover surface; zinc) ── */
   --accent: oklch(0.967 0.003 264.54);
   --accent-foreground: oklch(0.205 0.015 285.82);
 
@@ -93,10 +93,10 @@
   /* ── Borders & Inputs ── */
   --border: oklch(0.918 0.004 264.54);    /* zinc-200: #e4e4e7 */
   --input: oklch(0.918 0.004 264.54);
-  --ring: oklch(0.57 0.11 178);           /* teal-600 focus ring */
+  --ring: oklch(0.546 0.245 262.881);     /* blue-600 focus ring */
 
   /* ── Chart colors ── */
-  --chart-1: oklch(0.57 0.11 178);
+  --chart-1: oklch(0.546 0.245 262.881);
   --chart-2: oklch(0.609 0.126 221.72);
   --chart-3: oklch(0.398 0.07 227.39);
   --chart-4: oklch(0.828 0.189 84.43);
@@ -105,12 +105,12 @@
   /* ── Sidebar ── */
   --sidebar: oklch(0.985 0.002 247.86);
   --sidebar-foreground: oklch(0.145 0.014 285.82);
-  --sidebar-primary: oklch(0.57 0.11 178);
+  --sidebar-primary: oklch(0.21 0.006 285.885);
   --sidebar-primary-foreground: oklch(0.985 0.002 247.86);
   --sidebar-accent: oklch(0.967 0.003 264.54);
   --sidebar-accent-foreground: oklch(0.205 0.015 285.82);
   --sidebar-border: oklch(0.918 0.004 264.54);
-  --sidebar-ring: oklch(0.57 0.11 178);
+  --sidebar-ring: oklch(0.546 0.245 262.881);
 
   /* ── Radius ── */
   --radius: 0.625rem;
@@ -119,13 +119,13 @@
   --surface: #f4f4f5;
   --text-primary: #18181b;
   --text-secondary: #52525b;
-  --accent-teal: #0d9488;
-  --accent-teal-light: #f0fdfa;
+  --brand: #2563eb; /* blue-600: links, selected pills, key figures */
+  --brand-light: #eff6ff; /* blue-50 */
 
   --status-critical: #dc2626;
   --status-warning: #d97706;
   --status-success: #16a34a;
-  --status-info: #0d9488;
+  --status-info: #2563eb;
 
   /* Vastu element colors */
   --element-water-bg:           #f0f9ff;
@@ -174,7 +174,7 @@
   --popover: oklch(0.145 0.014 285.82);
   --popover-foreground: oklch(0.985 0.002 247.86);
 
-  --primary: oklch(0.7 0.14 178);          /* teal-400: #2dd4bf */
+  --primary: oklch(0.985 0 0);             /* near-white buttons */
   --primary-foreground: oklch(0.141 0.005 285.82);
 
   --secondary: oklch(0.205 0.015 285.82);  /* zinc-800 */
@@ -191,9 +191,9 @@
 
   --border: oklch(0.274 0.009 285.82);     /* zinc-800: #27272a */
   --input: oklch(0.274 0.009 285.82);
-  --ring: oklch(0.7 0.14 178);
+  --ring: oklch(0.623 0.214 259.815);
 
-  --chart-1: oklch(0.7 0.14 178);
+  --chart-1: oklch(0.623 0.214 259.815);
   --chart-2: oklch(0.609 0.126 221.72);
   --chart-3: oklch(0.398 0.07 227.39);
   --chart-4: oklch(0.828 0.189 84.43);
@@ -201,24 +201,24 @@
 
   --sidebar: oklch(0.141 0.005 285.82);
   --sidebar-foreground: oklch(0.985 0.002 247.86);
-  --sidebar-primary: oklch(0.7 0.14 178);
+  --sidebar-primary: oklch(0.985 0 0);
   --sidebar-primary-foreground: oklch(0.141 0.005 285.82);
   --sidebar-accent: oklch(0.205 0.015 285.82);
   --sidebar-accent-foreground: oklch(0.985 0.002 247.86);
   --sidebar-border: oklch(0.274 0.009 285.82);
-  --sidebar-ring: oklch(0.7 0.14 178);
+  --sidebar-ring: oklch(0.623 0.214 259.815);
 
   /* Plotr Ai semantic */
   --surface: #18181b;
   --text-primary: #fafafa;
   --text-secondary: #a1a1aa;
-  --accent-teal: #14b8a6;
-  --accent-teal-light: #0d2d2a;
+  --brand: #60a5fa; /* blue-400 reads better on near-black */
+  --brand-light: #111c33;
 
   --status-critical: #f87171;
   --status-warning: #fbbf24;
   --status-success: #4ade80;
-  --status-info: #5eead4;
+  --status-info: #60a5fa;
 
   /* Vastu element colors — dark mode */
   --element-water-bg:           #0c1929;
@@ -297,7 +297,7 @@
 }
 
 .frosted:hover {
-  background-color: var(--accent-teal-light);
+  background-color: var(--brand-light);
 }
 
 

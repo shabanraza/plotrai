@@ -265,7 +265,7 @@ function DelhiCircleRatePage() {
         </ToolSection>
 
         <ToolSection number="03" label="Result" description={`Category ${category} · ${gender} buyer`}>
-          <div className="mb-6 grid gap-3 rounded-xl bg-[var(--accent-teal-light)] p-5 sm:grid-cols-3">
+          <div className="mb-6 grid gap-3 rounded-xl bg-[var(--muted)] p-5 sm:grid-cols-3">
             <Stat label="Circle value" value={result.circleValue} />
             <Stat label="Stamp duty charged on" value={result.taxableValue} />
             <Stat label="Stamp duty + registration" value={duty.totalGovernmentCharges} highlight />
@@ -291,7 +291,7 @@ function DelhiCircleRatePage() {
             <TableFooter>
               <TableRow>
                 <TableCell className="py-3.5 font-semibold">Total government charges</TableCell>
-                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
+                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--foreground)]">
                   ₹{formatINR(duty.totalGovernmentCharges)}
                 </TableCell>
               </TableRow>
@@ -319,7 +319,7 @@ function DelhiCircleRatePage() {
                 href="https://revenue.delhi.gov.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-[var(--accent-teal)] hover:underline"
+                className="inline-flex items-center gap-1 text-[var(--brand)] hover:underline"
               >
                 Delhi Revenue Department
                 <ExternalLink className="size-3" />
@@ -405,12 +405,12 @@ function Stat({ label, value, highlight }: { label: string; value: number; highl
   return (
     <div>
       <p
-        className={`text-sm ${highlight ? 'text-[var(--accent-teal)]' : 'text-[var(--muted-foreground)]'}`}
+        className={`text-sm ${highlight ? 'text-[var(--muted-foreground)]' : 'text-[var(--muted-foreground)]'}`}
       >
         {label}
       </p>
       <p
-        className={`mt-1 tabular-nums ${highlight ? 'text-2xl font-bold text-[var(--accent-teal)]' : 'text-lg font-semibold text-[var(--foreground)]'}`}
+        className={`mt-1 tabular-nums ${highlight ? 'text-2xl font-bold text-[var(--brand)]' : 'text-lg font-semibold text-[var(--foreground)]'}`}
       >
         ₹{formatINR(value)}
       </p>
@@ -431,7 +431,7 @@ function RelatedLink({ to, label }: { to: string; label: string }) {
   return (
     <Link
       to={to}
-      className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+      className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
     >
       {label}
       <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

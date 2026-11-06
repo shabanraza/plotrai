@@ -144,7 +144,7 @@ function BlogArticlePage() {
     <main className="bg-background">
       <ReadingProgress targetId="article-body" />
 
-      <div className="mx-auto grid w-full max-w-[1120px] gap-12 px-4 pt-6 pb-16 sm:px-6 sm:pt-10 sm:pb-20 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-16">
+      <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 pt-6 pb-16 sm:px-6 sm:pt-10 sm:pb-20 lg:grid-cols-[minmax(0,1fr)_240px] lg:gap-16">
         <article className="flex min-w-0 max-w-[68ch] flex-col gap-10">
           <header className="flex flex-col gap-5">
             <Breadcrumb>
@@ -183,9 +183,9 @@ function BlogArticlePage() {
 
           <aside
             aria-label="At a glance"
-            className="flex flex-col gap-1 rounded-2xl bg-[var(--accent-teal-light)] p-5 sm:p-6"
+            className="flex flex-col gap-1 rounded-2xl bg-[var(--muted)] p-5 sm:p-6"
           >
-            <span className="text-sm font-medium text-[var(--accent-teal)]">At a glance</span>
+            <span className="text-sm font-medium text-[var(--muted-foreground)]">At a glance</span>
             <span className="text-[1.625rem] leading-tight font-semibold tabular-nums text-[var(--foreground)] sm:text-[1.875rem]">
               {article.hero.stat}
             </span>
@@ -217,7 +217,7 @@ function BlogArticlePage() {
                   ))}
 
                   {section.bullets && (
-                    <ul className="flex list-disc flex-col gap-2 pl-6 text-lg leading-[1.75] text-[var(--foreground)]/90 marker:text-[var(--accent-teal)]">
+                    <ul className="flex list-disc flex-col gap-2 pl-6 text-lg leading-[1.75] text-[var(--foreground)]/90 marker:text-[var(--brand)]">
                       {section.bullets.map((bullet) => (
                         <li key={bullet}>{bullet}</li>
                       ))}
@@ -311,7 +311,7 @@ function BlogArticlePage() {
                     >
                       <span className="flex min-w-0 flex-col gap-1">
                         <span className="flex flex-wrap items-center gap-2">
-                          <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+                          <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--brand)]">
                             {link.label}
                           </span>
                           {link.badge && <Badge variant="secondary">{link.badge}</Badge>}
@@ -320,7 +320,7 @@ function BlogArticlePage() {
                           {link.description}
                         </span>
                       </span>
-                      <ArrowRight className="mt-1 size-4 shrink-0 text-[var(--accent-teal)] transition-transform group-hover:translate-x-0.5" />
+                      <ArrowRight className="mt-1 size-4 shrink-0 text-[var(--brand)] transition-transform group-hover:translate-x-0.5" />
                     </Link>
                   </li>
                 ))}
@@ -345,7 +345,7 @@ function BlogArticlePage() {
                         href={source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-w-0 flex-1 items-start gap-1.5 text-sm text-[var(--foreground)] underline-offset-4 hover:text-[var(--accent-teal)] hover:underline"
+                        className="inline-flex min-w-0 flex-1 items-start gap-1.5 text-sm text-[var(--foreground)] underline-offset-4 hover:text-[var(--brand)] hover:underline"
                       >
                         {source.label}
                         <ExternalLink className="mt-0.5 size-3.5 shrink-0 opacity-60" />

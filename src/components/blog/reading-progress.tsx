@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * Thin teal bar under the site header showing how far through the article the reader is.
+ * Thin blue bar under the site header showing how far through the article the reader is.
  * Written straight to the DOM on scroll so it doesn't re-render the article.
  */
 export function ReadingProgress({ targetId }: { targetId: string }) {
@@ -38,7 +38,7 @@ export function ReadingProgress({ targetId }: { targetId: string }) {
     <div aria-hidden className="fixed inset-x-0 top-14 z-40 h-0.5 lg:top-12">
       <div
         ref={barRef}
-        className="h-full origin-left scale-x-0 bg-[var(--accent-teal)]"
+        className="h-full origin-left scale-x-0 bg-[var(--brand)]"
       />
     </div>
   )

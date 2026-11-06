@@ -36,7 +36,7 @@ export function ArticleContents({ items }: { items: ReadonlyArray<ContentsItem> 
               className={cn(
                 '-ml-px block border-l-2 border-transparent py-1.5 pl-3 text-sm leading-snug text-[var(--foreground)]/70 no-underline transition-colors hover:text-[var(--foreground)]',
                 active === item.id &&
-                  'border-[var(--accent-teal)] font-medium text-[var(--foreground)]',
+                  'border-[var(--brand)] font-medium text-[var(--foreground)]',
               )}
             >
               {item.label}
@@ -63,7 +63,7 @@ export function ArticleContentsMobile({ items }: { items: ReadonlyArray<Contents
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="block py-1.5 text-[var(--foreground)]/80 no-underline hover:text-[var(--accent-teal)]"
+                    className="block py-1.5 text-[var(--foreground)]/80 no-underline hover:text-[var(--brand)]"
                   >
                     {item.label}
                   </a>

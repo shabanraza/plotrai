@@ -102,8 +102,8 @@ function UnitPairPage() {
     >
       <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Quick answer" rule={false}>
-          <div className="rounded-xl bg-[var(--accent-teal-light)] p-5">
-            <p className="text-2xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)] sm:text-3xl">
+          <div className="rounded-xl bg-[var(--muted)] p-5">
+            <p className="text-2xl font-bold tabular-nums tracking-tight text-[var(--brand)] sm:text-3xl">
               {qualifiedUnit(page, 1)} = {formatArea(factor)} {page.toShort}
             </p>
             <p className="mt-2 text-sm text-[var(--muted-foreground)]">
@@ -146,7 +146,7 @@ function UnitPairPage() {
             <Link
               to="/convert/$pair"
               params={{ pair: reverse.slug }}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-teal)] hover:underline"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[var(--brand)] hover:underline"
             >
               <ArrowLeftRight className="size-3.5" />
               Convert {reverse.fromShort} to {reverse.toShort}
@@ -172,7 +172,7 @@ function UnitPairPage() {
                   <TableCell className="font-medium tabular-nums">
                     {formatArea(v)} {page.fromShort}
                   </TableCell>
-                  <TableCell className="text-right font-semibold tabular-nums text-[var(--accent-teal)]">
+                  <TableCell className="text-right font-semibold tabular-nums">
                     {formatArea(convertForPage(page, v))} {page.toShort}
                   </TableCell>
                 </TableRow>
@@ -207,7 +207,7 @@ function UnitPairPage() {
                         href={v.source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="mt-0.5 inline-flex items-center gap-1 text-xs text-[var(--accent-teal)] hover:underline sm:hidden"
+                        className="mt-0.5 inline-flex items-center gap-1 text-xs text-[var(--brand)] hover:underline sm:hidden"
                       >
                         {v.source.label}
                         <ExternalLink className="size-3" />
@@ -221,7 +221,7 @@ function UnitPairPage() {
                         href={v.source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs text-[var(--accent-teal)] hover:underline"
+                        className="inline-flex items-center gap-1 text-xs text-[var(--brand)] hover:underline"
                       >
                         {v.source.label}
                         <ExternalLink className="size-3" />
@@ -248,7 +248,7 @@ function UnitPairPage() {
                 key={p.slug}
                 to="/convert/$pair"
                 params={{ pair: p.slug }}
-                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
               >
                 {pageTitle(p)}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />
@@ -256,7 +256,7 @@ function UnitPairPage() {
             ))}
             <Link
               to="/plot-converter"
-              className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+              className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
             >
               All units converter
               <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

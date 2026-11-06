@@ -63,7 +63,7 @@ export function MobileMenu({ onSearch }: { onSearch: () => void }) {
               <AccordionItem key={hub.id} value={hub.id}>
                 <AccordionTrigger className="min-h-12 items-center text-base hover:no-underline">
                   <span className="flex items-center gap-3">
-                    <span className="flex size-8 items-center justify-center rounded-md bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+                    <span className="flex size-8 items-center justify-center rounded-md bg-[var(--muted)] text-[var(--foreground)]">
                       <HubIcon className="size-4" />
                     </span>
                     {hub.title}
@@ -75,7 +75,7 @@ export function MobileMenu({ onSearch }: { onSearch: () => void }) {
                       <Link
                         to={hubPath(hub.id)}
                         onClick={close}
-                        className={`${ROW_CLASS} font-medium text-[var(--accent-teal)]`}
+                        className={`${ROW_CLASS} font-medium text-[var(--brand)]`}
                       >
                         Overview
                       </Link>

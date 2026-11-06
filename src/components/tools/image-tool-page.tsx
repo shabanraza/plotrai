@@ -231,7 +231,7 @@ export function ImageToolPage({
 
             <div className="rounded-xl bg-[var(--muted)] p-4">
               <div className="flex items-start gap-3">
-                <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-md bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+                <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-md bg-[var(--muted)] text-[var(--foreground)]">
                   {account?.signedIn ? (
                     <CheckCircle2 className="size-4" />
                   ) : (

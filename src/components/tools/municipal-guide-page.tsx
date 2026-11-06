@@ -46,7 +46,7 @@ export function MunicipalGuidePage({ content }: MunicipalGuidePageProps) {
     >
       <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Search opportunity" rule={false}>
-          <div className="flex flex-col gap-3 rounded-xl bg-[var(--accent-teal-light)] p-5">
+          <div className="flex flex-col gap-3 rounded-xl bg-[var(--muted)] p-5">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="outline">{content.authority}</Badge>
               <Badge variant="secondary">Rising search intent</Badge>

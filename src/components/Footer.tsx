@@ -27,8 +27,8 @@ export default function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="mt-20 border-t border-[var(--line)] px-4 pt-10 pb-14">
-      <div className="page-wrap flex flex-col gap-10">
+    <footer className="mt-20 px-4 pb-14 sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-col gap-10 border-t border-[var(--line)] pt-10">
         <nav
           aria-label="Footer"
           className="grid grid-cols-2 gap-x-6 gap-y-8 text-left md:grid-cols-3 lg:grid-cols-6"
@@ -51,7 +51,7 @@ export default function Footer() {
                   <li>
                     <Link
                       to={group.all.to}
-                      className="block py-1.5 text-sm font-medium leading-snug text-[var(--accent-teal)] no-underline hover:underline"
+                      className="block py-1.5 text-sm font-medium leading-snug text-[var(--brand)] no-underline hover:underline"
                     >
                       {group.all.label}
                     </Link>

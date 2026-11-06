@@ -126,11 +126,11 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
         </ToolSection>
 
         <ToolSection id="result" number="02" label="Estimated annual tax">
-          <div className="mb-6 rounded-xl bg-[var(--accent-teal-light)] p-5">
+          <div className="mb-6 rounded-xl bg-[var(--muted)] p-5">
             <p className="text-sm text-[var(--muted-foreground)]">
               Estimated payable for {content.authority}
             </p>
-            <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">
+            <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--brand)]">
               ₹{formatINR(result.payable)}
             </p>
             <p className="mt-1 text-sm text-[var(--muted-foreground)]">
@@ -252,7 +252,7 @@ function ResultRow({
     <TableRow>
       <TableCell className={strong ? 'font-semibold' : ''}>{label}</TableCell>
       <TableCell
-        className={`text-right tabular-nums ${strong ? 'font-bold text-[var(--accent-teal)]' : 'text-[var(--foreground)]'}`}
+        className={`text-right tabular-nums ${strong ? 'font-bold text-[var(--foreground)]' : 'text-[var(--foreground)]'}`}
       >
         {value < 0 ? '-' : ''}₹{formatINR(Math.abs(value))}
       </TableCell>

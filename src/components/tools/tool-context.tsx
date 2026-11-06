@@ -15,7 +15,7 @@ export function ToolContext({ title, children }: ToolContextProps) {
   return (
     <section className="flex max-w-[68ch] flex-col gap-3">
       <h2 className="text-lg font-semibold text-[var(--foreground)]">{title}</h2>
-      <div className="flex flex-col gap-3 text-base leading-relaxed text-[var(--foreground)]/80 [&_a]:text-[var(--accent-teal)] [&_a]:underline-offset-4 hover:[&_a]:underline">
+      <div className="flex flex-col gap-3 text-base leading-relaxed text-[var(--foreground)]/80 [&_a]:text-[var(--brand)] [&_a]:underline-offset-4 hover:[&_a]:underline">
         {children}
       </div>
     </section>

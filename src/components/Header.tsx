@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 h-14 border-b border-[var(--line)] bg-[var(--header-bg)] backdrop-blur-xl backdrop-saturate-150 lg:h-12">
-      <div className="mx-auto flex h-full max-w-7xl items-center gap-2 px-4 sm:px-6">
+      <div className="mx-auto flex h-full max-w-6xl items-center gap-2 px-4 sm:px-6">
         <Link to="/" className="flex shrink-0 items-center no-underline" aria-label="Plotr Ai — home">
           <Logo className="h-6 w-auto sm:h-7" />
         </Link>

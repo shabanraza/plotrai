@@ -12,9 +12,9 @@ export function HomeLoanCta({ source, loanAmount }: { source: string; loanAmount
   if (!AFFILIATE_URL) return null
 
   return (
-    <div className="flex flex-col gap-4 rounded-xl bg-[var(--accent-teal-light)] p-5 sm:flex-row sm:items-center sm:justify-between">
+    <div className="flex flex-col gap-4 rounded-xl bg-[var(--muted)] p-5 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex gap-3">
-        <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-[var(--background)] text-[var(--accent-teal)]">
+        <span className="flex size-9 shrink-0 items-center justify-center rounded-md bg-[var(--background)] text-[var(--foreground)]">
           <Landmark className="size-4" />
         </span>
         <div className="flex flex-col gap-1">
