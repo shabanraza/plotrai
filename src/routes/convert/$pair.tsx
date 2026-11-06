@@ -30,6 +30,7 @@ import {
   pageFactor,
   pageTitle,
   qualifiedUnit,
+  variantUnit,
 } from '#/data/land-unit-pages'
 import { faqPageLd, softwareAppLd } from '#/lib/seo'
 
@@ -184,7 +185,7 @@ function UnitPairPage() {
         {page.variants && (
           <ToolSection
             number="04"
-            label={`${capitalize(page.fromShort)} size by state`}
+            label={`${capitalize(variantUnit(page))} size by state`}
             description="Commonly cited values. Confirm the size on your khatauni, jamabandi or sale deed."
           >
             <Table>

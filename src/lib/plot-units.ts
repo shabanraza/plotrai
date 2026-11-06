@@ -20,7 +20,13 @@ export const LAND_UNITS = {
   sqyd: { label: 'Square Yards (Gaj)', toSqft: 9, region: 'pan-india' },
   acre: { label: 'Acre', toSqft: 43560, region: 'pan-india' },
   hectare: { label: 'Hectare', toSqft: 107639, region: 'pan-india' },
-  bigha_uttar: { label: 'Bigha (UP / Bihar)', toSqft: 27000, region: 'north' },
+  bigha_uttar: { label: 'Bigha (UP)', toSqft: 27000, region: 'north' },
+  biswa_uttar: {
+    label: 'Biswa (UP)',
+    toSqft: 1350,
+    region: 'north',
+    note: '1/20 of a UP bigha',
+  },
   marla: {
     label: 'Marla',
     toSqft: 272.25,
@@ -62,7 +68,9 @@ export const LAND_UNITS = {
     toSqft: 14400,
     region: 'east',
   },
-  katha_bihar: { label: 'Katha (Bihar)', toSqft: 1361.25, region: 'east' },
+  bigha_bihar: { label: 'Bigha (Bihar)', toSqft: 27220, region: 'east' },
+  // Bajaj Finserv and Kotak: 1 katha ≈ 1,361 sq ft, 20 katha = 1 bigha of 27,220 sq ft
+  katha_bihar: { label: 'Katha (Bihar)', toSqft: 1361, region: 'east' },
   bigha_rajasthan: {
     label: 'Bigha Pucca (Rajasthan)',
     toSqft: 27225,
