@@ -109,7 +109,7 @@ function IndexationCalculatorPage() {
       tagline="Calculate indexed cost of acquisition using India's Cost Inflation Index. Useful for property LTCG comparisons where the old 20% indexed regime is still available."
       variant="single-column"
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Indexation inputs" rule={false}>
           <FieldGroup className="grid gap-4 sm:grid-cols-2">
             <Field>
@@ -172,7 +172,7 @@ function IndexationCalculatorPage() {
         </ToolSection>
 
         <ToolSection number="02" label="Indexed result">
-          <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
+          <div className="mb-6 rounded-xl bg-[var(--accent-teal-light)] p-5">
             <p className="text-sm text-[var(--muted-foreground)]">
               Indexed cost of acquisition
             </p>

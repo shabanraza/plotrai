@@ -1,34 +1,23 @@
-import { ToolSection } from './tool-section'
-
 interface ToolContextProps {
+  /** @deprecated No longer shown */
   number?: string
+  /** @deprecated No longer shown */
   label?: string
   title: string
   children: React.ReactNode
 }
 
 /**
- * Long-form explanatory section that lives below a tool's interactive
- * area. Provides indexable depth ("What is X", "Why it matters",
- * "How to use"). Keep content visible (no accordion) — Google ranks
- * visible content higher than collapsed content for body copy.
+ * Long-form explanatory section below a tool's interactive area ("What is X", "How to use").
+ * Kept visible (no accordion): Google ranks visible body copy higher than collapsed content.
  */
-export function ToolContext({
-  number = 'Guide',
-  label = 'About this tool',
-  title,
-  children,
-}: ToolContextProps) {
+export function ToolContext({ title, children }: ToolContextProps) {
   return (
-    <ToolSection number={number} label={label}>
-      <div className="prose prose-zinc dark:prose-invert max-w-none">
-        <h2 className="mb-3 text-xl font-semibold tracking-tight text-[var(--foreground)] sm:text-2xl">
-          {title}
-        </h2>
-        <div className="flex flex-col gap-3 text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-base">
-          {children}
-        </div>
+    <section className="flex max-w-[68ch] flex-col gap-3">
+      <h2 className="text-lg font-semibold text-[var(--foreground)]">{title}</h2>
+      <div className="flex flex-col gap-3 text-base leading-relaxed text-[var(--foreground)]/80 [&_a]:text-[var(--accent-teal)] [&_a]:underline-offset-4 hover:[&_a]:underline">
+        {children}
       </div>
-    </ToolSection>
+    </section>
   )
 }

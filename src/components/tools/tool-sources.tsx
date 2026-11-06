@@ -37,11 +37,11 @@ interface ToolSourcesProps {
 export function ToolSources({ sources, checked, note }: ToolSourcesProps) {
   return (
     <ToolSection label="Sources" description={`Last checked ${checked}.`}>
-      <ul className="flex flex-col divide-y divide-[var(--border)] border-y border-[var(--border)]">
+      <ul className="flex flex-col gap-3">
         {sources.map((source) => {
           const kind = sourceKind(source.url)
           return (
-            <li key={source.label} className="flex items-start justify-between gap-3 py-3">
+            <li key={source.label} className="flex items-start justify-between gap-3">
               {source.url ? (
                 <a
                   href={source.url}

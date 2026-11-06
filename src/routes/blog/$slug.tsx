@@ -183,7 +183,7 @@ function BlogArticlePage() {
 
           <aside
             aria-label="At a glance"
-            className="flex flex-col gap-1 rounded-xl border border-[var(--border)] p-5 sm:p-6"
+            className="flex flex-col gap-1 rounded-2xl bg-[var(--accent-teal-light)] p-5 sm:p-6"
           >
             <span className="text-sm font-medium text-[var(--accent-teal)]">At a glance</span>
             <span className="text-[1.625rem] leading-tight font-semibold tabular-nums text-[var(--foreground)] sm:text-[1.875rem]">
@@ -225,7 +225,7 @@ function BlogArticlePage() {
                   )}
 
                   {section.table && (
-                    <div className="overflow-x-auto rounded-lg border border-[var(--border)]">
+                    <div className="overflow-x-auto">
                       <Table className="min-w-[520px] text-base">
                         <TableHeader>
                           <TableRow>
@@ -285,10 +285,10 @@ function BlogArticlePage() {
               type="single"
               collapsible
               defaultValue={article.faqs[0]?.q}
-              className="border-y border-[var(--border)]"
+              className="flex flex-col gap-1"
             >
               {article.faqs.map((item) => (
-                <AccordionItem key={item.q} value={item.q}>
+                <AccordionItem key={item.q} value={item.q} className="border-b-0">
                   <AccordionTrigger className="min-h-11 py-4 text-base leading-snug font-semibold hover:no-underline sm:text-lg">
                     {item.q}
                   </AccordionTrigger>
@@ -302,12 +302,12 @@ function BlogArticlePage() {
 
           {moreLinks.length > 0 && (
             <ArticleBlock title="More on this topic">
-              <ul className="flex flex-col border-y border-[var(--border)]">
+              <ul className="flex flex-col gap-2">
                 {moreLinks.map((link) => (
-                  <li key={link.to} className="border-b border-[var(--border)] last:border-b-0">
+                  <li key={link.to}>
                     <Link
                       to={link.to}
-                      className="group flex min-h-11 items-start justify-between gap-4 py-4 no-underline"
+                      className="group flex min-h-11 items-start justify-between gap-4 py-2 no-underline"
                     >
                       <span className="flex min-w-0 flex-col gap-1">
                         <span className="flex flex-wrap items-center gap-2">
@@ -330,13 +330,13 @@ function BlogArticlePage() {
 
           {article.sources.length > 0 && (
             <ArticleBlock title="Sources">
-              <ol className="flex flex-col border-y border-[var(--border)]">
+              <ol className="flex flex-col gap-3">
                 {article.sources.map((source, i) => {
                   const kind = sourceKind(source.url)
                   return (
                     <li
                       key={source.url}
-                      className="flex items-start gap-3 border-b border-[var(--border)] py-3 last:border-b-0"
+                      className="flex items-start gap-3"
                     >
                       <span className="w-5 shrink-0 text-sm tabular-nums text-[var(--foreground)]/60">
                         {i + 1}.

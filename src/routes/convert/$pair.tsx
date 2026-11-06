@@ -100,9 +100,9 @@ function UnitPairPage() {
       variant="single-column"
       footnote={`Reviewed ${LAND_UNIT_PAGES_LAST_REVIEWED}. ${page.basisNote} For registration and legal documents, use the area stated on your sale deed or land record.`}
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Quick answer" rule={false}>
-          <div className="rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
+          <div className="rounded-xl bg-[var(--accent-teal-light)] p-5">
             <p className="text-2xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)] sm:text-3xl">
               {qualifiedUnit(page, 1)} = {formatArea(factor)} {page.toShort}
             </p>
@@ -248,7 +248,7 @@ function UnitPairPage() {
                 key={p.slug}
                 to="/convert/$pair"
                 params={{ pair: p.slug }}
-                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
               >
                 {pageTitle(p)}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />
@@ -256,7 +256,7 @@ function UnitPairPage() {
             ))}
             <Link
               to="/plot-converter"
-              className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+              className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
             >
               All units converter
               <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

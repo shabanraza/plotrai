@@ -120,7 +120,7 @@ export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   { title: 'Empty room stager', to: '/empty-room-stager', description: 'Furnish an empty room photo with AI.', hub: 'design', kind: 'tool', icon: Sofa },
 ]
 
-const CLUSTER_HUB: Record<BlogCluster, HubId> = {
+export const CLUSTER_HUB: Record<BlogCluster, HubId> = {
   'property-buyer': 'buy',
   'materials-cost': 'build',
   'house-design': 'design',

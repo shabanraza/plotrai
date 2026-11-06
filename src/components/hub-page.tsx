@@ -64,13 +64,13 @@ export function HubPage({ id }: { id: HubId }) {
       title={content.h1}
       tagline={content.tagline}
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number={next()} label="Calculators and tools" rule={false}>
           <ul className="grid gap-x-6 sm:grid-cols-2">
             {tools.map((tool) => {
               const Icon = tool.icon
               return (
-                <li key={tool.to} className="border-b border-[var(--border)]">
+                <li key={tool.to}>
                   <Link
                     to={tool.to}
                     className="group grid min-h-11 grid-cols-[auto_1fr_auto] items-center gap-3 py-4 no-underline"
@@ -115,7 +115,7 @@ export function HubPage({ id }: { id: HubId }) {
           <ToolSection number={next()} label="Guides">
             <ul className="grid gap-x-6 sm:grid-cols-2">
               {guides.map((guide) => (
-                <li key={guide.to} className="border-b border-[var(--border)]">
+                <li key={guide.to}>
                   <Link to={guide.to} className="group flex flex-col gap-1 py-4 no-underline">
                     <span className="text-base font-semibold leading-snug text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
                       {guide.title}

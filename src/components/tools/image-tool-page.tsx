@@ -229,7 +229,7 @@ export function ImageToolPage({
               </Alert>
             )}
 
-            <div className="rounded-md border border-[var(--border)] bg-[var(--muted)]/35 p-4">
+            <div className="rounded-xl bg-[var(--muted)] p-4">
               <div className="flex items-start gap-3">
                 <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-md bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
                   {account?.signedIn ? (

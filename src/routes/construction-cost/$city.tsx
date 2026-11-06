@@ -111,9 +111,9 @@ function CityConstructionPage() {
       variant="single-column"
       footnote={`Rates last refreshed ${CONSTRUCTION_LAST_UPDATED}. Excludes land cost, government approvals, and contractor margin (typically 10-15%). For binding quotes, get site-specific estimates from local contractors.`}
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Per sq ft rates" rule={false}>
-          <div className="rounded-md border border-[var(--border)] bg-[var(--background)]">
+          <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -146,7 +146,7 @@ function CityConstructionPage() {
               return (
                 <div
                   key={sqft}
-                  className="flex flex-col gap-1 rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-3.5"
+                  className="flex flex-col gap-1 rounded-lg bg-[var(--muted)] px-4 py-3.5"
                 >
                   <p className="text-sm text-[var(--muted-foreground)]">
                     {sqft.toLocaleString('en-IN')} sq ft
@@ -164,7 +164,7 @@ function CityConstructionPage() {
         </ToolSection>
 
         <ToolSection number="03" label="Stage-wise breakdown" description={`Where each rupee goes in a typical ${content.city} construction.`}>
-          <div className="rounded-md border border-[var(--border)] bg-[var(--background)]">
+          <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -189,7 +189,7 @@ function CityConstructionPage() {
         </ToolSection>
 
         <ToolSection number="04" label="Run a custom calculation">
-          <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-xl bg-[var(--muted)] p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
               <p className="text-base font-semibold text-[var(--foreground)]">
                 Calculate cost for your exact build
@@ -252,7 +252,7 @@ function CityConstructionPage() {
                 key={c.slug}
                 to="/construction-cost/$city"
                 params={{ city: c.slug }}
-                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
               >
                 {c.city}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

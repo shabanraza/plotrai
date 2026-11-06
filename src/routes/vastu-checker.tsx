@@ -214,7 +214,7 @@ function VastuCheckerPage() {
         <VastuReport report={report} onEdit={handleEdit} />
       ) : (
         <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:items-start">
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-14">
             <Tabs value={inputMode} onValueChange={(v) => setInputMode(v as InputMode)}>
               <TabsList>
                 <TabsTrigger value="manual">

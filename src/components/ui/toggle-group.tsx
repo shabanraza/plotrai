@@ -19,7 +19,7 @@ function ToggleGroup({
   className,
   variant,
   size,
-  spacing = 0,
+  spacing = 2,
   children,
   ...props
 }: React.ComponentProps<typeof ToggleGroupPrimitive.Root> &

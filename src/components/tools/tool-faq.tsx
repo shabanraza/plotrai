@@ -13,18 +13,18 @@ export function ToolFaq({ number = 'FAQ', items }: ToolFaqProps) {
       number={number}
       label="Common questions"
     >
-      <dl className="flex flex-col">
+      <dl className="flex max-w-[68ch] flex-col gap-1">
         {items.map((item, i) => (
           <details
             key={item.q}
-            className="group border-b border-[var(--border)] py-4 last:border-b-0 [&_summary::-webkit-details-marker]:hidden"
+            className="group rounded-lg px-3 py-3 -mx-3 open:bg-[var(--muted)]/50 [&_summary::-webkit-details-marker]:hidden"
             open={i === 0}
           >
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left">
               <dt className="text-base font-semibold text-[var(--foreground)]">{item.q}</dt>
               <ChevronDown className="size-4 shrink-0 text-[var(--muted-foreground)] transition-transform group-open:rotate-180" />
             </summary>
-            <dd className="mt-3 text-sm leading-relaxed text-[var(--muted-foreground)]">
+            <dd className="mt-2 text-base leading-relaxed text-[var(--foreground)]/80">
               {item.a}
             </dd>
           </details>

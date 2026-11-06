@@ -172,7 +172,7 @@ function HomeBuyingCostCalculatorPage() {
         value={`₹${formatINR(result.upfrontCash)}`}
         targetId="result"
       />
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="The property" rule={false}>
           <FieldGroup className="grid gap-4 sm:grid-cols-2">
             <Field>
@@ -367,7 +367,7 @@ function HomeBuyingCostCalculatorPage() {
           label="What it really costs"
           description={`${cityName || stateName} · ${STAGE_LABEL[stage]} · ${GENDER_LABEL[gender]} buyer`}
         >
-          <div className="mb-6 grid gap-3 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5 sm:grid-cols-3">
+          <div className="mb-6 grid gap-3 rounded-xl bg-[var(--accent-teal-light)] p-5 sm:grid-cols-3">
             <Stat
               label="Cash needed upfront"
               value={result.upfrontCash}
@@ -464,7 +464,7 @@ function HomeBuyingCostCalculatorPage() {
 
         {stateSlug && (
           <ToolSection number="05" label={`Stamp duty in ${stateName}`}>
-            <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-4 rounded-xl bg-[var(--muted)] p-5 sm:flex-row sm:items-center sm:justify-between">
               <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted-foreground)]">
                 See male, female and joint rates and the city-wise breakdown
                 for {stateName}.
