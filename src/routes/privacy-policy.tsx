@@ -27,7 +27,7 @@ function PrivacyPolicyPage() {
       title="Privacy policy"
       tagline="How Plotr Ai handles calculator inputs, analytics, cookies, and advertising-related data."
       variant="reading"
-      footnote="Last updated 22 June 2026. This page should be reviewed whenever analytics, advertising, or data-processing tools change."
+      footnote="Last updated 6 November 2026. This page should be reviewed whenever analytics, advertising, or data-processing tools change."
     >
       <div className="flex flex-col gap-8">
         <ToolSection number="01" label="Information we handle" rule={false}>
@@ -39,7 +39,19 @@ function PrivacyPolicyPage() {
           </p>
         </ToolSection>
 
-        <ToolSection number="02" label="Analytics and ads">
+        <ToolSection number="02" label="Early lists">
+          <p className="text-sm leading-relaxed text-[var(--muted-foreground)]">
+            If you join an early list (for example, for client quotes on the
+            construction cost or material calculator), we store the email or
+            mobile number you give, your answers to the short questions, the page
+            you signed up from, and a one-way hash of your IP address to stop
+            spam. We use your contact details only to tell you when that feature
+            is ready. We don't sell or share them. Ask us through the contact
+            page and we'll delete them.
+          </p>
+        </ToolSection>
+
+        <ToolSection number="03" label="Analytics and ads">
           <p className="text-sm leading-relaxed text-[var(--muted-foreground)]">
             We may use analytics tools to understand page views, device type,
             approximate location, and tool usage. If Google AdSense or other ad
@@ -49,7 +61,7 @@ function PrivacyPolicyPage() {
           </p>
         </ToolSection>
 
-        <ToolSection number="03" label="Your choices">
+        <ToolSection number="04" label="Your choices">
           <p className="text-sm leading-relaxed text-[var(--muted-foreground)]">
             You can block cookies in your browser, avoid uploading personal
             documents, and contact us if you believe any data should be removed.

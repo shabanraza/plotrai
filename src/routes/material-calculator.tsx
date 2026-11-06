@@ -34,6 +34,7 @@ import { Button } from '#/components/ui/button'
 import { Spinner } from '#/components/ui/spinner'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { NextStepCard } from '#/components/tools/next-step-card'
+import { QuoteWaitlist } from '#/components/tools/quote-waitlist'
 import { ResultBar } from '#/components/tools/result-bar'
 import { ToolSources } from '#/components/tools/tool-sources'
 import { ToolContext } from '#/components/tools/tool-context'
@@ -321,6 +322,11 @@ function MaterialCalculatorPage() {
                 </TableRow>
               </TableFooter>
             </Table>
+          )}
+          {rows.length > 0 && (
+            <div className="mt-4">
+              <QuoteWaitlist tool="/material-calculator" />
+            </div>
           )}
         </ToolSection>
 
