@@ -158,7 +158,7 @@ function PlotConverterPage() {
       tagline="Convert between sq ft, sq m, gaj, acre, hectare, gunta, bigha, marla, kanal, ankanam and more — region-aware to local Indian standards."
       variant="single-column"
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Enter value" rule={false}>
           <div className="grid gap-5 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
             <div className="flex flex-col gap-2">
@@ -307,7 +307,7 @@ function PlotConverterPage() {
                 key={p.slug}
                 to="/convert/$pair"
                 params={{ pair: p.slug }}
-                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
               >
                 {pageTitle(p)}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

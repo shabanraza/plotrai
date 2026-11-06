@@ -155,7 +155,7 @@ function StampDutyCalculatorPage() {
         value={`₹${formatINR(result.totalGovernmentCharges)}`}
         targetId="result"
       />
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Where is the property?" rule={false}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
@@ -198,7 +198,7 @@ function StampDutyCalculatorPage() {
             )}
           </div>
           {rate.note && (
-            <p className="mt-3 rounded-md border border-[var(--border)] bg-[var(--muted)]/40 px-3 py-2 text-sm text-[var(--muted-foreground)]">
+            <p className="mt-3 rounded-xl bg-[var(--muted)] px-3 py-2 text-sm text-[var(--muted-foreground)]">
               {rate.note}
             </p>
           )}
@@ -332,7 +332,7 @@ function StampDutyCalculatorPage() {
             </TableFooter>
           </Table>
 
-          <div className="mt-6 grid gap-3 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-4 text-sm sm:grid-cols-3">
+          <div className="mt-6 grid gap-3 rounded-xl bg-[var(--accent-teal-light)] p-4 text-sm sm:grid-cols-3">
             <div>
               <p className="text-sm text-[var(--muted-foreground)]">
                 Down payment ({(100 - parseFloat(loanLtv || '0')).toFixed(0)}%)
@@ -389,7 +389,7 @@ function StampDutyCalculatorPage() {
                 key={s.slug}
                 to="/stamp-duty/$state"
                 params={{ state: s.slug }}
-                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
               >
                 {s.displayName}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

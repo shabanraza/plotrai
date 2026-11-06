@@ -116,7 +116,7 @@ function Hero() {
       <button
         type="button"
         onClick={openSiteSearch}
-        className="frosted mt-2 flex h-14 w-full max-w-xl items-center gap-3 rounded-xl px-4 text-left text-base text-[var(--muted-foreground)] transition-colors hover:border-[var(--accent-teal)]/40 focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:outline-none"
+        className="frosted mt-2 flex h-14 w-full max-w-xl items-center gap-3 rounded-xl px-4 text-left text-base text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent-teal-light)] focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:outline-none"
       >
         <Search className="size-5 shrink-0 text-[var(--accent-teal)]" />
         <span className="min-w-0 flex-1 truncate">Try “punjab stamp duty” or “100 gaj”</span>
@@ -141,7 +141,7 @@ function hubCountLabel(id: HubId) {
 
 function GoalsSection() {
   return (
-    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+    <section className="py-10 sm:py-14">
       <SectionHeading kicker="Start here" title="What are you doing?" />
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
         {SITE_HUBS.map((hub) => {
@@ -150,7 +150,7 @@ function GoalsSection() {
             <li key={hub.id} className="last:col-span-2 sm:last:col-span-1">
               <Link
                 to={hubPath(hub.id)}
-                className="frosted group flex h-full flex-col gap-3 rounded-xl p-4 no-underline transition-colors hover:border-[var(--accent-teal)]/40 sm:p-5"
+                className="frosted group flex h-full flex-col gap-3 rounded-xl p-4 no-underline transition-colors hover:bg-[var(--accent-teal-light)] sm:p-5"
               >
                 <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
                   <Icon className="size-5" />
@@ -177,7 +177,7 @@ function GoalsSection() {
 
 function MostUsedSection() {
   return (
-    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+    <section className="py-10 sm:py-14">
       <SectionHeading kicker="Most used" title="The calculators people use most" />
       <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {MOST_USED.map((tool) => (
@@ -195,7 +195,7 @@ function ToolTile({ tool }: { tool: SiteEntry }) {
   return (
     <Link
       to={tool.to}
-      className="frosted group grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl p-4 no-underline transition-colors hover:border-[var(--accent-teal)]/40"
+      className="frosted group grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl p-4 no-underline transition-colors hover:bg-[var(--accent-teal-light)]"
     >
       <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
         {Icon && <Icon className="size-5" />}
@@ -214,7 +214,7 @@ function ToolTile({ tool }: { tool: SiteEntry }) {
 function RatesSection() {
   const navigate = useNavigate()
   return (
-    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+    <section className="py-10 sm:py-14">
       <SectionHeading kicker="Rates for your area" title="Jump straight to your state or city" />
       <div className="grid gap-5 sm:grid-cols-2">
         <Field>
@@ -258,7 +258,7 @@ function RatesSection() {
 
 function GuidesSection() {
   return (
-    <section className="border-t border-[var(--border)] py-12 sm:py-16">
+    <section className="py-10 sm:py-14">
       <div className="flex items-end justify-between gap-4">
         <SectionHeading kicker="Latest guides" title="New on Plotr Ai" />
         <Link
@@ -275,7 +275,7 @@ function GuidesSection() {
             <Link
               to="/blog/$slug"
               params={{ slug: guide.slug }}
-              className="frosted group flex h-full flex-col gap-2 rounded-xl p-5 no-underline transition-colors hover:border-[var(--accent-teal)]/40"
+              className="frosted group flex h-full flex-col gap-2 rounded-xl p-5 no-underline transition-colors hover:bg-[var(--accent-teal-light)]"
             >
               <span className="text-xs text-[var(--muted-foreground)]">
                 {formatDate(guide.datePublished)}
@@ -323,7 +323,7 @@ const TRUST_ITEMS = [
 
 function TrustStrip() {
   return (
-    <section className="border-t border-[var(--border)] py-10 sm:py-12">
+    <section className="py-10 sm:py-12">
       <ul className="grid gap-6 sm:grid-cols-3">
         {TRUST_ITEMS.map(({ icon: Icon, title, text }) => (
           <li key={title} className="flex gap-3">

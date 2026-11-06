@@ -23,7 +23,7 @@ export function VastuReport({ report, onEdit }: VastuReportProps) {
   return (
     <div className="vastu-report space-y-6">
       {/* Score Overview */}
-      <section className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-5">
+      <section className="rounded-xl bg-[var(--muted)] p-5">
         <ScoreDisplay score={report.score} summary={report.summary} />
       </section>
 

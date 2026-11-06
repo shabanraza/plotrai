@@ -71,7 +71,7 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
         value={`₹${formatINR(result.payable)}`}
         targetId="result"
       />
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Property inputs" rule={false}>
           <FieldGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <NumberField
@@ -126,7 +126,7 @@ export function PropertyTaxPage({ content }: PropertyTaxPageProps) {
         </ToolSection>
 
         <ToolSection id="result" number="02" label="Estimated annual tax">
-          <div className="mb-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
+          <div className="mb-6 rounded-xl bg-[var(--accent-teal-light)] p-5">
             <p className="text-sm text-[var(--muted-foreground)]">
               Estimated payable for {content.authority}
             </p>

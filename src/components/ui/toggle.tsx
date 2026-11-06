@@ -12,8 +12,9 @@ const toggleVariants = cva(
     variants: {
       variant: {
         default: "bg-transparent",
+        // Flat pill: soft fill, teal when selected (inset ring keeps the selection visible in both themes)
         outline:
-          "border border-input bg-transparent shadow-xs hover:bg-accent hover:text-accent-foreground",
+          "rounded-full bg-muted text-foreground hover:bg-muted hover:text-foreground hover:brightness-95 data-[state=on]:bg-[var(--accent-teal-light)] data-[state=on]:text-[var(--accent-teal)] data-[state=on]:shadow-[inset_0_0_0_1.5px_var(--accent-teal)] dark:hover:brightness-125",
       },
       size: {
         default: "h-9 min-w-9 px-2",

@@ -3,6 +3,7 @@ import { cn } from '#/lib/utils'
 interface ToolSectionProps {
   /** Anchor for in-page links, e.g. the mobile result bar */
   id?: string
+  /** @deprecated No longer shown; kept so existing call sites compile */
   number?: string
   label: string
   description?: string
@@ -14,23 +15,18 @@ interface ToolSectionProps {
    * Editorial keeps an optional label/content grid for non-tool reading layouts.
    */
   layout?: 'editorial' | 'stacked'
-  /**
-   * When true, renders the top hairline rule. Default true.
-   * Set false for the very first section in a stack.
-   */
+  /** @deprecated Sections are separated by whitespace now; kept so existing call sites compile */
   rule?: boolean
 }
 
 export function ToolSection({
   id,
-  number,
   label,
   description,
   action,
   children,
   className,
   layout = 'stacked',
-  rule = true,
 }: ToolSectionProps) {
   const isStacked = layout === 'stacked'
 
@@ -39,7 +35,6 @@ export function ToolSection({
       id={id}
       className={cn(
         'scroll-mt-20',
-        rule && 'border-t border-[var(--border)] pt-7',
         isStacked
           ? 'flex flex-col gap-4'
           : 'grid gap-4 lg:grid-cols-[180px_minmax(0,1fr)] lg:gap-x-10',
@@ -48,14 +43,7 @@ export function ToolSection({
     >
       <header className={cn('flex flex-col gap-1', !isStacked && 'lg:pt-1')}>
         <div className="flex flex-col gap-1">
-          <h2 className="flex flex-wrap items-baseline gap-2 text-base font-semibold text-[var(--foreground)]">
-            {number && (
-              <span className="text-sm font-medium tabular-nums text-[var(--accent-teal)]">
-                {number}
-              </span>
-            )}
-            {label}
-          </h2>
+          <h2 className="text-lg font-semibold text-[var(--foreground)]">{label}</h2>
           {description && (
             <p className="text-sm text-[var(--foreground)]/75">{description}</p>
           )}

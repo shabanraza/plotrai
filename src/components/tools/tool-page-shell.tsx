@@ -51,7 +51,6 @@ const VARIANT_CONTENT_W: Record<Variant, string> = {
 
 export function ToolPageShell({
   breadcrumb,
-  eyebrow,
   title,
   tagline,
   variant = 'single-column',
@@ -59,7 +58,6 @@ export function ToolPageShell({
   children,
   footnote,
 }: ToolPageShellProps) {
-  const Icon = eyebrow?.icon
   const contentWidth = VARIANT_CONTENT_W[variant]
   // Pages in the site map get Home › Hub › [parent tool] › Page; the page's own last label is kept
   const pathname = useRouterState({ select: (s) => s.location.pathname })
@@ -95,12 +93,6 @@ export function ToolPageShell({
 
         <header className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="min-w-0 flex-1">
-            {eyebrow && (
-              <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-[var(--accent-teal)]/25 bg-[var(--accent-teal-light)] px-3 py-1 text-xs font-medium text-[var(--accent-teal)]">
-                {Icon && <Icon className="size-3" />}
-                {eyebrow.label}
-              </span>
-            )}
             <h1 className="w-full text-balance text-[2rem] font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--foreground)] sm:text-[2.5rem]">
               {title}
             </h1>

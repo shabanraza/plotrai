@@ -1,5 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowRight } from 'lucide-react'
+import { useState } from 'react'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -8,18 +9,13 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '#/components/ui/breadcrumb'
-import { getArticlesByCluster } from '#/data/blog-content'
-import { SITE_HUBS, hubPath } from '#/data/site-map'
+import { ToggleGroup, ToggleGroupItem } from '#/components/ui/toggle-group'
+import { BLOG_ARTICLES, type BlogArticle } from '#/data/blog-content'
+import { CLUSTER_HUB, SITE_HUBS, SITE_HUB_BY_ID, hubPath, type HubId } from '#/data/site-map'
 import { canonicalLink } from '#/lib/seo'
 
-const CLUSTER_LABELS = {
-  'property-buyer': 'Property buyer',
-  'house-design': 'House design',
-  'materials-cost': 'Materials and cost',
-} as const
-
 export const Route = createFileRoute('/blog/')({
-  component: BlogIndexPage,
+  component: GuidesIndexPage,
   head: () => ({
     meta: [
       { title: 'Plotr Ai Blog — Practical Guides for Indian Homeowners' },
@@ -49,103 +45,168 @@ export const Route = createFileRoute('/blog/')({
   }),
 })
 
-function BlogIndexPage() {
+/** Newest first; ties keep the data file's order. */
+const GUIDES = [...BLOG_ARTICLES].sort((a, b) => b.datePublished.localeCompare(a.datePublished))
+
+/** Only hubs that actually have guides get a filter. */
+const TOPICS = SITE_HUBS.filter((hub) => GUIDES.some((a) => CLUSTER_HUB[a.cluster] === hub.id))
+
+function topicOf(article: BlogArticle) {
+  return SITE_HUB_BY_ID.get(CLUSTER_HUB[article.cluster])?.title ?? ''
+}
+
+function GuidesIndexPage() {
+  const [topic, setTopic] = useState<'all' | HubId>('all')
+  const visible =
+    topic === 'all' ? GUIDES : GUIDES.filter((a) => CLUSTER_HUB[a.cluster] === topic)
+  // The featured layout only makes sense for the unfiltered list
+  const [featured, ...rest] = visible
+  const showFeatured = topic === 'all' && featured
+  const beside = showFeatured ? rest.slice(0, 3) : []
+  const grid = showFeatured ? rest.slice(3) : visible
+
   return (
-    <main className="bg-background">
-      <section className="mx-auto flex w-full max-w-[1040px] flex-col gap-12 px-4 pb-16 pt-8 sm:px-6 sm:pb-20 sm:pt-12 lg:px-8">
-        <header className="flex w-full flex-col gap-6">
-          <Breadcrumb>
-            <BreadcrumbList className="text-xs text-[var(--muted-foreground)]">
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/">Home</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Blog</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+    <main className="mx-auto w-full max-w-[1120px] px-4 pt-8 pb-16 sm:px-6 sm:pt-10">
+      <Breadcrumb className="mb-6">
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link to="/">Home</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>Guides</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-          <div className="flex max-w-[780px] flex-col gap-4">
-            <h1 className="w-full text-balance text-[2.35rem] leading-[1.02] font-semibold text-[var(--foreground)] sm:text-[3.35rem]">
-              Practical guides for Indian homeowners
-            </h1>
-            <p className="text-pretty text-[1.05rem] leading-8 text-[var(--muted-foreground)] sm:text-[1.25rem]">
-              Property due diligence, house-planning decisions, and construction-cost
-              research for Indian buyers and home builders.
+      <header className="flex max-w-[62ch] flex-col gap-4">
+        <h1 className="text-[2rem] leading-[1.1] font-semibold tracking-[-0.02em] text-[var(--foreground)] sm:text-[2.5rem]">
+          Guides
+        </h1>
+        <p className="text-base leading-7 text-[var(--foreground)]/80 sm:text-lg sm:leading-8">
+          Plain answers on buying, building and designing a home in India, with sources and
+          the matching calculator for each one.
+        </p>
+      </header>
+
+      <ToggleGroup
+        type="single"
+        value={topic}
+        onValueChange={(v) => v && setTopic(v as 'all' | HubId)}
+        variant="outline"
+        aria-label="Filter guides by topic"
+        className="mt-8 flex w-full flex-wrap justify-start"
+      >
+        <ToggleGroupItem value="all" className="min-h-10 px-4">
+          All
+        </ToggleGroupItem>
+        {TOPICS.map((hub) => (
+          <ToggleGroupItem key={hub.id} value={hub.id} className="min-h-10 px-4">
+            {hub.title}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+
+      {showFeatured && (
+        <section
+          aria-label="Latest guides"
+          className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-12"
+        >
+          <Link
+            to="/blog/$slug"
+            params={{ slug: featured.slug }}
+            className="group flex min-h-[240px] flex-col justify-end gap-3 rounded-2xl bg-[var(--muted)] p-6 no-underline transition-colors hover:bg-[var(--accent-teal-light)] sm:p-8"
+          >
+            <GuideMeta article={featured} accent />
+            <h2 className="text-balance text-[1.5rem] leading-snug font-semibold text-[var(--foreground)] sm:text-[1.75rem]">
+              {featured.title}
+            </h2>
+            <p className="max-w-[56ch] text-base leading-relaxed text-[var(--foreground)]/80">
+              {featured.description}
             </p>
-          </div>
-        </header>
+            <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent-teal)]">
+              Read the guide
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </span>
+          </Link>
 
-        <section className="grid gap-x-6 border-t border-[var(--border)] pt-2 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="flex flex-col gap-7">
+            {beside.map((article) => (
+              <GuideTile key={article.slug} article={article} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section aria-label={showFeatured ? 'More guides' : 'Guides'} className="mt-14">
+        {showFeatured && (
+          <h2 className="mb-6 text-lg font-semibold text-[var(--foreground)]">More guides</h2>
+        )}
+        <div className="grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+          {grid.map((article) => (
+            <GuideTile key={article.slug} article={article} showDescription />
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-16 flex flex-col gap-4">
+        <h2 className="text-lg font-semibold text-[var(--foreground)]">
+          Looking for a calculator?
+        </h2>
+        <div className="flex flex-wrap gap-2">
           {SITE_HUBS.map((hub) => (
             <Link
               key={hub.id}
               to={hubPath(hub.id)}
-              className="group grid gap-3 border-b border-[var(--border)] py-5 no-underline lg:grid-rows-[auto_1fr_auto]"
+              className="inline-flex min-h-10 items-center rounded-full bg-[var(--muted)] px-4 text-sm font-medium text-[var(--foreground)] no-underline transition-colors hover:bg-[var(--accent-teal-light)] hover:text-[var(--accent-teal)]"
             >
-              <h2 className="text-[1.2rem] leading-[1.15] font-semibold text-[var(--foreground)]">
-                {hub.title}
-              </h2>
-              <p className="text-sm leading-7 text-[var(--muted-foreground)] sm:text-[15px]">
-                {hub.description}
-              </p>
-              <span className="inline-flex items-center gap-1 text-sm font-medium text-[var(--accent-teal)]">
-                Explore
-                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-              </span>
+              {hub.title}
             </Link>
           ))}
-        </section>
-
-        {(
-          [
-            'property-buyer',
-            'house-design',
-            'materials-cost',
-          ] as const
-        ).map((cluster) => {
-          const articles = getArticlesByCluster(cluster)
-          return (
-            <section key={cluster} className="flex flex-col gap-6 border-t border-[var(--border)] pt-8">
-              <div className="flex w-full max-w-[780px] flex-col gap-2">
-                <h2 className="text-[1.75rem] leading-[1.08] font-semibold text-[var(--foreground)] sm:text-[2.15rem]">
-                  {CLUSTER_LABELS[cluster]} guides
-                </h2>
-              </div>
-
-              <div className="grid lg:grid-cols-3">
-                {articles.map((article, index) => (
-                  <a
-                    key={article.slug}
-                    href={article.path}
-                    className="group grid gap-4 border-b border-[var(--border)] py-6 transition-colors first:pt-0 lg:grid-rows-[auto_1fr_auto] lg:border-r lg:px-6 lg:py-0 first:lg:pl-0 [&:nth-child(3n)]:lg:border-r-0 [&:nth-child(3n)]:lg:pr-0"
-                  >
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-balance text-[1.3rem] leading-[1.18] font-semibold text-[var(--foreground)] sm:text-[1.55rem]">
-                        {article.title}
-                      </h3>
-                      <p className="mt-2 max-w-[60ch] text-pretty text-[15px] leading-7 text-[var(--muted-foreground)] sm:text-base">
-                        {article.description}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between gap-3 pt-1 text-sm">
-                      <span className="text-xs font-medium text-[var(--muted-foreground)]">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <span className="inline-flex items-center gap-1 font-medium text-[var(--accent-teal)]">
-                        Read guide
-                        <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-                      </span>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </section>
-          )
-        })}
+        </div>
       </section>
     </main>
+  )
+}
+
+function GuideMeta({ article, accent = false }: { article: BlogArticle; accent?: boolean }) {
+  return (
+    <p
+      className={
+        accent
+          ? 'text-sm font-medium text-[var(--accent-teal)]'
+          : 'text-sm text-[var(--foreground)]/65'
+      }
+    >
+      {topicOf(article)} · {article.readingTime}
+    </p>
+  )
+}
+
+function GuideTile({
+  article,
+  showDescription = false,
+}: {
+  article: BlogArticle
+  showDescription?: boolean
+}) {
+  return (
+    <Link
+      to="/blog/$slug"
+      params={{ slug: article.slug }}
+      className="group flex flex-col gap-1.5 no-underline"
+    >
+      <GuideMeta article={article} />
+      <h3 className="text-balance text-[1.0625rem] leading-snug font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)] sm:text-lg">
+        {article.title}
+      </h3>
+      {showDescription && (
+        <p className="line-clamp-2 text-[0.9375rem] leading-relaxed text-[var(--foreground)]/75">
+          {article.description}
+        </p>
+      )}
+    </Link>
   )
 }

@@ -150,7 +150,7 @@ function DelhiCircleRatePage() {
       tagline="Minimum land and construction rates for Delhi colony categories A to H, with a calculator for the minimum property value and the stamp duty you'll pay on it."
       variant="single-column"
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Circle rates by category" rule={false}>
           <Table>
             <TableHeader>
@@ -265,7 +265,7 @@ function DelhiCircleRatePage() {
         </ToolSection>
 
         <ToolSection number="03" label="Result" description={`Category ${category} · ${gender} buyer`}>
-          <div className="mb-6 grid gap-3 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5 sm:grid-cols-3">
+          <div className="mb-6 grid gap-3 rounded-xl bg-[var(--accent-teal-light)] p-5 sm:grid-cols-3">
             <Stat label="Circle value" value={result.circleValue} />
             <Stat label="Stamp duty charged on" value={result.taxableValue} />
             <Stat label="Stamp duty + registration" value={duty.totalGovernmentCharges} highlight />
@@ -431,7 +431,7 @@ function RelatedLink({ to, label }: { to: string; label: string }) {
   return (
     <Link
       to={to}
-      className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+      className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
     >
       {label}
       <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

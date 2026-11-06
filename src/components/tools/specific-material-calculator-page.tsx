@@ -98,7 +98,7 @@ export function SpecificMaterialCalculatorPage({ config }: { config: SpecificMat
       variant="single-column"
       footnote="Quantities use Indian site-engineer thumb rules. Add 5-10% wastage before ordering and confirm structural steel with your engineer."
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Dimensions" rule={false}>
           <FieldGroup className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <NumberField

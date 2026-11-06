@@ -128,7 +128,7 @@ function CapitalGainsCalculatorPage() {
         value={`₹${formatINR(result.recommendedTax)}`}
         targetId="result"
       />
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Purchase details" rule={false}>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-2">
@@ -317,7 +317,7 @@ function CapitalGainsCalculatorPage() {
             )}
           </div>
 
-          <div className="mt-6 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
+          <div className="mt-6 rounded-xl bg-[var(--accent-teal-light)] p-5">
             <div className="flex items-start gap-3">
               <CheckCircle className="size-5 shrink-0 text-[var(--accent-teal)]" />
               <div>
@@ -453,7 +453,7 @@ function ExemptionCard({
   detail: string
 }) {
   return (
-    <div className="flex flex-col gap-2 rounded-md border border-[var(--border)] p-4">
+    <div className="flex flex-col gap-2 rounded-xl bg-[var(--muted)] p-4">
       <p className="font-semibold text-[var(--foreground)]">{section}</p>
       <p className="text-sm leading-relaxed text-[var(--muted-foreground)]">
         {detail}

@@ -108,9 +108,9 @@ function StateStampDutyPage() {
           : `Rates last refreshed ${STAMP_DUTY_LAST_UPDATED} from ${content.igrPortal?.label ?? 'state IGR portal'}. Always cross-check with the local sub-registrar office before legal documents.`
       }
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Rates at a glance" rule={false}>
-          <div className="rounded-md border border-[var(--border)] bg-[var(--background)]">
+          <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -165,7 +165,7 @@ function StateStampDutyPage() {
 
         {entry.cities && entry.cities.length > 0 && (
           <ToolSection number="02" label="City-wise breakdown">
-            <div className="rounded-md border border-[var(--border)] bg-[var(--background)]">
+            <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -193,7 +193,7 @@ function StateStampDutyPage() {
         )}
 
         <ToolSection number="03" label="Run a custom calculation">
-          <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-xl bg-[var(--muted)] p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
               <p className="text-base font-semibold text-[var(--foreground)]">
                 Calculate stamp duty for your exact property value
@@ -218,7 +218,7 @@ function StateStampDutyPage() {
           description={`Stamp duty is one part of the bill. Add GST, brokerage, down payment and EMI for ${content.displayName}.`}
         >
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex flex-col gap-4 rounded-xl bg-[var(--muted)] p-5 sm:flex-row sm:items-center sm:justify-between">
               <p className="max-w-2xl text-sm leading-relaxed text-[var(--muted-foreground)]">
                 Banks don&apos;t finance stamp duty or registration. See the full cash you need
                 upfront and your monthly EMI.
@@ -295,7 +295,7 @@ function StateStampDutyPage() {
                 key={s.slug}
                 to="/stamp-duty/$state"
                 params={{ state: s.slug }}
-                className="flex items-center justify-between rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
               >
                 {s.displayName}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

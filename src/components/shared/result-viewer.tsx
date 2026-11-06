@@ -32,13 +32,13 @@ export function ResultViewer({
   return (
     <div className="flex flex-col gap-4">
       <div className="grid gap-4 md:grid-cols-2">
-        <figure className="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--card)]">
+        <figure className="overflow-hidden rounded-xl bg-[var(--muted)]">
           <img src={beforeUrl} alt="Before" className="aspect-square w-full object-contain" />
           <figcaption className="border-t border-[var(--border)] px-3 py-2 text-xs font-medium text-[var(--muted-foreground)]">
             Original
           </figcaption>
         </figure>
-        <figure className="overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--card)]">
+        <figure className="overflow-hidden rounded-xl bg-[var(--muted)]">
           {isLoading ? (
             <div className="flex aspect-square w-full flex-col items-center justify-center gap-3 bg-[var(--muted)]/40">
               <Spinner className="size-7 text-[var(--accent-teal)]" />

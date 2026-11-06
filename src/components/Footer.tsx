@@ -62,7 +62,7 @@ export default function Footer() {
           ))}
         </nav>
 
-        <div className="flex flex-col items-center justify-between gap-2 border-t border-[var(--line)] pt-6 text-center text-sm text-[var(--foreground)]/70 sm:flex-row sm:text-left">
+        <div className="flex flex-col items-center justify-between gap-2 pt-2 text-center text-sm text-[var(--foreground)]/70 sm:flex-row sm:text-left">
           <p className="m-0">&copy; {year} Plotr Ai</p>
           <p className="m-0">Free property and home-building calculators for India.</p>
         </div>

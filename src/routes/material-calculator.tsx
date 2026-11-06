@@ -177,7 +177,7 @@ function MaterialCalculatorPage() {
           targetId="result"
         />
       )}
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="What are you building?" rule={false}>
           <ToggleGroup
             type="single"

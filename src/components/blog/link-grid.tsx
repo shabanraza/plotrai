@@ -31,7 +31,7 @@ export function LinkGrid({
         <a
           key={item.to}
           href={item.to}
-          className="group flex h-full flex-col gap-2 rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-3.5 transition-colors hover:border-[var(--accent-teal)]/40 hover:bg-[var(--muted)]/35"
+          className="group flex h-full flex-col gap-2 rounded-lg bg-[var(--muted)] px-4 py-3.5 transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/35"
         >
           <div className="flex flex-wrap items-center gap-2">
             {item.badge && (

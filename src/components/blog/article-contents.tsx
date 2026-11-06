@@ -51,8 +51,8 @@ export function ArticleContents({ items }: { items: ReadonlyArray<ContentsItem> 
 /** Below lg: the same list, folded away so it doesn't push the article down. */
 export function ArticleContentsMobile({ items }: { items: ReadonlyArray<ContentsItem> }) {
   return (
-    <Accordion type="single" collapsible className="border-y border-[var(--border)] lg:hidden">
-      <AccordionItem value="contents">
+    <Accordion type="single" collapsible className="rounded-xl bg-[var(--muted)] px-4 lg:hidden">
+      <AccordionItem value="contents" className="border-b-0">
         <AccordionTrigger className="min-h-11 items-center py-3 text-base font-semibold hover:no-underline">
           In this article
         </AccordionTrigger>

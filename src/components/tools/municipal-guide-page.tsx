@@ -44,9 +44,9 @@ export function MunicipalGuidePage({ content }: MunicipalGuidePageProps) {
       }
       footnote={`Last checked ${content.lastUpdated}. This guide is for search and planning support. The official municipal portal remains the final source for dues, dates, rebates, payments, and receipts.`}
     >
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-14">
         <ToolSection number="01" label="Search opportunity" rule={false}>
-          <div className="flex flex-col gap-3 rounded-md border border-[var(--accent-teal)]/30 bg-[var(--accent-teal-light)] p-5">
+          <div className="flex flex-col gap-3 rounded-xl bg-[var(--accent-teal-light)] p-5">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="outline">{content.authority}</Badge>
               <Badge variant="secondary">Rising search intent</Badge>
@@ -62,7 +62,7 @@ export function MunicipalGuidePage({ content }: MunicipalGuidePageProps) {
           label="What users are trying to do"
           description="A query-matched checklist for the page visitor."
         >
-          <div className="rounded-md border border-[var(--border)] bg-[var(--background)]">
+          <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -93,7 +93,7 @@ export function MunicipalGuidePage({ content }: MunicipalGuidePageProps) {
             {content.references.map((reference) => (
               <div
                 key={reference.label}
-                className="flex flex-col gap-1 rounded-md border border-[var(--border)] bg-[var(--background)] px-4 py-3"
+                className="flex flex-col gap-1 rounded-lg bg-[var(--muted)] px-4 py-3"
               >
                 <p className="text-sm text-[var(--muted-foreground)]">
                   {reference.label}
@@ -107,7 +107,7 @@ export function MunicipalGuidePage({ content }: MunicipalGuidePageProps) {
         </ToolSection>
 
         <ToolSection number="04" label="Official portal and calculator">
-          <div className="flex flex-col gap-4 rounded-md border border-[var(--border)] bg-[var(--muted)]/30 p-5 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-xl bg-[var(--muted)] p-5 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-col gap-1">
               <p className="text-base font-semibold text-[var(--foreground)]">
                 Estimate here, verify officially
