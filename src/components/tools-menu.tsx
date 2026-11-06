@@ -19,12 +19,15 @@ import {
 /** How many "by state / by city" quick links a hub panel shows before "See all". */
 const QUICK_LINK_LIMIT = 8
 const GUIDE_LIMIT = 2
+/** Above this many tools a hub switches to compact two-column rows without descriptions. */
+const COMPACT_AFTER = 8
+const CALCULATORS = 'Calculators'
 
 const TRIGGER_CLASS =
   'h-8 bg-transparent px-3 text-[13px] font-medium text-[var(--muted-foreground)] hover:bg-[var(--chip-bg)] hover:text-[var(--foreground)] data-[state=open]:bg-[var(--chip-bg)] data-[state=open]:text-[var(--foreground)]'
 
 const PANEL_CLASS =
-  'left-0 top-full mt-2 rounded-xl border border-[var(--border)] bg-[var(--popover)] p-3 shadow-[0_1px_2px_rgba(24,24,27,0.04),0_8px_24px_-4px_rgba(24,24,27,0.10),0_24px_48px_-12px_rgba(24,24,27,0.10)] dark:shadow-[0_2px_4px_rgba(0,0,0,0.4),0_12px_32px_-4px_rgba(0,0,0,0.5)]'
+  'left-0 top-full mt-2 max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain rounded-xl border border-[var(--border)] bg-[var(--popover)] p-3 shadow-[0_1px_2px_rgba(24,24,27,0.04),0_8px_24px_-4px_rgba(24,24,27,0.10),0_24px_48px_-12px_rgba(24,24,27,0.10)] dark:shadow-[0_2px_4px_rgba(0,0,0,0.4),0_12px_32px_-4px_rgba(0,0,0,0.5)]'
 
 /**
  * Desktop header menus: one dropdown per hub (Buy, Build, Land, Tax, Design). Tools sit on the
@@ -54,16 +57,42 @@ function HubPanel({ hub }: { hub: SiteHub }) {
   const quickLinks = quick ? entriesForHub(hub.id, quick.kind) : []
   const guides = entriesForHub(hub.id, 'guide').slice(0, GUIDE_LIMIT)
   const hasSide = quickLinks.length > 0 || guides.length > 0
+  const compact = tools.length > COMPACT_AFTER
 
   return (
-    <div className={hasSide ? 'grid gap-3 md:grid-cols-[1.15fr_1fr]' : 'grid'}>
+    <div
+      className={
+        hasSide
+          ? compact
+            ? 'grid gap-3 md:grid-cols-[1fr_240px]'
+            : 'grid gap-3 md:grid-cols-[1.15fr_1fr]'
+          : 'grid'
+      }
+    >
       <div>
-        <PanelKicker>{hub.title}</PanelKicker>
-        <ul className="grid gap-0.5">
-          {tools.map((tool) => (
-            <ToolMenuItem key={tool.to} tool={tool} />
-          ))}
-        </ul>
+        {compact ? (
+          <div className="flex flex-col gap-3">
+            {groupTools(tools).map(([group, items]) => (
+              <div key={group}>
+                <PanelKicker>{group}</PanelKicker>
+                <ul className="grid grid-cols-2 gap-x-1 gap-y-0.5">
+                  {items.map((tool) => (
+                    <CompactToolItem key={tool.to} tool={tool} />
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            <PanelKicker>{hub.title}</PanelKicker>
+            <ul className="grid gap-0.5">
+              {tools.map((tool) => (
+                <ToolMenuItem key={tool.to} tool={tool} />
+              ))}
+            </ul>
+          </>
+        )}
         <Link
           to={hubPath(hub.id)}
           className="mt-1 inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-[13px] font-medium text-[var(--brand)] no-underline hover:bg-[var(--muted)]/60"
@@ -159,9 +188,39 @@ function ToolMenuItem({ tool }: { tool: SiteEntry }) {
   )
 }
 
-/** Two-column panels (tools + quick links/guides) are wide; tool-only panels stay narrow. */
+/** Calculators first, then each named group in site-map order. */
+function groupTools(tools: ReadonlyArray<SiteEntry>): Array<[string, Array<SiteEntry>]> {
+  const groups = new Map<string, Array<SiteEntry>>([[CALCULATORS, []]])
+  for (const tool of tools) {
+    const key = tool.group ?? CALCULATORS
+    if (!groups.has(key)) groups.set(key, [])
+    groups.get(key)!.push(tool)
+  }
+  return [...groups].filter(([, items]) => items.length > 0)
+}
+
+/** Icon and title only, for hubs with many tools; the description shows as a tooltip. */
+function CompactToolItem({ tool }: { tool: SiteEntry }) {
+  const Icon = tool.icon
+  return (
+    <li>
+      <Link
+        to={tool.to}
+        title={tool.description}
+        className="flex items-center gap-2 rounded-md px-2 py-1.5 text-[13px] text-[var(--foreground)] no-underline outline-none transition-colors hover:bg-[var(--muted)]/60 focus-visible:bg-[var(--muted)]/60"
+      >
+        {Icon && <Icon className="size-4 shrink-0 text-[var(--muted-foreground)]" />}
+        <span className="truncate">{tool.title}</span>
+      </Link>
+    </li>
+  )
+}
+
+/** Two-column panels (tools + quick links/guides) are wide; busy hubs wider still. */
 function panelWidth(hub: SiteHub) {
   const hasSide =
     Boolean(HUB_PROGRAMMATIC_LABEL[hub.id]) || entriesForHub(hub.id, 'guide').length > 0
+  const compact = entriesForHub(hub.id, 'tool').length > COMPACT_AFTER
+  if (compact) return hasSide ? 'md:!w-[min(820px,calc(100vw-2rem))]' : 'md:!w-[560px]'
   return hasSide ? 'md:!w-[600px]' : 'md:!w-[360px]'
 }
