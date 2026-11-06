@@ -40,6 +40,7 @@ import {
 } from '#/data/construction-cost-rates'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { NextStepCard } from '#/components/tools/next-step-card'
+import { QuoteWaitlist } from '#/components/tools/quote-waitlist'
 import { ResultBar } from '#/components/tools/result-bar'
 import { ToolSources, type ToolSource } from '#/components/tools/tool-sources'
 import { INFRALENS_NEW_CITIES, INFRALENS_UPDATED, infralensUrl } from '#/data/infralens-rates'
@@ -305,6 +306,9 @@ function ConstructionCostCalculatorPage() {
               </TableRow>
             </TableFooter>
           </Table>
+          <div className="mt-4">
+            <QuoteWaitlist tool="/construction-cost-calculator" />
+          </div>
         </ToolSection>
 
         <NextStepCard from="/construction-cost-calculator" />

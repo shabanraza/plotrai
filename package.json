@@ -14,6 +14,8 @@
     "postinstall": "vite build",
     "test": "vitest run",
     "gsc:report": "node scripts/gsc-weekly-report.ts",
+    "waitlist": "wrangler d1 execute plotrai --remote --command \"SELECT created_at, contact, role, projects, would_pay, tool FROM quote_waitlist ORDER BY created_at DESC\"",
+    "waitlist:summary": "wrangler d1 execute plotrai --remote --command \"SELECT role, projects, would_pay, COUNT(*) AS people FROM quote_waitlist GROUP BY role, projects, would_pay ORDER BY people DESC\"",
     "lint": "eslint",
     "format": "prettier --check .",
     "check": "prettier --write . && eslint --fix"
