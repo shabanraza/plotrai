@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import {
   Box,
+  ClipboardList,
   FileSpreadsheet,
   LayoutGrid,
   Wrench,
@@ -125,6 +126,7 @@ export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   { title: 'Civil work quotation format', to: '/civil-work-quotation-format', description: 'Brickwork, plaster and RCC slab quote with material, as a PDF.', hub: 'build', kind: 'tool', icon: BrickWall, keywords: ['civil work quotation', 'civil contractor quotation', 'civil work quotation with material', 'construction quotation'] },
   { title: 'House construction quotation', to: '/house-construction-quotation', description: 'Stage-wise house construction quote with payment schedule, as a PDF.', hub: 'build', kind: 'tool', icon: Building2, keywords: ['house construction quotation', 'construction quotation format', 'building contractor quotation', 'stage wise payment'] },
   { title: 'BOQ format for residential building', to: '/boq-format-residential-building', description: 'Bill of quantities from slabs, walls and plaster, as PDF or Excel.', hub: 'build', kind: 'tool', icon: FileSpreadsheet, keywords: ['boq', 'bill of quantities', 'boq format excel', 'boq for house construction'] },
+  { title: 'Work order format', to: '/work-order-format', description: 'Civil work order with scope, item rates, payment stages and terms.', hub: 'build', kind: 'tool', icon: ClipboardList, keywords: ['work order', 'civil work order format', 'work order template', 'contractor work order'] },
   { title: 'Solar panel cost calculator', to: '/solar-panel-cost-calculator', description: 'Rooftop solar cost after the PM Surya Ghar subsidy.', hub: 'build', kind: 'tool', icon: Sun, keywords: ['pm surya ghar', 'rooftop solar', 'solar subsidy', '3kw', '5kw'] },
   // Land
   { title: 'Plot area converter', to: '/plot-converter', description: 'Every Indian land unit, region-aware.', hub: 'land', kind: 'tool', icon: Ruler, keywords: ['gaj', 'bigha', 'acre', 'marla', 'gunta', 'cent'] },
