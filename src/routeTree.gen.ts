@@ -39,6 +39,7 @@ import { Route as GhmcPropertyTaxSearchByHouseNumberRouteImport } from './routes
 import { Route as GhmcPropertyTaxCalculatorRouteImport } from './routes/ghmc-property-tax-calculator'
 import { Route as FloorPlan3dRouteImport } from './routes/floor-plan-3d'
 import { Route as EmptyRoomStagerRouteImport } from './routes/empty-room-stager'
+import { Route as ElectricalQuotationFormatRouteImport } from './routes/electrical-quotation-format'
 import { Route as DisclaimerRouteImport } from './routes/disclaimer'
 import { Route as DesignRouteImport } from './routes/design'
 import { Route as DelhiCircleRateRouteImport } from './routes/delhi-circle-rate'
@@ -222,6 +223,12 @@ const EmptyRoomStagerRoute = EmptyRoomStagerRouteImport.update({
   path: '/empty-room-stager',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ElectricalQuotationFormatRoute =
+  ElectricalQuotationFormatRouteImport.update({
+    id: '/electrical-quotation-format',
+    path: '/electrical-quotation-format',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const DisclaimerRoute = DisclaimerRouteImport.update({
   id: '/disclaimer',
   path: '/disclaimer',
@@ -358,6 +365,7 @@ export interface FileRoutesByFullPath {
   '/delhi-circle-rate': typeof DelhiCircleRateRoute
   '/design': typeof DesignRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/electrical-quotation-format': typeof ElectricalQuotationFormatRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
@@ -412,6 +420,7 @@ export interface FileRoutesByTo {
   '/delhi-circle-rate': typeof DelhiCircleRateRoute
   '/design': typeof DesignRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/electrical-quotation-format': typeof ElectricalQuotationFormatRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
@@ -468,6 +477,7 @@ export interface FileRoutesById {
   '/delhi-circle-rate': typeof DelhiCircleRateRoute
   '/design': typeof DesignRoute
   '/disclaimer': typeof DisclaimerRoute
+  '/electrical-quotation-format': typeof ElectricalQuotationFormatRoute
   '/empty-room-stager': typeof EmptyRoomStagerRoute
   '/floor-plan-3d': typeof FloorPlan3dRoute
   '/ghmc-property-tax-calculator': typeof GhmcPropertyTaxCalculatorRoute
@@ -525,6 +535,7 @@ export interface FileRouteTypes {
     | '/delhi-circle-rate'
     | '/design'
     | '/disclaimer'
+    | '/electrical-quotation-format'
     | '/empty-room-stager'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
@@ -579,6 +590,7 @@ export interface FileRouteTypes {
     | '/delhi-circle-rate'
     | '/design'
     | '/disclaimer'
+    | '/electrical-quotation-format'
     | '/empty-room-stager'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
@@ -634,6 +646,7 @@ export interface FileRouteTypes {
     | '/delhi-circle-rate'
     | '/design'
     | '/disclaimer'
+    | '/electrical-quotation-format'
     | '/empty-room-stager'
     | '/floor-plan-3d'
     | '/ghmc-property-tax-calculator'
@@ -690,6 +703,7 @@ export interface RootRouteChildren {
   DelhiCircleRateRoute: typeof DelhiCircleRateRoute
   DesignRoute: typeof DesignRoute
   DisclaimerRoute: typeof DisclaimerRoute
+  ElectricalQuotationFormatRoute: typeof ElectricalQuotationFormatRoute
   EmptyRoomStagerRoute: typeof EmptyRoomStagerRoute
   FloorPlan3dRoute: typeof FloorPlan3dRoute
   GhmcPropertyTaxCalculatorRoute: typeof GhmcPropertyTaxCalculatorRoute
@@ -939,6 +953,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmptyRoomStagerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/electrical-quotation-format': {
+      id: '/electrical-quotation-format'
+      path: '/electrical-quotation-format'
+      fullPath: '/electrical-quotation-format'
+      preLoaderRoute: typeof ElectricalQuotationFormatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/disclaimer': {
       id: '/disclaimer'
       path: '/disclaimer'
@@ -1132,6 +1153,7 @@ const rootRouteChildren: RootRouteChildren = {
   DelhiCircleRateRoute: DelhiCircleRateRoute,
   DesignRoute: DesignRoute,
   DisclaimerRoute: DisclaimerRoute,
+  ElectricalQuotationFormatRoute: ElectricalQuotationFormatRoute,
   EmptyRoomStagerRoute: EmptyRoomStagerRoute,
   FloorPlan3dRoute: FloorPlan3dRoute,
   GhmcPropertyTaxCalculatorRoute: GhmcPropertyTaxCalculatorRoute,
