@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatRupees, lineAmount, quoteTotals } from '#/lib/quotation'
+import { formatRupees, lineAmount, quoteTotals, roomsAreaPerimeter } from '#/lib/quotation'
 
 describe('lineAmount', () => {
   it('multiplies qty by rate and rounds to paise', () => {
@@ -52,5 +52,17 @@ describe('quoteTotals', () => {
 describe('formatRupees', () => {
   it('uses Indian grouping', () => {
     expect(formatRupees(125000.5)).toBe('1,25,000.50')
+  })
+})
+
+describe('roomsAreaPerimeter', () => {
+  it('sums area and perimeter and skips incomplete rooms', () => {
+    expect(
+      roomsAreaPerimeter([
+        { length: 12, width: 10 },
+        { length: 8, width: 5 },
+        { length: 0, width: 9 },
+      ]),
+    ).toEqual({ area: 160, perimeter: 70 })
   })
 })

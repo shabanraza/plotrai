@@ -2,12 +2,18 @@ import { formatRupees, quoteTotals, type QuoteLine } from '#/lib/quotation'
 
 export interface QuotationPdfInput {
   title: string
+  /** Page path, printed in the footer */
+  path: string
+  /** File name without extension */
+  fileStem: string
   business: { name: string; phone: string; gstin: string }
   client: { name: string; address: string }
   quoteNo: string
   date: string
   lines: ReadonlyArray<QuoteLine>
   gstPct: number
+  /** Free-text blocks printed before the table, e.g. scope of work */
+  sections?: ReadonlyArray<{ heading: string; text: string }>
   terms: ReadonlyArray<string>
 }
 
@@ -26,12 +32,12 @@ export async function downloadQuotationPdf(input: QuotationPdfInput): Promise<vo
   let y = 18
 
   doc.setFont('helvetica', 'bold').setFontSize(16)
-  doc.text(input.business.name || 'Painting contractor', left, y)
+  doc.text(input.business.name || 'Contractor', left, y)
   doc.setFontSize(12).text(input.title, right, y, { align: 'right' })
   doc.setFont('helvetica', 'normal').setFontSize(10)
   y += 6
   if (input.business.phone) doc.text(`Phone: ${input.business.phone}`, left, y)
-  doc.text(`Quote no: ${input.quoteNo || '-'}`, right, y, { align: 'right' })
+  doc.text(`No: ${input.quoteNo || '-'}`, right, y, { align: 'right' })
   y += 5
   if (input.business.gstin) doc.text(`GSTIN: ${input.business.gstin}`, left, y)
   doc.text(`Date: ${formatDate(input.date)}`, right, y, { align: 'right' })
@@ -46,6 +52,16 @@ export async function downloadQuotationPdf(input: QuotationPdfInput): Promise<vo
     y += 5
     doc.text(addr, left, y)
     y += (addr.length - 1) * 5
+  }
+
+  for (const section of input.sections ?? []) {
+    y += 9
+    doc.setFont('helvetica', 'bold').text(section.heading, left, y)
+    doc.setFont('helvetica', 'normal')
+    const wrapped = doc.splitTextToSize(section.text, right - left) as Array<string>
+    y += 5
+    doc.text(wrapped, left, y)
+    y += (wrapped.length - 1) * 5
   }
 
   const totals = quoteTotals(input.lines, input.gstPct)
@@ -96,10 +112,10 @@ export async function downloadQuotationPdf(input: QuotationPdfInput): Promise<vo
   }
 
   doc.setFontSize(8).setTextColor(130)
-  doc.text('Made with plotrai.in/painting-quotation-format', left, 290)
+  doc.text(`Made with plotrai.in${input.path}`, left, 290)
 
   const slug = (input.quoteNo || 'quotation').replace(/[^a-z0-9-]+/gi, '-')
-  doc.save(`painting-quotation-${slug}.pdf`)
+  doc.save(`${input.fileStem}-${slug}.pdf`)
 }
 
 function fmtQty(n: number): string {

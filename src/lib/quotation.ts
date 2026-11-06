@@ -52,3 +52,25 @@ export function formatRupees(n: number): string {
     maximumFractionDigits: 2,
   })
 }
+
+export interface RectRoom {
+  length: number
+  width: number
+}
+
+/** Total floor (or ceiling) area and perimeter of rectangular rooms, in the input's units. */
+export function roomsAreaPerimeter(rooms: ReadonlyArray<RectRoom>): {
+  area: number
+  perimeter: number
+} {
+  let area = 0
+  let perimeter = 0
+  for (const r of rooms) {
+    const l = nonNegative(r.length)
+    const w = nonNegative(r.width)
+    if (l === 0 || w === 0) continue
+    area += l * w
+    perimeter += 2 * (l + w)
+  }
+  return { area, perimeter }
+}

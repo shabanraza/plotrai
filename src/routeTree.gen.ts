@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VastuCheckerRouteImport } from './routes/vastu-checker'
+import { Route as TilesWorkQuotationFormatRouteImport } from './routes/tiles-work-quotation-format'
 import { Route as TilesCalculatorRouteImport } from './routes/tiles-calculator'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TaxRouteImport } from './routes/tax'
@@ -66,6 +67,12 @@ const VastuCheckerRoute = VastuCheckerRouteImport.update({
   path: '/vastu-checker',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TilesWorkQuotationFormatRoute =
+  TilesWorkQuotationFormatRouteImport.update({
+    id: '/tiles-work-quotation-format',
+    path: '/tiles-work-quotation-format',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const TilesCalculatorRoute = TilesCalculatorRouteImport.update({
   id: '/tiles-calculator',
   path: '/tiles-calculator',
@@ -371,6 +378,7 @@ export interface FileRoutesByFullPath {
   '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
   '/tiles-calculator': typeof TilesCalculatorRoute
+  '/tiles-work-quotation-format': typeof TilesWorkQuotationFormatRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -423,6 +431,7 @@ export interface FileRoutesByTo {
   '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
   '/tiles-calculator': typeof TilesCalculatorRoute
+  '/tiles-work-quotation-format': typeof TilesWorkQuotationFormatRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -477,6 +486,7 @@ export interface FileRoutesById {
   '/tax': typeof TaxRoute
   '/terms': typeof TermsRoute
   '/tiles-calculator': typeof TilesCalculatorRoute
+  '/tiles-work-quotation-format': typeof TilesWorkQuotationFormatRoute
   '/vastu-checker': typeof VastuCheckerRoute
   '/api/chat': typeof ApiChatRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -532,6 +542,7 @@ export interface FileRouteTypes {
     | '/tax'
     | '/terms'
     | '/tiles-calculator'
+    | '/tiles-work-quotation-format'
     | '/vastu-checker'
     | '/api/chat'
     | '/blog/$slug'
@@ -584,6 +595,7 @@ export interface FileRouteTypes {
     | '/tax'
     | '/terms'
     | '/tiles-calculator'
+    | '/tiles-work-quotation-format'
     | '/vastu-checker'
     | '/api/chat'
     | '/blog/$slug'
@@ -637,6 +649,7 @@ export interface FileRouteTypes {
     | '/tax'
     | '/terms'
     | '/tiles-calculator'
+    | '/tiles-work-quotation-format'
     | '/vastu-checker'
     | '/api/chat'
     | '/blog/$slug'
@@ -691,6 +704,7 @@ export interface RootRouteChildren {
   TaxRoute: typeof TaxRoute
   TermsRoute: typeof TermsRoute
   TilesCalculatorRoute: typeof TilesCalculatorRoute
+  TilesWorkQuotationFormatRoute: typeof TilesWorkQuotationFormatRoute
   VastuCheckerRoute: typeof VastuCheckerRoute
   ApiChatRoute: typeof ApiChatRoute
   ConstructionCostCityRoute: typeof ConstructionCostCityRoute
@@ -706,6 +720,13 @@ declare module '@tanstack/react-router' {
       path: '/vastu-checker'
       fullPath: '/vastu-checker'
       preLoaderRoute: typeof VastuCheckerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tiles-work-quotation-format': {
+      id: '/tiles-work-quotation-format'
+      path: '/tiles-work-quotation-format'
+      fullPath: '/tiles-work-quotation-format'
+      preLoaderRoute: typeof TilesWorkQuotationFormatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tiles-calculator': {
@@ -1118,6 +1139,7 @@ const rootRouteChildren: RootRouteChildren = {
   TaxRoute: TaxRoute,
   TermsRoute: TermsRoute,
   TilesCalculatorRoute: TilesCalculatorRoute,
+  TilesWorkQuotationFormatRoute: TilesWorkQuotationFormatRoute,
   VastuCheckerRoute: VastuCheckerRoute,
   ApiChatRoute: ApiChatRoute,
   ConstructionCostCityRoute: ConstructionCostCityRoute,
