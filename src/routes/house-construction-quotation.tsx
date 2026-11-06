@@ -20,15 +20,19 @@ export const Route = createFileRoute('/house-construction-quotation')({
   head: () => finishingHead(CONTENT),
 })
 
+/** "Structure (RCC)" → "structure (RCC)", "Masonry + plaster" → "masonry and plaster" */
+const stageName = (label: string) =>
+  label.replace(' + ', ' and ').replace(/^./, (c) => c.toLowerCase())
+
 const LINES: ReadonlyArray<TradeLineDef> = STAGES.map((s) => ({
   id: s.key,
-  description: `${s.label}: ${s.description.replace(/\.$/, '')}`,
+  description: `${s.label.replace(' + ', ' and ')}: ${s.description.replace(/\.$/, '')}`,
   unit: 'sq ft',
   auto: 'area',
 }))
 
 const PAYMENT_SCHEDULE = STAGES.map(
-  (s, i) => `${i + 1}. On completion of ${s.label.toLowerCase().replace(' + ', ' and ')}: ${s.percent}%`,
+  (s, i) => `${i + 1}. On completion of ${stageName(s.label)}: ${s.percent}%`,
 ).join('\n')
 
 function HouseConstructionQuotationPage() {
