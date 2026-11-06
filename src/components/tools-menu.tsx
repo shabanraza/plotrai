@@ -125,6 +125,7 @@ function HubPanel({ hub }: { hub: SiteHub }) {
 export function shortLabel(entry: SiteEntry) {
   if (entry.kind === 'state') return entry.title.replace(/ stamp duty$/, '')
   if (entry.kind === 'city') return entry.title.replace(/ construction cost$/, '')
+  if (entry.kind === 'solar') return entry.title.replace(/^Solar panel cost in /, '')
   return entry.title
 }
 

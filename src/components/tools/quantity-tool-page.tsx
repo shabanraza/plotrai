@@ -19,12 +19,18 @@ export function QuantityToolPage({
   headline,
   inputs,
   result,
+  nextFrom,
+  extra,
 }: {
   content: FinishingToolContent
   /** Pre-formatted figure for the phone result bar; omit while there is no result */
   headline?: { label: string; value: string }
   inputs: React.ReactNode
   result: React.ReactNode
+  /** Path whose next step to show; defaults to the page's own path */
+  nextFrom?: string
+  /** Extra section after the next step, e.g. links to city pages */
+  extra?: React.ReactNode
 }) {
   return (
     <ToolPageShell
@@ -44,7 +50,8 @@ export function QuantityToolPage({
         <ToolSection id="result" label="Result">
           {result}
         </ToolSection>
-        <NextStepCard from={content.path} />
+        <NextStepCard from={nextFrom ?? content.path} />
+        {extra}
         <ToolContext title={content.context.title}>
           {content.context.paragraphs.map((p) => (
             <p key={p}>{p}</p>
