@@ -16,6 +16,7 @@ import {
   Ruler,
   Shovel,
   Sofa,
+  Sun,
   TrendingUp,
   Wand2,
   Weight,
@@ -111,6 +112,7 @@ export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   { title: 'Plaster calculator', to: '/plaster-calculator', description: 'Cement and sand for wall and ceiling plaster.', hub: 'build', kind: 'tool', icon: Shovel, keywords: ['plastering', 'mortar'] },
   { title: 'Tiles calculator', to: '/tiles-calculator', description: 'How many tiles and boxes for a floor or wall.', hub: 'build', kind: 'tool', icon: Grid3x3, keywords: ['flooring', 'tile boxes', 'vitrified'] },
   { title: 'Paint calculator', to: '/paint-calculator', description: 'Litres of paint and kg of putty for a room.', hub: 'build', kind: 'tool', icon: PaintRoller, keywords: ['wall paint', 'putty', 'emulsion'] },
+  { title: 'Solar panel cost calculator', to: '/solar-panel-cost-calculator', description: 'Rooftop solar cost after the PM Surya Ghar subsidy.', hub: 'build', kind: 'tool', icon: Sun, keywords: ['pm surya ghar', 'rooftop solar', 'solar subsidy', '3kw', '5kw'] },
   // Land
   { title: 'Plot area converter', to: '/plot-converter', description: 'Every Indian land unit, region-aware.', hub: 'land', kind: 'tool', icon: Ruler, keywords: ['gaj', 'bigha', 'acre', 'marla', 'gunta', 'cent'] },
   // Tax
