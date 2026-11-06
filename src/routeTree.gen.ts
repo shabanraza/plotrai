@@ -21,6 +21,7 @@ import { Route as RccSlabCalculatorRouteImport } from './routes/rcc-slab-calcula
 import { Route as PropertyCapitalGainsCalculatorRouteImport } from './routes/property-capital-gains-calculator'
 import { Route as PropertyBuyerGuideRouteImport } from './routes/property-buyer-guide'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as PlumbingQuotationFormatRouteImport } from './routes/plumbing-quotation-format'
 import { Route as PlotConverterRouteImport } from './routes/plot-converter'
 import { Route as PlasterCalculatorRouteImport } from './routes/plaster-calculator'
 import { Route as PaintingQuotationFormatRouteImport } from './routes/painting-quotation-format'
@@ -125,6 +126,11 @@ const PropertyBuyerGuideRoute = PropertyBuyerGuideRouteImport.update({
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlumbingQuotationFormatRoute = PlumbingQuotationFormatRouteImport.update({
+  id: '/plumbing-quotation-format',
+  path: '/plumbing-quotation-format',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlotConverterRoute = PlotConverterRouteImport.update({
@@ -384,6 +390,7 @@ export interface FileRoutesByFullPath {
   '/painting-quotation-format': typeof PaintingQuotationFormatRoute
   '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
+  '/plumbing-quotation-format': typeof PlumbingQuotationFormatRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
@@ -439,6 +446,7 @@ export interface FileRoutesByTo {
   '/painting-quotation-format': typeof PaintingQuotationFormatRoute
   '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
+  '/plumbing-quotation-format': typeof PlumbingQuotationFormatRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
@@ -496,6 +504,7 @@ export interface FileRoutesById {
   '/painting-quotation-format': typeof PaintingQuotationFormatRoute
   '/plaster-calculator': typeof PlasterCalculatorRoute
   '/plot-converter': typeof PlotConverterRoute
+  '/plumbing-quotation-format': typeof PlumbingQuotationFormatRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/property-buyer-guide': typeof PropertyBuyerGuideRoute
   '/property-capital-gains-calculator': typeof PropertyCapitalGainsCalculatorRoute
@@ -554,6 +563,7 @@ export interface FileRouteTypes {
     | '/painting-quotation-format'
     | '/plaster-calculator'
     | '/plot-converter'
+    | '/plumbing-quotation-format'
     | '/privacy-policy'
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
@@ -609,6 +619,7 @@ export interface FileRouteTypes {
     | '/painting-quotation-format'
     | '/plaster-calculator'
     | '/plot-converter'
+    | '/plumbing-quotation-format'
     | '/privacy-policy'
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
@@ -665,6 +676,7 @@ export interface FileRouteTypes {
     | '/painting-quotation-format'
     | '/plaster-calculator'
     | '/plot-converter'
+    | '/plumbing-quotation-format'
     | '/privacy-policy'
     | '/property-buyer-guide'
     | '/property-capital-gains-calculator'
@@ -722,6 +734,7 @@ export interface RootRouteChildren {
   PaintingQuotationFormatRoute: typeof PaintingQuotationFormatRoute
   PlasterCalculatorRoute: typeof PlasterCalculatorRoute
   PlotConverterRoute: typeof PlotConverterRoute
+  PlumbingQuotationFormatRoute: typeof PlumbingQuotationFormatRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   PropertyBuyerGuideRoute: typeof PropertyBuyerGuideRoute
   PropertyCapitalGainsCalculatorRoute: typeof PropertyCapitalGainsCalculatorRoute
@@ -825,6 +838,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plumbing-quotation-format': {
+      id: '/plumbing-quotation-format'
+      path: '/plumbing-quotation-format'
+      fullPath: '/plumbing-quotation-format'
+      preLoaderRoute: typeof PlumbingQuotationFormatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/plot-converter': {
@@ -1173,6 +1193,7 @@ const rootRouteChildren: RootRouteChildren = {
   PaintingQuotationFormatRoute: PaintingQuotationFormatRoute,
   PlasterCalculatorRoute: PlasterCalculatorRoute,
   PlotConverterRoute: PlotConverterRoute,
+  PlumbingQuotationFormatRoute: PlumbingQuotationFormatRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   PropertyBuyerGuideRoute: PropertyBuyerGuideRoute,
   PropertyCapitalGainsCalculatorRoute: PropertyCapitalGainsCalculatorRoute,
