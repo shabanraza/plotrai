@@ -93,7 +93,7 @@ function LandingPage() {
 function SectionHeading({ kicker, title }: { kicker: string; title: string }) {
   return (
     <div className="mb-6 flex flex-col gap-1.5">
-      <p className="text-sm font-medium text-[var(--accent-teal)]">
+      <p className="text-sm font-medium text-[var(--muted-foreground)]">
         {kicker}
       </p>
       <h2 className="text-[22px] font-semibold tracking-[-0.015em] text-[var(--foreground)] sm:text-[26px]">
@@ -108,7 +108,7 @@ function Hero() {
     <section className="flex flex-col items-center gap-6 pt-12 pb-12 text-center sm:pt-20 sm:pb-16">
       <h1 className="max-w-3xl text-balance text-[2rem] font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--foreground)] sm:text-5xl">
         Property and home-building calculators{' '}
-        <span className="text-[var(--accent-teal)]">for India</span>
+        for India
       </h1>
       <p className="text-base text-[var(--foreground)]/80 sm:text-lg">
         Free, with sources on every page.
@@ -116,9 +116,9 @@ function Hero() {
       <button
         type="button"
         onClick={openSiteSearch}
-        className="frosted mt-2 flex h-14 w-full max-w-xl items-center gap-3 rounded-xl px-4 text-left text-base text-[var(--muted-foreground)] transition-colors hover:bg-[var(--accent-teal-light)] focus-visible:ring-2 focus-visible:ring-[var(--accent-teal)] focus-visible:outline-none"
+        className="frosted mt-2 flex h-14 w-full max-w-xl items-center gap-3 rounded-xl px-4 text-left text-base text-[var(--muted-foreground)] transition-colors hover:bg-[var(--brand-light)] focus-visible:ring-2 focus-visible:ring-[var(--brand)] focus-visible:outline-none"
       >
-        <Search className="size-5 shrink-0 text-[var(--accent-teal)]" />
+        <Search className="size-5 shrink-0 text-[var(--muted-foreground)]" />
         <span className="min-w-0 flex-1 truncate">Try “punjab stamp duty” or “100 gaj”</span>
         <kbd className="hidden rounded border border-[var(--border)] px-1.5 py-0.5 font-mono text-[11px] sm:inline">
           Ctrl K
@@ -150,13 +150,13 @@ function GoalsSection() {
             <li key={hub.id} className="last:col-span-2 sm:last:col-span-1">
               <Link
                 to={hubPath(hub.id)}
-                className="frosted group flex h-full flex-col gap-3 rounded-xl p-4 no-underline transition-colors hover:bg-[var(--accent-teal-light)] sm:p-5"
+                className="frosted group flex h-full flex-col gap-3 rounded-xl p-4 no-underline transition-colors hover:bg-[var(--brand-light)] sm:p-5"
               >
-                <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+                <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)]">
                   <Icon className="size-5" />
                 </span>
                 <span className="flex flex-1 flex-col gap-1">
-                  <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+                  <span className="text-base font-semibold text-[var(--foreground)]">
                     {hub.title}
                   </span>
                   <span className="text-sm leading-snug text-[var(--foreground)]/75">
@@ -195,13 +195,13 @@ function ToolTile({ tool }: { tool: SiteEntry }) {
   return (
     <Link
       to={tool.to}
-      className="frosted group grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl p-4 no-underline transition-colors hover:bg-[var(--accent-teal-light)]"
+      className="frosted group grid h-full grid-cols-[auto_1fr_auto] items-center gap-3 rounded-xl p-4 no-underline transition-colors hover:bg-[var(--brand-light)]"
     >
-      <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+      <span className="flex size-10 items-center justify-center rounded-lg bg-[var(--background)] text-[var(--foreground)]">
         {Icon && <Icon className="size-5" />}
       </span>
       <span className="flex min-w-0 flex-col gap-0.5">
-        <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+        <span className="text-base font-semibold text-[var(--foreground)]">
           {tool.title}
         </span>
         <span className="text-sm leading-snug text-[var(--foreground)]/75">{tool.description}</span>
@@ -263,7 +263,7 @@ function GuidesSection() {
         <SectionHeading kicker="Latest guides" title="New on Plotr Ai" />
         <Link
           to="/blog"
-          className="mb-6 inline-flex shrink-0 items-center gap-1 text-sm font-medium text-[var(--accent-teal)] no-underline"
+          className="mb-6 inline-flex shrink-0 items-center gap-1 text-sm font-medium text-[var(--brand)] no-underline"
         >
           All guides
           <ArrowRight className="size-3.5" />
@@ -275,12 +275,12 @@ function GuidesSection() {
             <Link
               to="/blog/$slug"
               params={{ slug: guide.slug }}
-              className="frosted group flex h-full flex-col gap-2 rounded-xl p-5 no-underline transition-colors hover:bg-[var(--accent-teal-light)]"
+              className="frosted group flex h-full flex-col gap-2 rounded-xl p-5 no-underline transition-colors hover:bg-[var(--brand-light)]"
             >
               <span className="text-xs text-[var(--muted-foreground)]">
                 {formatDate(guide.datePublished)}
               </span>
-              <span className="text-base font-semibold leading-snug text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+              <span className="text-base font-semibold leading-snug text-[var(--foreground)]">
                 {guide.title}
               </span>
               <span className="line-clamp-3 text-sm leading-relaxed text-[var(--foreground)]/75">
@@ -327,7 +327,7 @@ function TrustStrip() {
       <ul className="grid gap-6 sm:grid-cols-3">
         {TRUST_ITEMS.map(({ icon: Icon, title, text }) => (
           <li key={title} className="flex gap-3">
-            <Icon className="mt-0.5 size-5 shrink-0 text-[var(--accent-teal)]" />
+            <Icon className="mt-0.5 size-5 shrink-0 text-[var(--foreground)]" />
             <span className="flex flex-col gap-1">
               <span className="text-sm font-semibold text-[var(--foreground)]">{title}</span>
               <span className="text-sm leading-relaxed text-[var(--foreground)]/75">{text}</span>

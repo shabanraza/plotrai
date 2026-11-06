@@ -251,11 +251,11 @@ function ConstructionCostCalculatorPage() {
           label="Total estimate"
           description={`At ₹${formatINR(result.baseRatePerSqft)} / sq ft for ${TIER_LABELS[tier].label.toLowerCase()} finish in ${city}.`}
         >
-          <div className="mb-6 rounded-xl bg-[var(--accent-teal-light)] p-5">
+          <div className="mb-6 rounded-xl bg-[var(--muted)] p-5">
             <p className="text-sm text-[var(--muted-foreground)]">
               Total estimated construction cost
             </p>
-            <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">
+            <p className="mt-1 text-3xl font-bold tabular-nums tracking-tight text-[var(--brand)]">
               ₹{formatINR(result.totalCost)}
             </p>
             <p className="mt-1 text-sm text-[var(--muted-foreground)]">
@@ -286,7 +286,7 @@ function ConstructionCostCalculatorPage() {
                   <TableCell className="text-right tabular-nums text-[var(--muted-foreground)]">
                     {s.percent}%
                   </TableCell>
-                  <TableCell className="text-right tabular-nums font-semibold text-[var(--accent-teal)]">
+                  <TableCell className="text-right tabular-nums font-semibold">
                     ₹{formatINR(s.cost)}
                   </TableCell>
                 </TableRow>
@@ -300,7 +300,7 @@ function ConstructionCostCalculatorPage() {
                 >
                   Total
                 </TableCell>
-                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
+                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--foreground)]">
                   ₹{formatINR(result.totalCost)}
                 </TableCell>
               </TableRow>
@@ -339,7 +339,7 @@ function ConstructionCostCalculatorPage() {
                 key={c.slug}
                 to="/construction-cost/$city"
                 params={{ city: c.slug }}
-                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
               >
                 {c.city}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

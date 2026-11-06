@@ -32,7 +32,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     meta: [
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { name: 'theme-color', content: '#0d9488' },
+      { name: 'theme-color', content: '#ffffff' },
       { title: 'Plotr Ai — Free single-purpose tools for Indian homeowners' },
       { name: 'google-site-verification', content: 'awTsUxDIOHxABex6cjuOqmBcbZ4v0AYxyRVoz7k-b7I' },
       // Default social-card meta — individual route head() blocks override

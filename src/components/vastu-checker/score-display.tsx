@@ -11,8 +11,8 @@ const GRADE_CONFIG = {
   },
   good: {
     label: "Good",
-    color: "var(--accent-teal)",
-    track: "var(--accent-teal)",
+    color: "var(--brand)",
+    track: "var(--brand)",
   },
   needs_work: {
     label: "Needs Work",
@@ -103,7 +103,7 @@ export function ScoreDisplay({ score, summary }: ScoreDisplayProps) {
             <Badge
               variant="secondary"
               className="gap-1.5 px-2.5 py-1 text-xs"
-              style={{ color: "var(--accent-teal)" }}
+              style={{ color: "var(--brand)" }}
             >
               <CheckCircle className="size-3" />
               {summary.softCount} Soft

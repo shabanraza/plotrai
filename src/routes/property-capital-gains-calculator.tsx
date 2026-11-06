@@ -317,11 +317,11 @@ function CapitalGainsCalculatorPage() {
             )}
           </div>
 
-          <div className="mt-6 rounded-xl bg-[var(--accent-teal-light)] p-5">
+          <div className="mt-6 rounded-xl bg-[var(--muted)] p-5">
             <div className="flex items-start gap-3">
-              <CheckCircle className="size-5 shrink-0 text-[var(--accent-teal)]" />
+              <CheckCircle className="size-5 shrink-0 text-[var(--status-success)]" />
               <div>
-                <p className="text-sm text-[var(--accent-teal)]">
+                <p className="text-sm text-[var(--muted-foreground)]">
                   Recommended
                 </p>
                 <p className="mt-1 text-base font-semibold text-[var(--foreground)]">
@@ -332,7 +332,7 @@ function CapitalGainsCalculatorPage() {
                   {result.recommended === 'short' &&
                     `Slab rate — ${result.stcgRate * 100}% on flat gain`}
                 </p>
-                <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-[var(--accent-teal)]">
+                <p className="mt-2 text-2xl font-bold tabular-nums tracking-tight text-[var(--brand)]">
                   Tax payable: ₹{formatINR(result.recommendedTax)}
                 </p>
               </div>
@@ -414,7 +414,7 @@ function RegimeBlock({
         disabled
           ? 'border-[var(--border)] bg-[var(--muted)]/40 opacity-60'
           : highlight
-            ? 'border-[var(--accent-teal)] bg-[var(--accent-teal-light)]/40'
+            ? 'border-[var(--brand)] bg-[var(--brand-light)]/40'
             : 'border-[var(--border)] bg-[var(--background)]'
       }`}
     >
@@ -434,7 +434,7 @@ function RegimeBlock({
               {r.k}
             </span>
             <span
-              className={`tabular-nums ${r.em ? 'text-base text-[var(--accent-teal)]' : 'text-sm text-[var(--foreground)]'}`}
+              className={`tabular-nums ${r.em ? 'text-base text-[var(--foreground)] font-semibold' : 'text-sm text-[var(--foreground)]'}`}
             >
               {r.v}
             </span>

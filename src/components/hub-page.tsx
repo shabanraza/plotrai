@@ -75,11 +75,11 @@ export function HubPage({ id }: { id: HubId }) {
                     to={tool.to}
                     className="group grid min-h-11 grid-cols-[auto_1fr_auto] items-center gap-3 py-4 no-underline"
                   >
-                    <span className="flex size-9 items-center justify-center rounded-md bg-[var(--accent-teal-light)] text-[var(--accent-teal)]">
+                    <span className="flex size-9 items-center justify-center rounded-md bg-[var(--muted)] text-[var(--foreground)]">
                       {Icon && <Icon className="size-4" />}
                     </span>
                     <span className="flex min-w-0 flex-col gap-0.5">
-                      <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+                      <span className="text-base font-semibold text-[var(--foreground)] group-hover:text-[var(--brand)]">
                         {tool.title}
                       </span>
                       <span className="text-sm leading-snug text-[var(--foreground)]/75">
@@ -101,7 +101,7 @@ export function HubPage({ id }: { id: HubId }) {
                 <li key={entry.to}>
                   <Link
                     to={entry.to}
-                    className="flex min-h-11 items-center rounded-md px-2 -mx-2 text-[15px] text-[var(--foreground)] no-underline hover:bg-[var(--muted)]/60 hover:text-[var(--accent-teal)]"
+                    className="flex min-h-11 items-center rounded-md px-2 -mx-2 text-[15px] text-[var(--foreground)] no-underline hover:bg-[var(--muted)]/60 hover:text-[var(--brand)]"
                   >
                     {shortLabel(entry)}
                   </Link>
@@ -117,7 +117,7 @@ export function HubPage({ id }: { id: HubId }) {
               {guides.map((guide) => (
                 <li key={guide.to}>
                   <Link to={guide.to} className="group flex flex-col gap-1 py-4 no-underline">
-                    <span className="text-base font-semibold leading-snug text-[var(--foreground)] group-hover:text-[var(--accent-teal)]">
+                    <span className="text-base font-semibold leading-snug text-[var(--foreground)] group-hover:text-[var(--brand)]">
                       {guide.title}
                     </span>
                     <span className="line-clamp-2 text-sm leading-relaxed text-[var(--foreground)]/75">

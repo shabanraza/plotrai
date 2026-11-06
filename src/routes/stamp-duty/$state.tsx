@@ -140,7 +140,7 @@ function StateStampDutyPage() {
                   </TableCell>
                   <TableCell className="text-right tabular-nums">{r.female}%</TableCell>
                   <TableCell className="text-right tabular-nums">{r.registration}%</TableCell>
-                  <TableCell className="text-right tabular-nums font-semibold text-[var(--accent-teal)]">
+                  <TableCell className="text-right tabular-nums font-semibold">
                     {(r.female + r.registration).toFixed(2)}%
                   </TableCell>
                 </TableRow>
@@ -247,7 +247,7 @@ function StateStampDutyPage() {
                   href={content.igrPortal.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-[var(--accent-teal)] hover:underline"
+                  className="inline-flex items-center gap-1 text-[var(--brand)] hover:underline"
                 >
                   {content.igrPortal.label}
                   <ExternalLink className="size-3" />
@@ -266,7 +266,7 @@ function StateStampDutyPage() {
                     href={s.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-[var(--accent-teal)] hover:underline"
+                    className="inline-flex items-center gap-1 text-[var(--brand)] hover:underline"
                   >
                     {s.label}
                     <ExternalLink className="size-3" />
@@ -295,7 +295,7 @@ function StateStampDutyPage() {
                 key={s.slug}
                 to="/stamp-duty/$state"
                 params={{ state: s.slug }}
-                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
               >
                 {s.displayName}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

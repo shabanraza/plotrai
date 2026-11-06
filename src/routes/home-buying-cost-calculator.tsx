@@ -367,7 +367,7 @@ function HomeBuyingCostCalculatorPage() {
           label="What it really costs"
           description={`${cityName || stateName} · ${STAGE_LABEL[stage]} · ${GENDER_LABEL[gender]} buyer`}
         >
-          <div className="mb-6 grid gap-3 rounded-xl bg-[var(--accent-teal-light)] p-5 sm:grid-cols-3">
+          <div className="mb-6 grid gap-3 rounded-xl bg-[var(--muted)] p-5 sm:grid-cols-3">
             <Stat
               label="Cash needed upfront"
               value={result.upfrontCash}
@@ -425,7 +425,7 @@ function HomeBuyingCostCalculatorPage() {
                 <TableCell colSpan={2} className="py-3.5 text-right font-semibold">
                   Charges over the price
                 </TableCell>
-                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
+                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--foreground)]">
                   ₹{formatINR(result.oneTimeCharges)}
                 </TableCell>
               </TableRow>
@@ -472,7 +472,7 @@ function HomeBuyingCostCalculatorPage() {
               <Link
                 to="/stamp-duty/$state"
                 params={{ state: stateSlug }}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-teal)] hover:underline"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--brand)] hover:underline"
               >
                 {stateName} stamp duty rates
                 <ArrowRight className="size-3.5" />
@@ -570,12 +570,12 @@ function Stat({
   return (
     <div>
       <p
-        className={`text-sm ${highlight ? 'text-[var(--accent-teal)]' : 'text-[var(--muted-foreground)]'}`}
+        className={`text-sm ${highlight ? 'text-[var(--muted-foreground)]' : 'text-[var(--muted-foreground)]'}`}
       >
         {label}
       </p>
       <p
-        className={`mt-1 tabular-nums ${highlight ? 'text-2xl font-bold text-[var(--accent-teal)]' : 'text-lg font-semibold text-[var(--foreground)]'}`}
+        className={`mt-1 tabular-nums ${highlight ? 'text-2xl font-bold text-[var(--brand)]' : 'text-lg font-semibold text-[var(--foreground)]'}`}
       >
         ₹{formatINR(value)}
       </p>
@@ -620,7 +620,7 @@ function SummaryRow({
         {label}
       </TableCell>
       <TableCell
-        className={`text-right tabular-nums ${strong ? 'font-bold text-[var(--accent-teal)]' : ''}`}
+        className={`text-right tabular-nums ${strong ? 'font-bold text-[var(--foreground)]' : ''}`}
       >
         ₹{formatINR(value)}
       </TableCell>

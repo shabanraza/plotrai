@@ -41,7 +41,7 @@ export function ResultViewer({
         <figure className="overflow-hidden rounded-xl bg-[var(--muted)]">
           {isLoading ? (
             <div className="flex aspect-square w-full flex-col items-center justify-center gap-3 bg-[var(--muted)]/40">
-              <Spinner className="size-7 text-[var(--accent-teal)]" />
+              <Spinner className="size-7 text-[var(--muted-foreground)]" />
               <p className="text-sm text-[var(--muted-foreground)]">Rendering… ~10s</p>
             </div>
           ) : afterUrl ? (
@@ -51,7 +51,7 @@ export function ResultViewer({
               <p className="text-sm text-[var(--muted-foreground)]">Click Generate to render</p>
             </div>
           )}
-          <figcaption className="border-t border-[var(--border)] px-3 py-2 text-xs font-medium text-[var(--accent-teal)]">
+          <figcaption className="border-t border-[var(--border)] px-3 py-2 text-xs font-medium text-[var(--brand)]">
             AI render
           </figcaption>
         </figure>

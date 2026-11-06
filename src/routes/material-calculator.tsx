@@ -229,7 +229,7 @@ function MaterialCalculatorPage() {
             <div className="flex items-center gap-2">
               {liveMeta?.isLive && (
                 <Badge variant="secondary" className="gap-1.5 text-xs">
-                  <span className="size-1.5 rounded-full bg-[var(--accent-teal)]" aria-hidden />
+                  <span className="size-1.5 rounded-full bg-[var(--status-success)]" aria-hidden />
                   Live
                 </Badge>
               )}
@@ -304,7 +304,7 @@ function MaterialCalculatorPage() {
                       <TableCell className="text-right tabular-nums text-[var(--muted-foreground)]">
                         ₹{rates[r.key]} / {r.unit}
                       </TableCell>
-                      <TableCell className="text-right tabular-nums text-[var(--accent-teal)] font-semibold">
+                      <TableCell className="text-right tabular-nums font-semibold">
                         ₹{formatINR(cost)}
                       </TableCell>
                     </TableRow>
@@ -316,7 +316,7 @@ function MaterialCalculatorPage() {
                   <TableCell colSpan={3} className="py-3.5 text-right font-semibold">
                     Total
                   </TableCell>
-                  <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
+                  <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--foreground)]">
                     ₹{formatINR(totalCost)}
                   </TableCell>
                 </TableRow>

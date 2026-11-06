@@ -98,7 +98,7 @@ export function SiteSearch({
                     keywords={entry.keywords ? [...entry.keywords] : undefined}
                     onSelect={() => go(entry)}
                   >
-                    {Icon && <Icon className="text-[var(--accent-teal)]" />}
+                    {Icon && <Icon className="text-[var(--muted-foreground)]" />}
                     <span className="min-w-0 flex-1 truncate">{entry.title}</span>
                     <span className="hidden text-xs text-[var(--muted-foreground)] sm:inline">
                       {HUB_LABEL[entry.hub]}

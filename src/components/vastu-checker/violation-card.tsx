@@ -14,7 +14,7 @@ const SEVERITY_CONFIG = {
     label: "High",
   },
   SOFT: {
-    color: "var(--accent-teal)",
+    color: "var(--brand)",
     variant: "secondary" as const,
     label: "Soft",
   },

@@ -45,13 +45,13 @@ export function ZoneCompass({ occupiedZones, className = "" }: ZoneCompassProps)
                 "flex flex-col items-center justify-center py-3 px-1 border border-[var(--border)]",
                 "transition-colors duration-200",
                 isOccupied
-                  ? "bg-[var(--accent-teal-light)]"
+                  ? "bg-[var(--brand-light)]"
                   : "bg-[var(--card)]",
               ].join(" ")}
             >
               <span
                 className="text-sm font-semibold leading-none"
-                style={{ color: isOccupied ? "var(--accent-teal)" : "var(--foreground)" }}
+                style={{ color: isOccupied ? "var(--brand)" : "var(--foreground)" }}
               >
                 {cell.label}
               </span>

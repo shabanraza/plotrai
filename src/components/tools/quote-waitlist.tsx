@@ -84,7 +84,7 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
       <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-lg">
         {status === 'done' ? (
           <div className="flex flex-col items-center gap-3 py-6 text-center">
-            <CircleCheck className="size-10 text-[var(--accent-teal)]" />
+            <CircleCheck className="size-10 text-[var(--status-success)]" />
             <DialogTitle>You're on the list</DialogTitle>
             <DialogDescription className="text-base text-[var(--foreground)]/80">
               We'll message you once, when the quote maker is ready. Nothing else.

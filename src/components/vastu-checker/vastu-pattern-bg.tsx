@@ -52,7 +52,7 @@ export function CompassWatermark() {
       style={{ animation: "slow-spin 120s linear infinite" }}
     >
       <style>{`@keyframes slow-spin { from { transform: rotate(0deg); transform-origin: center; } to { transform: rotate(360deg); transform-origin: center; } }`}</style>
-      <g opacity="0.04" stroke="var(--accent-teal)" fill="var(--accent-teal)">
+      <g opacity="0.04" stroke="var(--brand)" fill="var(--brand)">
         {directions.map((d, i) => {
           const rad = toRad(d.angle)
           const ex = cx + Math.cos(rad) * d.len

@@ -161,7 +161,7 @@ export function SpecificMaterialCalculatorPage({ config }: { config: SpecificMat
               {rows.map((row) => (
                 <TableRow key={row.label}>
                   <TableCell className="font-medium">{row.label}</TableCell>
-                  <TableCell className="text-right font-semibold tabular-nums text-[var(--accent-teal)]">
+                  <TableCell className="text-right font-semibold tabular-nums">
                     {formatQty(row.value)} {row.unit}
                   </TableCell>
                 </TableRow>

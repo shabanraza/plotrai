@@ -68,7 +68,7 @@ export function Logo({ className, iconOnly = false }: LogoProps) {
         fontWeight="800"
         fontSize="36"
         letterSpacing="-1.5"
-        fill="var(--accent-teal)"
+        fill="var(--brand)"
       >
         Ai
       </text>

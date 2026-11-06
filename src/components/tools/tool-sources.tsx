@@ -47,7 +47,7 @@ export function ToolSources({ sources, checked, note }: ToolSourcesProps) {
                   href={source.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-start gap-1.5 text-sm text-[var(--foreground)] underline-offset-4 hover:text-[var(--accent-teal)] hover:underline"
+                  className="inline-flex items-start gap-1.5 text-sm text-[var(--foreground)] underline-offset-4 hover:text-[var(--brand)] hover:underline"
                 >
                   {source.label}
                   <ExternalLink className="mt-0.5 size-3.5 shrink-0 opacity-60" />

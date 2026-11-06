@@ -325,14 +325,14 @@ function StampDutyCalculatorPage() {
                 >
                   Government fees total
                 </TableCell>
-                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--accent-teal)]">
+                <TableCell className="py-3.5 text-right text-base font-bold tabular-nums text-[var(--foreground)]">
                   ₹{formatINR(result.totalGovernmentCharges)}
                 </TableCell>
               </TableRow>
             </TableFooter>
           </Table>
 
-          <div className="mt-6 grid gap-3 rounded-xl bg-[var(--accent-teal-light)] p-4 text-sm sm:grid-cols-3">
+          <div className="mt-6 grid gap-3 rounded-xl bg-[var(--muted)] p-4 text-sm sm:grid-cols-3">
             <div>
               <p className="text-sm text-[var(--muted-foreground)]">
                 Down payment ({(100 - parseFloat(loanLtv || '0')).toFixed(0)}%)
@@ -350,10 +350,10 @@ function StampDutyCalculatorPage() {
               </p>
             </div>
             <div>
-              <p className="text-sm text-[var(--accent-teal)]">
+              <p className="text-sm text-[var(--muted-foreground)]">
                 Total cash needed
               </p>
-              <p className="mt-1 text-lg font-bold tabular-nums text-[var(--accent-teal)]">
+              <p className="mt-1 text-lg font-bold tabular-nums text-[var(--brand)]">
                 ₹{formatINR(result.totalCashRequired)}
               </p>
             </div>
@@ -389,7 +389,7 @@ function StampDutyCalculatorPage() {
                 key={s.slug}
                 to="/stamp-duty/$state"
                 params={{ state: s.slug }}
-                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--accent-teal-light)] hover:bg-[var(--muted)]/40"
+                className="flex items-center justify-between rounded-lg bg-[var(--muted)] px-3 py-2.5 text-sm text-[var(--foreground)] transition-colors hover:bg-[var(--brand-light)]"
               >
                 {s.displayName}
                 <ArrowRight className="size-3.5 text-[var(--muted-foreground)]" />

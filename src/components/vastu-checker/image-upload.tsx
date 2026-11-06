@@ -111,8 +111,8 @@ export function ImageUpload({ onExtract }: ImageUploadProps) {
           onDrop={handleDrop}
           className={`w-full rounded-lg border-2 border-dashed p-8 text-center transition-colors cursor-pointer ${
             isDragOver
-              ? 'border-[var(--accent-teal)] bg-[var(--accent-teal-light)]'
-              : 'border-[var(--border)] hover:border-[var(--accent-teal)] hover:bg-[var(--accent-teal-light)]'
+              ? 'border-[var(--brand)] bg-[var(--brand-light)]'
+              : 'border-[var(--border)] hover:border-[var(--brand)] hover:bg-[var(--brand-light)]'
           }`}
         >
           <div className="flex flex-col items-center gap-3">
