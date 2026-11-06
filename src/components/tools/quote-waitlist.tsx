@@ -81,7 +81,7 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
           Get this as a client quote (PDF)
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-h-[90dvh] overflow-y-auto sm:max-w-lg">
+      <DialogContent className="max-h-[92dvh] overflow-y-auto [scrollbar-width:none] sm:max-w-lg [&::-webkit-scrollbar]:hidden">
         {status === 'done' ? (
           <div className="flex flex-col items-center gap-3 py-6 text-center">
             <CircleCheck className="size-10 text-[var(--status-success)]" />
@@ -94,17 +94,17 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
             </Button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <DialogHeader className="text-left">
               <DialogTitle>Client quotes are coming soon</DialogTitle>
-              <DialogDescription className="text-base text-[var(--foreground)]/80">
-                We're building a quote maker: turn this estimate into a branded PDF with a full
-                bill of quantities and stage-wise payments, ready to send on WhatsApp. Join the
-                early list and we'll tell you when it's ready.
+              <DialogDescription className="text-[0.9375rem] leading-relaxed text-[var(--foreground)]/80">
+                Turn this estimate into a branded PDF quote with a bill of quantities and
+                stage-wise payments, ready to send on WhatsApp. Join the early list and we'll tell
+                you when it's ready.
               </DialogDescription>
             </DialogHeader>
 
-            <FieldGroup>
+            <FieldGroup className="gap-4">
               <FieldSet>
                 <FieldLegend variant="label">What describes you best?</FieldLegend>
                 <ToggleGroup
@@ -115,7 +115,7 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
                   className="grid w-full grid-cols-2"
                 >
                   {QUOTE_ROLES.map((r) => (
-                    <ToggleGroupItem key={r.value} value={r.value} className="min-h-11">
+                    <ToggleGroupItem key={r.value} value={r.value} className="min-h-10">
                       {r.label}
                     </ToggleGroupItem>
                   ))}
@@ -133,7 +133,7 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
                     className="grid w-full grid-cols-4"
                   >
                     {QUOTE_PROJECTS.map((p) => (
-                      <ToggleGroupItem key={p} value={p} className="min-h-11 tabular-nums">
+                      <ToggleGroupItem key={p} value={p} className="min-h-10 tabular-nums">
                         {p}
                       </ToggleGroupItem>
                     ))}
@@ -151,7 +151,7 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
                   className="grid w-full grid-cols-3"
                 >
                   {QUOTE_WOULD_PAY.map((w) => (
-                    <ToggleGroupItem key={w.value} value={w.value} className="min-h-11">
+                    <ToggleGroupItem key={w.value} value={w.value} className="min-h-10">
                       {w.label}
                     </ToggleGroupItem>
                   ))}
@@ -168,7 +168,7 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
                   placeholder="you@example.com or 98765 43210"
                   autoComplete="email"
                   inputMode="email"
-                  className="h-11"
+                  className="h-10"
                 />
               </Field>
 
@@ -203,7 +203,7 @@ export function QuoteWaitlist({ tool }: { tool: string }) {
               </Alert>
             )}
 
-            <Button type="submit" disabled={!ready} className="h-11">
+            <Button type="submit" disabled={!ready} className="h-10">
               {status === 'saving' && <Spinner data-icon="inline-start" />}
               Join the early list
             </Button>
