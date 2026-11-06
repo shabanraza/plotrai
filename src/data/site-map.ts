@@ -1,6 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import {
   Box,
+  Zap,
   BrickWall,
   Building2,
   Calculator,
@@ -115,6 +116,7 @@ export const SITE_TOOLS: ReadonlyArray<SiteEntry> = [
   { title: 'Paint calculator', to: '/paint-calculator', description: 'Litres of paint and kg of putty for a room.', hub: 'build', kind: 'tool', icon: PaintRoller, keywords: ['wall paint', 'putty', 'emulsion'] },
   { title: 'Painting quotation format', to: '/painting-quotation-format', description: 'Painting quote with material and labour, as a free PDF.', hub: 'build', kind: 'tool', icon: Receipt, keywords: ['painting quotation', 'painting quotation with material', 'painting quotation pdf', 'painter estimate', 'quotation template'] },
   { title: 'Tiles work quotation format', to: '/tiles-work-quotation-format', description: 'Tile fixing quote with material and labour, as a free PDF.', hub: 'build', kind: 'tool', icon: Grid3x3, keywords: ['tiles quotation', 'tile fixing quotation', 'flooring quotation', 'tiles work quotation pdf'] },
+  { title: 'Electrical quotation format', to: '/electrical-quotation-format', description: 'House wiring quote with material and labour per point, as a PDF.', hub: 'build', kind: 'tool', icon: Zap, keywords: ['electrical quotation', 'house wiring quotation', 'electrician quotation', 'wiring quotation with material'] },
   { title: 'Solar panel cost calculator', to: '/solar-panel-cost-calculator', description: 'Rooftop solar cost after the PM Surya Ghar subsidy.', hub: 'build', kind: 'tool', icon: Sun, keywords: ['pm surya ghar', 'rooftop solar', 'solar subsidy', '3kw', '5kw'] },
   // Land
   { title: 'Plot area converter', to: '/plot-converter', description: 'Every Indian land unit, region-aware.', hub: 'land', kind: 'tool', icon: Ruler, keywords: ['gaj', 'bigha', 'acre', 'marla', 'gunta', 'cent'] },
