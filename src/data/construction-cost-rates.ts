@@ -1,13 +1,21 @@
 /**
- * City × finish-tier base rates for residential construction in India (₹/sq ft built-up).
- * Sourced from Houseyog 2026 averages, contractor quotes, and tier-1 vs tier-2 city benchmarks.
- * Rates exclude land cost. Refresh quarterly.
+ * City × finish-tier rates for residential construction in India (₹/sq ft built-up).
+ * Rates exclude land cost.
  *
- * Cities in INFRALENS_DERIVED_CITIES come from InfraLens published rates scaled onto this table's
- * scale — see infralens-rates.ts.
+ * Provenance, per city (see CITY_RATE_SOURCES):
+ * - Cities in INFRALENS_CITIES use InfraLens published rates exactly as published
+ *   (infralens-rates.ts, updated 24 Oct 2026). No scaling is applied.
+ * - The remaining cities (BENCHMARK_CITY_RATES) keep our earlier table, which came from
+ *   "Houseyog 2026 averages, contractor quotes, and tier-1 vs tier-2 city benchmarks", reviewed
+ *   2026-Q2. It has no public source page and has not been re-checked against a dated source.
  */
 
-import { INFRALENS_CALIBRATION, INFRALENS_NEW_CITIES } from './infralens-rates'
+import {
+  INFRALENS_BY_CITY,
+  INFRALENS_CITIES,
+  INFRALENS_UPDATED,
+  infralensUrl,
+} from './infralens-rates'
 
 export type FinishTier = 'basic' | 'standard' | 'premium' | 'luxury'
 
@@ -18,9 +26,8 @@ export interface CityRates {
   luxury: number
 }
 
-const BASE_CITY_RATES: Record<string, CityRates> = {
-  Mumbai: { basic: 1900, standard: 2400, premium: 3000, luxury: 4200 },
-  Delhi: { basic: 1700, standard: 2200, premium: 2800, luxury: 3800 },
+/** Cities InfraLens does not cover. Source: our own benchmark table, reviewed 2026-Q2, which runs lower than InfraLens. */
+const BENCHMARK_CITY_RATES: Record<string, CityRates> = {
   Bangalore: { basic: 1700, standard: 2150, premium: 2750, luxury: 3700 },
   'North Bangalore': {
     basic: 1650,
@@ -28,70 +35,58 @@ const BASE_CITY_RATES: Record<string, CityRates> = {
     premium: 2650,
     luxury: 3550,
   },
-  Pune: { basic: 1700, standard: 2150, premium: 2700, luxury: 3600 },
-  Chennai: { basic: 1650, standard: 2100, premium: 2700, luxury: 3650 },
   Hyderabad: { basic: 1600, standard: 2050, premium: 2650, luxury: 3550 },
   Kolkata: { basic: 1550, standard: 2000, premium: 2550, luxury: 3450 },
-  Ahmedabad: { basic: 1500, standard: 1950, premium: 2500, luxury: 3400 },
   Gurgaon: { basic: 1750, standard: 2250, premium: 2850, luxury: 3850 },
-  Noida: { basic: 1700, standard: 2200, premium: 2800, luxury: 3800 },
-  'Greater Noida': { basic: 1580, standard: 2050, premium: 2650, luxury: 3600 },
-  Ghaziabad: { basic: 1550, standard: 2000, premium: 2600, luxury: 3550 },
-  Jaipur: { basic: 1450, standard: 1850, premium: 2400, luxury: 3300 },
   Kanpur: { basic: 1350, standard: 1750, premium: 2250, luxury: 3150 },
-  Lucknow: { basic: 1400, standard: 1800, premium: 2350, luxury: 3250 },
-  Indore: { basic: 1400, standard: 1800, premium: 2300, luxury: 3200 },
-  Coimbatore: { basic: 1400, standard: 1800, premium: 2300, luxury: 3200 },
-  Kochi: { basic: 1500, standard: 1950, premium: 2500, luxury: 3400 },
-  Chandigarh: { basic: 1600, standard: 2050, premium: 2600, luxury: 3500 },
-  Bhopal: { basic: 1350, standard: 1750, premium: 2250, luxury: 3150 },
-  Patna: { basic: 1350, standard: 1750, premium: 2250, luxury: 3150 },
 }
 
-const FINISH_TIERS: ReadonlyArray<FinishTier> = ['basic', 'standard', 'premium', 'luxury']
-
-function median(values: ReadonlyArray<number>) {
-  const sorted = [...values].sort((a, b) => a - b)
-  const mid = Math.floor(sorted.length / 2)
-  return sorted.length % 2 ? sorted[mid] : (sorted[mid - 1] + sorted[mid]) / 2
-}
-
-/**
- * Per-tier ratio of our rates to InfraLens rates, taken as the median across calibration cities
- * present in both tables. Used to put InfraLens-sourced cities on the same scale as ours.
- */
-export const INFRALENS_CALIBRATION_FACTOR = Object.fromEntries(
-  FINISH_TIERS.map((tier) => [
-    tier,
-    median(
-      Object.entries(INFRALENS_CALIBRATION).map(
-        ([city, infralens]) => BASE_CITY_RATES[city][tier] / infralens[tier],
-      ),
-    ),
-  ]),
-) as Record<FinishTier, number>
-
-const roundTo50 = (n: number) => Math.round(n / 50) * 50
-
-/** Cities added from InfraLens (24 Oct 2026), scaled by the calibration factor. */
-export const INFRALENS_DERIVED_CITIES: ReadonlyArray<string> = INFRALENS_NEW_CITIES.map(
-  (c) => c.city,
-)
+/** Names of the cities whose rates are InfraLens figures. */
+export const INFRALENS_CITY_NAMES: ReadonlyArray<string> = INFRALENS_CITIES.map((c) => c.city)
 
 export const CITY_RATES: Record<string, CityRates> = {
-  ...BASE_CITY_RATES,
-  ...Object.fromEntries(
-    INFRALENS_NEW_CITIES.map(({ city, rates }) => [
-      city,
-      Object.fromEntries(
-        FINISH_TIERS.map((tier) => [
-          tier,
-          roundTo50(rates[tier] * INFRALENS_CALIBRATION_FACTOR[tier]),
-        ]),
-      ) as unknown as CityRates,
-    ]),
-  ),
+  ...BENCHMARK_CITY_RATES,
+  ...Object.fromEntries(INFRALENS_CITIES.map(({ city, rates }) => [city, rates])),
   Other: { basic: 1450, standard: 1850, premium: 2400, luxury: 3300 },
+}
+
+export interface RateSource {
+  label: string
+  /** Omitted when the source has no public page */
+  url?: string
+  /** ISO date the source figures were published, or a quarter when only that is known */
+  asOf: string
+  /** True when the rates were published by a third party and are shown as published */
+  published: boolean
+  note?: string
+}
+
+const BENCHMARK_SOURCE: RateSource = {
+  label:
+    'Plotr Ai benchmark table (Houseyog 2026 averages and contractor quotes); no public source page',
+  asOf: '2026-Q2',
+  published: false,
+}
+
+/** True when a city's rates come from our own 2026-Q2 benchmark table, not InfraLens. */
+export function isBenchmarkCity(city: string) {
+  return !INFRALENS_BY_CITY.has(city)
+}
+
+export const BENCHMARK_RATE_NOTE =
+  "This city's rates come from our own 2026-Q2 benchmark table, which runs lower than the InfraLens figures used for most other cities. Treat it as a lower bound."
+
+/** Where a city's displayed rates come from, with the date of that source. */
+export function getRateSource(city: string): RateSource {
+  const infralens = INFRALENS_BY_CITY.get(city)
+  if (!infralens) return BENCHMARK_SOURCE
+  return {
+    label: `InfraLens construction rates for ${infralens.city}`,
+    url: infralensUrl(infralens.slug),
+    asOf: INFRALENS_UPDATED,
+    published: true,
+    note: infralens.note,
+  }
 }
 
 /** Stage-wise % distribution of total cost (sums to 100). */
@@ -149,11 +144,13 @@ export const STAGES: ReadonlyArray<StageBreakdown> = [
   },
 ]
 
-export const CONSTRUCTION_LAST_UPDATED = '2026-Q2'
+/** Share of a single-storey build that is not repeated for each extra floor (site + foundation). */
+export const GROUND_ONLY_PERCENT = STAGES.filter((s) =>
+  ['site', 'foundation'].includes(s.key),
+).reduce((sum, s) => sum + s.percent, 0)
 
-export const CONSTRUCTION_SOURCE_URLS = [
-  'Contractor quote benchmarks and Indian residential construction market averages reviewed 2026-Q2.',
-] as const
+/** Date this table was last checked against its sources (ISO). Per-city source dates are in getRateSource. */
+export const CONSTRUCTION_LAST_UPDATED = '2026-11-21'
 
 export const CONSTRUCTION_ESTIMATE_NOTE =
   'Construction rates are planning benchmarks. Final quotes vary by soil, structure, specification, contractor margin, approval scope, and local material prices.'
@@ -168,7 +165,7 @@ export const TIER_LABELS: Record<
   },
   standard: {
     label: 'Standard',
-    helper: 'Mid-range tiles, branded fittings, modular kitchen.',
+    helper: 'Mid-range tiles and branded fittings. Modular kitchen not included.',
   },
   premium: {
     label: 'Premium',

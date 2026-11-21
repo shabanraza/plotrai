@@ -1,6 +1,7 @@
+import { INFRALENS_CITIES } from '#/data/infralens-rates'
 import {
   CITY_RATES,
-  CONSTRUCTION_LAST_UPDATED,
+  GROUND_ONLY_PERCENT,
   STAGES,
   type FinishTier,
 } from '#/data/construction-cost-rates'
@@ -18,10 +19,7 @@ export function tierBand(tier: FinishTier) {
   return { min: Math.min(...rates), max: Math.max(...rates) }
 }
 
-/** Share of a single-storey build that is not repeated for each extra floor (site + foundation). */
-export const GROUND_ONLY_PERCENT = STAGES.filter((s) =>
-  ['site', 'foundation'].includes(s.key),
-).reduce((sum, s) => sum + s.percent, 0)
+export { GROUND_ONLY_PERCENT }
 
 export function lakh(rupees: number) {
   return `₹${(rupees / 100000).toLocaleString('en-IN', { maximumFractionDigits: 1 })}L`
@@ -48,10 +46,12 @@ const TIERS: ReadonlyArray<[FinishTier, string]> = [
   ['premium', 'Premium'],
 ]
 
-const RATE_NOTE = `Plotr Ai construction rate benchmarks for ${CITY_NAMES.length} cities, ${CONSTRUCTION_LAST_UPDATED}. Civil construction only; excludes land, approvals and interiors.`
+const RATES_SOURCE_LABEL = `InfraLens (24 Oct 2026) for ${INFRALENS_CITIES.length} cities; Plotr Ai benchmark (2026-Q2) for the rest`
+
+const RATE_NOTE = `${RATES_SOURCE_LABEL}. Civil construction only; excludes land, approvals and interiors.`
 
 const PLOTRAI_RATES_SOURCE = {
-  label: `Plotr Ai construction cost calculator (city rates, ${CONSTRUCTION_LAST_UPDATED})`,
+  label: `Plotr Ai construction cost calculator: ${RATES_SOURCE_LABEL}`,
   url: 'https://plotrai.in/construction-cost-calculator',
 }
 
@@ -78,7 +78,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -162,7 +162,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -239,7 +239,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '5 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -289,7 +289,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '5 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -338,7 +338,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Interior cost guide',
@@ -430,7 +430,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'property-buyer',
     topicHubPath: '/property-buyer-guide',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Property buyer guide',

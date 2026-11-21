@@ -134,6 +134,29 @@ export function articleLd(input: ArticleSchemaInput): JsonLdScript {
   return { type: 'application/ld+json', children: JSON.stringify(schema) }
 }
 
+export interface WebPageSchemaInput {
+  name: string
+  description: string
+  path: string
+  dateModified: string
+}
+
+/** WebPage schema with the date the page's figures were last updated. */
+export function webPageLd(input: WebPageSchemaInput): JsonLdScript {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: input.name,
+    description: input.description,
+    url: SITE_URL + input.path,
+    dateModified: input.dateModified,
+    inLanguage: 'en-IN',
+    isPartOf: { '@type': 'WebSite', name: 'Plotr Ai', url: SITE_URL },
+    publisher: { '@type': 'Organization', name: 'Plotr Ai', url: SITE_URL },
+  }
+  return { type: 'application/ld+json', children: JSON.stringify(schema) }
+}
+
 export function blogPostingLd(input: Omit<ArticleSchemaInput, 'type'>): JsonLdScript {
   return articleLd({ ...input, type: 'BlogPosting' })
 }

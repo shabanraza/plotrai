@@ -38,15 +38,17 @@ import {
   STAGES,
   TIER_LABELS,
   CONSTRUCTION_LAST_UPDATED,
-  CONSTRUCTION_SOURCE_URLS,
+  BENCHMARK_RATE_NOTE,
+  getRateSource,
+  isBenchmarkCity,
   type FinishTier,
 } from '#/data/construction-cost-rates'
+import { Alert, AlertDescription } from '#/components/ui/alert'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { NextStepCard } from '#/components/tools/next-step-card'
 import { QuoteWaitlist } from '#/components/tools/quote-waitlist'
 import { ResultBar } from '#/components/tools/result-bar'
 import { ToolSources, type ToolSource } from '#/components/tools/tool-sources'
-import { INFRALENS_NEW_CITIES, INFRALENS_UPDATED, infralensUrl } from '#/data/infralens-rates'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
 import {
@@ -224,6 +226,11 @@ function ConstructionCostCalculatorPage() {
               </div>
             </div>
           </div>
+          {isBenchmarkCity(city) && city !== 'Other' && (
+            <Alert>
+              <AlertDescription>{BENCHMARK_RATE_NOTE}</AlertDescription>
+            </Alert>
+          )}
         </ToolSection>
 
         <ToolSection
@@ -366,17 +373,15 @@ function ConstructionCostCalculatorPage() {
   )
 }
 
-/** Base table benchmarks, plus the InfraLens page for cities added by calibrating against it. */
+/** The city's own source with its date, falling back to the benchmark table for cities without a page. */
 function constructionSources(city: string): ToolSource[] {
-  const sources: ToolSource[] = CONSTRUCTION_SOURCE_URLS.map((label) => ({ label }))
-  const derived = INFRALENS_NEW_CITIES.find((c) => c.city === city)
-  if (derived) {
-    sources.push({
-      label: `InfraLens construction rates for ${city} (updated ${INFRALENS_UPDATED}), scaled to our table`,
-      url: infralensUrl(derived.slug),
-    })
-  }
-  return sources
+  const source = getRateSource(city)
+  return [
+    {
+      label: `${source.label} (rates as of ${source.asOf})`,
+      url: source.url,
+    },
+  ]
 }
 
 function formatINR(n: number) {
