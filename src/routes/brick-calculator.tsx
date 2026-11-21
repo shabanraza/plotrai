@@ -1,3 +1,4 @@
+import { BrickIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
 import {
@@ -61,6 +62,7 @@ function BrickCalculatorPage() {
 
   return (
     <QuantityToolPage
+      illustration={<BrickIllustration />}
       content={BRICK_CONTENT}
       headline={
         result.bricks > 0

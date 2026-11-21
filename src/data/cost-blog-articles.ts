@@ -1,6 +1,7 @@
+import { INFRALENS_CITIES } from '#/data/infralens-rates'
 import {
   CITY_RATES,
-  CONSTRUCTION_LAST_UPDATED,
+  GROUND_ONLY_PERCENT,
   STAGES,
   type FinishTier,
 } from '#/data/construction-cost-rates'
@@ -21,10 +22,7 @@ export { costRange, lakh, rateRange, tierBand }
  * construction cost calculator. Interior and tax figures are quoted from the cited sources.
  */
 
-/** Share of a single-storey build that is not repeated for each extra floor (site + foundation). */
-export const GROUND_ONLY_PERCENT = STAGES.filter((s) =>
-  ['site', 'foundation'].includes(s.key),
-).reduce((sum, s) => sum + s.percent, 0)
+export { GROUND_ONLY_PERCENT }
 
 const TIERS: ReadonlyArray<[FinishTier, string]> = [
   ['basic', 'Basic'],
@@ -32,10 +30,12 @@ const TIERS: ReadonlyArray<[FinishTier, string]> = [
   ['premium', 'Premium'],
 ]
 
-const RATE_NOTE = `Plotr Ai construction rate benchmarks for ${CITY_NAMES.length} cities, ${CONSTRUCTION_LAST_UPDATED}. Civil construction only; excludes land, approvals and interiors.`
+const RATES_SOURCE_LABEL = `InfraLens (24 Oct 2026) for ${INFRALENS_CITIES.length} cities; Plotr Ai benchmark (2026-Q2) for the rest`
+
+const RATE_NOTE = `${RATES_SOURCE_LABEL}. Civil construction only; excludes land, approvals and interiors.`
 
 const PLOTRAI_RATES_SOURCE = {
-  label: `Plotr Ai construction cost calculator (city rates, ${CONSTRUCTION_LAST_UPDATED})`,
+  label: `Plotr Ai construction cost calculator: ${RATES_SOURCE_LABEL}`,
   url: 'https://plotrai.in/construction-cost-calculator',
 }
 
@@ -143,7 +143,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -227,7 +227,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -304,7 +304,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '5 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -354,7 +354,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '5 min read',
     hero: {
       eyebrow: 'Construction cost guide',
@@ -403,7 +403,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Interior cost guide',
@@ -495,7 +495,7 @@ export const COST_BLOG_ARTICLES = [
     cluster: 'property-buyer',
     topicHubPath: '/property-buyer-guide',
     datePublished: '2026-11-02',
-    dateModified: '2026-11-02',
+    dateModified: '2026-11-21',
     readingTime: '6 min read',
     hero: {
       eyebrow: 'Property buyer guide',
@@ -889,7 +889,7 @@ export const COST_BLOG_ARTICLES = [
       {
         heading: '1BHK, 2BHK and 3BHK budget at our lowest city rate',
         paragraphs: [
-          `Each figure is built-up area multiplied by ${rupees(VILLAGE_REFERENCE.rate)} per sq ft, the lowest basic rate we track (${VILLAGE_REFERENCE.label}, ${CONSTRUCTION_LAST_UPDATED}). It is a reference for a basic-finish home, not a quote.`,
+          `Each figure is built-up area multiplied by ${rupees(VILLAGE_REFERENCE.rate)} per sq ft, the lowest basic rate we track (${VILLAGE_REFERENCE.label}). It is a reference for a basic-finish home, not a quote.`,
           'Village plans are often more compact than the city sizes in our 2BHK (800–1,100 sq ft) and 3BHK (1,200–1,600 sq ft) guides, because owners tend to build to a tighter budget and skip extras such as a second bathroom or a balcony.',
         ],
         table: {

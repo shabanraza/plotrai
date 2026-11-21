@@ -46,6 +46,8 @@ export interface SpecificMaterialConfig {
   defaultThicknessMm: number
   showGrade?: boolean
   context: ReadonlyArray<string>
+  /** Decorative header picture */
+  illustration?: React.ReactNode
 }
 
 const GRADE_MULTIPLIERS = {
@@ -96,6 +98,7 @@ export function SpecificMaterialCalculatorPage({ config }: { config: SpecificMat
       title={config.title}
       tagline={config.description}
       variant="single-column"
+      illustration={config.illustration}
       footnote="Quantities use Indian site-engineer thumb rules. Add 5-10% wastage before ordering and confirm structural steel with your engineer."
     >
       <div className="flex flex-col gap-14">

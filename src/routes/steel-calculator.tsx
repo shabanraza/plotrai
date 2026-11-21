@@ -1,3 +1,4 @@
+import { SteelIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 import {
@@ -70,6 +71,7 @@ function SteelCalculatorPage() {
 
   return (
     <QuantityToolPage
+      illustration={<SteelIllustration />}
       content={STEEL_CONTENT}
       headline={
         totalKg > 0

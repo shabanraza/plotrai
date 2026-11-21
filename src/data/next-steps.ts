@@ -20,6 +20,51 @@ export const NEXT_STEPS: Record<string, NextStep> = {
     description: 'Litres of paint and kg of putty for the plastered area.',
   },
   '/paint-calculator': {
+    to: '/painting-quotation-format',
+    title: 'Turn this into a painting quotation',
+    description: 'Add your rates for material and labour and download the quote as a PDF.',
+  },
+  '/painting-quotation-format': {
+    to: '/tiles-work-quotation-format',
+    title: 'Quoting floor tiles too? Make a tiles quotation',
+    description: 'Same format for tile fixing, with tiles and skirting worked out from room sizes.',
+  },
+  '/tiles-work-quotation-format': {
+    to: '/electrical-quotation-format',
+    title: 'Next trade: an electrical quotation',
+    description: 'House wiring quote with points, wire, DB and MCBs, labour per point.',
+  },
+  '/electrical-quotation-format': {
+    to: '/plumbing-quotation-format',
+    title: 'Next trade: a plumbing quotation',
+    description: 'Pipes, fittings and labour per sanitary point, from a fixture count.',
+  },
+  '/plumbing-quotation-format': {
+    to: '/false-ceiling-quotation-format',
+    title: 'Next trade: a false ceiling quotation',
+    description: 'Gypsum or POP per sq ft with material, area worked out from room sizes.',
+  },
+  '/false-ceiling-quotation-format': {
+    to: '/civil-work-quotation-format',
+    title: 'Next: a civil work quotation',
+    description: 'Bricks, cement, sand and steel worked out for walls, plaster and a slab.',
+  },
+  '/civil-work-quotation-format': {
+    to: '/house-construction-quotation',
+    title: 'Quoting a whole house? Make a stage-wise quotation',
+    description: 'Foundation to handover per sq ft, with a stage-wise payment schedule.',
+  },
+  '/house-construction-quotation': {
+    to: '/boq-format-residential-building',
+    title: 'Need a bill of quantities? Make a BOQ',
+    description: 'Cement, sand, aggregate, bricks and steel from your elements, as PDF or Excel.',
+  },
+  '/boq-format-residential-building': {
+    to: '/work-order-format',
+    title: 'Ready to award the work? Issue a work order',
+    description: 'Scope, item rates, payment stages and terms, as a PDF.',
+  },
+  '/work-order-format': {
     to: '/construction-cost-calculator',
     title: 'See the budget for the whole house',
     description: 'Per sq ft construction cost for your city, broken down by build stage.',

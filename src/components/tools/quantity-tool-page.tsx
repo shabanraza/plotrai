@@ -21,6 +21,7 @@ export function QuantityToolPage({
   result,
   nextFrom,
   extra,
+  illustration,
 }: {
   content: FinishingToolContent
   /** Pre-formatted figure for the phone result bar; omit while there is no result */
@@ -31,12 +32,15 @@ export function QuantityToolPage({
   nextFrom?: string
   /** Extra section after the next step, e.g. links to city pages */
   extra?: React.ReactNode
+  /** Decorative header picture, passed through to ToolPageShell */
+  illustration?: React.ReactNode
 }) {
   return (
     <ToolPageShell
       title={content.title}
       tagline={content.tagline}
       variant="single-column"
+      illustration={illustration}
     >
       {headline && (
         <ResultBar

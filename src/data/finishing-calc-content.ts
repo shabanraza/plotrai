@@ -9,19 +9,19 @@ import {
 /** When the sources below were last checked. */
 export const FINISHING_CHECKED = '2026-11-06'
 
-const IS_456 = {
+export const IS_456 = {
   label: 'IS 456:2000 Plain and reinforced concrete, code of practice (BIS)',
   url: 'https://law.resource.org/pub/in/bis/S03/is.456.2000.pdf',
 }
-const IS_1077 = {
+export const IS_1077 = {
   label: 'IS 1077:1992 Common burnt clay building bricks (BIS)',
   url: 'https://law.resource.org/pub/in/bis/S03/is.1077.1992.pdf',
 }
-const IS_2212 = {
+export const IS_2212 = {
   label: 'IS 2212:1991 Brickwork, code of practice (BIS)',
   url: 'https://law.resource.org/pub/in/bis/S03/is.2212.1991.pdf',
 }
-const IS_1661 = {
+export const IS_1661 = {
   label:
     'IS 1661:1972 Cement and cement-lime plaster finishes, code of practice (BIS)',
   url: 'https://law.resource.org/pub/in/bis/S03/is.1661.1972.pdf',
@@ -30,12 +30,12 @@ const IS_1786 = {
   label: 'IS 1786:2008 High strength deformed steel bars (BIS)',
   url: 'https://law.resource.org/pub/in/bis/S03/is.1786.2008.pdf',
 }
-const APCOLITE = {
+export const APCOLITE = {
   label:
     'Asian Paints Apcolite Premium Emulsion data sheet (8.4 m² per litre per coat at 50 µm)',
   url: 'https://static.asianpaints.com/content/dam/ap-qatar-revamp/products/interior/product-information-sheets/APCOLITE-PREMIUM-EMULSION-R.pdf',
 }
-const BIRLA_PUTTY = {
+export const BIRLA_PUTTY = {
   label: 'Birla White WallCare Putty (1.86–2.04 m² per kg)',
   url: 'https://www.birlawhite.com/wallcare-putty',
 }

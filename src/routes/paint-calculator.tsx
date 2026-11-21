@@ -1,3 +1,4 @@
+import { PaintIllustration } from '#/components/illustrations'
 import { createFileRoute } from '@tanstack/react-router'
 import { useMemo, useState } from 'react'
 import {
@@ -71,6 +72,7 @@ function PaintCalculatorPage() {
 
   return (
     <QuantityToolPage
+      illustration={<PaintIllustration />}
       content={PAINT_CONTENT}
       headline={
         result.litres > 0 ? { label: 'Paint needed', value: litres } : undefined

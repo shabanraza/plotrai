@@ -31,6 +31,8 @@ interface ToolPageShellProps {
   tagline?: string
   variant?: Variant
   headerActions?: React.ReactNode
+  /** Decorative picture of what the tool is for: below the tagline on phones, beside the h1 from sm up */
+  illustration?: React.ReactNode
   children: React.ReactNode
   footnote?: React.ReactNode
 }
@@ -55,6 +57,7 @@ export function ToolPageShell({
   tagline,
   variant = 'single-column',
   headerActions,
+  illustration,
   children,
   footnote,
 }: ToolPageShellProps) {
@@ -102,6 +105,11 @@ export function ToolPageShell({
               </p>
             )}
           </div>
+          {illustration && (
+            <div className="h-[120px] shrink-0 self-start sm:h-[150px] sm:self-end lg:h-[180px]">
+              {illustration}
+            </div>
+          )}
           {headerActions && <div className="shrink-0">{headerActions}</div>}
         </header>
 
