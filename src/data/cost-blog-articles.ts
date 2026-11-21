@@ -1,6 +1,7 @@
 import {
   CITY_RATES,
   CONSTRUCTION_LAST_UPDATED,
+  GROUND_ONLY_PERCENT,
   STAGES,
   type FinishTier,
 } from '#/data/construction-cost-rates'
@@ -18,10 +19,7 @@ export function tierBand(tier: FinishTier) {
   return { min: Math.min(...rates), max: Math.max(...rates) }
 }
 
-/** Share of a single-storey build that is not repeated for each extra floor (site + foundation). */
-export const GROUND_ONLY_PERCENT = STAGES.filter((s) =>
-  ['site', 'foundation'].includes(s.key),
-).reduce((sum, s) => sum + s.percent, 0)
+export { GROUND_ONLY_PERCENT }
 
 export function lakh(rupees: number) {
   return `₹${(rupees / 100000).toLocaleString('en-IN', { maximumFractionDigits: 1 })}L`
