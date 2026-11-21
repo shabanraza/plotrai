@@ -44,6 +44,10 @@ export type BlogToolPath =
   | '/concrete-calculator'
   | '/rcc-slab-calculator'
   | '/delhi-circle-rate'
+  | '/brick-calculator'
+  | '/steel-calculator'
+  | '/tiles-calculator'
+  | '/home-interior-cost-calculator'
 
 export interface BlogSectionTable {
   columns: ReadonlyArray<string>
@@ -161,6 +165,22 @@ export const BLOG_TOOL_META: Record<
   '/delhi-circle-rate': {
     title: 'Delhi circle rate',
     description: 'Category A–H circle rates with minimum value and stamp duty.',
+  },
+  '/brick-calculator': {
+    title: 'Brick calculator',
+    description: 'Bricks, cement and sand for a 9 or 4.5 inch wall.',
+  },
+  '/steel-calculator': {
+    title: 'Steel calculator',
+    description: 'TMT bar weight and steel for slabs, beams and columns.',
+  },
+  '/tiles-calculator': {
+    title: 'Tiles calculator',
+    description: 'How many tiles and boxes for a floor or wall.',
+  },
+  '/home-interior-cost-calculator': {
+    title: 'Home interior cost calculator',
+    description: 'Item-wise interior budget for a 1–4 BHK flat.',
   },
 }
 

@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Calculator, RefreshCw } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
+import { RelatedToolsSection } from '#/components/tools/related-tools-section'
 import { Input } from '#/components/ui/input'
 import {
   InputGroup,
@@ -331,6 +332,18 @@ function MaterialCalculatorPage() {
         </ToolSection>
 
         <NextStepCard from="/material-calculator" />
+
+        <RelatedToolsSection
+          paths={[
+            '/brick-calculator',
+            '/steel-calculator',
+            '/plaster-calculator',
+            '/tiles-calculator',
+            '/paint-calculator',
+            '/concrete-calculator',
+            '/rcc-slab-calculator',
+          ]}
+        />
 
         <ToolContext title={MATERIAL_CALC_CONTEXT.title}>
           {MATERIAL_CALC_CONTEXT.paragraphs.map((p, i) => (

@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react'
 import { Hammer } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
+import { RelatedToolsSection } from '#/components/tools/related-tools-section'
 import {
   InputGroup,
   InputGroupAddon,
@@ -63,21 +64,21 @@ export const Route = createFileRoute('/construction-cost-calculator')({
     meta: [
       {
         title:
-          'Construction Cost Calculator India 2026 — Per Sq Ft, Stage-Wise · Plotr Ai',
+          'House Construction Cost Calculator 2026 – Per Sq Ft & Floor Wise · Plotr Ai',
       },
       {
         name: 'description',
         content:
-          'Estimate house construction cost per sq ft in India by city, finish tier, and floors. Stage-wise breakdown across 7 build stages. Mumbai, Bangalore, Delhi, Pune, Chennai, Hyderabad. Updated 2026.',
+          'Free house construction cost calculator for India: enter area, floors and city to get the per sq ft rate, total cost and stage-wise budget. Updated Nov 2026.',
       },
       {
         property: 'og:title',
-        content: 'Construction Cost Calculator India 2026',
+        content: 'House Construction Cost Calculator 2026 – Per Sq Ft & Floor Wise',
       },
       {
         property: 'og:description',
         content:
-          'House construction cost per sq ft + stage-wise breakdown for any Indian city.',
+          'Free house construction cost calculator for India: enter area, floors and city to get the per sq ft rate, total cost and stage-wise budget. Updated Nov 2026.',
       },
       {
         property: 'og:image',
@@ -312,6 +313,18 @@ function ConstructionCostCalculatorPage() {
         </ToolSection>
 
         <NextStepCard from="/construction-cost-calculator" />
+
+        <RelatedToolsSection
+          paths={[
+            '/material-calculator',
+            '/brick-calculator',
+            '/steel-calculator',
+            '/tiles-calculator',
+            '/paint-calculator',
+            '/home-interior-cost-calculator',
+            '/solar-panel-cost-calculator',
+          ]}
+        />
 
         <ToolContext title={CONSTRUCTION_COST_CONTEXT.title}>
           {CONSTRUCTION_COST_CONTEXT.paragraphs.map((p, i) => (
