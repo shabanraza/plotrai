@@ -6,6 +6,7 @@ import { RelatedToolsSection } from '#/components/tools/related-tools-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
+import { Alert, AlertDescription } from '#/components/ui/alert'
 import { Button } from '#/components/ui/button'
 import {
   Table,
@@ -30,7 +31,9 @@ import {
   STAGES,
   CONSTRUCTION_LAST_UPDATED,
   GROUND_ONLY_PERCENT,
+  BENCHMARK_RATE_NOTE,
   getRateSource,
+  isBenchmarkCity,
   type FinishTier,
 } from '#/data/construction-cost-rates'
 import { cityRelatedTools } from '#/data/related-tools'
@@ -142,6 +145,11 @@ function CityConstructionPage() {
     >
       <div className="flex flex-col gap-14">
         <ToolSection label="Per sq ft rates">
+          {isBenchmarkCity(content.city) && (
+            <Alert>
+              <AlertDescription>{BENCHMARK_RATE_NOTE}</AlertDescription>
+            </Alert>
+          )}
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
@@ -187,7 +195,7 @@ function CityConstructionPage() {
               <TableBody>
                 {sizeRows.map((row) => (
                   <TableRow key={row.key}>
-                    <TableCell className="font-medium">{row.label}</TableCell>
+                    <TableCell className="whitespace-normal font-medium">{row.label}</TableCell>
                     {sizeTiers.map((tier) => (
                       <TableCell key={tier} className="text-right tabular-nums">
                         {lakhs(row.costs[tier])}
@@ -204,6 +212,11 @@ function CityConstructionPage() {
             because site preparation and foundation ({GROUND_ONLY_PERCENT}% of a single-storey
             build) are paid once. This is a planning estimate: the foundation must still be built
             for the final number of floors from day one.
+          </p>
+          <p className="max-w-[68ch] text-sm leading-relaxed text-[var(--foreground)]/75">
+            Upper floors are priced at {100 - GROUND_ONLY_PERCENT}% of the ground floor because
+            they need no foundation; the calculator prices every floor at the full rate, so it
+            shows a little more.
           </p>
         </ToolSection>
 
@@ -280,8 +293,8 @@ function CityConstructionPage() {
               </>
             ) : (
               <>
-                {content.city} rates come from our own benchmark table ({source.label}),
-                reviewed {source.asOf}. We have no dated public source for this city, so treat
+                {content.city} rates come from our own benchmark table, reviewed{' '}
+                {source.asOf}. We have no dated public source for this city, so treat
                 it as a starting point and compare it with local quotes.
               </>
             )}

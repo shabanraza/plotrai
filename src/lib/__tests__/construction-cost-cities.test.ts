@@ -5,7 +5,9 @@ import {
   CITY_RATES,
   CONSTRUCTION_LAST_UPDATED,
   GROUND_ONLY_PERCENT,
+  BENCHMARK_RATE_NOTE,
   getRateSource,
+  isBenchmarkCity,
   type FinishTier,
 } from '#/data/construction-cost-rates'
 import {
@@ -17,6 +19,7 @@ import {
   getRelatedCities,
 } from '#/data/city-construction-content'
 import { INFRALENS_CITIES, INFRALENS_UPDATED } from '#/data/infralens-rates'
+import { COST_BLOG_ARTICLES } from '#/data/cost-blog-articles'
 
 const SITEMAP = readFileSync(resolve(process.cwd(), 'public/sitemap.xml'), 'utf8')
 const TIERS: ReadonlyArray<FinishTier> = ['basic', 'standard', 'premium', 'luxury']
@@ -46,6 +49,8 @@ describe('construction cost city pages', () => {
     expect(CITY_RATES.Chennai.standard).toBe(2478)
     expect(CITY_RATES.Kochi.premium).toBe(3480)
     expect(CITY_RATES.Ghaziabad).toEqual(CITY_RATES.Noida)
+    expect(CITY_RATES['Greater Noida']).toEqual(CITY_RATES.Noida)
+    expect(getRateSource('Greater Noida').note).toMatch(/Noida/)
     expect(getRateSource('Ghaziabad').note).toMatch(/Noida/)
   })
 
@@ -61,6 +66,9 @@ describe('construction cost city pages', () => {
       expect(source.asOf).toBe(INFRALENS_UPDATED)
     }
     expect(getRateSource('Bangalore').url).toBeUndefined()
+    expect(isBenchmarkCity('Bangalore')).toBe(true)
+    expect(isBenchmarkCity('Greater Noida')).toBe(false)
+    expect(BENCHMARK_RATE_NOTE).toMatch(/lower bound/)
     expect(getRateSource('Bangalore').asOf).toBe('2026-Q2')
   })
 
@@ -132,12 +140,16 @@ describe('city page meta', () => {
       )
       expect(meta.title.length, meta.title).toBeLessThanOrEqual(68)
       expect(meta.description.length, meta.description).toBeLessThan(160)
-      expect(meta.description).toContain('updated 21 Nov 2026')
+      expect(meta.description).toMatch(/updated 21 Nov 2026|rates as of 2026-Q2/)
       expect(meta.description).toContain('G+1')
     }
     const delhi = buildCityMeta(CITY_CONTENT.find((c) => c.slug === 'delhi')!)
     expect(delhi.title).toBe('Construction Cost per Sq Ft in Delhi 2026: ₹1,794–₹3,105 · Plotr Ai')
     expect(delhi.description).toContain('₹1,794–₹4,255')
+    const bangalore = buildCityMeta(CITY_CONTENT.find((c) => c.slug === 'bangalore')!)
+    expect(bangalore.description).not.toContain('updated 21 Nov 2026')
+    expect(bangalore.description).toContain('rates as of 2026-Q2')
+    expect(bangalore.description.length).toBeLessThan(160)
     expect(delhi.h1).toBe('Construction cost per sq ft in Delhi (2026)')
   })
 })
@@ -153,6 +165,12 @@ describe('size × tier table', () => {
     expect(rows.slice(0, 4).map((r) => r.area)).toEqual([1000, 1200, 1500, 2000])
   })
 
+  it('has a G+1 row at 1,000 sq ft per floor and short labels', () => {
+    const rows = buildSizeCostRows(rates)
+    expect(rows.some((r) => r.key === 'g1-1000')).toBe(true)
+    for (const row of rows) expect(row.label.length, row.label).toBeLessThanOrEqual(24)
+  })
+
   it('prices G+1 as ground floor plus an upper floor without site and foundation', () => {
     const rows = buildSizeCostRows(rates)
     const g1 = rows.find((r) => r.key === 'g1-1200')!
@@ -162,5 +180,25 @@ describe('size × tier table', () => {
     expect(g1.costs.standard).toBe(Math.round(1200 * rates.standard * factor))
     expect(g1.costs.standard).toBeLessThan(2 * 1200 * rates.standard)
     expect(rows.some((r) => r.key === 'g1-1500')).toBe(true)
+  })
+})
+
+describe('rate scale labelling', () => {
+  it('does not call InfraLens figures ours in the cost articles', () => {
+    const text = JSON.stringify(COST_BLOG_ARTICLES)
+    expect(text).toContain(`InfraLens (24 Oct 2026) for ${INFRALENS_CITIES.length} cities; Plotr Ai benchmark (2026-Q2) for the rest`)
+    expect(text).not.toContain('Plotr Ai construction rate benchmarks for')
+    for (const a of COST_BLOG_ARTICLES) expect(a.dateModified).toBe('2026-11-21')
+  })
+
+  it('uses the Bangalore page rates and North Bangalore rates in the right FAQ', () => {
+    const bangalore = CITY_CONTENT.find((c) => c.slug === 'bangalore')!
+    const faq = buildCityFaqs(bangalore).find((f) => f.q.includes('North Bangalore'))!
+    expect(faq.a).toContain(`₹${CITY_RATES['North Bangalore'].standard.toLocaleString('en-IN')}/sq ft for standard`)
+  })
+
+  it('points the duplex FAQ at a G+1 row that exists', () => {
+    const delhi = CITY_CONTENT.find((c) => c.slug === 'delhi')!
+    expect(buildCityFaqs(delhi).find((f) => f.q.includes('duplex'))!.a).toMatch(/G\+1/)
   })
 })

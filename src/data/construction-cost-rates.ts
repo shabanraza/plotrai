@@ -26,7 +26,7 @@ export interface CityRates {
   luxury: number
 }
 
-/** Cities InfraLens does not cover. Source: our own benchmark table, reviewed 2026-Q2. */
+/** Cities InfraLens does not cover. Source: our own benchmark table, reviewed 2026-Q2, which runs lower than InfraLens. */
 const BENCHMARK_CITY_RATES: Record<string, CityRates> = {
   Bangalore: { basic: 1700, standard: 2150, premium: 2750, luxury: 3700 },
   'North Bangalore': {
@@ -38,7 +38,6 @@ const BENCHMARK_CITY_RATES: Record<string, CityRates> = {
   Hyderabad: { basic: 1600, standard: 2050, premium: 2650, luxury: 3550 },
   Kolkata: { basic: 1550, standard: 2000, premium: 2550, luxury: 3450 },
   Gurgaon: { basic: 1750, standard: 2250, premium: 2850, luxury: 3850 },
-  'Greater Noida': { basic: 1580, standard: 2050, premium: 2650, luxury: 3600 },
   Kanpur: { basic: 1350, standard: 1750, premium: 2250, luxury: 3150 },
 }
 
@@ -68,6 +67,14 @@ const BENCHMARK_SOURCE: RateSource = {
   asOf: '2026-Q2',
   published: false,
 }
+
+/** True when a city's rates come from our own 2026-Q2 benchmark table, not InfraLens. */
+export function isBenchmarkCity(city: string) {
+  return !INFRALENS_BY_CITY.has(city)
+}
+
+export const BENCHMARK_RATE_NOTE =
+  "This city's rates come from our own 2026-Q2 benchmark table, which runs lower than the InfraLens figures used for most other cities. Treat it as a lower bound."
 
 /** Where a city's displayed rates come from, with the date of that source. */
 export function getRateSource(city: string): RateSource {

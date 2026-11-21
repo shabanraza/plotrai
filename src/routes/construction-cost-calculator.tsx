@@ -37,9 +37,12 @@ import {
   STAGES,
   TIER_LABELS,
   CONSTRUCTION_LAST_UPDATED,
+  BENCHMARK_RATE_NOTE,
   getRateSource,
+  isBenchmarkCity,
   type FinishTier,
 } from '#/data/construction-cost-rates'
+import { Alert, AlertDescription } from '#/components/ui/alert'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { NextStepCard } from '#/components/tools/next-step-card'
 import { QuoteWaitlist } from '#/components/tools/quote-waitlist'
@@ -221,6 +224,11 @@ function ConstructionCostCalculatorPage() {
               </div>
             </div>
           </div>
+          {isBenchmarkCity(city) && city !== 'Other' && (
+            <Alert>
+              <AlertDescription>{BENCHMARK_RATE_NOTE}</AlertDescription>
+            </Alert>
+          )}
         </ToolSection>
 
         <ToolSection

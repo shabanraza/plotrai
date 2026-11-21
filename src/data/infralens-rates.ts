@@ -37,6 +37,12 @@ export const INFRALENS_CITIES: ReadonlyArray<InfralensCity> = [
     rates: { basic: 1794, standard: 2300, premium: 3105, luxury: 4255 },
     note: 'InfraLens has no Ghaziabad page, so the Noida page (NCR-UP) is used.',
   },
+  {
+    city: 'Greater Noida',
+    slug: 'noida',
+    rates: { basic: 1794, standard: 2300, premium: 3105, luxury: 4255 },
+    note: 'InfraLens has no Greater Noida page, so the Noida page (NCR-UP) is used.',
+  },
   { city: 'Ahmedabad', slug: 'ahmedabad', rates: { basic: 1795, standard: 2301, premium: 3106, luxury: 4257 } },
   { city: 'Lucknow', slug: 'lucknow', rates: { basic: 1716, standard: 2200, premium: 2970, luxury: 4070 } },
   { city: 'Indore', slug: 'indore', rates: { basic: 1696, standard: 2174, premium: 2935, luxury: 4022 } },

@@ -2,6 +2,8 @@ import {
   CITY_RATES,
   CONSTRUCTION_LAST_UPDATED,
   GROUND_ONLY_PERCENT,
+  getRateSource,
+  isBenchmarkCity,
   type CityRates,
   type FinishTier,
 } from './construction-cost-rates'
@@ -116,7 +118,7 @@ export const CITY_CONTENT: ReadonlyArray<CityContent> = [
     state: 'Uttar Pradesh',
     extraContext: [
       'Noida plots are allotted and regulated by the Noida Authority, which sets sector-wise charges and building rules. Those charges are separate from construction cost, so ask the Authority for the current amounts.',
-      'The standard rate here is {standard} per sq ft, the same InfraLens figure used for Delhi and Ghaziabad.',
+      'The standard rate here is {standard} per sq ft, the InfraLens Noida (NCR-UP) figure, which this site also uses for Ghaziabad and Greater Noida.',
     ],
   },
   {
@@ -124,7 +126,7 @@ export const CITY_CONTENT: ReadonlyArray<CityContent> = [
     city: 'Greater Noida',
     state: 'Uttar Pradesh',
     extraContext: [
-      'Greater Noida independent-house quotes depend on plot access, logistics, and contractor availability in the sector. The standard benchmark here is {standard} per sq ft.',
+      'Greater Noida independent-house quotes depend on plot access, logistics, and contractor availability in the sector. InfraLens has no Greater Noida page, so the standard rate of {standard} per sq ft is its Noida (NCR-UP) figure.',
       'For Greater Noida West and Yamuna Expressway plots, budget separately for soil testing, boundary wall, borewell or water connection, and local authority compliance before comparing per-sq-ft quotes.',
     ],
   },
@@ -381,12 +383,15 @@ export function buildCityMeta(content: CityContent) {
   const base = `Construction Cost per Sq Ft in ${content.city} 2026`
   const suffix = ' · Plotr Ai'
   if (!r) return { title: base + suffix, ogTitle: base, description: '', h1: '' }
+  const freshness = isBenchmarkCity(content.city)
+    ? `rates as of ${getRateSource(content.city).asOf}`
+    : `updated ${formatShortDate(CONSTRUCTION_LAST_UPDATED)}`
   const withRange = `${base}: ${formatRupees(r.basic)}–${formatRupees(r.premium)}`
   const ogTitle = (withRange + suffix).length <= MAX_TITLE_LENGTH ? withRange : base
   return {
     title: ogTitle + suffix,
     ogTitle,
-    description: `${content.city} house construction cost per sq ft, updated ${formatShortDate(CONSTRUCTION_LAST_UPDATED)}: ${formatRupees(r.basic)}–${formatRupees(r.luxury)}. Costs for 1,000, 1,200 and 1,500 sq ft and G+1.`,
+    description: `${content.city} house construction cost per sq ft, ${freshness}: ${formatRupees(r.basic)}–${formatRupees(r.luxury)}. Costs for 1,000, 1,200 and 1,500 sq ft and G+1.`,
     h1: `Construction cost per sq ft in ${content.city} (2026)`,
   }
 }
@@ -412,14 +417,14 @@ export function buildSizeCostRows(r: CityRates): ReadonlyArray<SizeCostRow> {
   const upperFactor = (100 - GROUND_ONLY_PERCENT) / 100
   const single = [1000, 1200, 1500, 2000].map((area): SizeCostRow => ({
     key: String(area),
-    label: `${area.toLocaleString('en-IN')} sq ft, single floor`,
+    label: `${area.toLocaleString('en-IN')} sq ft`,
     areaPerFloor: area,
     area,
     costs: Object.fromEntries(TIER_KEYS.map((t) => [t, area * r[t]])) as Record<FinishTier, number>,
   }))
-  const g1 = [1200, 1500].map((perFloor): SizeCostRow => ({
+  const g1 = [1000, 1200, 1500].map((perFloor): SizeCostRow => ({
     key: `g1-${perFloor}`,
-    label: `G+1, ${perFloor.toLocaleString('en-IN')} sq ft per floor`,
+    label: `G+1 · ${perFloor.toLocaleString('en-IN')} per floor`,
     areaPerFloor: perFloor,
     area: perFloor * 2,
     costs: Object.fromEntries(
@@ -506,7 +511,7 @@ export function buildCityFaqs(content: CityContent): ReadonlyArray<FaqItem> {
     },
     {
       q: `What is the cost to build a 2000 sq ft duplex in ${content.city}?`,
-      a: `A 2000 sq ft standard house in ${content.city} costs approximately ₹${(cost2000 / 100000).toFixed(1)} lakh at the single-floor rate. For a G+1 house, the size table above prices the upper floor without site preparation and foundation, which are paid for once on the ground floor.`,
+      a: `A 2000 sq ft standard house in ${content.city} costs approximately ₹${(cost2000 / 100000).toFixed(1)} lakh at the single-floor rate. For a G+1 house with 1,000 sq ft per floor, the size table above shows the cost at each finish. The upper floor is priced without site preparation and foundation, which are paid for once on the ground floor.`,
     },
     {
       q: `What share of construction cost is labour in ${content.city}?`,
@@ -518,10 +523,11 @@ export function buildCityFaqs(content: CityContent): ReadonlyArray<FaqItem> {
     },
   ]
 
-  if (content.slug === 'bangalore' || content.slug === 'north-bangalore') {
+  const northBangalore = getCityRates('North Bangalore')
+  if (northBangalore && (content.slug === 'bangalore' || content.slug === 'north-bangalore')) {
     faqs.splice(1, 0, {
       q: 'What is the house construction cost in North Bangalore?',
-      a: `North Bangalore areas such as Yelahanka, Hebbal outskirts, Devanahalli, Hennur, and Thanisandra typically cost around ${formatRupees(r.standard)}/sq ft for standard finish, ${formatRupees(r.basic)}/sq ft basic, and ${formatRupees(r.premium)}/sq ft premium. Borewell, soil, and approval costs vary by layout.`,
+      a: `North Bangalore areas such as Yelahanka, Hebbal outskirts, Devanahalli, Hennur, and Thanisandra typically cost around ${formatRupees(northBangalore.standard)}/sq ft for standard finish, ${formatRupees(northBangalore.basic)}/sq ft basic, and ${formatRupees(northBangalore.premium)}/sq ft premium. Borewell, soil, and approval costs vary by layout.`,
     })
   }
 
