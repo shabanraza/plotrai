@@ -4,6 +4,7 @@ import { Hammer } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
 import { RelatedToolsSection } from '#/components/tools/related-tools-section'
+import { CONSTRUCTION_COST_RELATED_TOOLS } from '#/data/related-tools'
 import {
   InputGroup,
   InputGroupAddon,
@@ -69,7 +70,7 @@ export const Route = createFileRoute('/construction-cost-calculator')({
       {
         name: 'description',
         content:
-          'Free house construction cost calculator for India: enter area, floors and city to get the per sq ft rate, total cost and stage-wise budget. Updated Nov 2026.',
+          'Free house construction cost calculator for India: enter area, floors and city to get the per sq ft rate, total cost and stage-wise budget, updated for 2026.',
       },
       {
         property: 'og:title',
@@ -78,7 +79,7 @@ export const Route = createFileRoute('/construction-cost-calculator')({
       {
         property: 'og:description',
         content:
-          'Free house construction cost calculator for India: enter area, floors and city to get the per sq ft rate, total cost and stage-wise budget. Updated Nov 2026.',
+          'Free house construction cost calculator for India: enter area, floors and city to get the per sq ft rate, total cost and stage-wise budget, updated for 2026.',
       },
       {
         property: 'og:image',
@@ -100,7 +101,7 @@ export const Route = createFileRoute('/construction-cost-calculator')({
     links: [canonicalLink('/construction-cost-calculator')],
     scripts: [
       softwareAppLd({
-        name: 'Construction Cost Calculator India',
+        name: 'House Construction Cost Calculator India',
         description:
           'Estimate house construction cost per sq ft in India by city, finish tier, and floors with stage-wise breakdown.',
         path: '/construction-cost-calculator',
@@ -142,10 +143,10 @@ function ConstructionCostCalculatorPage() {
     <ToolPageShell
       breadcrumb={[
         { label: 'Tools', href: '/' },
-        { label: 'Construction cost calculator' },
+        { label: 'House construction cost calculator' },
       ]}
       eyebrow={{ icon: Hammer, label: 'Calculator · Live' }}
-      title="Construction cost calculator"
+      title="House construction cost calculator"
       tagline="Estimate house construction cost per sq ft in India, broken down across 7 build stages. Bangalore, Mumbai, Delhi, Pune, Chennai, Hyderabad and more."
       variant="single-column"
     >
@@ -314,17 +315,7 @@ function ConstructionCostCalculatorPage() {
 
         <NextStepCard from="/construction-cost-calculator" />
 
-        <RelatedToolsSection
-          paths={[
-            '/material-calculator',
-            '/brick-calculator',
-            '/steel-calculator',
-            '/tiles-calculator',
-            '/paint-calculator',
-            '/home-interior-cost-calculator',
-            '/solar-panel-cost-calculator',
-          ]}
-        />
+        <RelatedToolsSection paths={CONSTRUCTION_COST_RELATED_TOOLS} />
 
         <ToolContext title={CONSTRUCTION_COST_CONTEXT.title}>
           {CONSTRUCTION_COST_CONTEXT.paragraphs.map((p, i) => (

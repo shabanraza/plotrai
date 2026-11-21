@@ -27,7 +27,7 @@ import {
   CONSTRUCTION_LAST_UPDATED,
   type FinishTier,
 } from '#/data/construction-cost-rates'
-import { SOLAR_CITY_BY_SLUG, solarCityPath } from '#/data/solar-city-content'
+import { cityRelatedTools } from '#/data/related-tools'
 import { getArticleLinkItem } from '#/data/blog-content'
 import {
   INFRALENS_NEW_CITIES,
@@ -96,9 +96,6 @@ function CityConstructionPage() {
   const faqs = buildCityFaqs(content)
   const infralens = INFRALENS_NEW_CITIES.find((c) => c.city === content.city)
   const otherCities = CITY_CONTENT.filter((c) => c.slug !== content.slug).slice(0, 8)
-  const solarPath = SOLAR_CITY_BY_SLUG.has(content.slug)
-    ? solarCityPath(content.slug)
-    : '/solar-panel-cost-calculator'
   const tiers: ReadonlyArray<FinishTier> = ['basic', 'standard', 'premium', 'luxury']
 
   const sampleSqft = [1000, 1500, 2000, 2500] as const
@@ -213,13 +210,7 @@ function CityConstructionPage() {
           </div>
         </ToolSection>
 
-        <RelatedToolsSection
-          paths={[
-            '/material-calculator',
-            '/home-interior-cost-calculator',
-            solarPath,
-          ]}
-        />
+        <RelatedToolsSection paths={cityRelatedTools(content.slug)} />
 
         <ToolContext title={`Building a house in ${content.city} — what to know`}>
           {content.extraContext?.map((p: string, i: number) => <p key={i}>{p}</p>)}
