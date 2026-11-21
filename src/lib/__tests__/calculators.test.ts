@@ -3,6 +3,7 @@ import { calculateConstructionCost } from '../construction-cost'
 import {
   calculateIndexation,
   calculatePropertyCapitalGains,
+  financialYearOf,
 } from '../indexation'
 import { calculateMaterials } from '../material-calc'
 import { convertLandArea } from '../plot-units'
@@ -167,19 +168,158 @@ describe('indexation and capital gains calculators', () => {
     expect(result.taxAt20Percent).toBeCloseTo(925714.29)
   })
 
-  it('recommends the lower eligible long-term property tax regime', () => {
-    const result = calculatePropertyCapitalGains({
-      purchaseFy: '2018-19',
-      saleFy: '2025-26',
-      purchasePrice: 4_000_000,
-      salePrice: 7_000_000,
-      slabRatePercent: 30,
-    })
+  const base = {
+    purchasePrice: 5_000_000,
+    salePrice: 12_000_000,
+    purchaseDate: '2015-06-15',
+    saleDate: '2026-11-21',
+    residency: 'resident' as const,
+    slabRatePercent: 30,
+  }
 
-    expect(result.isLongTerm).toBe(true)
-    expect(result.oldRegimeAvailable).toBe(true)
-    expect(result.recommended).toBe('indexed')
-    expect(result.recommendedTax).toBeCloseTo(325714.29)
+  it('worked example: resident, bought Jun 2015, sold Nov 2026 - flat 12.5% wins', () => {
+    const r = calculatePropertyCapitalGains(base)
+    expect(r.isLongTerm).toBe(true)
+    expect(r.purchaseCii).toBe(254)
+    expect(r.saleCii).toBe(384)
+    expect(r.flatGain).toBe(7_000_000)
+    expect(r.flatTaxBeforeCess).toBe(875_000)
+    expect(r.flatTaxTotal).toBeCloseTo(910_000)
+    expect(r.indexedAvailable).toBe(true)
+    expect(r.indexedCost).toBeCloseTo(7_559_055.12, 1)
+    expect(r.indexedGain).toBeCloseTo(4_440_944.88, 1)
+    expect(r.indexedTaxBeforeCess).toBeCloseTo(888_188.98, 1)
+    expect(r.indexedTaxTotal).toBeCloseTo(923_716.54, 1)
+    expect(r.recommended).toBe('flat')
+    expect(r.taxBeforeCess).toBe(875_000)
+    expect(r.cess).toBeCloseTo(35_000)
+    expect(r.totalTax).toBeCloseTo(910_000)
+  })
+
+  it('picks indexed when it is lower', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      purchasePrice: 4_000_000,
+      purchaseDate: '2018-07-01',
+      salePrice: 7_000_000,
+    })
+    expect(r.recommended).toBe('indexed')
+    expect(r.taxBeforeCess).toBeCloseTo(
+      (7_000_000 - (4_000_000 * 384) / 280) * 0.2,
+      1,
+    )
+  })
+
+  it('exactly 24 months is short-term, one day more is long-term', () => {
+    const short = calculatePropertyCapitalGains({
+      ...base,
+      purchaseDate: '2024-11-21',
+      saleDate: '2026-11-21',
+    })
+    expect(short.isLongTerm).toBe(false)
+    expect(short.recommended).toBe('short')
+    expect(short.taxBeforeCess).toBe(7_000_000 * 0.3)
+    expect(short.totalTax).toBeCloseTo(7_000_000 * 0.3 * 1.04)
+    const long = calculatePropertyCapitalGains({
+      ...base,
+      purchaseDate: '2024-11-20',
+      saleDate: '2026-11-21',
+    })
+    expect(long.isLongTerm).toBe(true)
+  })
+
+  it('property bought on or after 23 Jul 2024 has no indexed option', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      purchaseDate: '2024-07-23',
+    })
+    expect(r.indexedAvailable).toBe(false)
+    expect(r.recommended).toBe('flat')
+  })
+
+  it('NRI gets 12.5% without indexation only', () => {
+    const r = calculatePropertyCapitalGains({ ...base, residency: 'nri' })
+    expect(r.indexedAvailable).toBe(false)
+    expect(r.recommended).toBe('flat')
+    expect(r.totalTax).toBeCloseTo(910_000)
+  })
+
+  it('sale before 23 Jul 2024 is 20% with indexation only', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      saleDate: '2024-03-01',
+      salePrice: 10_000_000,
+    })
+    expect(r.flatAvailable).toBe(false)
+    expect(r.recommended).toBe('indexed')
+    expect(r.saleCii).toBe(348)
+    expect(r.taxBeforeCess).toBeCloseTo(
+      (10_000_000 - (5_000_000 * 348) / 254) * 0.2,
+      1,
+    )
+  })
+
+  it('handles cost of improvement (indexed by its own FY) and transfer expenses', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      improvementCost: 1_000_000,
+      improvementDate: '2020-05-10',
+      transferExpenses: 200_000,
+    })
+    expect(r.flatGain).toBe(12_000_000 - 200_000 - 5_000_000 - 1_000_000)
+    expect(r.improvementCii).toBe(301)
+    expect(r.indexedGain).toBeCloseTo(
+      12_000_000 -
+        200_000 -
+        (5_000_000 * 384) / 254 -
+        (1_000_000 * 384) / 301,
+      1,
+    )
+  })
+
+  it('s.85 reinvestment is capped at 50 lakh and reduces taxable gain', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      residency: 'nri',
+      reinvestSection: '85',
+      reinvestAmount: 8_000_000,
+    })
+    expect(r.exemptionClaimed).toBe(5_000_000)
+    expect(r.taxBeforeCess).toBe((7_000_000 - 5_000_000) * 0.125)
+  })
+
+  it('s.82 reinvestment exempts up to the gain, capped at 10 crore of new house cost', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      reinvestSection: '82',
+      reinvestAmount: 3_000_000,
+    })
+    expect(r.exemptionClaimed).toBe(3_000_000)
+    const full = calculatePropertyCapitalGains({
+      ...base,
+      reinvestSection: '82',
+      reinvestAmount: 2_000_000_000,
+    })
+    expect(full.exemptionClaimed).toBe(7_000_000)
+    expect(full.taxBeforeCess).toBe(0)
+  })
+
+  it('uses latest CII for sale dates after the last notified year and 100 before 2001', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      purchaseDate: '1995-01-01',
+      saleDate: '2027-06-01',
+    })
+    expect(r.purchaseCii).toBe(100)
+    expect(r.saleCii).toBe(384)
+  })
+})
+
+describe('financial year helper', () => {
+  it('maps dates to Indian financial years', () => {
+    expect(financialYearOf('2026-03-31')).toBe('2025-26')
+    expect(financialYearOf('2026-04-01')).toBe('2026-27')
+    expect(financialYearOf('2000-03-31')).toBe('1999-00')
   })
 })
 

@@ -138,23 +138,47 @@ export const CONSTRUCTION_COST_FAQS: ReadonlyArray<FaqItem> = [
 export const CAPITAL_GAINS_FAQS: ReadonlyArray<FaqItem> = [
   {
     q: 'How much capital gains tax applies when selling property?',
-    a: 'Long-term capital gains (held > 24 months) on property are taxed at 12.5% without indexation as of FY 2025-26 (post Budget 2024 reform). Short-term gains (< 24 months) are added to your income and taxed at slab rates. Use Section 54/54F to claim full exemption by reinvesting in another residential property.',
+    a: 'Property held for more than 24 months is long-term. Its gain is taxed at 12.5% without indexation, plus 4% health and education cess (and surcharge if your income is above ₹50 lakh). Residents and HUFs who bought before 23 July 2024 can instead pay 20% with indexation if that is lower. Property held for 24 months or less is short-term, and its gain is added to your income and taxed at slab rates.',
   },
   {
-    q: 'How does Section 54 exemption work?',
-    a: 'Section 54 lets you avoid LTCG tax if you reinvest the entire capital gain (not full sale value) in another residential house — purchased within 2 years or constructed within 3 years of sale. Maximum exemption is ₹10 crore per Budget 2023 cap. Only available for individuals and HUFs.',
+    q: 'Is exactly 24 months long-term?',
+    a: 'No. Property must be held for more than 24 months to be long-term. If you sell on the day the 24th month ends, or earlier, the gain is short-term and taxed at your slab rate. Selling one day later makes it long-term, so check the dates before you sign the sale agreement.',
   },
   {
-    q: 'Has indexation benefit been removed for property?',
-    a: 'Yes — Budget 2024 removed indexation for properties bought after 23 July 2024. Properties bought before that date have a "grandfathered" choice: pay 20% LTCG with indexation OR 12.5% without indexation, whichever is lower. Always run both calculations.',
+    q: 'Has the indexation benefit been removed for property?',
+    a: 'For most sales, yes. For sales on or after 23 July 2024, long-term gains on land or buildings are taxed at 12.5% without indexation. There is a grandfathering choice for resident individuals and HUFs who acquired the property before 23 July 2024: they pay the lower of 12.5% without indexation or 20% with indexation. NRIs and companies get only the 12.5% rate. Sales before 23 July 2024 were taxed at 20% with indexation only.',
+  },
+  {
+    q: 'What are the new section numbers under the Income-tax Act 2025?',
+    a: 'The Income-tax Act 2025 has been in force since 1 April 2026, and "assessment year" is now "tax year". The long-term capital gains rate section 112 is now section 197. The exemptions are renumbered: section 54 is now section 82, section 54EC is now section 85 and section 54F is now section 86. The rules are the same, only the numbers changed.',
+  },
+  {
+    q: 'How does the section 82 (old section 54) exemption work?',
+    a: 'Section 82 lets an individual or HUF avoid tax on the long-term gain from selling a residential house by buying another house one year before or two years after the sale, or by constructing one within three years. Only the gain needs to be reinvested, not the full sale value. A new house cost above ₹10 crore is ignored. If the gain is ₹2 crore or less, you can choose one time in your life to buy two houses.',
+  },
+  {
+    q: 'How does section 85 (old section 54EC) work?',
+    a: 'Section 85 applies only to long-term gains from land or a building. You invest the gain in specified bonds within 6 months of the sale, up to ₹50 lakh in total, with a 5-year lock-in. Eligible issuers are REC, PFC, IRFC, HUDCO and IREDA; NHAI no longer issues these bonds. The amount invested is exempted from the gain rupee for rupee. It does not cut your tax rupee for rupee.',
+  },
+  {
+    q: 'What is section 86 (old section 54F)?',
+    a: 'Section 86 applies when you sell a long-term asset other than a residential house, such as a plot of land, and invest the net sale value in a residential house. If you invest all of it, the whole gain is exempt. If you invest only part, the exemption is pro-rata to the net sale value. The ₹10 crore cap on the new house cost applies here too.',
+  },
+  {
+    q: 'How is capital gains tax worked out for an NRI selling property?',
+    a: 'An NRI pays long-term capital gains tax at 12.5% without indexation, plus 4% cess and surcharge where it applies, on property sold on or after 23 July 2024. The grandfathering choice of 20% with indexation is only for resident individuals and HUFs. The buyer must deduct TDS on the payment, so the tax is often collected at the time of sale. The NRI can claim a refund when filing the return if too much was deducted.',
+  },
+  {
+    q: 'I bought the property before 2001. What cost do I use?',
+    a: 'For property acquired before 1 April 2001, you can use its fair market value on 1 April 2001 as the cost of acquisition, if that is higher than what was paid. Enter that value as the purchase price and any date in FY 2001-02, such as 1 April 2001. The index for 2001-02 is 100, the base year.',
   },
   {
     q: 'Does capital gains tax apply when selling inherited property?',
-    a: 'Inheritance itself is not taxed in India, but when you sell inherited property, capital gains tax applies. The cost of acquisition is the original price your ancestor paid, and the holding period includes their tenure — so most inherited properties qualify for LTCG (12.5%) automatically.',
+    a: 'Inheritance itself is not taxed in India, but selling inherited property attracts capital gains tax. The cost of acquisition is what the previous owner paid, and the holding period includes their tenure, so most inherited properties are long-term.',
   },
   {
     q: 'What is the Capital Gains Account Scheme (CGAS)?',
-    a: 'CGAS lets you park sale proceeds in a designated bank account if you can\'t reinvest before the income-tax return filing deadline. Funds must be used for reinvestment within Section 54 timelines (2/3 years). Available at all PSU banks and selected private banks.',
+    a: 'CGAS lets you park the gain in a designated bank account if you cannot reinvest before the due date for filing your return. You must use the money for the house within the section 82 time limits. Money not used in time becomes taxable as long-term capital gain.',
   },
 ]
 
@@ -253,10 +277,10 @@ export const CONSTRUCTION_COST_CONTEXT = {
 }
 
 export const CAPITAL_GAINS_CONTEXT = {
-  title: 'Property capital gains tax in India (post-Budget 2024)',
+  title: 'Property capital gains tax in India for FY 2026-27',
   paragraphs: [
-    'When you sell a property in India, the profit (sale price minus cost of acquisition minus improvement cost) is treated as capital gains. Held for less than 24 months → short-term, taxed at your slab rate. Held for 24+ months → long-term (LTCG), taxed at a flat 12.5% as of FY 2025-26.',
-    'Budget 2024 abolished indexation benefit for properties acquired after 23 July 2024. For older properties, you can choose between (a) the new regime (12.5% without indexation) or (b) the old regime (20% with indexation), whichever yields lower tax. The calculator above runs both scenarios in parallel.',
-    'You can fully avoid LTCG tax by reinvesting under Section 54 (residential property) or Section 54EC (capital gains bonds, max ₹50 lakh, 5-year lock-in). The exemption is tied to the gain amount, not the sale value — so partial reinvestment yields proportional exemption. Talk to a CA before filing if your sale value is over ₹2 crore.',
+    'When you sell a property in India, the profit is the sale price, less transfer expenses such as brokerage and legal fees, less your cost of acquisition and cost of improvement. If you held the property for more than 24 months it is long-term. Exactly 24 months or less is short-term, and the gain is added to your income and taxed at slab rates.',
+    'Long-term gains on land and buildings are taxed at 12.5% without indexation, plus 4% health and education cess (and surcharge if your income is above ₹50 lakh). Resident individuals and HUFs who acquired the property before 23 July 2024 can instead pay 20% with indexation, whichever is lower, on a sale on or after that date. NRIs and companies get only the 12.5% rate, and the buyer deducts TDS. For FY 2026-27 the Cost Inflation Index is 384 (CBDT Notification 85/2026). If you bought before 1 April 2001, you can use the fair market value on that date as your cost.',
+    'You can reduce the taxable gain by reinvesting. Under the Income-tax Act 2025, section 82 (old 54) covers buying or building a house, and section 85 (old 54EC) covers specified bonds up to ₹50 lakh. Section 86 (old 54F) applies when you sell an asset other than a house. Section 85 exempts the gain rupee for rupee, it does not reduce the tax rupee for rupee. Talk to a CA before filing if the sale value is large.',
   ],
 }
