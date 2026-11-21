@@ -1,4 +1,4 @@
-import { CII } from '#/data/cii'
+import { CII, FY_LIST } from '#/data/cii'
 
 export interface IndexationInput {
   purchasePrice: number
@@ -31,78 +31,230 @@ export function calculateIndexation(input: IndexationInput): IndexationResult {
   }
 }
 
+/** Sales on or after this date: 12.5% without indexation (grandfathering for older purchases). */
+export const GRANDFATHER_DATE = '2024-07-23'
+export const LTCG_FLAT_RATE = 0.125
+export const LTCG_INDEXED_RATE = 0.2
+export const CESS_RATE = 0.04
+/** s.85 (old 54EC): maximum investment in bonds. */
+export const S85_CAP = 5_000_000
+/** s.82 (old 54): new house cost above this is ignored. */
+export const S82_CAP = 100_000_000
+
 export interface PropertyCapitalGainsInput {
-  purchaseFy: string
-  saleFy: string
+  /** ISO date, YYYY-MM-DD */
+  purchaseDate: string
+  /** ISO date, YYYY-MM-DD */
+  saleDate: string
   purchasePrice: number
   salePrice: number
+  improvementCost?: number
+  /** ISO date; defaults to the purchase date when omitted */
+  improvementDate?: string
+  transferExpenses?: number
+  residency: 'resident' | 'nri'
+  /** 'house' = residential house (s.82 applies); 'other' = plot or any other asset (s.86 applies). Default 'house'. */
+  assetType?: 'house' | 'other'
   slabRatePercent: number
+  reinvestSection?: '82' | '85' | '86'
+  reinvestAmount?: number
 }
 
-export interface PropertyCapitalGainsResult extends IndexationResult {
+export interface PropertyCapitalGainsResult {
   purchaseCii: number
   saleCii: number
-  holdingYears: number
+  improvementCii: number
+  datesValid: boolean
+  saleCiiFy: string
+  saleCiiNotified: boolean
+  improvementIgnored: 'before-2001' | 'out-of-range' | null
+  /** Improvement cost actually deducted (0 when ignored) */
+  improvementApplied: number
   isLongTerm: boolean
-  oldRegimeAvailable: boolean
-  ltcgIndexed: number | null
-  ltcgFlat: number
+  flatAvailable: boolean
+  indexedAvailable: boolean
+  flatGain: number
+  indexedCost: number
+  indexedImprovement: number
+  indexedGain: number
+  /** Gain left after any s.82 / s.85 exemption, per option */
+  flatTaxableGain: number
+  indexedTaxableGain: number
+  exemptionClaimed: number
+  flatTaxBeforeCess: number
+  flatTaxTotal: number
+  indexedTaxBeforeCess: number
+  indexedTaxTotal: number
   stcg: number
   stcgRate: number
   recommended: 'flat' | 'indexed' | 'short'
-  recommendedTax: number
+  taxBeforeCess: number
+  cess: number
+  totalTax: number
+}
+
+export function financialYearOf(isoDate: string): string {
+  const d = parseIsoDate(isoDate)
+  if (!d) return ''
+  const year =
+    d.getUTCMonth() >= 3 ? d.getUTCFullYear() : d.getUTCFullYear() - 1
+  return `${year}-${String((year + 1) % 100).padStart(2, '0')}`
+}
+
+/** CII for the FY a date falls in; 100 before 2001-02, latest known after the table ends. */
+export function ciiForDate(isoDate: string): number {
+  const fy = financialYearOf(isoDate)
+  if (!fy) return 100
+  const known = CII[fy]
+  if (known) return known
+  const start = Number.parseInt(fy.slice(0, 4), 10)
+  const firstStart = Number.parseInt(FY_LIST[0] ?? '2001', 10)
+  if (start < firstStart) return CII[FY_LIST[0] ?? ''] ?? 100
+  return CII[FY_LIST[FY_LIST.length - 1] ?? ''] ?? 100
+}
+
+/** Long-term means held MORE than 24 months; exactly 24 months is short-term. */
+export function isLongTermHolding(purchaseDate: string, saleDate: string) {
+  const p = parseIsoDate(purchaseDate)
+  const s = parseIsoDate(saleDate)
+  if (!p || !s) return false
+  const day = p.getUTCDate()
+  const threshold = new Date(
+    Date.UTC(p.getUTCFullYear(), p.getUTCMonth() + 24, 1),
+  )
+  const lastDay = new Date(
+    Date.UTC(threshold.getUTCFullYear(), threshold.getUTCMonth() + 1, 0),
+  ).getUTCDate()
+  threshold.setUTCDate(Math.min(day, lastDay))
+  return s.getTime() > threshold.getTime()
 }
 
 export function calculatePropertyCapitalGains(
   input: PropertyCapitalGainsInput,
 ): PropertyCapitalGainsResult {
-  const purchaseCii = CII[input.purchaseFy] ?? 100
-  const saleCii = CII[input.saleFy] ?? purchaseCii
-  const purchaseYearStart = parseFinancialYearStart(input.purchaseFy)
-  const saleYearStart = parseFinancialYearStart(input.saleFy)
-  const holdingYears = Math.max(saleYearStart - purchaseYearStart, 0)
-  const isLongTerm = holdingYears >= 2
-  const oldRegimeAvailable = purchaseYearStart < 2024
-  const indexation = calculateIndexation({
-    purchasePrice: input.purchasePrice,
-    salePrice: input.salePrice,
-    purchaseCii,
-    saleCii,
-  })
-  const ltcgIndexed = oldRegimeAvailable ? indexation.taxAt20Percent : null
-  const ltcgFlat = indexation.flatGain * 0.125
-  const stcgRate = percent(input.slabRatePercent)
-  const stcg = indexation.flatGain * stcgRate
+  const purchasePrice = positive(input.purchasePrice)
+  const salePrice = positive(input.salePrice)
+  const expenses = positive(input.transferExpenses ?? 0)
+  const improvementDate = input.improvementDate || input.purchaseDate
+  const datesValid =
+    Boolean(parseIsoDate(input.purchaseDate) && parseIsoDate(input.saleDate)) &&
+    input.saleDate >= input.purchaseDate
+  const rawImprovement = positive(input.improvementCost ?? 0)
+  let improvementIgnored: PropertyCapitalGainsResult['improvementIgnored'] = null
+  if (rawImprovement > 0) {
+    if (improvementDate < '2001-04-01') improvementIgnored = 'before-2001'
+    else if (
+      improvementDate < input.purchaseDate ||
+      improvementDate > input.saleDate
+    )
+      improvementIgnored = 'out-of-range'
+  }
+  const improvement = improvementIgnored ? 0 : rawImprovement
+  const saleCiiFy = financialYearOf(input.saleDate)
 
-  let recommended: PropertyCapitalGainsResult['recommended'] = 'flat'
-  let recommendedTax = ltcgFlat
-  if (!isLongTerm) {
-    recommended = 'short'
-    recommendedTax = stcg
-  } else if (ltcgIndexed !== null && ltcgIndexed < ltcgFlat) {
-    recommended = 'indexed'
-    recommendedTax = ltcgIndexed
+  const purchaseCii = ciiForDate(input.purchaseDate)
+  const saleCii = ciiForDate(input.saleDate)
+  const improvementCii = ciiForDate(improvementDate)
+
+  const isLongTerm = isLongTermHolding(input.purchaseDate, input.saleDate)
+  const saleOnOrAfter = input.saleDate >= GRANDFATHER_DATE
+  const grandfathered =
+    input.residency === 'resident' &&
+    input.purchaseDate < GRANDFATHER_DATE &&
+    saleOnOrAfter
+  const flatAvailable = saleOnOrAfter
+  const indexedAvailable = !saleOnOrAfter || grandfathered
+
+  const net = salePrice - expenses
+  const flatGain = Math.max(net - purchasePrice - improvement, 0)
+  const indexedCost = purchasePrice * (saleCii / purchaseCii)
+  const indexedImprovement = improvement * (saleCii / improvementCii)
+  const indexedGain = Math.max(net - indexedCost - indexedImprovement, 0)
+
+  const reinvest = positive(input.reinvestAmount ?? 0)
+  const assetType = input.assetType ?? 'house'
+  const section = input.reinvestSection
+  const sectionApplies =
+    isLongTerm &&
+    ((section === '82' && assetType === 'house') ||
+      section === '85' ||
+      (section === '86' && assetType === 'other'))
+  /** Exemption for a given gain under the chosen section. */
+  const exemptionFor = (gain: number) => {
+    if (!sectionApplies) return 0
+    if (section === '85') return Math.min(gain, reinvest, S85_CAP)
+    if (section === '82') return Math.min(gain, reinvest, S82_CAP)
+    if (net <= 0) return 0
+    const ratio = Math.min(Math.min(reinvest, S82_CAP) / net, 1)
+    return Math.min(gain, gain * ratio)
   }
 
+  const flatTaxableGain = Math.max(flatGain - exemptionFor(flatGain), 0)
+  const indexedTaxableGain = Math.max(indexedGain - exemptionFor(indexedGain), 0)
+  const flatTaxBeforeCess = flatTaxableGain * LTCG_FLAT_RATE
+  const indexedTaxBeforeCess = indexedTaxableGain * LTCG_INDEXED_RATE
+
+  const stcgRate = percent(input.slabRatePercent)
+  const stcg = flatGain * stcgRate
+
+  let recommended: PropertyCapitalGainsResult['recommended']
+  let taxBeforeCess: number
+  let exemptionClaimed: number
+  if (!isLongTerm) {
+    recommended = 'short'
+    taxBeforeCess = stcg
+    exemptionClaimed = 0
+  } else if (
+    indexedAvailable &&
+    (!flatAvailable || indexedTaxBeforeCess < flatTaxBeforeCess)
+  ) {
+    recommended = 'indexed'
+    taxBeforeCess = indexedTaxBeforeCess
+    exemptionClaimed = exemptionFor(indexedGain)
+  } else {
+    recommended = 'flat'
+    taxBeforeCess = flatTaxBeforeCess
+    exemptionClaimed = exemptionFor(flatGain)
+  }
+  const cess = taxBeforeCess * CESS_RATE
+
   return {
-    ...indexation,
     purchaseCii,
     saleCii,
-    holdingYears,
+    improvementCii,
+    datesValid,
+    saleCiiFy,
+    saleCiiNotified: Boolean(CII[saleCiiFy]),
+    improvementIgnored,
+    improvementApplied: improvement,
     isLongTerm,
-    oldRegimeAvailable,
-    ltcgIndexed,
-    ltcgFlat,
+    flatAvailable,
+    indexedAvailable,
+    flatGain,
+    indexedCost,
+    indexedImprovement,
+    indexedGain,
+    flatTaxableGain,
+    indexedTaxableGain,
+    exemptionClaimed,
+    flatTaxBeforeCess,
+    flatTaxTotal: flatTaxBeforeCess * (1 + CESS_RATE),
+    indexedTaxBeforeCess,
+    indexedTaxTotal: indexedTaxBeforeCess * (1 + CESS_RATE),
     stcg,
     stcgRate,
     recommended,
-    recommendedTax,
+    taxBeforeCess,
+    cess,
+    totalTax: taxBeforeCess + cess,
   }
 }
 
-function parseFinancialYearStart(fy: string) {
-  const parsed = Number.parseInt(fy.split('-')[0] ?? '', 10)
-  return Number.isFinite(parsed) ? parsed : 0
+function parseIsoDate(iso: string): Date | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso ?? '')
+  if (!m) return null
+  const d = new Date(Date.UTC(+m[1]!, +m[2]! - 1, +m[3]!))
+  return Number.isNaN(d.getTime()) ? null : d
 }
 
 function positive(value: number) {
