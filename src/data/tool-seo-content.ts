@@ -1,4 +1,5 @@
 import type { FaqItem } from '#/lib/seo'
+import { costRange, rateRange } from '#/lib/cost-format'
 
 /**
  * SEO content per tool — FAQ items target English India long-tail
@@ -114,12 +115,12 @@ export const MATERIAL_CALC_FAQS: ReadonlyArray<FaqItem> = [
 
 export const CONSTRUCTION_COST_FAQS: ReadonlyArray<FaqItem> = [
   {
-    q: 'How much does it cost to build a 1000 sq ft house in India?',
-    a: 'In 2026 rates, a standard-quality 1000 sq ft house in India costs ₹13–15 lakh (₹1300–1500 per sq ft). Premium finish: ₹18–22 lakh. Luxury: ₹25 lakh+. Tier-1 cities (Mumbai, Bangalore, Delhi) add 15–20% over these baseline tier-2 figures.',
+    q: 'How much does it cost to build a 1,000 sq ft house in India?',
+    a: `At 2026 rates, a standard-finish 1,000 sq ft house costs about ${costRange(1000, 'standard')} (${rateRange('standard')}) across the cities we track. Basic finish is ${costRange(1000, 'basic')}, premium ${costRange(1000, 'premium')} and luxury ${costRange(1000, 'luxury')}. The low end is our cheapest tracked city and the high end is our most expensive tracked city.`,
   },
   {
     q: 'What is the construction cost per sq ft in 2026?',
-    a: 'Construction cost varies by city and quality: standard ₹1300–1500/sq ft, mid-range ₹1800–2200/sq ft, premium ₹2500–3000/sq ft, luxury ₹3500+/sq ft. These cover labour + material for civil work only — excludes land, government approvals, and interior fit-out.',
+    a: `Across the cities we track, construction cost runs ${rateRange('basic')} for basic finish, ${rateRange('standard')} for standard, ${rateRange('premium')} for premium and ${rateRange('luxury')} for luxury. These cover labour and material for civil work only. They exclude land, government approvals and interior fit-out.`,
   },
   {
     q: 'What is included in construction cost?',

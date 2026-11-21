@@ -5,40 +5,24 @@ import {
   STAGES,
   type FinishTier,
 } from '#/data/construction-cost-rates'
+import {
+  CITY_NAMES,
+  costRange,
+  lakh,
+  lowestRateCities,
+  rateRange,
+  rupees,
+  tierBand,
+} from '#/lib/cost-format'
+
+export { costRange, lakh, rateRange, tierBand }
 
 /**
  * Cost articles whose rupee figures are derived from CITY_RATES so they never drift from the
  * construction cost calculator. Interior and tax figures are quoted from the cited sources.
  */
 
-const CITY_NAMES = Object.keys(CITY_RATES).filter((c) => c !== 'Other')
-
-/** Lowest and highest ₹/sq ft across tracked cities for a finish tier. */
-export function tierBand(tier: FinishTier) {
-  const rates = CITY_NAMES.map((c) => CITY_RATES[c][tier])
-  return { min: Math.min(...rates), max: Math.max(...rates) }
-}
-
 export { GROUND_ONLY_PERCENT }
-
-export function lakh(rupees: number) {
-  return `₹${(rupees / 100000).toLocaleString('en-IN', { maximumFractionDigits: 1 })}L`
-}
-
-function rupees(n: number) {
-  return `₹${n.toLocaleString('en-IN')}`
-}
-
-/** Compact range, e.g. "₹17.5–24L". */
-function costRange(sqft: number, tier: FinishTier, factor = 1) {
-  const { min, max } = tierBand(tier)
-  return `${lakh(sqft * min * factor).slice(0, -1)}–${lakh(sqft * max * factor).slice(1)}`
-}
-
-function rateRange(tier: FinishTier) {
-  const { min, max } = tierBand(tier)
-  return `${rupees(min)}–${rupees(max)}/sq ft`
-}
 
 const TIERS: ReadonlyArray<[FinishTier, string]> = [
   ['basic', 'Basic'],
@@ -63,10 +47,91 @@ function plotCostTable(groundSqft: number) {
     rows: TIERS.map(([tier, label]) => [
       label,
       costRange(groundSqft, tier),
-      costRange(groundSqft * 2, tier),
+      multiFloorRange([[groundSqft, 1], [groundSqft, UPPER_FLOOR_FACTOR]], tier),
     ]),
   }
 }
+
+
+function rangeOf(lo: number, hi: number) {
+  return `${lakh(lo).slice(0, -1)}–${lakh(hi).slice(1)}`
+}
+
+/** Cost range for several floors at once, e.g. a ground floor plus an upper floor. */
+function multiFloorRange(
+  floors: ReadonlyArray<readonly [sqft: number, factor: number]>,
+  tier: FinishTier,
+) {
+  const { min, max } = tierBand(tier)
+  const sum = (rate: number) => floors.reduce((t, [sqft, factor]) => t + sqft * rate * factor, 0)
+  return rangeOf(sum(min), sum(max))
+}
+
+/** Cost of one city at one tier, as a single figure. */
+function cityCost(city: string, sqft: number, tier: FinishTier) {
+  return lakh(sqft * requireCity(city)[tier])
+}
+
+function requireCity(city: string) {
+  const rates = CITY_RATES[city]
+  if (!rates) throw new Error(`cost-blog-articles: no CITY_RATES entry for "${city}"`)
+  return rates
+}
+
+/** Cities compared in the 3BHK post; each must exist in CITY_RATES and have a city page. */
+const CITY_COMPARE = ['Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Kochi'].map((c) => {
+  requireCity(c)
+  return c
+})
+
+/** JK Cement (23 Dec 2025): labour is about a quarter to 30% of total cost. */
+export const LABOUR_SHARE = { low: 0.25, high: 0.3 } as const
+
+export function labourPerSqft(tier: FinishTier) {
+  const { min, max } = tierBand(tier)
+  return {
+    low: Math.round(min * LABOUR_SHARE.low),
+    high: Math.round(max * LABOUR_SHARE.high),
+  }
+}
+
+function labourRateRange(tier: FinishTier) {
+  const { low, high } = labourPerSqft(tier)
+  return `${rupees(low)}–${rupees(high)}/sq ft`
+}
+
+/**
+ * Lowest basic rate across tracked cities, used as a labelled reference for village builds.
+ * Several cities tie on the lowest rate, so the label lists up to three (sorted) and counts the rest.
+ */
+export const VILLAGE_REFERENCE = (() => {
+  const rate = tierBand('basic').min
+  const tied = lowestRateCities('basic')
+  const shown = tied.slice(0, 3)
+  const others = tied.length - shown.length
+  const names =
+    others > 0
+      ? `${shown.join(', ')} and ${others} other${others === 1 ? '' : 's'}`
+      : shown.length > 1
+        ? `${shown.slice(0, -1).join(', ')} and ${shown[shown.length - 1]}`
+        : shown[0]
+  return { rate, label: names }
+})()
+
+/** Illustrative house size for the PMAY-G example. An example, not a scheme rule. */
+export const PMAY_EXAMPLE_SQFT = 270
+const PMAY_G_PLAINS = 120000
+
+function pmayShare(grant: number) {
+  return `${Math.round((grant / (PMAY_EXAMPLE_SQFT * VILLAGE_REFERENCE.rate)) * 100)}%`
+}
+
+/** Combined share of the budget taken by the RCC structure and the foundation. */
+const STRUCTURE_FOUNDATION_PERCENT = STAGES.filter((st) =>
+  ['structure', 'foundation'].includes(st.key),
+).reduce((sum, st) => sum + st.percent, 0)
+
+const THREE_BHK_SIZES = [1200, 1400, 1500, 1600] as const
 
 export const COST_BLOG_ARTICLES = [
   {
@@ -194,7 +259,7 @@ export const COST_BLOG_ARTICLES = [
       {
         heading: 'Where the money goes',
         paragraphs: [
-          'In our stage-wise split, the RCC structure and the foundation together take about a third of the budget. Finishing — tiles, doors, windows and paint — takes almost another third.',
+          `In our stage-wise split, the RCC structure and the foundation together take ${STRUCTURE_FOUNDATION_PERCENT}% of the budget. Finishing — tiles, doors, windows and paint — takes almost another third.`,
         ],
         table: {
           columns: ['Stage', 'Share of cost'],
@@ -227,7 +292,7 @@ export const COST_BLOG_ARTICLES = [
       },
     ],
     relatedTools: ['/construction-cost-calculator', '/material-calculator', '/floor-plan-3d', '/brick-calculator', '/steel-calculator', '/tiles-calculator', '/home-interior-cost-calculator'],
-    relatedArticles: ['construction-cost-per-floor', '2bhk-3bhk-interior-cost', '30x40-house-construction-cost'],
+    relatedArticles: ['3bhk-house-construction-cost', 'construction-cost-per-floor', '2bhk-3bhk-interior-cost', '30x40-house-construction-cost'],
     sources: [PLOTRAI_RATES_SOURCE],
   },
   {
@@ -269,7 +334,7 @@ export const COST_BLOG_ARTICLES = [
     faqs: [
       {
         q: 'What is the construction cost of a 30x40 house?',
-        a: `With about 1,000 sq ft built-up per floor, the ground floor costs ${costRange(1000, 'standard')} at standard finish in 2026, and G+1 costs ${costRange(2000, 'standard')}.`,
+        a: `With about 1,000 sq ft built-up per floor, the ground floor costs ${costRange(1000, 'standard')} at standard finish in 2026, and G+1 costs ${multiFloorRange([[1000, 1], [1000, UPPER_FLOOR_FACTOR]], 'standard')}.`,
       },
       {
         q: 'How many sq ft is a 30x40 site?',
@@ -318,7 +383,7 @@ export const COST_BLOG_ARTICLES = [
     faqs: [
       {
         q: 'What is the construction cost of a 30x50 house?',
-        a: `With about 1,250 sq ft built-up per floor, the ground floor costs ${costRange(1250, 'standard')} at standard finish in 2026, and G+1 costs ${costRange(2500, 'standard')}.`,
+        a: `With about 1,250 sq ft built-up per floor, the ground floor costs ${costRange(1250, 'standard')} at standard finish in 2026, and G+1 costs ${multiFloorRange([[1250, 1], [1250, UPPER_FLOOR_FACTOR]], 'standard')}.`,
       },
       {
         q: 'How many sq ft is a 30x50 site?',
@@ -501,6 +566,436 @@ export const COST_BLOG_ARTICLES = [
       {
         label: 'Income Tax Department — New vs Old Regime FAQs (AY 2024-25)',
         url: 'https://www.incometax.gov.in/iec/foportal/sites/default/files/2024-07/New%20vs%20Old%20Regime%20FAQs.pdf',
+      },
+    ],
+  },
+  {
+    slug: '3bhk-house-construction-cost',
+    path: '/blog/3bhk-house-construction-cost',
+    title: '3BHK house construction cost in India (2026)',
+    description:
+      'What a 3BHK house costs to build in India in 2026: 1,200 to 1,600 sq ft by finish, single floor vs G+1, five city budgets and what is excluded.',
+    cluster: 'materials-cost',
+    topicHubPath: '/construction-materials',
+    datePublished: '2026-11-21',
+    dateModified: '2026-11-21',
+    readingTime: '7 min read',
+    hero: {
+      eyebrow: 'Construction cost guide',
+      stat: `${costRange(1400, 'standard')} for a 1,400 sq ft 3BHK`,
+      supporting: `Standard finish, civil construction only, across ${CITY_NAMES.length} Indian cities.`,
+    },
+    sections: [
+      {
+        heading: 'How big is a 3BHK house?',
+        paragraphs: [
+          'An independent 3BHK has three bedrooms, a hall, a kitchen and two or three bathrooms. Plan on about 1,200–1,600 sq ft of built-up area.',
+          'Built-up area includes the thickness of walls, balconies and the staircase. Carpet area, the floor you can actually walk on, is usually 15–20% less. Contractors quote on built-up area, so budget on that number.',
+        ],
+      },
+      {
+        heading: '3BHK construction cost by size and finish',
+        paragraphs: [
+          'Each figure is built-up area multiplied by our 2026 city rate band. The low figure is the cheapest city we track; the high figure is the most expensive.',
+        ],
+        table: {
+          columns: ['Sq ft', 'Basic', 'Standard', 'Premium'],
+          rows: THREE_BHK_SIZES.map((sqft) => [
+            sqft.toLocaleString('en-IN'),
+            costRange(sqft, 'basic'),
+            costRange(sqft, 'standard'),
+            costRange(sqft, 'premium'),
+          ]),
+        },
+      },
+      {
+        heading: 'Single floor or G+1, and how much land you need',
+        paragraphs: [
+          'A 3BHK of 1,400 sq ft built on one floor needs a ground footprint of 1,400 sq ft. Split over two floors (G+1), each floor is about 700 sq ft, so you need roughly half the land footprint. Our 30x40 guide budgets about 1,000 sq ft of built-up area per floor on a 30x40 plot, and our 30x50 guide about 1,250 sq ft on a 30x50 plot. Your sanctioned plan decides the real figure.',
+          `Going up is also a little cheaper per sq ft. Site preparation and foundation are ${GROUND_ONLY_PERCENT}% of a single-storey cost and are paid only once, so as a planning estimate the upper floor costs about ${100 - GROUND_ONLY_PERCENT}% of the ground floor. Design the foundation for both floors from the start.`,
+        ],
+        table: {
+          columns: ['1,400 sq ft 3BHK', 'Single floor', 'G+1 (700 + 700 sq ft)'],
+          rows: TIERS.map(([tier, label]) => [
+            label,
+            costRange(1400, tier),
+            multiFloorRange([[700, 1], [700, UPPER_FLOOR_FACTOR]], tier),
+          ]),
+        },
+      },
+      {
+        heading: '3BHK cost in Bangalore, Chennai, Hyderabad, Kolkata and Kochi',
+        paragraphs: [
+          "Rates differ by city. This table prices a 1,400 sq ft 3BHK at each city's own 2026 rates from the calculator. Open the city page for its full per-sq-ft breakdown.",
+        ],
+        table: {
+          columns: ['City', 'Standard rate', 'Basic', 'Standard', 'Premium'],
+          rows: CITY_COMPARE.map((city) => [
+            city,
+            `${rupees(CITY_RATES[city].standard)}/sq ft`,
+            cityCost(city, 1400, 'basic'),
+            cityCost(city, 1400, 'standard'),
+            cityCost(city, 1400, 'premium'),
+          ]),
+        },
+      },
+      {
+        heading: 'Where the money goes',
+        paragraphs: [
+          `The table splits a standard-finish 1,400 sq ft 3BHK by construction stage, using our stage-wise model. The RCC structure and the foundation together take ${STRUCTURE_FOUNDATION_PERCENT}% of the budget.`,
+        ],
+        table: {
+          columns: ['Stage', 'Share of cost', 'On 1,400 sq ft, standard'],
+          rows: STAGES.map((s) => [
+            s.label,
+            `${s.percent}%`,
+            costRange(1400, 'standard', s.percent / 100),
+          ]),
+        },
+      },
+      {
+        heading: 'Plan the materials before you budget',
+        paragraphs: [
+          'Quantities are the quickest way to sanity-check a contractor quote. Use the brick, steel and tiles calculators for each element.',
+        ],
+      },
+      {
+        heading: 'Not included in these numbers',
+        paragraphs: ['Add these on top of the construction estimate.'],
+        bullets: [
+          'Land, with its stamp duty and registration.',
+          'Plan approval fees and utility connections.',
+          'Interiors such as modular kitchen, wardrobes and false ceiling. See our 2BHK and 3BHK interior cost guide and the home interior cost calculator.',
+          'Compound wall, gate, borewell and sump.',
+        ],
+      },
+      {
+        heading: 'Building a 3BHK in a village',
+        paragraphs: [
+          'Village builds usually cost less than city rates. Our village construction cost guide shows a 1BHK, 2BHK and 3BHK budget and the PMAY-G assistance.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'How much does it cost to build a 3BHK house in India?',
+        a: `A 1,400 sq ft 3BHK costs about ${costRange(1400, 'standard')} at standard finish in 2026. Basic finish is ${costRange(1400, 'basic')} and premium is ${costRange(1400, 'premium')}. Land, approvals and interiors are extra.`,
+      },
+      {
+        q: 'How many sq ft is needed for a 3BHK house?',
+        a: 'Plan on 1,200–1,600 sq ft of built-up area. The smaller end suits two bathrooms and compact rooms; the larger end gives a third bathroom, a utility area or a balcony.',
+      },
+      {
+        q: 'How much land do I need for a 3BHK?',
+        a: 'A 1,400 sq ft 3BHK on a single floor needs a ground footprint of 1,400 sq ft, plus setbacks that your local rules decide. As G+1 it needs about 700 sq ft per floor. Our 30x40 guide budgets about 1,000 sq ft of built-up area per floor on a 30x40 plot.',
+      },
+      {
+        q: 'What is the cost of a 3BHK house in Bangalore and Kerala?',
+        a: `At 2026 city rates, a 1,400 sq ft 3BHK at standard finish costs about ${cityCost('Bangalore', 1400, 'standard')} in Bangalore and ${cityCost('Kochi', 1400, 'standard')} in Kochi. Basic finish is ${cityCost('Bangalore', 1400, 'basic')} in Bangalore and ${cityCost('Kochi', 1400, 'basic')} in Kochi.`,
+      },
+      {
+        q: 'Is it cheaper to build a 3BHK on one floor or G+1?',
+        a: `G+1 is a little cheaper for the same built-up area. Site preparation and foundation (${GROUND_ONLY_PERCENT}% of a single-storey cost) are paid once, so an upper floor costs about ${100 - GROUND_ONLY_PERCENT}% of the ground floor. At standard finish, 1,400 sq ft costs ${costRange(1400, 'standard')} on one floor and ${multiFloorRange([[700, 1], [700, UPPER_FLOOR_FACTOR]], 'standard')} as G+1.`,
+      },
+      {
+        q: 'How much do interiors cost on top of a 3BHK build?',
+        a: 'Interiors are a separate budget. NoBroker Interiors (2026) quotes ₹7–11 lakh for a basic 3BHK package and ₹20–28 lakh for luxury. See our 2BHK and 3BHK interior cost guide for the sources.',
+      },
+    ],
+    relatedTools: [
+      '/construction-cost-calculator',
+      '/brick-calculator',
+      '/steel-calculator',
+      '/tiles-calculator',
+      '/home-interior-cost-calculator',
+      '/construction-cost/bangalore',
+      '/construction-cost/chennai',
+      '/construction-cost/hyderabad',
+      '/construction-cost/kolkata',
+      '/construction-cost/kochi',
+    ],
+    relatedArticles: [
+      '2bhk-house-construction-cost',
+      '30x40-house-construction-cost',
+      '30x50-house-construction-cost',
+      '2bhk-3bhk-interior-cost',
+      'house-construction-cost-in-village',
+    ],
+    sources: [
+      PLOTRAI_RATES_SOURCE,
+      {
+        label: 'NoBroker Interiors — budget home interior design (Aug 2026)',
+        url: 'https://www.nobroker.in/interiors/design-guides/budget-home-interior-design/',
+      },
+    ],
+  },
+  {
+    slug: 'labour-cost-house-construction-per-sq-ft',
+    path: '/blog/labour-cost-house-construction-per-sq-ft',
+    title: 'Labour cost for house construction per sq ft in India (2026)',
+    description:
+      'Labour cost per sq ft for house construction in India in 2026: share of cost by finish, brickwork and painting rates, GST and how to check a quote.',
+    cluster: 'materials-cost',
+    topicHubPath: '/construction-materials',
+    datePublished: '2026-11-21',
+    dateModified: '2026-11-21',
+    readingTime: '6 min read',
+    hero: {
+      eyebrow: 'Construction cost guide',
+      stat: `${labourRateRange('standard')} at standard finish`,
+      supporting: 'About a quarter to 30% of the total cost, applied to our 2026 city rate band.',
+    },
+    sections: [
+      {
+        heading: 'Labour-only vs material-plus-labour contracts',
+        paragraphs: [
+          'In a labour-only contract you buy the cement, steel, bricks and tiles yourself and pay the contractor only for work. You control quality and brands, but you must manage deliveries and wastage.',
+          'In a material-plus-labour contract (a composite or turnkey contract) the contractor supplies both and quotes one per-sq-ft rate. That rate is what most construction cost calculators, including ours, show.',
+        ],
+      },
+      {
+        heading: 'Labour cost per sq ft by finish',
+        paragraphs: [
+          'JK Cement (23 Dec 2025) puts labour at about a quarter to 30% of the total cost of building a house. Other parts of the same page give lower shares, so treat this as a planning range rather than a fixed rule.',
+          `We apply that share to our 2026 rate band across ${CITY_NAMES.length} cities. The low figure is 25% of the cheapest city and the high figure is 30% of the most expensive.`,
+        ],
+        table: {
+          columns: ['Finish', 'Total cost per sq ft', 'Labour per sq ft', 'Labour on 1,000 sq ft'],
+          rows: TIERS.map(([tier, label]) => {
+            const { low, high } = labourPerSqft(tier)
+            return [
+              label,
+              rateRange(tier).replace('/sq ft', ''),
+              `${rupees(low)}–${rupees(high)}`,
+              rangeOf(low * 1000, high * 1000),
+            ]
+          }),
+        },
+      },
+      {
+        heading: 'Item-wise labour rates published by others',
+        paragraphs: [
+          'Two published sources give item rates. They are per sq ft of the item (wall or painted area), not per sq ft of built-up area, so do not add them to the table above.',
+        ],
+        table: {
+          columns: ['Item', 'Labour rate', 'Source'],
+          rows: [
+            ['Brickwork, 4.5 inch wall', '₹35–50/sq ft', 'Houseyog, updated 14 Apr 2026'],
+            ['Brickwork, 9 inch wall', '₹50–65/sq ft', 'Houseyog, updated 14 Apr 2026'],
+            ['Painting', '₹8–25/sq ft', 'Asian Paints, undated'],
+          ],
+        },
+      },
+      {
+        heading: 'Plaster and tiling labour',
+        paragraphs: [
+          'We have no dated, cited labour rate for plaster or tiling, so we do not print one. Get the quantity first with the plaster and tiles calculators, then ask two or three local contractors for their rate per sq ft.',
+        ],
+      },
+      {
+        heading: 'GST on labour',
+        paragraphs: [
+          'A pure labour contract for construction of a single residential unit that is not part of a residential complex is exempt from GST under Entry 11 of Notification No. 12/2017-Central Tax (Rate), dated 29 June 2017.',
+          'Composite contracts, where the contractor supplies material as well, are taxable. We do not quote a rate here: check the GST rate on the invoice and ask your contractor or a tax adviser how your contract is classified.',
+        ],
+      },
+      {
+        heading: 'How to check a labour quote',
+        paragraphs: ['Two quotes with the same total can cover very different work. Ask for these in writing.'],
+        bullets: [
+          'The measurement method: per sq ft of built-up area, wall area, or painted area.',
+          'What is included: scaffolding, curing, water, electricity, cleaning and debris removal.',
+          'Stage-wise payments tied to finished work (foundation, slab, brickwork, plaster) rather than dates.',
+          'Who pays for rework and wastage.',
+          'A retention of part of the payment until handover.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'What is the labour cost for house construction per sq ft in India?',
+        a: `Using JK Cement's figure of about a quarter to 30% of total cost, labour is roughly ${labourRateRange('basic')} at basic finish, ${labourRateRange('standard')} at standard and ${labourRateRange('premium')} at premium, across our 2026 city rate band.`,
+      },
+      {
+        q: 'What is the labour rate for brickwork per sq ft?',
+        a: 'Houseyog (updated 14 Apr 2026) lists ₹35–50 per sq ft for a 4.5 inch wall and ₹50–65 per sq ft for a 9 inch wall.',
+      },
+      {
+        q: 'How much does painting labour cost per sq ft?',
+        a: 'Asian Paints gives a painting labour range of ₹8–25 per sq ft. Its page is undated, so confirm the current rate locally.',
+      },
+      {
+        q: 'Is GST charged on labour for house construction?',
+        a: 'A pure labour contract for a single residential unit that is not part of a residential complex is exempt under Entry 11 of Notification No. 12/2017-Central Tax (Rate). Composite contracts that include material are taxable, so check the rate on the invoice.',
+      },
+      {
+        q: 'Should I choose a labour-only or a material-plus-labour contract?',
+        a: 'Labour-only gives you control over materials and brands but needs you to manage purchases and wastage. A composite contract is simpler but harder to compare line by line. Ask for a quote on both and compare with our construction cost calculator.',
+      },
+    ],
+    relatedTools: [
+      '/construction-cost-calculator',
+      '/brick-calculator',
+      '/plaster-calculator',
+      '/tiles-calculator',
+      '/paint-calculator',
+      '/material-calculator',
+    ],
+    relatedArticles: [
+      '2bhk-house-construction-cost',
+      '3bhk-house-construction-cost',
+      'construction-cost-per-floor',
+    ],
+    sources: [
+      PLOTRAI_RATES_SOURCE,
+      {
+        label: 'JK Cement — house construction cost in India (23 Dec 2025)',
+        url: 'https://www.jkcement.com/blog/construction-budgeting/house-construction-cost-india/',
+      },
+      {
+        label: 'Houseyog — brickwork labour rate per sq ft (updated 14 Apr 2026)',
+        url: 'https://www.houseyog.com/blog/brickwork-labour-rate-per-sq-ft-india/',
+      },
+      {
+        label: 'Asian Paints — painting cost per sq ft (undated)',
+        url: 'https://www.asianpaints.com/blogs/painting-cost-per-sq-ft-india.html',
+      },
+    ],
+  },
+  {
+    slug: 'house-construction-cost-in-village',
+    path: '/blog/house-construction-cost-in-village',
+    title: 'House construction cost in village (2026)',
+    description:
+      'House construction cost in a village in 2026: 1BHK, 2BHK and 3BHK budgets at our lowest city rate, PMAY-G assistance, low-cost choices and approvals.',
+    cluster: 'materials-cost',
+    topicHubPath: '/construction-materials',
+    datePublished: '2026-11-21',
+    dateModified: '2026-11-21',
+    readingTime: '7 min read',
+    hero: {
+      eyebrow: 'Construction cost guide',
+      stat: `Around ${lakh(1000 * VILLAGE_REFERENCE.rate)} for 1,000 sq ft`,
+      supporting: `At our lowest basic city rate, ${rupees(VILLAGE_REFERENCE.rate)}/sq ft (${VILLAGE_REFERENCE.label}). A reference point, not a quote.`,
+    },
+    sections: [
+      {
+        heading: 'Why village costs differ from city costs',
+        paragraphs: [
+          'We have no official rural construction rate. Our rates cover cities only, so we use the lowest basic-finish city rate as a labelled reference point.',
+          'Village builds often cost less because land is cheaper, labour rates are often lower and designs are simpler. They can cost more if cement, steel and sand have to travel a long way to a remote site, so use the figures below to start a conversation with a local contractor, not to end it.',
+        ],
+      },
+      {
+        heading: '1BHK, 2BHK and 3BHK budget at our lowest city rate',
+        paragraphs: [
+          `Each figure is built-up area multiplied by ${rupees(VILLAGE_REFERENCE.rate)} per sq ft, the lowest basic rate we track (${VILLAGE_REFERENCE.label}). It is a reference for a basic-finish home, not a quote.`,
+          'Village plans are often more compact than the city sizes in our 2BHK (800–1,100 sq ft) and 3BHK (1,200–1,600 sq ft) guides, because owners tend to build to a tighter budget and skip extras such as a second bathroom or a balcony.',
+        ],
+        table: {
+          columns: ['Home', 'Built-up area', 'At our lowest city rate'],
+          rows: (
+            [
+              ['1BHK', 400],
+              ['2BHK', 700],
+              ['3BHK', 1100],
+            ] as const
+          ).map(([label, sqft]) => [
+            label,
+            `${sqft.toLocaleString('en-IN')} sq ft`,
+            lakh(sqft * VILLAGE_REFERENCE.rate),
+          ]),
+        },
+      },
+      {
+        heading: '1,000 sq ft and 30x40 house in a village',
+        paragraphs: [
+          `A 1,000 sq ft house comes to around ${lakh(1000 * VILLAGE_REFERENCE.rate)} on the same basis. A 30x40 plot is 1,200 sq ft; after setbacks our 30x40 guide budgets about 1,000 sq ft of built-up area per floor, so the same figure applies to one floor. Check what your gram panchayat allows on your plot.`,
+        ],
+      },
+      {
+        heading: 'PMAY-G assistance',
+        paragraphs: [
+          'The Union Cabinet approved implementation of the Pradhan Mantri Awaas Yojana (Gramin) for FY 2024-25 to 2028-29. Unit assistance is ₹1.20 lakh in plain areas and ₹1.30 lakh in North-Eastern and hill states.',
+          `Illustration: take a ${PMAY_EXAMPLE_SQFT} sq ft house. This is an example size, not a scheme rule. At ${rupees(VILLAGE_REFERENCE.rate)} per sq ft the estimate is ${lakh(PMAY_EXAMPLE_SQFT * VILLAGE_REFERENCE.rate)}, so the ₹1.20 lakh grant would cover roughly ${pmayShare(PMAY_G_PLAINS)} of a city-rate estimate. The real share depends on your local cost. Eligibility and conditions are set by the scheme; check with your gram panchayat.`,
+        ],
+      },
+      {
+        heading: 'Low-cost building choices',
+        paragraphs: [
+          'The CBRI PAHAL compendium is a reference from a government research institute on building technologies for affordable housing. Ask a local engineer which options suit your soil, climate and available materials.',
+        ],
+        bullets: [
+          'Keep the plan simple: a compact rectangle uses less wall and roof.',
+          'Use locally available walling material where it is suitable.',
+          'Build the part you need now, but design the foundation for any floor you plan to add.',
+          'Do not cut corners on foundation, steel cover and roof waterproofing.',
+        ],
+      },
+      {
+        heading: 'Approvals in a village',
+        paragraphs: [
+          'Most villages need permission from the gram panchayat before you build. Confirm the land-use status first: agricultural land usually needs conversion before a house can be built on it. Rules and fees differ by state, so ask your panchayat office for the current process.',
+        ],
+      },
+      {
+        heading: 'Materials checklist',
+        paragraphs: [
+          'Work out quantities before ordering. Use the brick, steel, tiles, plaster and paint calculators, and the material calculator for cement and sand. If you want rooftop solar, price it with the solar panel cost calculator.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'What is the cost of building a house in a village?',
+        a: `We have no official rural rate. At our lowest basic city rate of ${rupees(VILLAGE_REFERENCE.rate)}/sq ft, a 700 sq ft 2BHK comes to around ${lakh(700 * VILLAGE_REFERENCE.rate)}. Village builds often cost less, but remote sites can cost more.`,
+      },
+      {
+        q: 'What is the cost of a 1,000 sq ft house in a village?',
+        a: `Around ${lakh(1000 * VILLAGE_REFERENCE.rate)} at basic finish if you use our lowest city basic rate as a reference. Your actual cost depends on materials, transport and labour in your area.`,
+      },
+      {
+        q: 'How much does a 30x40 house cost in a village?',
+        a: `A 30x40 plot is 1,200 sq ft. With about 1,000 sq ft built up, our lowest city basic rate gives around ${lakh(1000 * VILLAGE_REFERENCE.rate)} at basic finish.`,
+      },
+      {
+        q: 'How much money does PMAY-G give for a house?',
+        a: 'The unit assistance is ₹1.20 lakh in plain areas and ₹1.30 lakh in North-Eastern and hill states, for FY 2024-25 to 2028-29. Check eligibility and conditions with your gram panchayat.',
+      },
+      {
+        q: 'Does PMAY-G cover the full cost of a house?',
+        a: `No. For an illustrative ${PMAY_EXAMPLE_SQFT} sq ft house at city-rate estimates (${lakh(PMAY_EXAMPLE_SQFT * VILLAGE_REFERENCE.rate)}), the ₹1.20 lakh grant would cover roughly ${pmayShare(PMAY_G_PLAINS)}. The rest comes from your own funds or other sources.`,
+      },
+      {
+        q: 'Do I need permission to build a house in a village?',
+        a: 'Usually from the gram panchayat, and the land must be of a use that allows housing. Rules differ by state, so check with your panchayat office.',
+      },
+    ],
+    relatedTools: [
+      '/construction-cost-calculator',
+      '/brick-calculator',
+      '/steel-calculator',
+      '/tiles-calculator',
+      '/plaster-calculator',
+      '/paint-calculator',
+      '/material-calculator',
+      '/solar-panel-cost-calculator',
+    ],
+    relatedArticles: [
+      '3bhk-house-construction-cost',
+      '2bhk-house-construction-cost',
+      '30x40-house-construction-cost',
+      'labour-cost-house-construction-per-sq-ft',
+    ],
+    sources: [
+      PLOTRAI_RATES_SOURCE,
+      {
+        label: 'PMO — Cabinet approves PMAY-G for FY 2024-25 to 2028-29',
+        url: 'https://www.pmindia.gov.in/en/news_updates/cabinet-approves-implementation-of-the-pradhan-mantri-awaas-yojana-gramin-pmay-g-during-fy-2024-25-to-2028-29/',
+      },
+      {
+        label: 'CBRI — PAHAL compendium',
+        url: 'https://cbri.res.in/wp-content/uploads/2020/11/pahal.pdf',
       },
     ],
   },
