@@ -22,6 +22,9 @@ export type BlogSlug =
   | '30x50-house-construction-cost'
   | '2bhk-3bhk-interior-cost'
   | 'home-loan-for-plot'
+  | '3bhk-house-construction-cost'
+  | 'labour-cost-house-construction-per-sq-ft'
+  | 'house-construction-cost-in-village'
 
 export type TopicHubPath =
   | '/property-buyer-guide'
@@ -48,6 +51,14 @@ export type BlogToolPath =
   | '/steel-calculator'
   | '/tiles-calculator'
   | '/home-interior-cost-calculator'
+  | '/paint-calculator'
+  | '/plaster-calculator'
+  | '/solar-panel-cost-calculator'
+  | '/construction-cost/bangalore'
+  | '/construction-cost/chennai'
+  | '/construction-cost/hyderabad'
+  | '/construction-cost/kolkata'
+  | '/construction-cost/kochi'
 
 export interface BlogSectionTable {
   columns: ReadonlyArray<string>
@@ -181,6 +192,38 @@ export const BLOG_TOOL_META: Record<
   '/home-interior-cost-calculator': {
     title: 'Home interior cost calculator',
     description: 'Item-wise interior budget for a 1–4 BHK flat.',
+  },
+  '/paint-calculator': {
+    title: 'Paint calculator',
+    description: 'Litres of paint and kg of putty for a room.',
+  },
+  '/plaster-calculator': {
+    title: 'Plaster calculator',
+    description: 'Cement and sand for wall and ceiling plaster.',
+  },
+  '/solar-panel-cost-calculator': {
+    title: 'Solar panel cost calculator',
+    description: 'Rooftop solar cost after the PM Surya Ghar subsidy.',
+  },
+  '/construction-cost/bangalore': {
+    title: 'Bangalore construction cost',
+    description: 'House construction cost per sq ft in Bangalore.',
+  },
+  '/construction-cost/chennai': {
+    title: 'Chennai construction cost',
+    description: 'House construction cost per sq ft in Chennai.',
+  },
+  '/construction-cost/hyderabad': {
+    title: 'Hyderabad construction cost',
+    description: 'House construction cost per sq ft in Hyderabad.',
+  },
+  '/construction-cost/kolkata': {
+    title: 'Kolkata construction cost',
+    description: 'House construction cost per sq ft in Kolkata.',
+  },
+  '/construction-cost/kochi': {
+    title: 'Kochi construction cost',
+    description: 'House construction cost per sq ft in Kochi.',
   },
 }
 
