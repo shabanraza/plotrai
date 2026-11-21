@@ -143,7 +143,7 @@ export const COST_BLOG_ARTICLES = [
         a: 'Only if the foundation and columns were designed for it. Ask your structural engineer to design for the final number of floors before construction starts.',
       },
     ],
-    relatedTools: ['/construction-cost-calculator', '/material-calculator', '/rcc-slab-calculator'],
+    relatedTools: ['/construction-cost-calculator', '/material-calculator', '/rcc-slab-calculator', '/brick-calculator', '/steel-calculator', '/tiles-calculator', '/home-interior-cost-calculator'],
     relatedArticles: ['2bhk-house-construction-cost', '30x40-house-construction-cost', 'steel-price-house-construction'],
     sources: [
       PLOTRAI_RATES_SOURCE,
@@ -226,7 +226,7 @@ export const COST_BLOG_ARTICLES = [
         a: `Only a small one at basic finish in a lower-cost city. At ${rateRange('basic')}, ₹10 lakh covers roughly ${Math.floor(1000000 / tierBand('basic').max / 10) * 10}–${Math.floor(1000000 / tierBand('basic').min / 10) * 10} sq ft.`,
       },
     ],
-    relatedTools: ['/construction-cost-calculator', '/material-calculator', '/floor-plan-3d'],
+    relatedTools: ['/construction-cost-calculator', '/material-calculator', '/floor-plan-3d', '/brick-calculator', '/steel-calculator', '/tiles-calculator', '/home-interior-cost-calculator'],
     relatedArticles: ['construction-cost-per-floor', '2bhk-3bhk-interior-cost', '30x40-house-construction-cost'],
     sources: [PLOTRAI_RATES_SOURCE],
   },

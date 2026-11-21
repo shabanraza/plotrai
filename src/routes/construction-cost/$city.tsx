@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { Hammer, ArrowRight } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
+import { RelatedToolsSection } from '#/components/tools/related-tools-section'
 import { ToolFaq } from '#/components/tools/tool-faq'
 import { ToolContext } from '#/components/tools/tool-context'
 import { RelatedGuidesSection } from '#/components/blog/related-guides-section'
@@ -26,6 +27,7 @@ import {
   CONSTRUCTION_LAST_UPDATED,
   type FinishTier,
 } from '#/data/construction-cost-rates'
+import { cityRelatedTools } from '#/data/related-tools'
 import { getArticleLinkItem } from '#/data/blog-content'
 import {
   INFRALENS_NEW_CITIES,
@@ -207,6 +209,8 @@ function CityConstructionPage() {
             </Button>
           </div>
         </ToolSection>
+
+        <RelatedToolsSection paths={cityRelatedTools(content.slug)} />
 
         <ToolContext title={`Building a house in ${content.city} — what to know`}>
           {content.extraContext?.map((p: string, i: number) => <p key={i}>{p}</p>)}
