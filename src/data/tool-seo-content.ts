@@ -1,5 +1,5 @@
 import type { FaqItem } from '#/lib/seo'
-import { costRange, rateRange } from '#/data/cost-blog-articles'
+import { costRange, rateRange } from '#/lib/cost-format'
 
 /**
  * SEO content per tool — FAQ items target English India long-tail
@@ -115,8 +115,8 @@ export const MATERIAL_CALC_FAQS: ReadonlyArray<FaqItem> = [
 
 export const CONSTRUCTION_COST_FAQS: ReadonlyArray<FaqItem> = [
   {
-    q: 'How much does it cost to build a 1000 sq ft house in India?',
-    a: `In 2026 rates, a standard-finish 1000 sq ft house costs about ${costRange(1000, 'standard')} (${rateRange('standard')}) across the cities we track. Basic finish is ${costRange(1000, 'basic')}, premium ${costRange(1000, 'premium')} and luxury ${costRange(1000, 'luxury')}. The low end is our cheapest tracked city and the high end is our most expensive tracked city.`,
+    q: 'How much does it cost to build a 1,000 sq ft house in India?',
+    a: `At 2026 rates, a standard-finish 1,000 sq ft house costs about ${costRange(1000, 'standard')} (${rateRange('standard')}) across the cities we track. Basic finish is ${costRange(1000, 'basic')}, premium ${costRange(1000, 'premium')} and luxury ${costRange(1000, 'luxury')}. The low end is our cheapest tracked city and the high end is our most expensive tracked city.`,
   },
   {
     q: 'What is the construction cost per sq ft in 2026?',

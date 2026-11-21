@@ -34,6 +34,7 @@ import {
 } from '#/components/ui/table'
 import {
   BLOG_BY_SLUG,
+  BLOG_TOOL_META,
   type BlogArticle,
   type BlogSlug,
   getArticleLinkItem,
@@ -129,7 +130,9 @@ function BlogArticlePage() {
       })),
     [article],
   )
-  const [firstTool, ...otherTools] = article.relatedTools
+  // City pages are not calculators, so they never take the "Try the calculator" slot.
+  const firstTool = article.relatedTools.find((t) => BLOG_TOOL_META[t].badge !== 'City')
+  const otherTools = article.relatedTools.filter((t) => t !== firstTool)
   const [readNext, ...otherArticles] = article.relatedArticles
   const tool = firstTool ? getToolLinkItem(firstTool) : null
   const next = readNext ? getArticleLinkItem(readNext) : null

@@ -2,14 +2,17 @@ import { describe, expect, it } from 'vitest'
 import {
   COST_BLOG_ARTICLES,
   GROUND_ONLY_PERCENT,
-  PMAY_G_SQFT,
-  VILLAGE_CEILING,
+  PMAY_EXAMPLE_SQFT,
+  VILLAGE_REFERENCE,
   costRange,
   labourPerSqft,
   lakh,
   tierBand,
 } from '#/data/cost-blog-articles'
-import { BLOG_BY_SLUG, BLOG_TOOL_META, type BlogSlug } from '#/data/blog-content'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { BLOG_BY_SLUG, BLOG_TOOL_META, getToolLinkItem, type BlogSlug } from '#/data/blog-content'
+import { lowestRateCities } from '#/lib/cost-format'
 import { CITY_RATES } from '#/data/construction-cost-rates'
 import { CONSTRUCTION_COST_FAQS } from '#/data/tool-seo-content'
 
@@ -75,11 +78,72 @@ describe('cost blog articles', () => {
     })
   })
 
-  it('uses the lowest basic city rate as the village ceiling', () => {
-    expect(VILLAGE_CEILING.rate).toBe(tierBand('basic').min)
-    expect(PMAY_G_SQFT).toBe(269)
+  it('uses the lowest basic city rate as a village reference, not a ceiling', () => {
+    expect(VILLAGE_REFERENCE.rate).toBe(tierBand('basic').min)
+    expect(PMAY_EXAMPLE_SQFT).toBe(270)
     const table = tableOf('house-construction-cost-in-village', '1BHK, 2BHK')
     expect(table.rows[2][2]).toBe(lakh(1100 * tierBand('basic').min))
+    const text = JSON.stringify(bySlug('house-construction-cost-in-village'))
+    expect(text).not.toMatch(/ceiling|up to|Up to|25 sq m|12,000/)
+    expect(text).toContain('more compact')
+  })
+
+  it('names tied lowest-rate cities without depending on key order', () => {
+    const tied = lowestRateCities('basic')
+    expect(tied.length).toBeGreaterThan(1)
+    expect([...tied].sort((a, b) => a.localeCompare(b))).toEqual(tied)
+    expect(VILLAGE_REFERENCE.label).toContain(tied[0])
+    if (tied.length > 3) expect(VILLAGE_REFERENCE.label).toContain(`${tied.length - 3} other`)
+  })
+
+  it('prices G+1 on the 30x40 and 30x50 posts with the upper-floor factor', () => {
+    const factor = (100 - GROUND_ONLY_PERCENT) / 100
+    const { min, max } = tierBand('standard')
+    const table = tableOf('30x40-house-construction-cost', '30x40 house cost')
+    const row = table.rows.find((r) => r[0] === 'Standard')!
+    expect(row[2]).toBe(
+      `${lakh(1000 * min * (1 + factor)).slice(0, -1)}–${lakh(1000 * max * (1 + factor)).slice(1)}`,
+    )
+  })
+
+  it('keeps meta descriptions within 160 characters and the village title short', () => {
+    for (const slug of [
+      '3bhk-house-construction-cost',
+      'labour-cost-house-construction-per-sq-ft',
+      'house-construction-cost-in-village',
+    ]) {
+      expect(bySlug(slug).description.length).toBeLessThanOrEqual(160)
+    }
+    expect(bySlug('house-construction-cost-in-village').title).toBe(
+      'House construction cost in village (2026)',
+    )
+  })
+
+  it('cites the GST notification without a dead link', () => {
+    const labour = bySlug('labour-cost-house-construction-per-sq-ft')
+    expect(JSON.stringify(labour.sources)).not.toContain('mahagst')
+    expect(JSON.stringify(labour.sections)).toContain('12/2017-Central Tax (Rate)')
+  })
+
+  it('badges city pages as City and keeps them out of the lead tool slot', () => {
+    expect(getToolLinkItem('/construction-cost/kochi').badge).toBe('City')
+    expect(getToolLinkItem('/brick-calculator').badge).toBe('Tool')
+    for (const a of COST_BLOG_ARTICLES) {
+      expect(a.relatedTools[0].startsWith('/construction-cost/')).toBe(false)
+    }
+    expect(bySlug('3bhk-house-construction-cost').relatedTools.length).toBeLessThanOrEqual(10)
+  })
+
+  it('keeps tool-seo-content free of article imports', () => {
+    const src = readFileSync(resolve(process.cwd(), 'src/data/tool-seo-content.ts'), 'utf8')
+    expect(src).not.toContain('cost-blog-articles')
+    expect(src).toContain('#/lib/cost-format')
+    expect(JSON.stringify(CONSTRUCTION_COST_FAQS)).not.toMatch(/In 2026 rates|1000 sq ft house costs/)
+  })
+
+  it('derives the 3BHK stage share of structure and foundation from STAGES', () => {
+    const text = JSON.stringify(bySlug('3bhk-house-construction-cost').sections)
+    expect(text).toContain('together take 35% of the budget')
   })
 
   it('keeps the construction cost FAQ in line with the calculator bands', () => {

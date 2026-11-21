@@ -4,43 +4,27 @@ import {
   STAGES,
   type FinishTier,
 } from '#/data/construction-cost-rates'
+import {
+  CITY_NAMES,
+  costRange,
+  lakh,
+  lowestRateCities,
+  rateRange,
+  rupees,
+  tierBand,
+} from '#/lib/cost-format'
+
+export { costRange, lakh, rateRange, tierBand }
 
 /**
  * Cost articles whose rupee figures are derived from CITY_RATES so they never drift from the
  * construction cost calculator. Interior and tax figures are quoted from the cited sources.
  */
 
-const CITY_NAMES = Object.keys(CITY_RATES).filter((c) => c !== 'Other')
-
-/** Lowest and highest ₹/sq ft across tracked cities for a finish tier. */
-export function tierBand(tier: FinishTier) {
-  const rates = CITY_NAMES.map((c) => CITY_RATES[c][tier])
-  return { min: Math.min(...rates), max: Math.max(...rates) }
-}
-
 /** Share of a single-storey build that is not repeated for each extra floor (site + foundation). */
 export const GROUND_ONLY_PERCENT = STAGES.filter((s) =>
   ['site', 'foundation'].includes(s.key),
 ).reduce((sum, s) => sum + s.percent, 0)
-
-export function lakh(rupees: number) {
-  return `₹${(rupees / 100000).toLocaleString('en-IN', { maximumFractionDigits: 1 })}L`
-}
-
-function rupees(n: number) {
-  return `₹${n.toLocaleString('en-IN')}`
-}
-
-/** Compact range, e.g. "₹17.5–24L". */
-export function costRange(sqft: number, tier: FinishTier, factor = 1) {
-  const { min, max } = tierBand(tier)
-  return `${lakh(sqft * min * factor).slice(0, -1)}–${lakh(sqft * max * factor).slice(1)}`
-}
-
-export function rateRange(tier: FinishTier) {
-  const { min, max } = tierBand(tier)
-  return `${rupees(min)}–${rupees(max)}/sq ft`
-}
 
 const TIERS: ReadonlyArray<[FinishTier, string]> = [
   ['basic', 'Basic'],
@@ -63,7 +47,7 @@ function plotCostTable(groundSqft: number) {
     rows: TIERS.map(([tier, label]) => [
       label,
       costRange(groundSqft, tier),
-      costRange(groundSqft * 2, tier),
+      multiFloorRange([[groundSqft, 1], [groundSqft, UPPER_FLOOR_FACTOR]], tier),
     ]),
   }
 }
@@ -85,8 +69,20 @@ function multiFloorRange(
 
 /** Cost of one city at one tier, as a single figure. */
 function cityCost(city: string, sqft: number, tier: FinishTier) {
-  return lakh(sqft * CITY_RATES[city][tier])
+  return lakh(sqft * requireCity(city)[tier])
 }
+
+function requireCity(city: string) {
+  const rates = CITY_RATES[city]
+  if (!rates) throw new Error(`cost-blog-articles: no CITY_RATES entry for "${city}"`)
+  return rates
+}
+
+/** Cities compared in the 3BHK post; each must exist in CITY_RATES and have a city page. */
+const CITY_COMPARE = ['Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Kochi'].map((c) => {
+  requireCity(c)
+  return c
+})
 
 /** JK Cement (23 Dec 2025): labour is about a quarter to 30% of total cost. */
 export const LABOUR_SHARE = { low: 0.25, high: 0.3 } as const
@@ -104,21 +100,36 @@ function labourRateRange(tier: FinishTier) {
   return `${rupees(low)}–${rupees(high)}/sq ft`
 }
 
-/** Lowest basic rate across tracked cities. Used as a ceiling for village builds. */
-export const VILLAGE_CEILING = (() => {
+/**
+ * Lowest basic rate across tracked cities, used as a labelled reference for village builds.
+ * Several cities tie on the lowest rate, so the label lists up to three (sorted) and counts the rest.
+ */
+export const VILLAGE_REFERENCE = (() => {
   const rate = tierBand('basic').min
-  const city = CITY_NAMES.find((c) => CITY_RATES[c].basic === rate) ?? ''
-  return { rate, city }
+  const tied = lowestRateCities('basic')
+  const shown = tied.slice(0, 3)
+  const others = tied.length - shown.length
+  const names =
+    others > 0
+      ? `${shown.join(', ')} and ${others} other${others === 1 ? '' : 's'}`
+      : shown.length > 1
+        ? `${shown.slice(0, -1).join(', ')} and ${shown[shown.length - 1]}`
+        : shown[0]
+  return { rate, label: names }
 })()
 
-const SQM_TO_SQFT = 10.7639
-export const PMAY_G_SQFT = Math.round(25 * SQM_TO_SQFT)
+/** Illustrative house size for the PMAY-G example. An example, not a scheme rule. */
+export const PMAY_EXAMPLE_SQFT = 270
 const PMAY_G_PLAINS = 120000
-const PMAY_G_HILLS = 130000
 
 function pmayShare(grant: number) {
-  return `${Math.round((grant / (PMAY_G_SQFT * VILLAGE_CEILING.rate)) * 100)}%`
+  return `${Math.round((grant / (PMAY_EXAMPLE_SQFT * VILLAGE_REFERENCE.rate)) * 100)}%`
 }
+
+/** Combined share of the budget taken by the RCC structure and the foundation. */
+const STRUCTURE_FOUNDATION_PERCENT = STAGES.filter((st) =>
+  ['structure', 'foundation'].includes(st.key),
+).reduce((sum, st) => sum + st.percent, 0)
 
 const THREE_BHK_SIZES = [1200, 1400, 1500, 1600] as const
 
@@ -248,7 +259,7 @@ export const COST_BLOG_ARTICLES = [
       {
         heading: 'Where the money goes',
         paragraphs: [
-          'In our stage-wise split, the RCC structure and the foundation together take about a third of the budget. Finishing — tiles, doors, windows and paint — takes almost another third.',
+          `In our stage-wise split, the RCC structure and the foundation together take ${STRUCTURE_FOUNDATION_PERCENT}% of the budget. Finishing — tiles, doors, windows and paint — takes almost another third.`,
         ],
         table: {
           columns: ['Stage', 'Share of cost'],
@@ -323,7 +334,7 @@ export const COST_BLOG_ARTICLES = [
     faqs: [
       {
         q: 'What is the construction cost of a 30x40 house?',
-        a: `With about 1,000 sq ft built-up per floor, the ground floor costs ${costRange(1000, 'standard')} at standard finish in 2026, and G+1 costs ${costRange(2000, 'standard')}.`,
+        a: `With about 1,000 sq ft built-up per floor, the ground floor costs ${costRange(1000, 'standard')} at standard finish in 2026, and G+1 costs ${multiFloorRange([[1000, 1], [1000, UPPER_FLOOR_FACTOR]], 'standard')}.`,
       },
       {
         q: 'How many sq ft is a 30x40 site?',
@@ -372,7 +383,7 @@ export const COST_BLOG_ARTICLES = [
     faqs: [
       {
         q: 'What is the construction cost of a 30x50 house?',
-        a: `With about 1,250 sq ft built-up per floor, the ground floor costs ${costRange(1250, 'standard')} at standard finish in 2026, and G+1 costs ${costRange(2500, 'standard')}.`,
+        a: `With about 1,250 sq ft built-up per floor, the ground floor costs ${costRange(1250, 'standard')} at standard finish in 2026, and G+1 costs ${multiFloorRange([[1250, 1], [1250, UPPER_FLOOR_FACTOR]], 'standard')}.`,
       },
       {
         q: 'How many sq ft is a 30x50 site?',
@@ -563,7 +574,7 @@ export const COST_BLOG_ARTICLES = [
     path: '/blog/3bhk-house-construction-cost',
     title: '3BHK house construction cost in India (2026)',
     description:
-      'What it costs to build a 3BHK house in India in 2026: built-up area, cost for 1,200 to 1,600 sq ft by finish, single floor vs G+1, five city budgets and what is not included.',
+      'What a 3BHK house costs to build in India in 2026: 1,200 to 1,600 sq ft by finish, single floor vs G+1, five city budgets and what is excluded.',
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-21',
@@ -619,7 +630,7 @@ export const COST_BLOG_ARTICLES = [
         ],
         table: {
           columns: ['City', 'Standard rate', 'Basic', 'Standard', 'Premium'],
-          rows: ['Bangalore', 'Chennai', 'Hyderabad', 'Kolkata', 'Kochi'].map((city) => [
+          rows: CITY_COMPARE.map((city) => [
             city,
             `${rupees(CITY_RATES[city].standard)}/sq ft`,
             cityCost(city, 1400, 'basic'),
@@ -631,7 +642,7 @@ export const COST_BLOG_ARTICLES = [
       {
         heading: 'Where the money goes',
         paragraphs: [
-          'The table splits a standard-finish 1,400 sq ft 3BHK by construction stage, using our stage-wise model. The RCC structure and the foundation together take about a third of the budget.',
+          `The table splits a standard-finish 1,400 sq ft 3BHK by construction stage, using our stage-wise model. The RCC structure and the foundation together take ${STRUCTURE_FOUNDATION_PERCENT}% of the budget.`,
         ],
         table: {
           columns: ['Stage', 'Share of cost', 'On 1,400 sq ft, standard'],
@@ -645,7 +656,7 @@ export const COST_BLOG_ARTICLES = [
       {
         heading: 'Plan the materials before you budget',
         paragraphs: [
-          'Quantities are the quickest way to sanity-check a contractor quote. Use the brick, steel, tiles, plaster and paint calculators for each element, and the RCC slab calculator for the roof.',
+          'Quantities are the quickest way to sanity-check a contractor quote. Use the brick, steel and tiles calculators for each element.',
         ],
       },
       {
@@ -696,9 +707,6 @@ export const COST_BLOG_ARTICLES = [
       '/brick-calculator',
       '/steel-calculator',
       '/tiles-calculator',
-      '/plaster-calculator',
-      '/paint-calculator',
-      '/rcc-slab-calculator',
       '/home-interior-cost-calculator',
       '/construction-cost/bangalore',
       '/construction-cost/chennai',
@@ -726,7 +734,7 @@ export const COST_BLOG_ARTICLES = [
     path: '/blog/labour-cost-house-construction-per-sq-ft',
     title: 'Labour cost for house construction per sq ft in India (2026)',
     description:
-      'Labour cost for house construction per sq ft in India in 2026: labour-only vs material-plus-labour contracts, labour share by finish, brickwork and painting labour rates, GST, and how to check a quote.',
+      'Labour cost per sq ft for house construction in India in 2026: share of cost by finish, brickwork and painting rates, GST and how to check a quote.',
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-21',
@@ -787,7 +795,7 @@ export const COST_BLOG_ARTICLES = [
       {
         heading: 'GST on labour',
         paragraphs: [
-          'A pure labour contract for construction of a single residential unit that is not part of a residential complex is exempt from GST under Entry 11 of Notification No. 12/2017 (Rate), dated 29 June 2017.',
+          'A pure labour contract for construction of a single residential unit that is not part of a residential complex is exempt from GST under Entry 11 of Notification No. 12/2017-Central Tax (Rate), dated 29 June 2017.',
           'Composite contracts, where the contractor supplies material as well, are taxable. We do not quote a rate here: check the GST rate on the invoice and ask your contractor or a tax adviser how your contract is classified.',
         ],
       },
@@ -818,7 +826,7 @@ export const COST_BLOG_ARTICLES = [
       },
       {
         q: 'Is GST charged on labour for house construction?',
-        a: 'A pure labour contract for a single residential unit that is not part of a residential complex is exempt under Entry 11 of Notification 12/2017 (Rate). Composite contracts that include material are taxable, so check the rate on the invoice.',
+        a: 'A pure labour contract for a single residential unit that is not part of a residential complex is exempt under Entry 11 of Notification No. 12/2017-Central Tax (Rate). Composite contracts that include material are taxable, so check the rate on the invoice.',
       },
       {
         q: 'Should I choose a labour-only or a material-plus-labour contract?',
@@ -852,18 +860,14 @@ export const COST_BLOG_ARTICLES = [
         label: 'Asian Paints — painting cost per sq ft (undated)',
         url: 'https://www.asianpaints.com/blogs/painting-cost-per-sq-ft-india.html',
       },
-      {
-        label: 'Notification No. 12/2017 (Rate), 29 Jun 2017, Entry 11 pure labour contracts (MahaGST copy)',
-        url: 'https://www.mahagst.gov.in/public/uploads/mvatservices/17689058070.%20Notification%20No.%2012-2017-%20State%20Tax%20(Rate)%20dated%2029-06-2017.pdf',
-      },
     ],
   },
   {
     slug: 'house-construction-cost-in-village',
     path: '/blog/house-construction-cost-in-village',
-    title: 'House construction cost in village (2026): 1BHK, 2BHK and 3BHK budgets',
+    title: 'House construction cost in village (2026)',
     description:
-      'House construction cost in a village in 2026: 1BHK, 2BHK and 3BHK budget ceilings, a 1,000 sq ft and 30x40 estimate, PMAY-G assistance, low-cost building choices and approvals.',
+      'House construction cost in a village in 2026: 1BHK, 2BHK and 3BHK budgets at our lowest city rate, PMAY-G assistance, low-cost choices and approvals.',
     cluster: 'materials-cost',
     topicHubPath: '/construction-materials',
     datePublished: '2026-11-21',
@@ -871,24 +875,25 @@ export const COST_BLOG_ARTICLES = [
     readingTime: '7 min read',
     hero: {
       eyebrow: 'Construction cost guide',
-      stat: `Up to ${lakh(1000 * VILLAGE_CEILING.rate)} for 1,000 sq ft`,
-      supporting: `A ceiling, not a quote: our lowest basic city rate, ${rupees(VILLAGE_CEILING.rate)}/sq ft (${VILLAGE_CEILING.city}).`,
+      stat: `Around ${lakh(1000 * VILLAGE_REFERENCE.rate)} for 1,000 sq ft`,
+      supporting: `At our lowest basic city rate, ${rupees(VILLAGE_REFERENCE.rate)}/sq ft (${VILLAGE_REFERENCE.label}). A reference point, not a quote.`,
     },
     sections: [
       {
         heading: 'Why village costs differ from city costs',
         paragraphs: [
-          'We have no official rural construction rate. Our rates cover cities only, so we use the lowest basic-finish city rate as a clearly labelled ceiling. Village builds usually come in at or below this figure.',
-          'Costs are usually lower because land is cheaper, labour rates are often lower and designs are simpler. They can be higher if cement, steel and sand have to travel a long way to a remote site.',
+          'We have no official rural construction rate. Our rates cover cities only, so we use the lowest basic-finish city rate as a labelled reference point.',
+          'Village builds often cost less because land is cheaper, labour rates are often lower and designs are simpler. They can cost more if cement, steel and sand have to travel a long way to a remote site, so use the figures below to start a conversation with a local contractor, not to end it.',
         ],
       },
       {
-        heading: '1BHK, 2BHK and 3BHK budget ceiling',
+        heading: '1BHK, 2BHK and 3BHK budget at our lowest city rate',
         paragraphs: [
-          `Each figure is built-up area multiplied by ${rupees(VILLAGE_CEILING.rate)} per sq ft, the lowest basic rate we track (${VILLAGE_CEILING.city}, ${CONSTRUCTION_LAST_UPDATED}). Treat it as an upper limit for a basic-finish home, not a quote.`,
+          `Each figure is built-up area multiplied by ${rupees(VILLAGE_REFERENCE.rate)} per sq ft, the lowest basic rate we track (${VILLAGE_REFERENCE.label}, ${CONSTRUCTION_LAST_UPDATED}). It is a reference for a basic-finish home, not a quote.`,
+          'Village plans are often more compact than the city sizes in our 2BHK (800–1,100 sq ft) and 3BHK (1,200–1,600 sq ft) guides, because owners tend to build to a tighter budget and skip extras such as a second bathroom or a balcony.',
         ],
         table: {
-          columns: ['Home', 'Built-up area', 'Budget ceiling'],
+          columns: ['Home', 'Built-up area', 'At our lowest city rate'],
           rows: (
             [
               ['1BHK', 400],
@@ -898,21 +903,21 @@ export const COST_BLOG_ARTICLES = [
           ).map(([label, sqft]) => [
             label,
             `${sqft.toLocaleString('en-IN')} sq ft`,
-            lakh(sqft * VILLAGE_CEILING.rate),
+            lakh(sqft * VILLAGE_REFERENCE.rate),
           ]),
         },
       },
       {
         heading: '1,000 sq ft and 30x40 house in a village',
         paragraphs: [
-          `A 1,000 sq ft house costs up to ${lakh(1000 * VILLAGE_CEILING.rate)} on the same basis. A 30x40 plot is 1,200 sq ft; after setbacks our 30x40 guide budgets about 1,000 sq ft of built-up area per floor, so the same ceiling applies to one floor. Check what your gram panchayat allows on your plot.`,
+          `A 1,000 sq ft house comes to around ${lakh(1000 * VILLAGE_REFERENCE.rate)} on the same basis. A 30x40 plot is 1,200 sq ft; after setbacks our 30x40 guide budgets about 1,000 sq ft of built-up area per floor, so the same figure applies to one floor. Check what your gram panchayat allows on your plot.`,
         ],
       },
       {
         heading: 'PMAY-G assistance',
         paragraphs: [
-          'The Union Cabinet approved implementation of the Pradhan Mantri Awaas Yojana (Gramin) for FY 2024-25 to 2028-29. Unit assistance is ₹1.20 lakh in plain areas and ₹1.30 lakh in North-Eastern and hill states. The minimum house size is 25 sq m, and toilet assistance of up to ₹12,000 is available through SBM-G.',
-          `Worked example: 25 sq m is about ${PMAY_G_SQFT} sq ft. At ${rupees(VILLAGE_CEILING.rate)} per sq ft that is a ceiling of ${lakh(PMAY_G_SQFT * VILLAGE_CEILING.rate)}. The ₹1.20 lakh grant covers about ${pmayShare(PMAY_G_PLAINS)} of it and the ₹1.30 lakh grant about ${pmayShare(PMAY_G_HILLS)}. Eligibility is decided by the scheme; check with your gram panchayat.`,
+          'The Union Cabinet approved implementation of the Pradhan Mantri Awaas Yojana (Gramin) for FY 2024-25 to 2028-29. Unit assistance is ₹1.20 lakh in plain areas and ₹1.30 lakh in North-Eastern and hill states.',
+          `Illustration: take a ${PMAY_EXAMPLE_SQFT} sq ft house. This is an example size, not a scheme rule. At ${rupees(VILLAGE_REFERENCE.rate)} per sq ft the estimate is ${lakh(PMAY_EXAMPLE_SQFT * VILLAGE_REFERENCE.rate)}, so the ₹1.20 lakh grant would cover roughly ${pmayShare(PMAY_G_PLAINS)} of a city-rate estimate. The real share depends on your local cost. Eligibility and conditions are set by the scheme; check with your gram panchayat.`,
         ],
       },
       {
@@ -943,23 +948,23 @@ export const COST_BLOG_ARTICLES = [
     faqs: [
       {
         q: 'What is the cost of building a house in a village?',
-        a: `We have no official rural rate. Using our lowest basic city rate of ${rupees(VILLAGE_CEILING.rate)}/sq ft as a ceiling, a 700 sq ft 2BHK costs up to ${lakh(700 * VILLAGE_CEILING.rate)}. Village builds usually come in at or below this.`,
+        a: `We have no official rural rate. At our lowest basic city rate of ${rupees(VILLAGE_REFERENCE.rate)}/sq ft, a 700 sq ft 2BHK comes to around ${lakh(700 * VILLAGE_REFERENCE.rate)}. Village builds often cost less, but remote sites can cost more.`,
       },
       {
         q: 'What is the cost of a 1,000 sq ft house in a village?',
-        a: `Up to about ${lakh(1000 * VILLAGE_CEILING.rate)} at basic finish, using our lowest city basic rate as a ceiling. Your actual cost depends on materials, transport and labour in your area.`,
+        a: `Around ${lakh(1000 * VILLAGE_REFERENCE.rate)} at basic finish if you use our lowest city basic rate as a reference. Your actual cost depends on materials, transport and labour in your area.`,
       },
       {
         q: 'How much does a 30x40 house cost in a village?',
-        a: `A 30x40 plot is 1,200 sq ft. With about 1,000 sq ft built up, the ceiling is ${lakh(1000 * VILLAGE_CEILING.rate)} at basic finish.`,
+        a: `A 30x40 plot is 1,200 sq ft. With about 1,000 sq ft built up, our lowest city basic rate gives around ${lakh(1000 * VILLAGE_REFERENCE.rate)} at basic finish.`,
       },
       {
         q: 'How much money does PMAY-G give for a house?',
-        a: 'The unit assistance is ₹1.20 lakh in plain areas and ₹1.30 lakh in North-Eastern and hill states, for FY 2024-25 to 2028-29. The minimum house size is 25 sq m, and toilet assistance of up to ₹12,000 is available through SBM-G.',
+        a: 'The unit assistance is ₹1.20 lakh in plain areas and ₹1.30 lakh in North-Eastern and hill states, for FY 2024-25 to 2028-29. Check eligibility and conditions with your gram panchayat.',
       },
       {
         q: 'Does PMAY-G cover the full cost of a house?',
-        a: `No. For a 25 sq m house at our ${rupees(VILLAGE_CEILING.rate)}/sq ft ceiling, the ₹1.20 lakh grant covers about ${pmayShare(PMAY_G_PLAINS)} of the cost.`,
+        a: `No. For an illustrative ${PMAY_EXAMPLE_SQFT} sq ft house at city-rate estimates (${lakh(PMAY_EXAMPLE_SQFT * VILLAGE_REFERENCE.rate)}), the ₹1.20 lakh grant would cover roughly ${pmayShare(PMAY_G_PLAINS)}. The rest comes from your own funds or other sources.`,
       },
       {
         q: 'Do I need permission to build a house in a village?',
@@ -987,10 +992,6 @@ export const COST_BLOG_ARTICLES = [
       {
         label: 'PMO — Cabinet approves PMAY-G for FY 2024-25 to 2028-29',
         url: 'https://www.pmindia.gov.in/en/news_updates/cabinet-approves-implementation-of-the-pradhan-mantri-awaas-yojana-gramin-pmay-g-during-fy-2024-25-to-2028-29/',
-      },
-      {
-        label: 'myScheme — Pradhan Mantri Awaas Yojana Gramin',
-        url: 'https://myscheme.gov.in/schemes/pmay-g',
       },
       {
         label: 'CBRI — PAHAL compendium',

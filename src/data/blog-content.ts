@@ -115,7 +115,7 @@ export interface TopicHub {
 
 export const BLOG_TOOL_META: Record<
   BlogToolPath,
-  { title: string; description: string }
+  { title: string; description: string; badge?: string }
 > = {
   '/construction-cost-calculator': {
     title: 'Construction cost calculator',
@@ -208,22 +208,27 @@ export const BLOG_TOOL_META: Record<
   '/construction-cost/bangalore': {
     title: 'Bangalore construction cost',
     description: 'House construction cost per sq ft in Bangalore.',
+    badge: 'City',
   },
   '/construction-cost/chennai': {
     title: 'Chennai construction cost',
     description: 'House construction cost per sq ft in Chennai.',
+    badge: 'City',
   },
   '/construction-cost/hyderabad': {
     title: 'Hyderabad construction cost',
     description: 'House construction cost per sq ft in Hyderabad.',
+    badge: 'City',
   },
   '/construction-cost/kolkata': {
     title: 'Kolkata construction cost',
     description: 'House construction cost per sq ft in Kolkata.',
+    badge: 'City',
   },
   '/construction-cost/kochi': {
     title: 'Kochi construction cost',
     description: 'House construction cost per sq ft in Kochi.',
+    badge: 'City',
   },
 }
 
@@ -1451,7 +1456,7 @@ export function getToolLinkItem(path: BlogToolPath) {
     to: path,
     label: tool.title,
     description: tool.description,
-    badge: 'Tool',
+    badge: tool.badge ?? 'Tool',
   }
 }
 
