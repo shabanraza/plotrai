@@ -447,7 +447,9 @@ function CapitalGainsCalculatorPage() {
           id="result"
           label="Tax breakdown"
           description={
-            result.isLongTerm
+            !datesValid
+              ? undefined
+              : result.isLongTerm
               ? 'Held for more than 24 months, so the gain is long-term.'
               : 'Held for 24 months or less, so the gain is short-term and taxed at your slab rate.'
           }
@@ -464,7 +466,7 @@ function CapitalGainsCalculatorPage() {
               salePrice={salePrice}
               transferExpenses={transferExpenses}
               purchasePrice={purchasePrice}
-              improvementCost={improvementCost}
+              residency={residency}
             />
 
             {result.isLongTerm &&
@@ -510,6 +512,7 @@ function CapitalGainsCalculatorPage() {
           )}
         </ToolSection>
 
+        {datesValid && (
         <ToolSection
           label="Reduce or eliminate the tax"
           description="Under the Income-tax Act 2025, long-term gains can be exempted by reinvesting."
@@ -529,6 +532,7 @@ function CapitalGainsCalculatorPage() {
             />
           </div>
         </ToolSection>
+        )}
 
         <ToolSection
           label="Worked example"
@@ -627,7 +631,7 @@ interface BreakdownTableProps {
   salePrice: number
   transferExpenses: number
   purchasePrice: number
-  improvementCost: number
+  residency: 'resident' | 'nri'
 }
 
 function BreakdownTable({
@@ -636,7 +640,7 @@ function BreakdownTable({
   salePrice,
   transferExpenses,
   purchasePrice,
-  improvementCost,
+  residency,
 }: BreakdownTableProps) {
   const inr = (n: number) => `₹${formatINR(n)}`
   const dash = '—'
@@ -648,7 +652,7 @@ function BreakdownTable({
       ['Sale price', inr(salePrice)],
       ['Transfer expenses', `− ${inr(transferExpenses)}`],
       ['Cost of acquisition', `− ${inr(purchasePrice)}`],
-      ['Cost of improvement', `− ${inr(improvementCost)}`],
+      ['Cost of improvement', `− ${inr(result.improvementApplied)}`],
       ['Short-term gain', inr(result.flatGain)],
       [`Tax at ${result.stcgRate * 100}% slab rate`, inr(result.stcg)],
       ['Cess at 4%', inr(result.cess)],
@@ -665,7 +669,7 @@ function BreakdownTable({
         <TableBody>
           {rows.map(([k, v, total]) => (
             <TableRow key={k} className={total ? 'border-t font-semibold' : 'border-0'}>
-              <TableCell className="whitespace-normal">{k}</TableCell>
+              <TableCell className="whitespace-normal break-normal">{k}</TableCell>
               <TableCell className="text-right tabular-nums">{v}</TableCell>
             </TableRow>
           ))}
@@ -690,7 +694,7 @@ function BreakdownTable({
     ],
     [
       'Cost of improvement',
-      flatOn ? `− ${inr(improvementCost)}` : dash,
+      flatOn ? `− ${inr(result.improvementApplied)}` : dash,
       idxOn ? `− ${inr(result.indexedImprovement)}` : dash,
     ],
     [
@@ -727,28 +731,51 @@ function BreakdownTable({
   ]
 
   return (
-    <Table>
-      <TableHeader>
-        <TableRow className="border-b">
-          <TableHead className="whitespace-normal">Item</TableHead>
-          <TableHead className="whitespace-normal text-right">
-            12.5% without indexation
-          </TableHead>
-          <TableHead className="whitespace-normal text-right">
-            20% with indexation
-          </TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {rows.map(([k, a, b, total]) => (
-          <TableRow key={k} className={total ? 'border-t font-semibold' : 'border-0'}>
-            <TableCell className="whitespace-normal">{k}</TableCell>
-            <TableCell className="text-right tabular-nums">{a}</TableCell>
-            <TableCell className="text-right tabular-nums">{b}</TableCell>
+    <div className="flex flex-col gap-4">
+      {residency === 'nri' && flatOn && !idxOn && (
+        <p className="text-sm text-[var(--foreground)]/75">
+          NRIs pay 12.5% without indexation only. The buyer deducts TDS on the
+          payment.
+        </p>
+      )}
+      <Table className="min-w-[22rem]">
+        <TableHeader>
+          <TableRow className="border-b">
+            <TableHead className="min-w-36 whitespace-normal break-normal">
+              Item
+            </TableHead>
+            {flatOn && (
+              <TableHead className="whitespace-normal break-normal text-right">
+                12.5% without indexation
+              </TableHead>
+            )}
+            {idxOn && (
+              <TableHead className="whitespace-normal break-normal text-right">
+                20% with indexation
+              </TableHead>
+            )}
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {rows.map(([k, a, b, total]) => (
+            <TableRow
+              key={k}
+              className={total ? 'border-t font-semibold' : 'border-0'}
+            >
+              <TableCell className="min-w-36 whitespace-normal break-normal">
+                {k}
+              </TableCell>
+              {flatOn && (
+                <TableCell className="text-right tabular-nums">{a}</TableCell>
+              )}
+              {idxOn && (
+                <TableCell className="text-right tabular-nums">{b}</TableCell>
+              )}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </div>
   )
 }
 

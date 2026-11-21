@@ -68,6 +68,8 @@ export interface PropertyCapitalGainsResult {
   saleCiiFy: string
   saleCiiNotified: boolean
   improvementIgnored: 'before-2001' | 'out-of-range' | null
+  /** Improvement cost actually deducted (0 when ignored) */
+  improvementApplied: number
   isLongTerm: boolean
   flatAvailable: boolean
   indexedAvailable: boolean
@@ -224,6 +226,7 @@ export function calculatePropertyCapitalGains(
     saleCiiFy,
     saleCiiNotified: Boolean(CII[saleCiiFy]),
     improvementIgnored,
+    improvementApplied: improvement,
     isLongTerm,
     flatAvailable,
     indexedAvailable,

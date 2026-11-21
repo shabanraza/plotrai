@@ -368,6 +368,7 @@ describe('indexation and capital gains calculators', () => {
       improvementDate: '1999-01-01',
     })
     expect(r.improvementIgnored).toBe('before-2001')
+    expect(r.improvementApplied).toBe(0)
     expect(r.flatGain).toBe(7_000_000)
   })
 
@@ -385,6 +386,7 @@ describe('indexation and capital gains calculators', () => {
       improvementDate: '2020-01-01',
     })
     expect(ok.improvementIgnored).toBeNull()
+    expect(ok.improvementApplied).toBe(1_000_000)
     expect(ok.flatGain).toBe(6_000_000)
   })
 
