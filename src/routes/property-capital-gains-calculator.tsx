@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Info, TrendingUp } from 'lucide-react'
 import { ToolPageShell } from '#/components/tools/tool-page-shell'
 import { ToolSection } from '#/components/tools/tool-section'
@@ -11,8 +11,14 @@ import {
   InputGroupInput,
   InputGroupText,
 } from '#/components/ui/input-group'
-import { Label } from '#/components/ui/label'
-import { FieldGroup, FieldLegend, FieldSet } from '#/components/ui/field'
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+} from '#/components/ui/field'
 import {
   Table,
   TableBody,
@@ -118,12 +124,18 @@ function CapitalGainsCalculatorPage() {
   const [purchaseLakh, setPurchaseLakh] = useState('50')
   const [improvementLakh, setImprovementLakh] = useState('')
   const [improvementDate, setImprovementDate] = useState('')
-  const [saleDate, setSaleDate] = useState(todayIso)
+  // Fixed initial value so server and browser render the same; today is set after mount
+  const [saleDate, setSaleDate] = useState(EXAMPLE.saleDate)
   const [saleLakh, setSaleLakh] = useState('120')
   const [expensesLakh, setExpensesLakh] = useState('')
+  const [assetType, setAssetType] = useState<'house' | 'other'>('house')
   const [slabRate, setSlabRate] = useState('30')
-  const [reinvestSection, setReinvestSection] = useState<'82' | '85'>('82')
+  const [reinvestSection, setReinvestSection] = useState<'82' | '85' | '86'>('82')
   const [reinvestLakh, setReinvestLakh] = useState('')
+
+  useEffect(() => {
+    setSaleDate(todayIso())
+  }, [])
 
   const purchasePrice = lakh(purchaseLakh)
   const salePrice = lakh(saleLakh)
@@ -142,6 +154,7 @@ function CapitalGainsCalculatorPage() {
         improvementDate: improvementDate || purchaseDate,
         transferExpenses,
         residency,
+        assetType,
         slabRatePercent: parseFloat(slabRate) || 0,
         reinvestSection,
         reinvestAmount,
@@ -155,6 +168,7 @@ function CapitalGainsCalculatorPage() {
       improvementDate,
       transferExpenses,
       residency,
+      assetType,
       slabRate,
       reinvestSection,
       reinvestAmount,
@@ -162,7 +176,7 @@ function CapitalGainsCalculatorPage() {
   )
 
   const example = useMemo(() => calculatePropertyCapitalGains(EXAMPLE), [])
-  const datesValid = Boolean(purchaseDate && saleDate) && saleDate >= purchaseDate
+  const datesValid = result.datesValid
 
   const optionLabel =
     result.recommended === 'flat'
@@ -184,7 +198,7 @@ function CapitalGainsCalculatorPage() {
     >
       <ResultBar
         label="Capital gains tax payable"
-        value={`₹${formatINR(result.totalTax)}`}
+        value={datesValid ? `₹${formatINR(result.totalTax)}` : '—'}
         targetId="result"
       />
       <div className="flex flex-col gap-14">
@@ -203,6 +217,31 @@ function CapitalGainsCalculatorPage() {
               </ToggleGroupItem>
               <ToggleGroupItem value="nri" className="min-h-10 px-4">
                 NRI
+              </ToggleGroupItem>
+            </ToggleGroup>
+          </FieldSet>
+          <FieldSet className="mt-6">
+            <FieldLegend variant="label">Asset sold</FieldLegend>
+            <ToggleGroup
+              type="single"
+              value={assetType}
+              onValueChange={(v) => {
+                if (!v) return
+                const next = v as 'house' | 'other'
+                setAssetType(next)
+                if (next === 'house' && reinvestSection === '86')
+                  setReinvestSection('82')
+                if (next === 'other' && reinvestSection === '82')
+                  setReinvestSection('86')
+              }}
+              variant="outline"
+              className="flex w-full flex-wrap justify-start"
+            >
+              <ToggleGroupItem value="house" className="min-h-10 px-4">
+                House
+              </ToggleGroupItem>
+              <ToggleGroupItem value="other" className="min-h-10 px-4">
+                Plot or other
               </ToggleGroupItem>
             </ToggleGroup>
           </FieldSet>
@@ -262,6 +301,16 @@ function CapitalGainsCalculatorPage() {
               />
             </div>
           </FieldGroup>
+          {result.improvementIgnored && (
+            <Alert className="mt-4 border-0 bg-[var(--muted)]">
+              <Info />
+              <AlertDescription>
+                {result.improvementIgnored === 'before-2001'
+                  ? 'Cost incurred before 1 April 2001 is not deductible, so the improvement cost is left out.'
+                  : 'The improvement date must fall between the purchase date and the sale date, so the improvement cost is left out.'}
+              </AlertDescription>
+            </Alert>
+          )}
         </ToolSection>
 
         <ToolSection label="Sale details">
@@ -273,9 +322,11 @@ function CapitalGainsCalculatorPage() {
                 value={saleDate}
                 onChange={setSaleDate}
                 hint={
-                  saleDate
-                    ? `CII ${result.saleCii} for the financial year`
-                    : undefined
+                  !saleDate
+                    ? undefined
+                    : result.saleCiiNotified
+                      ? `CII ${result.saleCii} for the financial year`
+                      : `CII for FY ${result.saleCiiFy} not yet notified, using ${result.saleCii}`
                 }
               />
               <LakhField
@@ -309,7 +360,7 @@ function CapitalGainsCalculatorPage() {
           )}
         </ToolSection>
 
-        {!result.isLongTerm ? (
+        {!datesValid ? null : !result.isLongTerm ? (
           <ToolSection
             label="Your income tax slab"
             description="Held for 24 months or less, so the gain is short-term and added to your income at your slab rate."
@@ -348,14 +399,20 @@ function CapitalGainsCalculatorPage() {
                   type="single"
                   value={reinvestSection}
                   onValueChange={(v) =>
-                    v && setReinvestSection(v as '82' | '85')
+                    v && setReinvestSection(v as '82' | '85' | '86')
                   }
                   variant="outline"
                   className="flex w-full flex-wrap justify-start"
                 >
-                  <ToggleGroupItem value="82" className="min-h-10 px-4">
-                    Section 82 (old 54) house
-                  </ToggleGroupItem>
+                  {assetType === 'house' ? (
+                    <ToggleGroupItem value="82" className="min-h-10 px-4">
+                      Section 82 (old 54) house
+                    </ToggleGroupItem>
+                  ) : (
+                    <ToggleGroupItem value="86" className="min-h-10 px-4">
+                      Section 86 (old 54F) house
+                    </ToggleGroupItem>
+                  )}
                   <ToggleGroupItem value="85" className="min-h-10 px-4">
                     Section 85 (old 54EC) bonds
                   </ToggleGroupItem>
@@ -365,18 +422,20 @@ function CapitalGainsCalculatorPage() {
                 <LakhField
                   id="reinvest-amount"
                   label={
-                    reinvestSection === '82'
-                      ? 'Cost of the new house'
-                      : 'Amount invested in bonds'
+                    reinvestSection === '85'
+                      ? 'Amount invested in bonds'
+                      : 'Cost of the new house'
                   }
                   value={reinvestLakh}
                   onChange={setReinvestLakh}
                   rupees={reinvestAmount}
                   placeholder="0"
                   hint={
-                    reinvestSection === '82'
-                      ? 'New house cost above ₹10 crore is ignored'
-                      : 'Capped at ₹50 lakh'
+                    reinvestSection === '85'
+                      ? 'Capped at ₹50 lakh'
+                      : reinvestSection === '86'
+                        ? 'Pro-rata on net sale value; cost above ₹10 crore is ignored'
+                        : 'New house cost above ₹10 crore is ignored'
                   }
                 />
               </div>
@@ -393,6 +452,11 @@ function CapitalGainsCalculatorPage() {
               : 'Held for 24 months or less, so the gain is short-term and taxed at your slab rate.'
           }
         >
+          {!datesValid ? (
+            <p className="text-sm text-[var(--foreground)]/75">
+              Enter valid purchase and sale dates to see the tax.
+            </p>
+          ) : (
           <div className="flex flex-col gap-6">
             <BreakdownTable
               longTerm={result.isLongTerm}
@@ -443,13 +507,14 @@ function CapitalGainsCalculatorPage() {
               </p>
             </div>
           </div>
+          )}
         </ToolSection>
 
         <ToolSection
           label="Reduce or eliminate the tax"
           description="Under the Income-tax Act 2025, long-term gains can be exempted by reinvesting."
         >
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-4 lg:grid-cols-3">
             <ExemptionPanel
               section="Section 82 (old 54)"
               detail="Reinvest the gain from a residential house in another house. Buy one year before or two years after the sale, or build within three years. A new house cost above ₹10 crore is ignored. If the gain is ₹2 crore or less, you can choose one time to buy two houses."
@@ -697,18 +762,16 @@ interface DateFieldProps {
 
 function DateField({ id, label, value, onChange, hint }: DateFieldProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <Label htmlFor={id}>{label}</Label>
+    <Field>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <Input
         id={id}
         type="date"
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      {hint && (
-        <p className="text-xs text-[var(--muted-foreground)]">{hint}</p>
-      )}
-    </div>
+      {hint && <FieldDescription>{hint}</FieldDescription>}
+    </Field>
   )
 }
 
@@ -732,8 +795,8 @@ function LakhField({
   hint,
 }: LakhFieldProps) {
   return (
-    <div className="flex flex-col gap-2">
-      <Label htmlFor={id}>{label}</Label>
+    <Field>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <InputGroup>
         <InputGroupAddon>
           <InputGroupText>₹</InputGroupText>
@@ -752,11 +815,11 @@ function LakhField({
           <InputGroupText className="text-sm">lakh</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
-      <p className="text-xs text-[var(--muted-foreground)]">
+      <FieldDescription>
         = ₹{formatINR(rupees)}
         {hint ? ` · ${hint}` : ''}
-      </p>
-    </div>
+      </FieldDescription>
+    </Field>
   )
 }
 

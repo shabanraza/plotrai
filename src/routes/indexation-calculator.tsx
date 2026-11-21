@@ -79,7 +79,7 @@ export const Route = createFileRoute('/indexation-calculator')({
 
 function IndexationCalculatorPage() {
   const [purchaseFy, setPurchaseFy] = useState('2018-19')
-  const [saleFy, setSaleFy] = useState('2025-26')
+  const [saleFy, setSaleFy] = useState('2026-27')
   const [purchasePriceLakh, setPurchasePriceLakh] = useState('40')
   const [salePriceLakh, setSalePriceLakh] = useState('100')
 

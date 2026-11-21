@@ -304,6 +304,97 @@ describe('indexation and capital gains calculators', () => {
     expect(full.taxBeforeCess).toBe(0)
   })
 
+  it('s.86 (plot or other asset) is pro-rata on net sale value', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      residency: 'nri',
+      transferExpenses: 200_000,
+      assetType: 'other',
+      reinvestSection: '86',
+      reinvestAmount: 5_900_000,
+    })
+    // gain 6,800,000; net sale 11,800,000; invested 5,900,000 -> half exempt
+    expect(r.flatGain).toBe(6_800_000)
+    expect(r.exemptionClaimed).toBeCloseTo(3_400_000)
+    expect(r.taxBeforeCess).toBeCloseTo(3_400_000 * 0.125)
+  })
+
+  it('s.86 caps the new house cost at 10 crore and full investment exempts all', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      residency: 'nri',
+      assetType: 'other',
+      reinvestSection: '86',
+      reinvestAmount: 2_000_000_000,
+    })
+    expect(r.taxBeforeCess).toBe(0)
+  })
+
+  it('s.82 is ignored for a plot and s.86 is ignored for a house', () => {
+    const plot = calculatePropertyCapitalGains({
+      ...base,
+      residency: 'nri',
+      assetType: 'other',
+      reinvestSection: '82',
+      reinvestAmount: 5_000_000,
+    })
+    expect(plot.exemptionClaimed).toBe(0)
+    const house = calculatePropertyCapitalGains({
+      ...base,
+      residency: 'nri',
+      assetType: 'house',
+      reinvestSection: '86',
+      reinvestAmount: 5_000_000,
+    })
+    expect(house.exemptionClaimed).toBe(0)
+  })
+
+  it('flags invalid dates', () => {
+    expect(calculatePropertyCapitalGains(base).datesValid).toBe(true)
+    expect(
+      calculatePropertyCapitalGains({ ...base, saleDate: '2015-01-01' })
+        .datesValid,
+    ).toBe(false)
+    expect(
+      calculatePropertyCapitalGains({ ...base, saleDate: '' }).datesValid,
+    ).toBe(false)
+  })
+
+  it('ignores improvement cost incurred before 1 Apr 2001', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      purchaseDate: '1995-01-01',
+      improvementCost: 1_000_000,
+      improvementDate: '1999-01-01',
+    })
+    expect(r.improvementIgnored).toBe('before-2001')
+    expect(r.flatGain).toBe(7_000_000)
+  })
+
+  it('ignores improvement dated outside purchase and sale', () => {
+    const r = calculatePropertyCapitalGains({
+      ...base,
+      improvementCost: 1_000_000,
+      improvementDate: '2010-01-01',
+    })
+    expect(r.improvementIgnored).toBe('out-of-range')
+    expect(r.flatGain).toBe(7_000_000)
+    const ok = calculatePropertyCapitalGains({
+      ...base,
+      improvementCost: 1_000_000,
+      improvementDate: '2020-01-01',
+    })
+    expect(ok.improvementIgnored).toBeNull()
+    expect(ok.flatGain).toBe(6_000_000)
+  })
+
+  it('reports when the sale year CII is not yet notified', () => {
+    const r = calculatePropertyCapitalGains({ ...base, saleDate: '2027-06-01' })
+    expect(r.saleCiiNotified).toBe(false)
+    expect(r.saleCiiFy).toBe('2027-28')
+    expect(calculatePropertyCapitalGains(base).saleCiiNotified).toBe(true)
+  })
+
   it('uses latest CII for sale dates after the last notified year and 100 before 2001', () => {
     const r = calculatePropertyCapitalGains({
       ...base,

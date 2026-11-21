@@ -53,8 +53,10 @@ export interface PropertyCapitalGainsInput {
   improvementDate?: string
   transferExpenses?: number
   residency: 'resident' | 'nri'
+  /** 'house' = residential house (s.82 applies); 'other' = plot or any other asset (s.86 applies). Default 'house'. */
+  assetType?: 'house' | 'other'
   slabRatePercent: number
-  reinvestSection?: '82' | '85'
+  reinvestSection?: '82' | '85' | '86'
   reinvestAmount?: number
 }
 
@@ -62,6 +64,10 @@ export interface PropertyCapitalGainsResult {
   purchaseCii: number
   saleCii: number
   improvementCii: number
+  datesValid: boolean
+  saleCiiFy: string
+  saleCiiNotified: boolean
+  improvementIgnored: 'before-2001' | 'out-of-range' | null
   isLongTerm: boolean
   flatAvailable: boolean
   indexedAvailable: boolean
@@ -126,9 +132,23 @@ export function calculatePropertyCapitalGains(
 ): PropertyCapitalGainsResult {
   const purchasePrice = positive(input.purchasePrice)
   const salePrice = positive(input.salePrice)
-  const improvement = positive(input.improvementCost ?? 0)
   const expenses = positive(input.transferExpenses ?? 0)
   const improvementDate = input.improvementDate || input.purchaseDate
+  const datesValid =
+    Boolean(parseIsoDate(input.purchaseDate) && parseIsoDate(input.saleDate)) &&
+    input.saleDate >= input.purchaseDate
+  const rawImprovement = positive(input.improvementCost ?? 0)
+  let improvementIgnored: PropertyCapitalGainsResult['improvementIgnored'] = null
+  if (rawImprovement > 0) {
+    if (improvementDate < '2001-04-01') improvementIgnored = 'before-2001'
+    else if (
+      improvementDate < input.purchaseDate ||
+      improvementDate > input.saleDate
+    )
+      improvementIgnored = 'out-of-range'
+  }
+  const improvement = improvementIgnored ? 0 : rawImprovement
+  const saleCiiFy = financialYearOf(input.saleDate)
 
   const purchaseCii = ciiForDate(input.purchaseDate)
   const saleCii = ciiForDate(input.saleDate)
@@ -150,16 +170,25 @@ export function calculatePropertyCapitalGains(
   const indexedGain = Math.max(net - indexedCost - indexedImprovement, 0)
 
   const reinvest = positive(input.reinvestAmount ?? 0)
-  const eligibleReinvest = !isLongTerm
-    ? 0
-    : input.reinvestSection === '85'
-      ? Math.min(reinvest, S85_CAP)
-      : input.reinvestSection === '82'
-        ? Math.min(reinvest, S82_CAP)
-        : 0
+  const assetType = input.assetType ?? 'house'
+  const section = input.reinvestSection
+  const sectionApplies =
+    isLongTerm &&
+    ((section === '82' && assetType === 'house') ||
+      section === '85' ||
+      (section === '86' && assetType === 'other'))
+  /** Exemption for a given gain under the chosen section. */
+  const exemptionFor = (gain: number) => {
+    if (!sectionApplies) return 0
+    if (section === '85') return Math.min(gain, reinvest, S85_CAP)
+    if (section === '82') return Math.min(gain, reinvest, S82_CAP)
+    if (net <= 0) return 0
+    const ratio = Math.min(Math.min(reinvest, S82_CAP) / net, 1)
+    return Math.min(gain, gain * ratio)
+  }
 
-  const flatTaxableGain = Math.max(flatGain - eligibleReinvest, 0)
-  const indexedTaxableGain = Math.max(indexedGain - eligibleReinvest, 0)
+  const flatTaxableGain = Math.max(flatGain - exemptionFor(flatGain), 0)
+  const indexedTaxableGain = Math.max(indexedGain - exemptionFor(indexedGain), 0)
   const flatTaxBeforeCess = flatTaxableGain * LTCG_FLAT_RATE
   const indexedTaxBeforeCess = indexedTaxableGain * LTCG_INDEXED_RATE
 
@@ -179,11 +208,11 @@ export function calculatePropertyCapitalGains(
   ) {
     recommended = 'indexed'
     taxBeforeCess = indexedTaxBeforeCess
-    exemptionClaimed = Math.min(indexedGain, eligibleReinvest)
+    exemptionClaimed = exemptionFor(indexedGain)
   } else {
     recommended = 'flat'
     taxBeforeCess = flatTaxBeforeCess
-    exemptionClaimed = Math.min(flatGain, eligibleReinvest)
+    exemptionClaimed = exemptionFor(flatGain)
   }
   const cess = taxBeforeCess * CESS_RATE
 
@@ -191,6 +220,10 @@ export function calculatePropertyCapitalGains(
     purchaseCii,
     saleCii,
     improvementCii,
+    datesValid,
+    saleCiiFy,
+    saleCiiNotified: Boolean(CII[saleCiiFy]),
+    improvementIgnored,
     isLongTerm,
     flatAvailable,
     indexedAvailable,
